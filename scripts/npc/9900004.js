@@ -1,0 +1,121 @@
+// mxmxd
+// 拍卖菜单
+
+var 爱心 = "#fEffect/CharacterEff/1022223/4/0#";
+var 红色箭头 = "#fUI/UIWindow/Quest/icon6/7#";
+var 蓝色角点 = "#fUI/UIWindow.img/PvP/Scroll/enabled/next2#";
+
+var status;
+
+function start() {
+    status = -1;
+    action(1, 0, 0);
+}
+
+function action(mode, type, selection) {
+    if (mode == 1) {
+        status++;
+    } else {
+        status--;
+    }
+
+    if (status == 0) {
+        var text = "\t\t\t\t#e#d  欢迎来到萌新冒险岛#n\r\n";
+        text += "\t\t点券：" + cm.getPlayer().getCSPoints(0) + " | 抵用券：" + cm.getPlayer().getCSPoints(1) + " | 任务成就：" + cm.getPlayer().getNumQuest() + "\r\n#b";
+        //for (var i = 0; i < 21; i++) {
+        //    text += 爱心;
+        //}
+        text += "#L2007#萌新攻略#l #L18#排行榜单#l #L4#枫叶兑换#l #L2#领取成就奖励#l\r\n";
+        text += "#L1#快捷传送#l #L1012009#快捷仓库#l #L3#快捷商店#l\r\n";
+        var v1 = cm.getPlayer().getTiredProgress();
+        var v2 = cm.getPlayer().getQuestProgress();
+        text += "\r\n#k   #B" + v1 + "# 今日疲劳值(" + v1 + "%)";
+        text += "\r\n#k   #B" + v2 + "# 当前任务成就之进度(" + v2 + "%)";
+        //text += "#L4##b枫叶兑换#l #L2##b在线奖励#l\r\n";
+        //text += "#L4##b枫叶兑换#l #L22##b材料兑换#l #L998##b副本兑换#l\r\n";
+        //text += "#L5##b删除物品#l\r\n";
+        //text += "\r\n\r\n#L15##b充值礼包#l#L201##b升级奖励#l#L202##b带人奖励#l\r\n\r\n#L28##b血衣制作#l\r\n\r\n#L29##b各职业武器制作#l#L22##b材料兑换宝石#l\r\n\r\n\r\n"//3
+
+        if (cm.getPlayer().isGM()) {
+            text += " \t\t#r以下功能，仅管理员可见，普通玩家看不见\r\n"
+            text += "#d#L1000#快捷传送#l\t#L1001#快速转职#l\t#L1002#刷物品#l\t\r\n#L1003#满技能#l\r\n"
+            //text += "#L8##b精灵吊坠#l#l\r\n\r\n"//3
+            //text += "#L10##b免费点装#l#l#L18##b排行榜单#l#l#L12##b豆豆兑换#l\r\n\r\n"//3
+            //text += "#L13##b勋章领取#l#l#L14##b本服介绍#l#l#L15##b充值介绍#l\r\n\r\n"//3
+            //text += "#L17##b装备制造#l#l#L19##r 限时装备购买#l#l\r\n\r\n"//3
+            //text += "#L20##b黄金枫叶武器制造#l#l\r\n\r\n"//3
+            //text += "#L11##e#r兑换充值礼包#l#L15##e#r兑换新手礼包#l#L14##e#r纪念币交易所#l\r\n"//3
+            //text += "#L4##e#r角色快捷转职#l#L2##e#d坐骑任务补给#l#L13##e#r同步点装商城#l\r\n"//3
+            //text += "#L8##e#r枫叶换抵用卷#l#L9##e#d在线时间奖励#l#L16##e#d删除指定道具#l\r\n\r\n"//3
+        }
+
+        cm.sendSimple(text);
+    } else if (selection == 1) {//快捷传送
+        cm.openNpc(9900004, 1);
+    } else if (selection == 2) {//成就奖励
+        cm.openNpc(9900004, 9);
+    } else if (selection == 3) { //快捷商店
+        cm.openShop(30);
+        cm.dispose();
+    } else if (selection == 999) {//在线奖励
+        cm.openNpc(9900004, 2);
+    } else if (selection == 998) {//在线奖励
+        cm.openNpc(9310084, 0);
+    } else if (selection == 1999) {//在线奖励
+        cm.openNpc(9050002);
+    } else if (selection == 201) {//在线奖励
+        cm.openNpc(9010009);
+    } else if (selection == 202) {//在线奖励
+        cm.openNpc(9900004, 900);
+    } else if (selection == 4) {//枫叶兑换
+        cm.openNpc(9900004, 5);
+    } else if (selection == 5) {//删除物品
+        cm.openNpc(9900004, 444);
+    } else if (selection == 6) {//点卷商城
+        cm.openNpc(9900004, 13);
+    } else if (selection == 7) {//发型脸型
+        cm.openNpc(9900004, 77);
+    } else if (selection == 8) {//快速升级
+        cm.openNpc(9900004, 78);
+    } else if (selection == 9) {//跑商送货
+        cm.openNpc(9010009, 0);
+    } else if (selection == 10) {//免费点装
+        cm.openNpc(9310071, 0);
+    } else if (selection == 11) {//坐骑补给
+        cm.openNpc(9900004, 68);
+    } else if (selection == 12) {//豆豆兑换
+        cm.openNpc(2000, 22);
+    } else if (selection == 13) {//勋章领取
+        cm.openNpc(9900004, 7);
+    } else if (selection == 14) {//本服介绍
+        cm.openNpc(9900004, 4);
+    } else if (selection == 15) {//充值介绍
+        cm.openNpc(9900004, 81);
+    } else if (selection == 16) {//
+        cm.openNpc(9900004, 2);
+    } else if (selection == 28) {//血衣制作
+        cm.openNpc(1002006, 0);
+    } else if (selection == 29) {//各职业武器制作
+        cm.openNpc(9310059, 0);
+    } else if (selection == 17) {//
+        cm.openNpc(9900004, 100);
+    } else if (selection == 18) {//
+        cm.openNpc(2000, 1);
+    } else if (selection == 19) {//
+        cm.openNpc(9900004, 200);
+    } else if (selection == 22) {//
+        cm.openNpc(9900004, 400);
+    } else if (selection == 20) {//
+        cm.openNpc(9900004, 300);
+    } else if (selection == 1001) {//
+        cm.openNpc(9900004, 2);
+    } else if (selection == 1002) {//
+        cm.openNpc(9900004, 1002);
+    } else if (selection == 1003) {//
+        cm.openNpc(9100200, 0);
+    } else if (selection == 2007) {//萌新必看
+        cm.openNpc(2007, 0);
+    } else if (selection == 1012009) {//快捷仓库
+        cm.openNpc(1012009, 0);
+    }
+}
