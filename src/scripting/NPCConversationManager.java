@@ -45,6 +45,7 @@ import java.util.HashMap;
 import handling.world.guild.MapleGuildAlliance;
 import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Random;
 import javax.script.Invocable;
 import server.*;
 import server.maps.SpeedRunType;
@@ -1872,5 +1873,74 @@ public class NPCConversationManager extends AbstractPlayerInteraction {
 //                    c.getPlayer().getMap().broadcastMessage(MaplePacketCreator.spawnNPC(npc, true));
         }
         c.getPlayer().dropMessage(6, "创建家具成功，如果需要删除，请在数据库《pnpc》中删除，重启生效");
+    }
+    
+    public void 道具奖励() {
+        // itemId baseQty maxRandomQty chance
+        int count = 0;
+        int arrLength = 0;
+        try {
+            Connection con = DatabaseConnection.getConnection();
+            PreparedStatement ps = con.prepareStatement("SELECT COUNT(itemId) as Count, SUM(chance) as Data FROM 道具奖励1");
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    count = rs.getInt("Count");
+                    arrLength = rs.getInt("Data");
+                }
+            }
+            ps.close();
+        } catch (SQLException ex) {
+            System.err.println("查询道具奖励1之概率分母出错：" + ex.getMessage());
+        }
+
+        if (count == 0 || arrLength == 0) {
+            return;
+        }
+
+        int[][] data = new int[arrLength][2];
+
+        try {
+            Connection con = DatabaseConnection.getConnection();
+            PreparedStatement ps = con.prepareStatement("SELECT itemId, baseQty, maxRandomQty, chance FROM 道具奖励1");
+            try (ResultSet rs = ps.executeQuery()) {
+                int j = 0;
+                while (rs.next()) {
+                    int randomQty = new Random().nextInt(rs.getInt("maxRandomQty"));
+                    for (int i = 0; i <= rs.getInt("chance") - 1; i++) {
+                        data[j] = new int[]{ rs.getInt("itemId"), rs.getInt("baseQty") + randomQty };
+                        j++;
+                    }
+                }
+            }
+            ps.close();
+        } catch (SQLException ex) {
+            System.err.println("查询道具奖励1出错：" + ex.getMessage());
+        }
+
+        List<int[]> result = new ArrayList<>();
+        for (int i = 0; i <= count - 1; i++) {
+            int r = new Random().nextInt(arrLength - 1);
+            
+            int itemId = data[r][0];
+            int existsCount = 0;
+            for (int[] is : result) {
+                if (is[0] == itemId) {
+                    existsCount++;
+                }
+            }
+            if (existsCount > 0) {
+                continue;
+            }
+            
+            result.add(data[r]);
+        }
+        
+        if (result.size() > 0) {
+            for (int[] is : result) {
+                int itemId = is[0];
+                short qty = (short)is[1];
+                gainItem(itemId, qty);
+            }
+        }
     }
 }
