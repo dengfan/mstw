@@ -1577,6 +1577,9 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
         }
     }
 
+    public void dropTopMsg(String message) {//屏幕中间黄色字体
+        client.getSession().write(UIPacket.getTopMsg(message));
+    }
     public final Map<Integer, String> getInfoQuest_Map() {
         return questinfo;
     }
@@ -1663,7 +1666,8 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
 
             @Override
             public void run() {
-                if (stats.getHp() - bloodEffect.getX() > 1) {
+                //if (stats.getHp() - bloodEffect.getX() < 1) {
+                if (stats.getHp() < 500) {
                     cancelBuffStats(MapleBuffStat.DRAGONBLOOD);
                 } else {
                     addHP(-bloodEffect.getX());
@@ -1671,7 +1675,7 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
                     map.broadcastMessage(MapleCharacter.this, MaplePacketCreator.showBuffeffect(getId(), bloodEffect.getSourceId(), 5), false);
                 }
             }
-        }, 4000, 4000);
+        }, 3000, 3000);//时间
     }
 
     public void startMapTimeLimitTask(int time, final MapleMap to) {
@@ -2089,102 +2093,48 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
         return getSkillLevel(SkillFactory.getSkill(skillid));
     }
 
-    public final void handleEnergyCharge(final int skillid, final int targets) {
-        final ISkill echskill = SkillFactory.getSkill(skillid);
-        final byte skilllevel = getSkillLevel(echskill);
-        if (skilllevel > 0) {
+    public final void handleEnergyCharge(final int skillid, final int targets) {//拳手能量完美修复
+        final ISkill echskill = SkillFactory.getSkill(skillid);//获取技能
+        final byte skilllevel = getSkillLevel(echskill);//获取技能等级
+        if (skilllevel > 0) {//如果技能等级大于0
             final MapleStatEffect echeff = echskill.getEffect(skilllevel);
-            //  System.out.println("获取能量B："+ skilllevel);
             if (targets > 0) {
-                //     System.out.println("获取能量C："+ targets);
-//                if (nengl <= 10) {
-//                    nengl = nengl + 1;
-//                } else {
+                //dropMessage(5, "ENERGY_CHARGEA = null "+getBuffedValue(MapleBuffStat.ENERGY_CHARGE));
                 if (getBuffedValue(MapleBuffStat.ENERGY_CHARGE) == null) {
                     echeff.applyEnergyBuff(this, true); // Infinity time
-                    //    System.out.println("获取能量D：");
+                    //dropMessage(5, "ENERGY_CHARGEB = null "+getBuffedValue(MapleBuffStat.ENERGY_CHARGE));
                 } else {
                     Integer energyLevel = getBuffedValue(MapleBuffStat.ENERGY_CHARGE);
                     //TODO: bar going down
-                    if (energyLevel <= 15000 /*
-                             * && nengls <= 20
-                             */) {
-                        energyLevel += (echeff.getX() * targets);
+                    if (energyLevel <= 10000) {//能量小于10000才执行如下
+                        energyLevel += (echeff.getX() * targets);//给与能量
 
+                        //dropMessage(5, "energyLevel"+energyLevel);
                         client.getSession().write(MaplePacketCreator.showOwnBuffEffect(skillid, 2));
                         map.broadcastMessage(this, MaplePacketCreator.showBuffeffect(id, skillid, 2), false);
 
-                        if (energyLevel >= 15000) {
-                            energyLevel = 15000;
-                        }/*
-                         * if (nengls <= 20) { nengls = nengls + 1; }
-                         */
-
-                        //System.out.println("获取能量E："+ energyLevel);
-
+                        if (energyLevel >= 10000) {//如果能量大于10000
+                            energyLevel = 10000;//不要超过一万
+                            //dropMessage(5, "energyLevelA"+energyLevel);
+                            Timer.BuffTimer.getInstance().schedule(new Runnable() {
+                                @Override
+                                public void run() {
+                                    Integer energyLevel = 0;//初始化变量 值为0
+                                    setBuffedValue(MapleBuffStat.ENERGY_CHARGE, energyLevel);//设置能量为0
+                                    List<Pair<MapleBuffStat, Integer>> stat = Collections.singletonList(new Pair<>(MapleBuffStat.ENERGY_CHARGE, energyLevel));
+                                    client.getSession().write(MaplePacketCreator.能量条(stat, 0));//设置能量条进度为0
+                                }
+                            }, 50000L);//50秒后能量清0
+                        }
                         List<Pair<MapleBuffStat, Integer>> stat = Collections.singletonList(new Pair<MapleBuffStat, Integer>(MapleBuffStat.ENERGY_CHARGE, energyLevel));
-                        client.getSession().write(MaplePacketCreator.能量条(stat, energyLevel / 1000)); //????????????????
-                        //client.getSession().write(MaplePacketCreator.givePirateBuff(energyLevel, 0, stat));
-                        // client.getSession().write(MaplePacketCreator.giveEnergyChargeTest(energyLevel, echeff.getDuration() / 1000));
-                        setBuffedValue(MapleBuffStat.ENERGY_CHARGE, Integer.valueOf(energyLevel));
-                        Timer.BuffTimer.getInstance().schedule(new Runnable() {
-
-                            @Override
-                            public void run() {
-                                Integer energyLevel = 0;
-                                setBuffedValue(MapleBuffStat.ENERGY_CHARGE, Integer.valueOf(energyLevel));
-                                List<Pair<MapleBuffStat, Integer>> stat = Collections.singletonList(new Pair<MapleBuffStat, Integer>(MapleBuffStat.ENERGY_CHARGE, energyLevel));
-                                client.getSession().write(MaplePacketCreator.能量条(stat, 0)); //????????????????
-                            }
-                        }, 3 * 60 * 1000);
-                        /*
-                         * Timer.WorldTimer.getInstance().register(new
-                         * Runnable() {
-                         *
-                         * public void run() { Integer energyLevel =
-                         * getBuffedValue(MapleBuffStat.ENERGY_CHARGE); try {
-                         * energyLevel = 1; System.out.println("获取能量Z：" +
-                         * energyLevel); List<Pair<MapleBuffStat, Integer>> stat
-                         * = Collections.singletonList(new Pair<MapleBuffStat,
-                         * Integer>(MapleBuffStat.ENERGY_CHARGE, energyLevel));
-                         * client.getSession().write(MaplePacketCreator.能量条(stat,
-                         * energyLevel / 1000)); //????????????????
-                         * setBuffedValue(MapleBuffStat.ENERGY_CHARGE,
-                         * Integer.valueOf(energyLevel)); } catch (Exception e)
-                         * { } } }, 10000);
-                         */
+                        client.getSession().write(MaplePacketCreator.能量条(stat, energyLevel / 1000));
+                        setBuffedValue(MapleBuffStat.ENERGY_CHARGE, energyLevel);
+                        //dropMessage(5, "能量条"+energyLevel / 1000);
+                    } else if (energyLevel == 10000) {//如果能量达到10000
+                        echeff.applyEnergyBuff(this, false);//停止获取能量
+                        setBuffedValue(MapleBuffStat.ENERGY_CHARGE, 10001);//设置能量值为10001 设置多1点
                     }
-
-                    /*
-                     * else if (nengls > 20) { nengls = 0; nengl = 0; //
-                     * System.out.println("获取能量F："+ energyLevel);
-                     * List<Pair<MapleBuffStat, Integer>> stat =
-                     * Collections.singletonList(new Pair<MapleBuffStat,
-                     * Integer>(MapleBuffStat.ENERGY_CHARGE, 0));
-                     * client.getSession().write(MaplePacketCreator.能量条(stat,
-                     * 0)); //????????????????
-                     * //client.getSession().write(MaplePacketCreator.givePirateBuff(energyLevel,
-                     * 0, stat)); //
-                     * client.getSession().write(MaplePacketCreator.giveEnergyChargeTest(energyLevel,
-                     * echeff.getDuration() / 1000));
-                     * setBuffedValue(MapleBuffStat.ENERGY_CHARGE,
-                     * Integer.valueOf(0)); // echeff.applyEnergyBuff(this,
-                     * false); // One with time //
-                     * setBuffedValue(MapleBuffStat.ENERGY_CHARGE,
-                     * Integer.valueOf(10001)); }
-                     */
                 }
-                // System.out.println("能量S："+ nengls);
-                // System.out.println("能量："+ nengl);
-                /*
-                 * Timer.WorldTimer.getInstance().register(new Runnable() {
-                 * @Override public void run() { energyPoint -= 200; if
-                 * (energyPoint <= 0) { echeff.applyEnergyBuff(chrs, false); //
-                 * One with time setBuffedValue(MapleBuffStat.ENERGY_CHARGE,
-                 * Integer.valueOf(10001)); } try { } catch (Exception e) { } }
-                 * }, 60000 * 1);
-                 */
-                //   }
             }
         }
     }
@@ -2203,9 +2153,9 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
     }
 
     public final void handleOrbgain() {
-        int orbcount = getBuffedValue(MapleBuffStat.COMBO);
         ISkill combo;
-        ISkill advcombo;
+        int orbcount = getBuffedValue(MapleBuffStat.COMBO);
+        ISkill advcombo = null;
 
         switch (getJob()) {
             case 1110:
@@ -2214,8 +2164,14 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
                 combo = SkillFactory.getSkill(11111001);
                 advcombo = SkillFactory.getSkill(11110005);
                 break;
+            case 121:
+            case 122:
+
+                combo = SkillFactory.getSkill(1211009);
+                break;
             default:
                 combo = SkillFactory.getSkill(1111002);
+
                 advcombo = SkillFactory.getSkill(1120003);
                 break;
         }
@@ -2257,6 +2213,7 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
                 break;
             default:
                 combo = SkillFactory.getSkill(1111002);
+                combo = SkillFactory.getSkill(1211009);
                 break;
         }
         if (getSkillLevel(combo) <= 0) {
