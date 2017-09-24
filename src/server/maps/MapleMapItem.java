@@ -138,6 +138,9 @@ public class MapleMapItem extends AbstractMapleMapObject {
 
     @Override
     public void sendSpawnData(final MapleClient client) {
+        if (client.getPlayer().IsCheating) {
+            return;
+        }
         if (questid <= 0 || client.getPlayer().getQuestStatus(questid) == 1) {
             client.getSession().write(MaplePacketCreator.dropItemFromMapObject(this, null, getPosition(), (byte) 2));
         }

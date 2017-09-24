@@ -181,8 +181,8 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
     public boolean DebugMessage = false;
     public int ariantScore = 0;
     public long lastGainHM;
-    
-    
+
+    public boolean IsCheating = false;
     private int _tiredPoints = 0;
     private int _isCheatingPlayer = 0;
     private int _questPoints = 0;
@@ -1053,7 +1053,7 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
                     ps.setInt(2, getClient().getAccID());
                     ps.executeUpdate();
                     ps.close();
-                    
+
                     _tiredPoints += period;
                 } catch (SQLException Ex) {
                     System.err.println("更新角色疲劳值出错: " + Ex);
@@ -1580,6 +1580,7 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
     public void dropTopMsg(String message) {//屏幕中间黄色字体
         client.getSession().write(UIPacket.getTopMsg(message));
     }
+
     public final Map<Integer, String> getInfoQuest_Map() {
         return questinfo;
     }
@@ -3138,7 +3139,7 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
             psu.setInt(1, accountid);
             psu.executeUpdate();
             psu.close();
-            
+
             _isCheatingPlayer = 1;
         } catch (SQLException ex) {
             System.err.printf("标记作弊玩家出错：" + ex.getMessage());
@@ -3180,7 +3181,7 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
         int hpMax = stats.getMaxHp();
         int mp = stats.getMp();
         int mpMax = stats.getMaxMp();
-        
+
         // 吸怪判断开始
         if (吸怪指数 == 0) {
             posX = pos.x;
@@ -3262,34 +3263,36 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
             // 高效杀怪判断
             if (spend >= 0 && spend < 12) {
                 天谴降临();
-                getMap().removeDrops(); // 清除掉落物品
+                IsCheating = true;
                 return;
             } else if (spend >= 12 && spend < 16) {
-                getMap().removeDrops(); // 清除掉落物品
+                IsCheating = true;
                 return;
             } else if (spend >= 16 && spend < 100) {
                 gain = (int) Math.floor(gain * 0.1);
                 if (gain > level) {
                     gain = level;
                 }
-                getMap().removeDrops(); // 清除掉落物品
+                IsCheating = true;
             } else if (spend >= 100 && spend < 130) {
                 gain = (int) Math.floor(gain * 0.4);
                 if (gain > level * 4) {
                     gain = level * 2;
                 }
-                getMap().removeDrops(); // 清除掉落物品
+                IsCheating = true;
             } else if (spend >= 130 && spend < 160) {
                 gain = (int) Math.floor(gain * 0.8);
                 if (gain > level * 8) {
                     gain = level * 4;
                 }
+                IsCheating = false;
             } else if (spend >= 260 && spend < 320) {
                 gain = (int) Math.floor(gain * 2);
+                IsCheating = false;
             }
 
             if (isGM()) {
-                dropMessage(5, String.format("%s:%s:%s, mlv:%s, mhp:%s, x:%s, y:%s, 吸怪指数:%s, 无敌指数:%s", hpNow, hp, 无敌指数, mobLv, mobHp, pos.x, pos.y, 吸怪指数, 无敌指数));
+                dropMessage(5, String.format("hp:%s/%s, mlv:%s, mhp:%s, x:%s, y:%s, 吸怪指数:%s, 无敌指数:%s", hpNow, hp, mobLv, mobHp, pos.x, pos.y, 吸怪指数, 无敌指数));
             }
 
             c++;
@@ -7008,7 +7011,6 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
         lastGainHM = newTime;
     }
 
-    
     public void 设置任务成就奖励进度() {
         try {
             Connection con = DatabaseConnection.getConnection();
@@ -7016,7 +7018,7 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
             psu.setInt(1, id);
             psu.executeUpdate();
             psu.close();
-            
+
             _questPoints += 1;
         } catch (SQLException Ex) {
             System.err.println("设置角色任务成就奖励进度出错 - 数据库更新失败：" + Ex);
@@ -7045,8 +7047,6 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
 
         return data;
     }
-
-    
 
     public boolean isTired() {
         if (tiredMinutes > 24 * 60) {

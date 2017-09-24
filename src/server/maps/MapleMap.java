@@ -1614,6 +1614,9 @@ public final class MapleMap {
     }
 
     public final void disappearingItemDrop(final MapleMapObject dropper, final MapleCharacter owner, final IItem item, final Point pos) {
+        if (owner.IsCheating) {
+            return;
+        }
         final Point droppos = calcDropPos(pos, pos);
         final MapleMapItem drop = new MapleMapItem(item, droppos, dropper, owner, (byte) 1, false);
         broadcastMessage(MaplePacketCreator.dropItemFromMapObject(drop, dropper.getPosition(), droppos, (byte) 3), drop.getPosition());
@@ -1627,6 +1630,9 @@ public final class MapleMap {
 
             @Override
             public void sendPackets(MapleClient c) {
+                if (c.getPlayer().IsCheating) {
+                    return;
+                }
                 c.getSession().write(MaplePacketCreator.dropItemFromMapObject(mdrop, dropper.getPosition(), droppos, (byte) 1));
             }
         }, null);
@@ -1645,6 +1651,9 @@ public final class MapleMap {
 
             @Override
             public void sendPackets(MapleClient c) {
+                if (c.getPlayer().IsCheating) {
+                    return;
+                }
                 c.getSession().write(MaplePacketCreator.dropItemFromMapObject(mdrop, dropper.getPosition(), position, (byte) 1));
             }
         }, null);
@@ -1662,6 +1671,9 @@ public final class MapleMap {
 
             @Override
             public void sendPackets(MapleClient c) {
+                if (c.getPlayer().IsCheating) {
+                    return;
+                }
                 if (questid <= 0 || c.getPlayer().getQuestStatus(questid) == 1) {
                     c.getSession().write(MaplePacketCreator.dropItemFromMapObject(mdrop, mob.getPosition(), dropPos, (byte) 1));
                 }
@@ -1728,6 +1740,9 @@ public final class MapleMap {
 
             @Override
             public void sendPackets(MapleClient c) {
+                if (c.getPlayer().IsCheating) {
+                    return;
+                }
                 c.getSession().write(MaplePacketCreator.dropItemFromMapObject(mdrop, pos, pos, (byte) 1));
             }
         }, null);
@@ -1736,6 +1751,9 @@ public final class MapleMap {
     }
 
     public final void spawnItemDrop(final MapleMapObject dropper, final MapleCharacter owner, final IItem item, Point pos, final boolean ffaDrop, final boolean playerDrop) {
+        if (owner.IsCheating) {
+            return;
+        }
         final Point droppos = calcDropPos(pos, pos);
         final MapleMapItem drop = new MapleMapItem(item, droppos, dropper, owner, (byte) 2, playerDrop);
 
@@ -1743,6 +1761,9 @@ public final class MapleMap {
 
             @Override
             public void sendPackets(MapleClient c) {
+                if (c.getPlayer().IsCheating) {
+                    return;
+                }
                 c.getSession().write(MaplePacketCreator.dropItemFromMapObject(drop, dropper.getPosition(), droppos, (byte) 1));
             }
         }, null);
