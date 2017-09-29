@@ -385,7 +385,7 @@ public final class MapleMap {
             while (itr.hasNext()) {
                 chr = itr.next();
                 if (condition == null || condition.canSpawn(chr)) {
-                    if (!chr.isClone() && chr.getPosition().distanceSq(mapobject.getPosition()) <= GameConstants.maxViewRangeSq()) {
+                    if (chr.getPosition().distanceSq(mapobject.getPosition()) <= GameConstants.maxViewRangeSq()) {
                         packetbakery.sendPackets(chr.getClient());
                         chr.addVisibleMapObject(mapobject);
                     }
@@ -1097,7 +1097,7 @@ public final class MapleMap {
             MapleCharacter chr;
             while (ltr.hasNext()) {
                 chr = ltr.next();
-                if (!chr.isHidden() && !chr.isClone() && (chr.getControlledSize() < mincontrolled || mincontrolled == -1)) {
+                if (!chr.isHidden() && (chr.getControlledSize() < mincontrolled || mincontrolled == -1)) {
                     mincontrolled = chr.getControlledSize();
                     newController = chr;
                 }
@@ -1421,7 +1421,6 @@ public final class MapleMap {
             return;
         }
 
-
         monster.setMap(this);
         checkRemoveAfter(monster);
 
@@ -1575,7 +1574,7 @@ public final class MapleMap {
                             if (mist.makeChanceResult() && !((MapleMonster) mo).isBuffed(MonsterStatus.POISON)) {
                                 ((MapleMonster) mo).applyStatus(owner, new MonsterStatusEffect(MonsterStatus.POISON, 1, mist.getSourceSkill().getId(), null, false), true, duration, true/*
                                          * , mist.getSource()
-                                         */);
+                                 */);
                             }
                         }
                     }
@@ -1924,46 +1923,46 @@ public final class MapleMap {
                 }
             }
         }
-        if (!chr.isClone()) {
-            //屏蔽地图动画
-            /*
+
+        //屏蔽地图动画
+        /*
              * if (!onFirstUserEnter.equals("")) { if (getCharactersSize() == 1)
              * { MapScriptMethods.startScript_FirstUser(chr.getClient(),
              * onFirstUserEnter); } }
-             */
-            sendObjectPlacement(chr);
+         */
+        sendObjectPlacement(chr);
 
-            chr.getClient().getSession().write(MaplePacketCreator.spawnPlayerMapobject(chr));
-            //屏蔽地图动画
-            /*
+        chr.getClient().getSession().write(MaplePacketCreator.spawnPlayerMapobject(chr));
+        //屏蔽地图动画
+        /*
              * if (!onUserEnter.equals("")) {
              * MapScriptMethods.startScript_User(chr.getClient(), onUserEnter);
              * }
-             */
-            if (ServerConstants.封包显示 || 进入地图开启显示数据) {
-                System.out.println("进入地图加载数据D");
-            }
-            switch (mapid) {
-                case 109030001:
-                case 109040000:
-                case 109060001:
-                case 109080000:
-                case 109080010:
-                    chr.getClient().getSession().write(MaplePacketCreator.showEventInstructions());
-                    break;
-                /*
+         */
+        if (ServerConstants.封包显示 || 进入地图开启显示数据) {
+            System.out.println("进入地图加载数据D");
+        }
+        switch (mapid) {
+            case 109030001:
+            case 109040000:
+            case 109060001:
+            case 109080000:
+            case 109080010:
+                chr.getClient().getSession().write(MaplePacketCreator.showEventInstructions());
+                break;
+            /*
                  * case 109080000: // coconut shit case 109080001: case
                  * 109080002: case 109080003: case 109080010: case 109080011:
                  * case 109080012:
                  * chr.getClient().getSession().write(MaplePacketCreator.showEquipEffect(chr.getCoconutTeam()));
                  * break;
-                 */
-                case 809000101:
-                case 809000201:
-                    chr.getClient().getSession().write(MaplePacketCreator.showEquipEffect());
-                    break;
-            }
+             */
+            case 809000101:
+            case 809000201:
+                chr.getClient().getSession().write(MaplePacketCreator.showEquipEffect());
+                break;
         }
+
         for (final MaplePet pet : chr.getPets()) {
             if (pet.getSummoned()) {
                 //chr.getClient().getSession().write(PetPacket.showPet(chr, pet, false, false));
@@ -2001,7 +2000,7 @@ public final class MapleMap {
          * }
          */
         final MapleStatEffect stat = chr.getStatForBuff(MapleBuffStat.SUMMON);
-        if (stat != null && !chr.isClone()) {
+        if (stat != null) {
             final MapleSummon summon = chr.getSummons().get(stat.getSourceId());
             summon.setPosition(chr.getPosition());
             try {
@@ -2019,7 +2018,7 @@ public final class MapleMap {
             chr.getClient().getSession().write(MTSCSPacket.useChalkboard(chr.getId(), chr.getChalkboard()));
         }
         broadcastMessage(MaplePacketCreator.loveEffect());
-        if (timeLimit > 0 && getForcedReturnMap() != null && !chr.isClone()) {
+        if (timeLimit > 0 && getForcedReturnMap() != null) {
             chr.startMapTimeLimitTask(timeLimit, getForcedReturnMap());
             if (ServerConstants.封包显示 || 进入地图开启显示数据) {
                 System.out.println("进入地图加载数据I");
@@ -2038,7 +2037,7 @@ public final class MapleMap {
             }
         }
         MapleEvent.mapLoad(chr, channel);
-        if (chr.getEventInstance() != null && chr.getEventInstance().isTimerStarted() && !chr.isClone()) {
+        if (chr.getEventInstance() != null && chr.getEventInstance().isTimerStarted()) {
             chr.getClient().getSession().write(MaplePacketCreator.getClock((int) (chr.getEventInstance().getTimeLeft() / 1000)));
             if (ServerConstants.封包显示 || 进入地图开启显示数据) {
                 System.out.println("进入地图加载数据K");
@@ -2057,7 +2056,7 @@ public final class MapleMap {
                 System.out.println("进入地图加载数据W-------------完");
             }
         }
-        if (chr.getParty() != null && !chr.isClone()) {
+        if (chr.getParty() != null) {
             //chr.silentPartyUpdate();
             //chr.getClient().getSession().write(MaplePacketCreator.updateParty(chr.getClient().getChannel(), chr.getParty(), PartyOperation.SILENT_UPDATE, null));
             chr.updatePartyMemberHP();
@@ -2066,104 +2065,7 @@ public final class MapleMap {
                 System.out.println("进入地图加载数据G");
             }
         }
-        /*
-         * if (mapEffect != null) { mapEffect.sendStartData(chr.getClient()); }
-         */
-        /*
-         * if (timeLimit > 0 && getForcedReturnMap() != null && !chr.isClone())
-         * { chr.startMapTimeLimitTask(timeLimit, getForcedReturnMap()); if
-         * (ServerConstants.封包显示 || 进入地图开启显示数据) {
-         * System.out.println("进入地图加载数据I"); } } if
-         * (chr.getBuffedValue(MapleBuffStat.MONSTER_RIDING) != null) { if
-         * (FieldLimitType.Mount.check(fieldLimit)) {
-         * chr.cancelBuffStats(MapleBuffStat.MONSTER_RIDING); if
-         * (ServerConstants.封包显示 || 进入地图开启显示数据) {
-         * System.out.println("进入地图加载数据J"); } } }
-         */
-        /*
-         * if (!chr.isClone()) { if (chr.getEventInstance() != null &&
-         * chr.getEventInstance().isTimerStarted() && !chr.isClone()) {
-         * chr.getClient().getSession().write(MaplePacketCreator.getClock((int)
-         * (chr.getEventInstance().getTimeLeft() / 1000))); if
-         * (ServerConstants.封包显示 || 进入地图开启显示数据) {
-         * System.out.println("进入地图加载数据K"); } } if (hasClock()) { final Calendar
-         * cal = Calendar.getInstance();
-         * chr.getClient().getSession().write((MaplePacketCreator.getClockTime(cal.get(Calendar.HOUR_OF_DAY),
-         * cal.get(Calendar.MINUTE), cal.get(Calendar.SECOND)))); if
-         * (ServerConstants.封包显示 || 进入地图开启显示数据) {
-         * System.out.println("进入地图加载数据L"); } } if (chr.getCarnivalParty() !=
-         * null && chr.getEventInstance() != null) {
-         * chr.getEventInstance().onMapLoad(chr); if (ServerConstants.封包显示 ||
-         * 进入地图开启显示数据) { System.out.println("进入地图加载数据M"); } }
-         * MapleEvent.mapLoad(chr, channel); if (ServerConstants.封包显示 ||
-         * 进入地图开启显示数据) { System.out.println("进入地图加载数据N"); } if (getSquadBegin()
-         * != null && getSquadBegin().getTimeLeft() > 0 &&
-         * getSquadBegin().getStatus() == 1) {
-         * chr.getClient().getSession().write(MaplePacketCreator.getClock((int)
-         * (getSquadBegin().getTimeLeft() / 1000))); if (ServerConstants.封包显示 ||
-         * 进入地图开启显示数据) { System.out.println("进入地图加载数据O"); } }
-         */
-        /*
-         * if (mapid / 1000 != 105100 && mapid / 100 != 8020003 && mapid / 100
-         * != 8020008) { //no boss_balrog/2095/coreblaze/auf. but coreblaze/auf
-         * does AFTER final MapleSquad sqd = getSquadByMap(); //for all squads
-         * if (!squadTimer && sqd != null &&
-         * chr.getName().equals(sqd.getLeaderName()) && !chr.isClone()) {
-         * //leader? display doShrine(false); squadTimer = true; } if
-         * (ServerConstants.封包显示 || 进入地图开启显示数据) {
-         * System.out.println("进入地图加载数据P"); } }
-         */
-        /*
-         * if (getNumMonsters() > 0 && (mapid == 280030001 || mapid == 240060201
-         * || mapid == 280030000 || mapid == 240060200 || mapid == 220080001 ||
-         * mapid == 541020800 || mapid == 541010100)) { String music =
-         * "Bgm09/TimeAttack"; switch (mapid) { case 240060200: case 240060201:
-         * music = "Bgm14/HonTale"; break; case 280030000: case 280030001: music
-         * = "Bgm06/FinalFight"; break; case 200090000: case 200090010: music =
-         * "Bgm04/ArabPirate"; break; }
-         * chr.getClient().getSession().write(MaplePacketCreator.musicChange(music));
-         * if (ServerConstants.封包显示 || 进入地图开启显示数据) {
-         * System.out.println("进入地图加载数据Q"); } //maybe timer too for zak/ht }
-         */
-        /*
-         * for (final WeakReference<MapleCharacter> chrz : chr.getClones()) { if
-         * (chrz.get() != null) { chrz.get().setPosition(new
-         * Point(chr.getPosition())); chrz.get().setMap(this);
-         * addPlayer(chrz.get()); } if (ServerConstants.封包显示 || 进入地图开启显示数据) {
-         * System.out.println("进入地图加载数据R"); } }
-         */
-        //  if (mapid == 914000000) {
-        ///     chr.getClient().getSession().write(MaplePacketCreator.addTutorialStats());
-        //   if (ServerConstants.封包显示 || 进入地图开启显示数据) {
-        //       System.out.println("进入地图加载数据S");
-        //  }
-        // }
-            /*
-         * else if (mapid == 105100300 && chr.getLevel() >= 91) {
-         * chr.getClient().getSession().write(MaplePacketCreator.temporaryStats_Balrog(chr));
-         * if (ServerConstants.封包显示 || 进入地图开启显示数据) {
-         * System.out.println("进入地图加载数据T"); } }
-         */
-        //  else if (mapid == 140090000 || mapid == 105100301 || mapid == 105100401 || mapid == 105100100) {
-        //  chr.getClient().getSession().write(MaplePacketCreator.temporaryStats_Reset());
-        //   if (ServerConstants.封包显示 || 进入地图开启显示数据) {
-        //      System.out.println("进入地图加载数据U");
-        //  }
-        // }
-        //  }
-        /*
-         * if (GameConstants.isEvan(chr.getJob()) && chr.getJob() >= 2200 &&
-         * chr.getBuffedValue(MapleBuffStat.MONSTER_RIDING) == null) { if
-         * (chr.getDragon() == null) { chr.makeDragon(); }
-         * spawnDragon(chr.getDragon()); if (!chr.isClone()) {
-         * updateMapObjectVisibility(chr, chr.getDragon()); } }
-         */
-        // if ((mapid == 10000 && chr.getJob() == 0) || (mapid == 130030000 && chr.getJob() == 1000) || (mapid == 914000000 && chr.getJob() == 2000) || (mapid == 900010000 && chr.getJob() == 2001)) {
-//            chr.getClient().getSession().write(MaplePacketCreator.startMapEffect("Welcome to " + chr.getClient().getChannelServer().getServerName() + "!", 5122000, true));
-//            chr.dropMessage(1, "Welcome to " + chr.getClient().getChannelServer().getServerName() + ", " + chr.getName() + " ! \r\nUse @joyce to collect your Item Of Appreciation once you're level 10! \r\nUse @help for commands. \r\nGood luck and have fun!");
-        //   chr.dropMessage(1, "新手技能記得在一轉之前點完 十等之後可以去自由市場找禮物盒領東西");
-//            chr.dropMessage(5, "Use @joyce to collect your Item Of Appreciation once you're level 10! Use @help for commands. Good luck and have fun!");
-        //    }
+        
         if (permanentWeather > 0) {
             chr.getClient().getSession().write(MaplePacketCreator.startMapEffect("", permanentWeather, false)); //snow, no msg
         }
@@ -2524,34 +2426,29 @@ public final class MapleMap {
         removeMapObject(chr);
         chr.checkFollow();
         broadcastMessage(MaplePacketCreator.removePlayerFromMap(chr.getId()));
-        if (!chr.isClone()) {
-            final List<MapleMonster> update = new ArrayList<MapleMonster>();
-            final Iterator<MapleMonster> controlled = chr.getControlled().iterator();
 
-            while (controlled.hasNext()) {
-                MapleMonster monster = controlled.next();
-                if (monster != null) {
-                    monster.setController(null);
-                    monster.setControllerHasAggro(false);
-                    monster.setControllerKnowsAboutAggro(false);
-                    controlled.remove();
-                    update.add(monster);
-                }
-            }
-            for (MapleMonster mons : update) {
-                updateMonsterController(mons);
-            }
-            chr.leaveMap();
-            checkStates(chr.getName());
-            if (mapid == 109020001) {
-                chr.canTalk(true);
-            }
-            for (final WeakReference<MapleCharacter> chrz : chr.getClones()) {
-                if (chrz.get() != null) {
-                    removePlayer(chrz.get());
-                }
+        final List<MapleMonster> update = new ArrayList<MapleMonster>();
+        final Iterator<MapleMonster> controlled = chr.getControlled().iterator();
+
+        while (controlled.hasNext()) {
+            MapleMonster monster = controlled.next();
+            if (monster != null) {
+                monster.setController(null);
+                monster.setControllerHasAggro(false);
+                monster.setControllerKnowsAboutAggro(false);
+                controlled.remove();
+                update.add(monster);
             }
         }
+        for (MapleMonster mons : update) {
+            updateMonsterController(mons);
+        }
+        chr.leaveMap();
+        checkStates(chr.getName());
+        if (mapid == 109020001) {
+            chr.canTalk(true);
+        }
+
         chr.cancelEffectFromBuffStat(MapleBuffStat.PUPPET);
         chr.cancelEffectFromBuffStat(MapleBuffStat.REAPER);
         boolean cancelSummons = false;
@@ -2618,7 +2515,7 @@ public final class MapleMap {
     }
 
     private void sendObjectPlacement(final MapleCharacter c) {
-        if (c == null || c.isClone()) {
+        if (c == null) {
             return;
         }
         for (final MapleMapObject o : this.getAllMonstersThreadsafe()) {
@@ -2872,7 +2769,7 @@ public final class MapleMap {
     }
 
     public final void updateMapObjectVisibility(final MapleCharacter chr, final MapleMapObject mo) {
-        if (chr == null || chr.isClone()) {
+        if (chr == null) {
             return;
         }
         if (!chr.isMapObjectVisible(mo)) { // monster entered view range
@@ -2903,29 +2800,28 @@ public final class MapleMap {
 
     public void movePlayer(final MapleCharacter player, final Point newPosition) {
         player.setPosition(newPosition);
-        if (!player.isClone()) {
-            try {
-                Collection<MapleMapObject> visibleObjects = player.getAndWriteLockVisibleMapObjects();
-                ArrayList<MapleMapObject> copy = new ArrayList<MapleMapObject>(visibleObjects);
-                Iterator<MapleMapObject> itr = copy.iterator();
-                while (itr.hasNext()) {
-                    MapleMapObject mo = itr.next();
-                    if (mo != null && getMapObject(mo.getObjectId(), mo.getType()) == mo) {
-                        updateMapObjectVisibility(player, mo);
-                    } else if (mo != null) {
-                        visibleObjects.remove(mo);
-                    }
+        try {
+            Collection<MapleMapObject> visibleObjects = player.getAndWriteLockVisibleMapObjects();
+            ArrayList<MapleMapObject> copy = new ArrayList<MapleMapObject>(visibleObjects);
+            Iterator<MapleMapObject> itr = copy.iterator();
+            while (itr.hasNext()) {
+                MapleMapObject mo = itr.next();
+                if (mo != null && getMapObject(mo.getObjectId(), mo.getType()) == mo) {
+                    updateMapObjectVisibility(player, mo);
+                } else if (mo != null) {
+                    visibleObjects.remove(mo);
                 }
-                for (MapleMapObject mo : getMapObjectsInRange(player.getPosition(), GameConstants.maxViewRangeSq())) {
-                    if (mo != null && !player.isMapObjectVisible(mo)) {
-                        mo.sendSpawnData(player.getClient());
-                        visibleObjects.add(mo);
-                    }
-                }
-            } finally {
-                player.unlockWriteVisibleMapObjects();
             }
+            for (MapleMapObject mo : getMapObjectsInRange(player.getPosition(), GameConstants.maxViewRangeSq())) {
+                if (mo != null && !player.isMapObjectVisible(mo)) {
+                    mo.sendSpawnData(player.getClient());
+                    visibleObjects.add(mo);
+                }
+            }
+        } finally {
+            player.unlockWriteVisibleMapObjects();
         }
+
     }
 
     public MaplePortal findClosestSpawnpoint(Point from) {
@@ -2972,9 +2868,7 @@ public final class MapleMap {
             MapleCharacter chr;
             while (ltr.hasNext()) {
                 chr = ltr.next();
-                if (!chr.isClone()) {
-                    ret++;
-                }
+                ret++;
             }
         } finally {
             charactersLock.readLock().unlock();

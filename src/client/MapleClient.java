@@ -937,7 +937,6 @@ public class MapleClient implements Serializable {
             }
             MapleMap map = player.getMap();
             final MapleParty party = player.getParty();
-            final boolean clone = player.isClone();
             final String namez = player.getName();
             final boolean hidden = player.isHidden();
             final int gmLevel = player.getGMLevel();
@@ -960,7 +959,7 @@ public class MapleClient implements Serializable {
                 final ChannelServer ch = ChannelServer.getInstance(map == null ? channel : map.getChannel());
 
                 try {
-                    if (ch == null || clone || ch.isShutdown()) {
+                    if (ch == null || ch.isShutdown()) {
                         player = null;
                         return;//no idea
                     }

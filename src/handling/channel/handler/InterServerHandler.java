@@ -287,7 +287,6 @@ public class InterServerHandler {
         if (player.getJob() == 132) { // DARKKNIGHT
             player.checkBerserk();
         }
-        player.spawnClones();
         player.getHyPay(1);
         player.spawnSavedPets();
         c.getSession().write(MaplePacketCreator.showCharCash(c.getPlayer()));

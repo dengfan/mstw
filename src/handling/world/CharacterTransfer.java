@@ -42,7 +42,7 @@ public class CharacterTransfer implements Externalizable {
             partyid, messengerid, mBookCover, dojo, ACash, MaplePoints,
             mount_itemid, mount_exp, points, vpoints, marriageId,
             familyid, seniorid, junior1, junior2, currentrep, totalrep, expression, constellation, blood, month, day, battleshipHP, prefix, mount_id;
-    public byte channel, dojoRecord, gender, gmLevel, guildrank, alliancerank, clonez, fairyExp, buddysize, world, initialSpawnPoint, skinColor, mount_level, mount_Fatigue, subcategory;
+    public byte channel, dojoRecord, gender, gmLevel, guildrank, alliancerank, fairyExp, buddysize, world, initialSpawnPoint, skinColor, mount_level, mount_Fatigue, subcategory;
     public long lastfametime, TranferTime, lastGainHM;
     public String tempIP;
     public String name, accountname, BlessOfFairy, chalkboard, charmessage;
@@ -105,7 +105,6 @@ public class CharacterTransfer implements Externalizable {
         this.gmLevel = (byte) chr.getGMLevel();
         this.points = chr.getPoints();
         this.fairyExp = chr.getFairyExp();
-        this.clonez = chr.getNumClones();
         this.petStore = chr.getPetStores();
         this.subcategory = chr.getSubcategory();
         this.currentrep = chr.getCurrentRep();
@@ -250,7 +249,6 @@ public class CharacterTransfer implements Externalizable {
         } else {
             this.chalkboard = null;
         }
-        this.clonez = in.readByte();
         this.skillmacro = in.readObject();
         this.lastfametime = in.readLong();
         this.storage = in.readObject();
@@ -408,7 +406,6 @@ public class CharacterTransfer implements Externalizable {
         if (this.chalkboard != null) {
             out.writeUTF(this.chalkboard);
         }
-        out.writeByte(this.clonez);
 
         out.writeObject(this.skillmacro);
         out.writeLong(this.lastfametime);

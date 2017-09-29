@@ -116,9 +116,9 @@ public class Start {
         //在线统计(30);
         定时任务(savePeriod);
         
-        还原玩家NPC();
+        //还原玩家NPC();
 
-        System.out.println("----------> tms079 服务端启动完毕! 共耗时：" + (System.currentTimeMillis() - currentTime) / 1000.0 + "秒 <----------");
+        System.out.println("==============> All loaded successfully! Time：" + (System.currentTimeMillis() - currentTime) / 1000.0 + "s <==============");
     }
 
     public void startServer() throws InterruptedException {

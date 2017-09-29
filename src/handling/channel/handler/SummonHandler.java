@@ -63,32 +63,7 @@ public class SummonHandler {
                 chr.getMap().broadcastMessage(chr, MaplePacketCreator.moveDragon(chr.getDragon(), pos, res), chr.getPosition());
             }
 
-            List<WeakReference<MapleCharacter>> clones = chr.getClones();
-            for (int i = 0; i < clones.size(); i++) {
-                if (clones.get(i).get() != null) {
-                    final MapleMap map = chr.getMap();
-                    final MapleCharacter clone = clones.get(i).get();
-                    final List<LifeMovementFragment> res3 = new ArrayList<LifeMovementFragment>(res);
-                    CloneTimer.getInstance().schedule(new Runnable() {
-
-                        public void run() {
-                            try {
-                                if (clone.getMap() == map && clone.getDragon() != null) {
-                                    final Point startPos = clone.getDragon().getPosition();
-                                    MovementParse.updatePosition(res3, clone.getDragon(), 0);
-
-                                    if (!clone.isHidden()) {
-                                        map.broadcastMessage(clone, MaplePacketCreator.moveDragon(clone.getDragon(), startPos, res3), clone.getPosition());
-                                    }
-
-                                }
-                            } catch (Exception e) {
-                                //very rarely swallowed
-                            }
-                        }
-                    }, 500 * i + 500);
-                }
-            }
+            
         }
     }
 

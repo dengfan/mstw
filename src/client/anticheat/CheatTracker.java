@@ -256,7 +256,7 @@ public class CheatTracker {
 
     public final void registerOffense(final CheatingOffense offense, final String param) {
         final MapleCharacter chrhardref = chr.get();
-        if (chrhardref == null || !offense.isEnabled() || chrhardref.isClone() || chrhardref.isGM()) {
+        if (chrhardref == null || !offense.isEnabled() || chrhardref.isGM()) {
             return;
         }
         CheatingOffenseEntry entry = null;

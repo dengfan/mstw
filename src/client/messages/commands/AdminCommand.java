@@ -1695,30 +1695,7 @@ public class AdminCommand {
         }
     }
 
-    public static class CloneMe extends CommandExecute {
 
-        public int execute(MapleClient c, String splitted[]) {
-            c.getPlayer().cloneLook();
-            return 1;
-        }
-
-        public String getMessage() {
-            return new StringBuilder().append("!cloneme - 产生克隆体").toString();
-        }
-    }
-
-    public static class DisposeClones extends CommandExecute {
-
-        public int execute(MapleClient c, String splitted[]) {
-            c.getPlayer().dropMessage(6, c.getPlayer().getCloneSize() + "个克隆体消失了.");
-            c.getPlayer().disposeClones();
-            return 1;
-        }
-
-        public String getMessage() {
-            return new StringBuilder().append("!disposeclones - 摧毁克隆体").toString();
-        }
-    }
 
     public static class Monitor extends CommandExecute {
 

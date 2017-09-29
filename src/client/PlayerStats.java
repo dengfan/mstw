@@ -58,7 +58,7 @@ public class PlayerStats implements Serializable {
     private transient byte passive_mastery, passive_sharpeye_rate;
     private transient int localstr, localdex, localluk, localint_;
     private transient int magic, watk, hands, accuracy;
-    public transient boolean equippedWelcomeBackRing, equippedFairy, hasMeso, hasItem, hasVac, hasClone, hasPartyBonus, Berserk = false, isRecalc = false;
+    public transient boolean equippedWelcomeBackRing, equippedFairy, hasMeso, hasItem, hasVac, hasPartyBonus, Berserk = false, isRecalc = false;
     public transient int equipmentBonusExp, expMod, dropMod, cashMod, levelBonus;
     public transient double expBuff, dropBuff, mesoBuff, cashBuff;
     //restore/recovery are separate variables because i dont know jack shit what it even does
@@ -295,7 +295,6 @@ public class PlayerStats implements Serializable {
         hasItem = false;
         hasPartyBonus = false;
         hasVac = false;
-        hasClone = false;
         final boolean canEquipLevel = chra.getLevel() >= 120 && !GameConstants.isKOC(chra.getJob());
         equipmentBonusExp = 0;
         RecoveryUP = 0;
@@ -536,7 +535,6 @@ public class PlayerStats implements Serializable {
                     hasVac = true;
                     break;
                 case 4030004:
-                    hasClone = true;
                     break;
                 case 4030005:
                     cashMod = 2;

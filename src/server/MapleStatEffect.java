@@ -778,7 +778,7 @@ public class MapleStatEffect implements Serializable {
 
         final PlayerStats stat = applyto.getStat();
         if (primary) {
-            if (itemConNo != 0 && !applyto.isClone()) {
+            if (itemConNo != 0) {
                 MapleInventoryManipulator.removeById(applyto.getClient(), GameConstants.getInventoryType(itemCon), itemCon, itemConNo, false, true);
             }
         } else if (!primary && isResurrection()) {
@@ -827,7 +827,7 @@ public class MapleStatEffect implements Serializable {
 //            applyto.getClient().getSession().write(MaplePacketCreator.showSpecialEffect(19));
         } else if (GameConstants.isMonsterCard(sourceid)) {
             applyto.getMonsterBook().addCard(applyto.getClient(), sourceid);
-        } else if (isSpiritClaw() && !applyto.isClone()) {
+        } else if (isSpiritClaw()) {
             MapleInventory use = applyto.getInventory(MapleInventoryType.USE);
             IItem item;
             for (int i = 0; i < use.getSlotLimit(); i++) { // impose order...
@@ -932,12 +932,6 @@ public class MapleStatEffect implements Serializable {
                 if (i.skillId != 5121010) {
                     applyto.removeCooldown(i.skillId);
                     applyto.getClient().getSession().write(MaplePacketCreator.skillCooldown(i.skillId, 0));
-                }
-            }
-        } else {
-            for (WeakReference<MapleCharacter> chrz : applyto.getClones()) {
-                if (chrz.get() != null) {
-                    applyTo(chrz.get(), chrz.get(), primary, pos, newDuration);
                 }
             }
         }
@@ -2059,7 +2053,7 @@ public class MapleStatEffect implements Serializable {
         @Override
         public void run() {
             final MapleCharacter realTarget = target.get();
-            if (realTarget != null && !realTarget.isClone()) {
+            if (realTarget != null) {
                 realTarget.cancelEffect(effect, false, startTime);
             }
         }

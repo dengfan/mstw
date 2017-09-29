@@ -223,7 +223,7 @@ public class PlayerHandler {
         }
         final MapleCharacter player = c.getPlayer().getMap().getCharacterById(objectid);
         c.getSession().write(MaplePacketCreator.enableActions());
-        if (player != null && !player.isClone()) {
+        if (player != null) {
             if (!player.isGM() || c.getPlayer().isGM()) {
                 c.getSession().write(MaplePacketCreator.charInfo(player, c.getPlayer().getId() == objectid));
             }
@@ -752,25 +752,7 @@ public class PlayerHandler {
         chr.checkFollow();
         chr.getMap().broadcastMessage(chr, MaplePacketCreator.closeRangeAttack(chr.getId(), attack.tbyte, attack.skill, skillLevel, attack.display, attack.animation, attack.speed, attack.allDamage, energy, chr.getLevel(), chr.getStat().passive_mastery(), attack.unk, attack.charge), chr.getPosition());
         DamageParse.applyAttack(attack, skill, c.getPlayer(), attackCount, maxdamage, effect, mirror ? AttackType.NON_RANGED_WITH_MIRROR : AttackType.NON_RANGED);
-        List<WeakReference<MapleCharacter>> clones = chr.getClones();
-        for (int i = 0; i < clones.size(); i++) {
-            if (clones.get(i).get() != null) {
-                final MapleCharacter clone = clones.get(i).get();
-                final ISkill skil2 = skill;
-                final int skillLevel2 = skillLevel;
-                final int attackCount2 = attackCount;
-                final double maxdamage2 = maxdamage;
-                final MapleStatEffect eff2 = effect;
-                final AttackInfo attack2 = DamageParse.DivideAttack(attack, chr.isGM() ? 1 : 4);
-                CloneTimer.getInstance().schedule(new Runnable() {
-
-                    public void run() {
-                        clone.getMap().broadcastMessage(MaplePacketCreator.closeRangeAttack(clone.getId(), attack2.tbyte, attack2.skill, skillLevel2, attack2.display, attack2.animation, attack2.speed, attack2.allDamage, energy, clone.getLevel(), clone.getStat().passive_mastery(), attack2.unk, attack2.charge));
-                        DamageParse.applyAttack(attack2, skil2, chr, attackCount2, maxdamage2, eff2, mirror ? AttackType.NON_RANGED_WITH_MIRROR : AttackType.NON_RANGED);
-                    }
-                }, 500 * i + 500);
-            }
-        }
+        
     }
 
     public static final void rangedAttack(final SeekableLittleEndianAccessor slea, final MapleClient c, final MapleCharacter chr) {
@@ -892,26 +874,7 @@ public class PlayerHandler {
         chr.getMap().broadcastMessage(chr, MaplePacketCreator.rangedAttack(chr.getId(), attack.tbyte, attack.skill, skillLevel, attack.display, attack.animation, attack.speed, visProjectile, attack.allDamage, attack.position, chr.getLevel(), chr.getStat().passive_mastery(), attack.unk), chr.getPosition());
         DamageParse.applyAttack(attack, skill, chr, bulletCount, basedamage, effect, ShadowPartner != null ? AttackType.RANGED_WITH_SHADOWPARTNER : AttackType.RANGED);
 
-        List<WeakReference<MapleCharacter>> clones = chr.getClones();
-        for (int i = 0; i < clones.size(); i++) {
-            if (clones.get(i).get() != null) {
-                final MapleCharacter clone = clones.get(i).get();
-                final ISkill skil2 = skill;
-                final MapleStatEffect eff2 = effect;
-                final double basedamage2 = basedamage;
-                final int bulletCount2 = bulletCount;
-                final int visProjectile2 = visProjectile;
-                final int skillLevel2 = skillLevel;
-                final AttackInfo attack2 = DamageParse.DivideAttack(attack, chr.isGM() ? 1 : 4);
-                CloneTimer.getInstance().schedule(new Runnable() {
-
-                    public void run() {
-                        clone.getMap().broadcastMessage(MaplePacketCreator.rangedAttack(clone.getId(), attack2.tbyte, attack2.skill, skillLevel2, attack2.display, attack2.animation, attack2.speed, visProjectile2, attack2.allDamage, attack2.position, clone.getLevel(), clone.getStat().passive_mastery(), attack2.unk));
-                        DamageParse.applyAttack(attack2, skil2, chr, bulletCount2, basedamage2, eff2, AttackType.RANGED);
-                    }
-                }, 500 * i + 500);
-            }
-        }
+        
     }
 
     public static final void MagicDamage(final SeekableLittleEndianAccessor slea, final MapleClient c, final MapleCharacter chr) {
@@ -940,25 +903,7 @@ public class PlayerHandler {
         chr.checkFollow();
         chr.getMap().broadcastMessage(chr, MaplePacketCreator.magicAttack(chr.getId(), attack.tbyte, attack.skill, skillLevel, attack.display, attack.animation, attack.speed, attack.allDamage, attack.charge, chr.getLevel(), attack.unk), chr.getPosition());
         DamageParse.applyAttackMagic(attack, skill, c.getPlayer(), effect);
-        List<WeakReference<MapleCharacter>> clones = chr.getClones();
-        for (int i = 0; i < clones.size(); i++) {
-            if (clones.get(i).get() != null) {
-                final MapleCharacter clone = clones.get(i).get();
-                final ISkill skil2 = skill;
-                final MapleStatEffect eff2 = effect;
-                final int skillLevel2 = skillLevel;
-                final AttackInfo attack2 = DamageParse.DivideAttack(attack, chr.isGM() ? 1 : 4);
-                CloneTimer.getInstance().schedule(new Runnable() {
-
-                    public void run() {
-                        //if (attack.skill != 22121000 && attack.skill != 22151001) {
-                        clone.getMap().broadcastMessage(MaplePacketCreator.magicAttack(clone.getId(), attack2.tbyte, attack2.skill, skillLevel2, attack2.display, attack2.animation, attack2.speed, attack2.allDamage, attack2.charge, clone.getLevel(), attack2.unk));
-                        //}
-                        DamageParse.applyAttackMagic(attack2, skil2, chr, eff2);
-                    }
-                }, 500 * i + 500);
-            }
-        }
+        
     }
 
     public static final void DropMeso(final int meso, final MapleCharacter chr) {
@@ -982,18 +927,7 @@ public class PlayerHandler {
         }
         if (emote > 0 && chr != null && chr.getMap() != null) { //O_o
             chr.getMap().broadcastMessage(chr, MaplePacketCreator.facialExpression(chr, emote), false);
-            List<WeakReference<MapleCharacter>> clones = chr.getClones();
-            for (int i = 0; i < clones.size(); i++) {
-                if (clones.get(i).get() != null) {
-                    final MapleCharacter clone = clones.get(i).get();
-                    CloneTimer.getInstance().schedule(new Runnable() {
-
-                        public void run() {
-                            clone.getMap().broadcastMessage(MaplePacketCreator.facialExpression(clone, emote));
-                        }
-                    }, 500 * i + 500);
-                }
-            }
+            
         }
     }
 
@@ -1105,31 +1039,7 @@ public class PlayerHandler {
                     chr.checkFollow();
                 }
             }
-            List<WeakReference<MapleCharacter>> clones = chr.getClones();
-            for (int i = 0; i < clones.size(); i++) {
-                if (clones.get(i).get() != null) {
-                    final MapleCharacter clone = clones.get(i).get();
-                    final List<LifeMovementFragment> res3 = new ArrayList<LifeMovementFragment>(res2);
-                    CloneTimer.getInstance().schedule(new Runnable() {
-
-                        public void run() {
-                            try {
-                                if (clone.getMap() == map) {
-                                    if (clone.isHidden()) {
-                                        clone.setLastRes(res3);
-                                    } else {
-                                        map.broadcastMessage(clone, MaplePacketCreator.movePlayer(clone.getId(), res3, Original_Pos), false);
-                                    }
-                                    MovementParse.updatePosition(res3, clone, 0);
-                                    map.movePlayer(clone, pos);
-                                }
-                            } catch (Exception e) {
-                                //very rarely swallowed
-                            }
-                        }
-                    }, 500 * i + 500);
-                }
-            }
+            
             int count = c.getPlayer().getFallCounter();
             try {
                 if (map.getFootholds().findBelow(c.getPlayer().getPosition()) == null && c.getPlayer().getPosition().y > c.getPlayer().getOldPosition().y && c.getPlayer().getPosition().x == c.getPlayer().getOldPosition().x) {
