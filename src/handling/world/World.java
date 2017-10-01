@@ -1337,13 +1337,6 @@ public class World {
         }
     }
 
-    public static void registerRespawn() {
-        WorldTimer.getInstance().register(new Respawn(), 3000); //divisible by 9000 if possible.
-        //3000 good or bad? ive no idea >_>
-        //buffs can also be done, but eh
-
-    }
-
     public static class Respawn implements Runnable { //is putting it here a good idea?
 
         private int numTimes = 0;

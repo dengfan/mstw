@@ -26,7 +26,7 @@ public class DatabaseConnection {
 
     private static final HashMap<Integer, ConWrapper> connections = new HashMap<Integer, ConWrapper>();
     private final static Logger log = LoggerFactory.getLogger(DatabaseConnection.class);
-    private static String dbDriver = "", dbUrl = "", dbUser = "", dbPass = "";
+    private static String dbUrl = "", dbUser = "", dbPass = "";
     private static final long connectionTimeOut = 30 * 60 * 1000;
     private static final ReentrantLock lock = new ReentrantLock();
 
@@ -194,7 +194,6 @@ public class DatabaseConnection {
     }
 
     public static void InitDB() {
-        dbDriver = "com.mysql.jdvc.Driver";
         String db = ServerProperties.getProperty("mxmxd.database", "maplestory_db");
         String ip = ServerProperties.getProperty("mxmxd.ip", "localhost");
         String port = ServerProperties.getProperty("mxmxd.port", "3306");

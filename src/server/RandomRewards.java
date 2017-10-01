@@ -95,7 +95,7 @@ public class RandomRewards {
 
         compiledEvent = returnArray;
         
-        System.out.println("加载 随机奖励完成 :::");
+        
     }
 
     private final void processRewards(final List<Integer> returnArray, final int[] list) {

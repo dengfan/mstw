@@ -106,8 +106,6 @@ public class CashItemFactory {
             getItem(i); //init the modinfo's citem
         }
         initialized = true;
-        
-        System.out.println("加载 商城完成 :::");
     }
     
     public final CashItemInfo getItem(int sn) {

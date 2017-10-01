@@ -90,8 +90,7 @@ public class SkillFactory {
                 }
             }
         }
-        
-        System.out.println("加载 技能完成 :::");
+
         return null;
     }
 

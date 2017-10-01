@@ -87,7 +87,6 @@ public class MapleItemInformationProvider {
             return;
         }
         getAllItems();
-        System.out.println("加载 物品信息完成 :::");
         /*
          * final MapleData setsData = etcData.getData("SetItemInfo.img");
          * StructSetItem itemz; SetItem itez; for (MapleData dat : setsData) {

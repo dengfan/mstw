@@ -24,6 +24,7 @@ import javax.swing.JOptionPane;
 import scripting.PortalScriptManager;
 import scripting.ReactorScriptManager;
 import server.*;
+import static server.Start.isLaunched;
 import server.Timer.EventTimer;
 import server.life.MapleMonsterInformationProvider;
 import server.quest.MapleQuest;
@@ -740,7 +741,7 @@ public class MXMXD079 extends javax.swing.JFrame {
     private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
         try {
             // TODO add your handling code here:
-            if (Start.Check) {
+            if (!isLaunched) {
                 Start.instance.startServer();
                 String 输出 = "[服务器] 服务器启动成功！";
                 printChatLog(输出);

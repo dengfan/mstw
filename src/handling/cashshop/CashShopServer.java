@@ -62,7 +62,7 @@ public class CashShopServer {
         try {
             acceptor.setHandler(new MapleServerHandler(-1, true));
             acceptor.bind(new InetSocketAddress(PORT));
-            System.out.println("启动 商城: 端口 " + PORT);
+            System.out.println("Launch cash shop server completed! Port: " + PORT);
         } catch (final Exception e) {
             System.err.println("Binding to port " + PORT + " failed");
             e.printStackTrace();
