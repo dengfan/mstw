@@ -40,7 +40,7 @@ public class Start {
     private static int expRate = Integer.parseInt(ServerProperties.getProperty("mxmxd.Exp", "2"));
     private static int dropRate = Integer.parseInt(ServerProperties.getProperty("mxmxd.Drop", "4"));
     private static int mesoRate = Integer.parseInt(ServerProperties.getProperty("mxmxd.Meso", "1"));
-    private static String rateInfo = String.format("\r\n经验值倍率: %s, 怪物爆率: %s, 金币倍率: %s", expRate, dropRate, mesoRate);
+    private static String rateInfo = String.format("\r\nExp rate: %s, Mob drop rate: %s, Meso drop rate: %s", expRate, dropRate, mesoRate);
     private static final int savePeriod = Integer.parseInt(ServerProperties.getProperty("mxmxd.自动保存周期", "10"));
 
     public static void main(final String args[]) {

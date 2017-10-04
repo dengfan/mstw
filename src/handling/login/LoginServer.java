@@ -107,7 +107,7 @@ public class LoginServer {
 
         try {
             acceptor.bind(new InetSocketAddress(PORT));
-            System.out.println("Launch login server completed! Port: " + PORT);
+            System.out.println("Launch login server completed - Port: " + PORT);
         } catch (IOException e) {
             System.err.println("Binding to port " + PORT + " failed." + e);
         }

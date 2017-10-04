@@ -141,7 +141,7 @@ public class ChannelServer implements Serializable {
             acceptor.bind(new InetSocketAddress(port));
             ((SocketSessionConfig) acceptor.getSessionConfig()).setTcpNoDelay(true);
 
-            System.out.println("Launch chanel server " + this.channel + " completed! Port: " + port);
+            System.out.println("Launch chanel server " + this.channel + " completed - Port: " + port);
             eventSM.init();
         } catch (IOException e) {
             System.out.println("Binding to port " + port + " failed (ch: " + getChannel() + ")" + e);

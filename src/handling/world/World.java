@@ -516,7 +516,7 @@ public class World {
                     guilds.put(g.getId(), g);
                 }
             }
-            System.out.println("加载 公会完成 :::");
+            System.out.println("Load guilds completed :::");
         }
 
         public static int createGuild(int leaderId, String name) {
@@ -982,7 +982,7 @@ public class World {
             for (MapleGuildAlliance g : allGuilds) {
                 alliances.put(g.getId(), g);
             }
-            System.out.println("加载 公会同盟完成 :::");
+            System.out.println("Load alliances completed :::");
         }
 
         public static MapleGuildAlliance getAlliance(final int allianceid) {
@@ -1237,7 +1237,7 @@ public class World {
                     families.put(g.getId(), g);
                 }
             }
-            System.out.println("加载 学院完成 :::");
+            System.out.println("Load families completed :::");
         }
 
         public static MapleFamily getFamily(int id) {
