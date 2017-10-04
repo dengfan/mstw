@@ -83,37 +83,51 @@ public class MonsterBook implements Serializable {
         ps.close();
         return new MonsterBook(cards);
     }
+    
+    public boolean checkCardIsExists(final int charid, final int cardid) throws SQLException {
+        int count = 0;
+        
+        final Connection con = DatabaseConnection.getConnection();
+        try (PreparedStatement ps = con.prepareStatement("SELECT COUNT(*) as c FROM monsterbook WHERE charid = ? AND cardid = ?")) {
+            ps.setInt(1, charid);
+            ps.setInt(2, cardid);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    count = rs.getInt("c");
+                }
+            }
+        }
+        
+        return count > 0;
+    }
 
     public final void saveCards(final int charid) throws SQLException {
-        if (!changed || cards.size() == 0) {
+        if (!changed || cards.isEmpty()) {
             return;
         }
+        
         final Connection con = DatabaseConnection.getConnection();
-        PreparedStatement ps = con.prepareStatement("DELETE FROM monsterbook WHERE charid = ?");
-        ps.setInt(1, charid);
-        ps.execute();
-        ps.close();
-
-        boolean first = true;
-        final StringBuilder query = new StringBuilder();
-
-        for (final Entry<Integer, Integer> all : cards.entrySet()) {
-            if (first) {
-                first = false;
-                query.append("INSERT INTO monsterbook VALUES (DEFAULT,");
+        
+        for (final Entry<Integer, Integer> pair : cards.entrySet()) {
+            int cardId = pair.getKey();
+            int cardLevel = pair.getValue();
+            boolean isExists = checkCardIsExists(charid, cardId);
+            
+            if (isExists) {
+                try (PreparedStatement ps = con.prepareStatement("UPDATE monsterbook SET level = ? WHERE charid = ? AND cardid = ?")) {
+                    ps.setInt(1, cardLevel);
+                    ps.setInt(2, charid);
+                    ps.setInt(3, cardId);
+                    ps.execute();
+                }
             } else {
-                query.append(",(DEFAULT,");
+                try (PreparedStatement ps = con.prepareStatement("INSERT INTO monsterbook (charid, cardid, `level`) VALUES (?, ?, 1);")) {
+                    ps.setInt(1, charid);
+                    ps.setInt(2, cardId);
+                    ps.execute();
+                }
             }
-            query.append(charid);
-            query.append(",");
-            query.append(all.getKey()); // Card ID
-            query.append(",");
-            query.append(all.getValue()); // Card level
-            query.append(")");
         }
-        ps = con.prepareStatement(query.toString());
-        ps.execute();
-        ps.close();
     }
 
     private final void calculateLevel() {

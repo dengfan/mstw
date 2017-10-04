@@ -54,6 +54,8 @@ public class Start {
         if (Boolean.parseBoolean(ServerProperties.getProperty("mxmxd.AutoRegister", "true"))) {
             ServerConstants.自动注册 = Boolean.parseBoolean(ServerProperties.getProperty("mxmxd.AutoRegister", "true"));
         }
+        
+        重置登录状态();
 
         World.init();
 
@@ -123,9 +125,7 @@ public class Start {
         //在线统计(30);
         
         定时任务(savePeriod);
-
-        重置登录状态();
-
+        
         //还原玩家NPC();
         System.out.println("==============> All launched successfully! Time：" + (System.currentTimeMillis() - currentTime) / 1000.0 + "s <==============");
     }
@@ -135,16 +135,10 @@ public class Start {
     }
 
     public static void 重置登录状态() {
-        try (PreparedStatement ps = DatabaseConnection.getConnection().prepareStatement("UPDATE accounts SET loggedin = 0")) {
+        try (PreparedStatement ps = DatabaseConnection.getConnection().prepareStatement("UPDATE accounts SET loggedin = 0, lastGainHM = 0")) {
             ps.executeUpdate();
         } catch (SQLException ex) {
-            System.err.println("重置 loggedin 出错：" + ex.getMessage());
-        }
-
-        try (PreparedStatement ps = DatabaseConnection.getConnection().prepareStatement("UPDATE accounts SET lastGainHM = 0")) {
-            ps.executeUpdate();
-        } catch (SQLException ex) {
-            System.err.println("重置 lastGainHM 出错：" + ex.getMessage());
+            System.err.println("重置登录状态出错：" + ex.getMessage());
         }
     }
 
