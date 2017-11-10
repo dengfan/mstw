@@ -300,13 +300,13 @@ public class MapleServerHandler extends IoHandlerAdapter implements MapleServerH
 
         StringBuilder sb = new StringBuilder();
         if (channel > -1) {
-            sb.append("[频道服务器] 频道 ").append(channel).append(" :");
+            sb.append("[CHANNEL SERVER] chl.").append(channel).append(": ");
         } else if (cs) {
-            sb.append("[商城服务器]");
+            sb.append("[CASH SHOP SERVER] ");
         } else {
-            sb.append("[登录服务器]");
+            sb.append("[LOGIN SERVER] ");
         }
-        sb.append(" 已接受 ").append(address);
+        sb.append(address);
         System.out.println(sb.toString());
 
         FileWriter fw = isLoggedIP(session);

@@ -296,7 +296,7 @@ public class InterServerHandler {
             World.Broadcast.broadcastSmega(MaplePacketCreator.serverNotice(11, c.getChannel(), "[登录公告] : " + c.getPlayer().getName() + " lv." + c.getPlayer().getLevel() + " 已空降" + c.getPlayer().getMap().getMapName() + " ，大家快去围观" + gender + "吧！").getBytes());
         }
 
-        System.out.println(" -> [玩家登录] " + FileoutputUtil.NowTime() + " " + c.getPlayer().getName() + " lv." + c.getPlayer().getLevel() + " " + c.getSessionIPAddress());
+        System.out.println(" >>> [PLAYER] " + FileoutputUtil.NowTime() + " " + c.getPlayer().getName() + " lv." + c.getPlayer().getLevel() + " " + c.getSessionIPAddress());
 
         c.getSession().write(MaplePacketCreator.weirdStatUpdate());
     }
