@@ -4602,9 +4602,9 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
 
     public int getCSPoints(int type) {
         switch (type) {
-            case 0:
-                return acash;
             case 1:
+                return acash;
+            case 2:
                 return maplepoints;
             default:
                 return 0;
