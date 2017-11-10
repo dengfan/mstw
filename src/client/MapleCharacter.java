@@ -3068,7 +3068,7 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
     long t = 0;
     int c = 0; // 当前地图杀怪累积数量
     int e = 0; // 当前地图杀怪累积经验
-    long spend = -1; // 根据此值调整杀怪的经验值，值越小（说明开了挂，增加了杀怪效率），得到经验越少
+    long spend = -1; // 每杀50个怪所花费的秒数，根据此值调整杀怪的经验值，值越小（说明开了挂，增加了杀怪效率），得到经验越少
 
     int hpNow = 0;
     int 无敌指数 = 0; // 记录每50次杀怪的血量变化次数，如果一直没变，就判定为无敌，天谴降临
@@ -3262,8 +3262,8 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
 
             c++;
             e += gain;
-
-            // 在这里记录刷怪时的数据
+            
+            // 在这里记录刷怪时的数据，每杀50个怪计算一次所消耗的秒数
             if (c >= 50 && c % 50 == 0) {
                 java.util.Date dt = new java.util.Date();
                 java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
