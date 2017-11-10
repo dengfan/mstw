@@ -20,6 +20,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import server.Timer.*;
@@ -125,7 +126,7 @@ public class Start {
         //在线统计(30);
         
         定时任务(savePeriod);
-        
+
         //还原玩家NPC();
         System.out.println("==============> All launched successfully! Time：" + (System.currentTimeMillis() - currentTime) / 1000.0 + "s <==============");
     }
@@ -233,6 +234,27 @@ public class Start {
             }
         } catch (SQLException ex) {
             System.err.println("还原玩家NPC出错：" + ex.getMessage());
+        }
+    }
+
+    public static Map<String, Integer> ConfigValuesMap = new HashMap<>();
+
+    public static void GetConfigValues() {
+
+        //重载//
+        Connection con = DatabaseConnection.getConnection();
+        try {
+            PreparedStatement ps = con.prepareStatement("SELECT name, val FROM ConfigValues");
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    String name = rs.getString("name");
+                    int val = rs.getInt("val");
+                    ConfigValuesMap.put(name, val);
+                }
+            }
+            ps.close();
+        } catch (SQLException ex) {
+            System.err.println("GetConfigValues出错：" + ex.getMessage());
         }
     }
 
