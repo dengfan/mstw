@@ -21,7 +21,9 @@
 package handling.cashshop;
 
 import handling.MapleServerHandler;
+import handling.channel.ChannelServer;
 import handling.channel.PlayerStorage;
+import handling.login.LoginServer;
 import handling.mina.MapleCodecFactory;
 import java.net.InetSocketAddress;
 import org.apache.mina.core.buffer.IoBuffer;
@@ -42,7 +44,7 @@ public class CashShopServer {
 
     private static String ip;
     private static InetSocketAddress InetSocketadd;
-    private final static int PORT = 8596;
+    private final static int PORT = LoginServer.PORT + ChannelServer.getChannelCount() + 1;
     private static IoAcceptor acceptor;
     private static PlayerStorage players, playersMTS;
     private static boolean finishedShutdown = false;

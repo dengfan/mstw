@@ -122,8 +122,8 @@ public class ChannelServer implements Serializable {
             flags = Integer.parseInt(ServerProperties.getProperty("mxmxd.WFlags", "0"));
             adminOnly = Boolean.parseBoolean(ServerProperties.getProperty("mxmxd.Admin", "false"));
             eventSM = new EventScriptManager(this, ServerProperties.getProperty("mxmxd.Events", eventsConfigStr).split(","));
-            port = Short.parseShort(ServerProperties.getProperty("mxmxd.Port", "7512"));
-            port = Short.parseShort(String.valueOf(port + this.channel));           
+            //port = Short.parseShort(ServerProperties.getProperty("mxmxd.Port", "7512"));
+            port = Short.parseShort(String.valueOf(LoginServer.PORT + this.channel));
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

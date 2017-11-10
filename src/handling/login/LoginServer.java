@@ -93,7 +93,7 @@ public class LoginServer {
         serverName = ServerProperties.getProperty("mxmxd.ServerName", "MapleStory");
         eventMessage = ServerProperties.getProperty("mxmxd.EventMessage", "只开放冒险家职业");
         flag = Byte.parseByte(ServerProperties.getProperty("mxmxd.Flag", "3"));
-        PORT = Integer.parseInt(ServerProperties.getProperty("mxmxd.LPort", "8888"));
+        PORT = Integer.parseInt(ServerProperties.getProperty("mxmxd.LPort", "8484"));
         adminOnly = Boolean.parseBoolean(ServerProperties.getProperty("mxmxd.Admin", "false"));
 
         IoBuffer.setUseDirectBuffer(false);
