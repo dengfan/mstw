@@ -3095,7 +3095,7 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
     public void 标记作弊玩家() {
         try {
             Connection con = DatabaseConnection.getConnection();
-            PreparedStatement psu = con.prepareStatement("UPDATE accounts SET df_cheating_player = 1 WHERE id = ?");
+            PreparedStatement psu = con.prepareStatement("UPDATE accounts SET df_cheating_player = df_cheating_player + 1 WHERE id = ?");
             psu.setInt(1, accountid);
             psu.executeUpdate();
             psu.close();
@@ -3248,6 +3248,11 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
                 IsCheating = false;
             } else if (spend >= 260 && spend < 320) {
                 gain = (int) Math.floor(gain * 2);
+                if (level - mobLv == -1) {
+                    gain = (int) Math.floor(gain * 2);
+                }
+                IsCheating = false;
+            } else {
                 IsCheating = false;
             }
 
