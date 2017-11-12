@@ -56,6 +56,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Random;
 import java.util.Set;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -1067,7 +1068,7 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
         ResultSet rs = null;
 
         try {
-            if (accountid == 1 || isGM()) {
+            if (isGM()) {
                 java.util.Date dt = new java.util.Date();
                 java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                 dropMessage("存档@" + sdf.format(dt));
@@ -3189,7 +3190,7 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
         }
         // 无敌判断结束
 
-        if (isCheckKill || _isCheatingPlayer == 1) {
+        if (isCheckKill || _isCheatingPlayer > 0) {
             // 检查杀怪效率开始 ----------
 
             // 记录在每个地图杀怪的数量
@@ -3199,7 +3200,13 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
                 int count = mxmxdMapKilledCountMap.get(mapId);
                 mxmxdMapKilledCountMap.put(mapId, count + 1);
                 if (count > killedLimit) {
+                    IsCheating = true;
+                    if (IsCheating && new Random().nextInt(9) == 1) {
+                        dropMessage("[系统提示] : 你在此地图上杀怪的数量已超过每日限制，请前往其它地图继续吧。");
+                    }
                     return;
+                } else {
+                    IsCheating = false;
                 }
             }
 
@@ -3254,6 +3261,10 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
                 IsCheating = false;
             } else {
                 IsCheating = false;
+            }
+            
+            if (IsCheating && new Random().nextInt(9) == 1) {
+                dropMessage("[系统提示] : 你看起来很无聊，冒险岛上不需要这种勇士，去做点有意义的事情，挑战更高级别的怪物吧。");
             }
 
             if (isGM()) {
