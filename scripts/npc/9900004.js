@@ -20,9 +20,21 @@ function action(mode, type, selection) {
     }
 
     if (status == 0) {
+        var r = Math.ceil(Math.random() * 5);
+        if (r == 1) {
+            cm.getPlayer().dropMessage("[小贴士] : 人气度越高，你的“每个地图”的“当日可击杀总量”也会越高。");
+        } else if (r == 2) {
+            cm.getPlayer().dropMessage("[小贴士] : 任务成就值越高，你“每个击杀”获得的“额外经验值”也会越高。");
+        } else if (r == 3) {
+            cm.getPlayer().dropMessage("[小贴士] : 尽可能去完成每一个任务，每完成10个任务可领取1次丰厚的奖励。");
+        } else if (r == 4) {
+            cm.getPlayer().dropMessage("[小贴士] : 当你的疲劳值已满时，将不会获得经验值收益，请勿长时间游戏，注意休息。");
+        }
+
+        cm.getPlayer().dropTopMsg("“限制每个地图的每日击杀总量”的设定是反外挂措施之一。");
         var text = "\t\t\t\t#e#d  欢迎来到萌新冒险岛#n\r\n";
         text += "   点券：" + cm.getPlayer().getCSPoints(1) + " | 抵用券：" + cm.getPlayer().getCSPoints(2) + " | 人气：" + cm.getPlayer().getFame() + " | 任务：" + cm.getPlayer().getNumQuest() + "\r\n";
-        text += "   当前地图杀怪数量限制：" + cm.getPlayer().getKilledCountInCurrentMap() + " / " + (parseInt(cm.getPlayer().getMaxKillCountInCurrentMap()) + parseInt(cm.getPlayer().getFame() * 100)) + "\r\n#b";
+        text += "   当前地图内今日总共可击杀：" + (parseInt(cm.getPlayer().getMaxKillCountInCurrentMap()) + parseInt(cm.getPlayer().getFame() * 100)) + "，今日已击杀：" + cm.getPlayer().getKilledCountInCurrentMap() + "\r\n#b";
         //for (var i = 0; i < 21; i++) {
         //    text += 爱心;
         //}

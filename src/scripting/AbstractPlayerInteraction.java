@@ -1331,7 +1331,7 @@ public abstract class AbstractPlayerInteraction {
             chr.changeMap(mapid);
             c.getPlayer().getMap().resetAriantPQ(c.getPlayer().getAverageMapLevel());
             chr.getClient().getSession().write(MaplePacketCreator.getClock(8 * 60));
-            chr.dropMessage(5, "建议把你的小地图忘下移动，来查看排名.");
+            chr.dropMessage(5, "建议把你的小地图往下移动，来查看排名。");
             MapTimer.getInstance().schedule(new Runnable() {
 
                 @Override

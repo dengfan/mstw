@@ -3215,8 +3215,8 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
                 
                 if (count > _maxKillCountInCurrentMap + (fame * 100)) {
                     IsDropNone = true;
-                    if (IsDropNone && new Random().nextInt(9) == 1) {
-                        dropMessage("[系统提示] : 你在此地图上杀怪的数量已超过每日限制，请前往其它地图继续吧。");
+                    if (new Random().nextInt(5) == 1) {
+                        dropTopMsg("你在此地图上的击杀量已超过当日限制，请去别的地方吧。");
                     }
                     return;
                 } else {
@@ -3278,10 +3278,11 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
             }
 
             if (IsDropNone) {
-                if (new Random().nextInt(9) == 1) {
+                int r_1_9 = new Random().nextInt(9);
+                if (r_1_9 == 1 || r_1_9 == 9) {
+                    dropTopMsg("这里真是毫无挑战，你的收益已锐减，重新上线再去别的地方吧。");
+                } else if (r_1_9 == 2) {
                     dropMessage("[系统提示] : 持强凌弱不算勇士，去做点有意义的事情，挑战更高级的怪物吧。");
-                } else if (new Random().nextInt(9) == 2) {
-                    dropMessage("[系统提示] : 这里对你而言已毫无挑战，收益已锐减，重新上线可恢复。");
                 }
             }
 
