@@ -1024,7 +1024,7 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
     }
 
     public void 定时记录状态(int period) throws SQLException {
-        if (accountid == 1 || isGM()) {
+        if (isGM()) {
             java.util.Date dt = new java.util.Date();
             java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             dropMessage("定时记录状态@" + sdf.format(dt));
@@ -3112,12 +3112,12 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
         标记作弊玩家();
 
         // 减人气
-        加减人气(-100, false);
+        加减人气(level * -1, false);
 
         无敌指数 = 0;
         吸怪指数 = 0;
         spend = -1;
-        startMapEffect(" \\(\"▔□▔)/ 天谴降临：你不死，天理难容！！！ \\(\"▔□▔)/ ", 5121009);
+        startMapEffect(" \\(\"▔□▔)/ 天谴降临：你不死，天理难容！！！  ", 5121009);
         setHp(0);
         updateSingleStat(MapleStat.HP, 0);
     }
@@ -3157,7 +3157,7 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
         if (吸怪指数 > 200) { // 在同一个位置杀怪过多，判断为吸怪
             吸怪指数 = 0;
             if (isGM()) {
-                dropMessage(">>>>>>> 吸怪 <<<<<<<");
+                dropMessage("[天谴降临] : 吸怪");
             } else {
                 天谴降临();
             }
@@ -3182,7 +3182,7 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
         if (无敌指数 > 计算无敌指数上限(mobLv)) {
             无敌指数 = 0;
             if (isGM()) {
-                dropMessage(">>>>>>> 无敌 <<<<<<<");
+                dropMessage("[天谴降临] : 无敌");
             } else {
                 天谴降临();
             }
@@ -3267,7 +3267,7 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
                 if (new Random().nextInt(9) == 1) {
                     dropMessage("[系统提示] : 真是无聊，持强凌弱不算勇士，去做点有意义的事情，挑战更高级的怪物吧。");
                 } else if (new Random().nextInt(9) == 2) {
-                    dropMessage(1, "你此刻已无收益，请重新上线吧。");
+                    dropMessage(1, "你的打怪收益已锐减，请重新上线以恢复。");
                 }
             }
 

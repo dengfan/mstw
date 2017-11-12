@@ -21,7 +21,7 @@ function action(mode, type, selection) {
 
     if (status == 0) {
         var text = "\t\t\t\t#e#d  欢迎来到萌新冒险岛#n\r\n";
-        text += "\t\t点券：" + cm.getPlayer().getCSPoints(0) + " | 抵用券：" + cm.getPlayer().getCSPoints(1) + " | 任务成就：" + cm.getPlayer().getNumQuest() + "\r\n#b";
+        text += "\t\t点券：" + cm.getPlayer().getCSPoints(1) + " | 抵用券：" + cm.getPlayer().getCSPoints(2) + " | 任务成就：" + cm.getPlayer().getNumQuest() + "\r\n#b";
         //for (var i = 0; i < 21; i++) {
         //    text += 爱心;
         //}
