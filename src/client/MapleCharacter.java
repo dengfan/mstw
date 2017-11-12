@@ -186,10 +186,11 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
     private int _tiredPoints = 0;
     private int _isCheatingPlayer = 0;
     private int _questPoints = 0;
-    private static final int killedLimit = Integer.parseInt(ServerProperties.getProperty("mxmxd.杀怪数量限制", "1000"));
-    private static final int tiredMinutes = Integer.parseInt(ServerProperties.getProperty("mxmxd.疲劳度最大值", "600"));
-    private static final int expGainLimit = Integer.parseInt(ServerProperties.getProperty("mxmxd.经验加成条件", "500"));
-    private static final Boolean isCheckKill = Boolean.parseBoolean(ServerProperties.getProperty("mxmxd.检查杀怪异常", "false"));
+    
+    private static final int _maxKillCountInCurrentMap = Integer.parseInt(ServerProperties.getProperty("mxmxd.杀怪数量限制", "1000"));
+    private static final int _tiredMinutes = Integer.parseInt(ServerProperties.getProperty("mxmxd.疲劳度最大值", "600"));
+    private static final int _expGainLimit = Integer.parseInt(ServerProperties.getProperty("mxmxd.经验加成条件", "500"));
+    private static final Boolean _isCheckKillAction = Boolean.parseBoolean(ServerProperties.getProperty("mxmxd.检查杀怪异常", "false"));
 
     private MapleCharacter(final boolean ChannelServer) {
         setStance(0);
@@ -3077,6 +3078,18 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
     int posX = 0; // 杀怪时的位置
     int 吸怪指数 = 0;
 
+    public int getMaxKillCountInCurrentMap() {
+        return _maxKillCountInCurrentMap;
+    }
+
+    public int getKilledCountInCurrentMap() {
+        if (mxmxdMapKilledCountMap.containsKey(map.getId())) {
+            return mxmxdMapKilledCountMap.get(map.getId());
+        }
+
+        return 0;
+    }
+
     public void 加减人气(int fame, Boolean isShow) {
         if (fame == 0) {
             return;
@@ -3112,7 +3125,7 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
         标记作弊玩家();
 
         // 减人气
-        加减人气(level * -1, false);
+        加减人气(level * -2, false);
 
         无敌指数 = 0;
         吸怪指数 = 0;
@@ -3190,7 +3203,7 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
         }
         // 无敌判断结束
 
-        if (isCheckKill || _isCheatingPlayer > 0) {
+        if (_isCheckKillAction || _isCheatingPlayer > 0) {
             // 检查杀怪效率开始 ----------
 
             // 记录在每个地图杀怪的数量
@@ -3199,7 +3212,8 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
             } else {
                 int count = mxmxdMapKilledCountMap.get(mapId);
                 mxmxdMapKilledCountMap.put(mapId, count + 1);
-                if (count > killedLimit) {
+                
+                if (count > _maxKillCountInCurrentMap + (fame * 100)) {
                     IsDropNone = true;
                     if (IsDropNone && new Random().nextInt(9) == 1) {
                         dropMessage("[系统提示] : 你在此地图上杀怪的数量已超过每日限制，请前往其它地图继续吧。");
@@ -3262,7 +3276,7 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
             } else {
                 IsDropNone = false;
             }
-            
+
             if (IsDropNone) {
                 if (new Random().nextInt(9) == 1) {
                     dropMessage("[系统提示] : 持强凌弱不算勇士，去做点有意义的事情，挑战更高级的怪物吧。");
@@ -3277,7 +3291,7 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
 
             c++;
             e += gain;
-            
+
             // 在这里记录刷怪时的数据，每杀50个怪计算一次所消耗的秒数
             if (c >= 50 && c % 50 == 0) {
                 java.util.Date dt = new java.util.Date();
@@ -3298,7 +3312,7 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
         int total = gain + Class_Bonus_EXP + Equipment_Bonus_EXP + Premium_Bonus_EXP + wedding_EXP;
 
         // 任务成就经验奖励
-        if (_questPoints > 0 && gain >= expGainLimit) {
+        if (_questPoints > 0 && gain >= _expGainLimit) {
             total += getQuestExp(_questPoints);
         }
 
@@ -3360,7 +3374,7 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
                 client.getSession().write(MaplePacketCreator.GainEXP_Monster(gain, white, wedding_EXP, partyinc, Class_Bonus_EXP, Equipment_Bonus_EXP, Premium_Bonus_EXP));
 
                 // 任务奖励经验
-                if (_questPoints > 0 && gain >= expGainLimit) {
+                if (_questPoints > 0 && gain >= _expGainLimit) {
                     client.getSession().write(MaplePacketCreator.GainEXP_Others(getQuestExp(_questPoints), false, white));
                 }
             }
@@ -6830,10 +6844,10 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
     }
 
     public boolean isTired() {
-        if (tiredMinutes > 24 * 60) {
+        if (_tiredMinutes > 24 * 60) {
             return false;
         }
-        return _tiredPoints > tiredMinutes;
+        return _tiredPoints > _tiredMinutes;
     }
 
     public int getTiredProgress() {
@@ -6841,7 +6855,7 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
             return 100;
         }
 
-        double val = (_tiredPoints / (double) tiredMinutes) * 100;
+        double val = (_tiredPoints / (double) _tiredMinutes) * 100;
         return (int) val;
     }
 

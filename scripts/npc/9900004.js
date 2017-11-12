@@ -21,7 +21,8 @@ function action(mode, type, selection) {
 
     if (status == 0) {
         var text = "\t\t\t\t#e#d  欢迎来到萌新冒险岛#n\r\n";
-        text += "\t\t点券：" + cm.getPlayer().getCSPoints(1) + " | 抵用券：" + cm.getPlayer().getCSPoints(2) + " | 任务成就：" + cm.getPlayer().getNumQuest() + "\r\n#b";
+        text += "   点券：" + cm.getPlayer().getCSPoints(1) + " | 抵用券：" + cm.getPlayer().getCSPoints(2) + " | 人气：" + cm.getPlayer().getFame() + " | 任务：" + cm.getPlayer().getNumQuest() + "\r\n";
+        text += "   当前地图杀怪数量限制：" + cm.getPlayer().getKilledCountInCurrentMap() + " / " + (parseInt(cm.getPlayer().getMaxKillCountInCurrentMap()) + parseInt(cm.getPlayer().getFame() * 100)) + "\r\n#b";
         //for (var i = 0; i < 21; i++) {
         //    text += 爱心;
         //}
