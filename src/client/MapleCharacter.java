@@ -3267,7 +3267,7 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
                 if (new Random().nextInt(9) == 1) {
                     dropMessage("[系统提示] : 真是无聊，持强凌弱不算勇士，去做点有意义的事情，挑战更高级的怪物吧。");
                 } else if (new Random().nextInt(9) == 2) {
-                    dropMessage(1, "你的打怪收益已锐减，请重新上线以恢复。");
+                    dropMessage("[系统提示] : 这里对你而言已毫无挑战，收益已锐减，重新上线可恢复。");
                 }
             }
 
