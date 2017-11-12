@@ -182,7 +182,7 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
     public int ariantScore = 0;
     public long lastGainHM;
 
-    public boolean IsCheating = false;
+    public boolean IsDropNone = false;
     private int _tiredPoints = 0;
     private int _isCheatingPlayer = 0;
     private int _questPoints = 0;
@@ -3200,13 +3200,13 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
                 int count = mxmxdMapKilledCountMap.get(mapId);
                 mxmxdMapKilledCountMap.put(mapId, count + 1);
                 if (count > killedLimit) {
-                    IsCheating = true;
-                    if (IsCheating && new Random().nextInt(9) == 1) {
+                    IsDropNone = true;
+                    if (IsDropNone && new Random().nextInt(9) == 1) {
                         dropMessage("[系统提示] : 你在此地图上杀怪的数量已超过每日限制，请前往其它地图继续吧。");
                     }
                     return;
                 } else {
-                    IsCheating = false;
+                    IsDropNone = false;
                 }
             }
 
@@ -3230,41 +3230,45 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
             // 高效杀怪判断
             if (spend >= 0 && spend < 12) {
                 天谴降临();
-                IsCheating = true;
+                IsDropNone = true;
                 return;
             } else if (spend >= 12 && spend < 16) {
-                IsCheating = true;
+                IsDropNone = true;
                 return;
             } else if (spend >= 16 && spend < 100) {
                 gain = (int) Math.floor(gain * 0.1);
                 if (gain > level) {
                     gain = level;
                 }
-                IsCheating = true;
+                IsDropNone = true;
             } else if (spend >= 100 && spend < 130) {
                 gain = (int) Math.floor(gain * 0.4);
                 if (gain > level * 4) {
                     gain = level * 2;
                 }
-                IsCheating = true;
+                IsDropNone = true;
             } else if (spend >= 130 && spend < 160) {
                 gain = (int) Math.floor(gain * 0.8);
                 if (gain > level * 8) {
                     gain = level * 4;
                 }
-                IsCheating = false;
+                IsDropNone = false;
             } else if (spend >= 260 && spend < 320) {
                 gain = (int) Math.floor(gain * 2);
                 if (level - mobLv == -1) {
                     gain = (int) Math.floor(gain * 2);
                 }
-                IsCheating = false;
+                IsDropNone = false;
             } else {
-                IsCheating = false;
+                IsDropNone = false;
             }
             
-            if (IsCheating && new Random().nextInt(9) == 1) {
-                dropMessage("[系统提示] : 你看起来很无聊，冒险岛上不需要这种勇士，去做点有意义的事情，挑战更高级别的怪物吧。");
+            if (IsDropNone) {
+                if (new Random().nextInt(9) == 1) {
+                    dropMessage("[系统提示] : 真是无聊，持强凌弱不算勇士，去做点有意义的事情，挑战更高级的怪物吧。");
+                } else if (new Random().nextInt(9) == 2) {
+                    dropMessage(1, "你此刻已无收益，请重新上线吧。");
+                }
             }
 
             if (isGM()) {
