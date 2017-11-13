@@ -86,6 +86,7 @@ import server.MapleCarnivalFactory;
 import server.MapleCarnivalFactory.MCSkill;
 import server.MapleSquad;
 import server.MapleSquad.MapleSquadType;
+import server.ServerProperties;
 import server.SpeedRunner;
 import server.Timer.MapTimer;
 import server.events.MapleEvent;
@@ -133,6 +134,8 @@ public final class MapleMap {
     private MapleSquadType squad;
     private int fieldType;
     private Map<String, Integer> environment = new LinkedHashMap<String, Integer>();
+    
+    private static final int _dropLife = Integer.parseInt(ServerProperties.getProperty("mxmxd.DropLife", "30000"));
 
     public MapleMap(final int mapid, final int channel, final int returnMapId, final float monsterRate) {
         this.mapid = mapid;
@@ -1636,7 +1639,7 @@ public final class MapleMap {
             }
         }, null);
         if (!everlast) {
-            mdrop.registerExpire(120000);
+            mdrop.registerExpire(_dropLife);
             if (droptype == 0 || droptype == 1) {
                 mdrop.registerFFA(30000);
             }
@@ -1657,7 +1660,7 @@ public final class MapleMap {
             }
         }, null);
 
-        mdrop.registerExpire(120000);
+        mdrop.registerExpire(_dropLife);
         if (droptype == 0 || droptype == 1) {
             mdrop.registerFFA(30000);
         }
@@ -1680,7 +1683,7 @@ public final class MapleMap {
         }, null);
 //	broadcastMessage(MaplePacketCreator.dropItemFromMapObject(mdrop, mob.getPosition(), dropPos, (byte) 0));
 
-        mdrop.registerExpire(120000);
+        mdrop.registerExpire(_dropLife);
         if (droptype == 0 || droptype == 1) {
             mdrop.registerFFA(30000);
         }
@@ -1746,7 +1749,7 @@ public final class MapleMap {
             }
         }, null);
         broadcastMessage(MaplePacketCreator.dropItemFromMapObject(mdrop, pos, pos, (byte) 0));
-        mdrop.registerExpire(120000);
+        mdrop.registerExpire(_dropLife);
     }
 
     public final void spawnItemDrop(final MapleMapObject dropper, final MapleCharacter owner, final IItem item, Point pos, final boolean ffaDrop, final boolean playerDrop) {
@@ -1769,7 +1772,7 @@ public final class MapleMap {
         broadcastMessage(MaplePacketCreator.dropItemFromMapObject(drop, dropper.getPosition(), droppos, (byte) 0));
 
         if (!everlast) {
-            drop.registerExpire(120000);
+            drop.registerExpire(_dropLife);
             activateItemReactors(drop, owner.getClient());
         }
     }
