@@ -104,7 +104,7 @@ function start() {
 
 function node(n, t) {
     var text = "";
-    var value = cm.getPlayer().获取任务成就奖励进度();
+    var value = cm.getPlayer().getQuestProgress();
     var q = cm.getPlayer().getNumQuest();
     n = n < 100 ? " " + n : n;
     if (q >= n) {
@@ -124,6 +124,10 @@ function node(n, t) {
 }
 
 function 奖励(n) {
+    if (n < 0) {
+        cm.dispose();
+        return;
+    }
     var i = getIndex(n);
     var r = Math.ceil(Math.random() * 2);
     var a = arr[i][r - 1];
