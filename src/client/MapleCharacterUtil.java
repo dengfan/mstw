@@ -29,13 +29,33 @@ import tools.Pair;
 import java.util.regex.Pattern;
 
 import database.DatabaseConnection;
+import java.util.regex.Matcher;
 
 public class MapleCharacterUtil {
 
-    private static final Pattern namePattern = Pattern.compile("[a-zA-Z0-9_-]{3,12}");
-    private static final Pattern petPattern = Pattern.compile("[a-zA-Z0-9_-]{4,12}");
+    private static final Pattern namePattern = Pattern.compile("([0-9\\u4e00-\\u9fa5]){2,5}");
+    private static final Pattern petPattern = Pattern.compile("([0-9\\u4e00-\\u9fa5]){2,5}");
+
+    /**
+     * @param regex 正则表达式字符串
+     * @param str 要匹配的字符串
+     * @return 如果str 符合 regex的正则表达式格式,返回true, 否则返回 false;
+     */
+    private static boolean match(Pattern regexPattern, String str) {
+        Matcher matcher = regexPattern.matcher(str);
+        return matcher.matches();
+    }
+    
+    public static void main(final String args[]) {
+        String str = "一二三卩";
+        boolean isOk = canCreateChar(str);
+        System.out.printf("" + isOk);
+    }
 
     public static final boolean canCreateChar(final String name) {
+        if (!match(namePattern, name)) {
+            return false;
+        }
         if (getIdByName(name) != -1 || !isEligibleCharName(name)) {
             return false;
         }

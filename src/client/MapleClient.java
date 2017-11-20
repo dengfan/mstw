@@ -648,7 +648,7 @@ public class MapleClient implements Serializable {
                         }
                     }
 
-                    // 登录成功，只要登录成功就熏置一下玩家
+                    // 登录成功，只要登录成功就重置一下玩家
                     if (loginok == 0) {
                         ChannelServer.forceRemovePlayerByAccId(this, accId);
                         updateLoginState(MapleClient.LOGIN_NOTLOGGEDIN, ip1);

@@ -52,8 +52,8 @@ public class AutoRegister {
                 PreparedStatement ps = con.prepareStatement("INSERT INTO accounts (name, password, email, birthday, macs, SessionIP) VALUES (?, ?, ?, ?, ?, ?)");
                 ps.setString(1, login);
                 ps.setString(2, LoginCrypto.hexSha1(pwd));
-                ps.setString(3, "autoregister@mail.com");
-                ps.setString(4, "2016-04-10");
+                ps.setString(3, "autoregister@mxmxd.ol");
+                ps.setString(4, "2016-11-07");
                 ps.setString(5, macs);
                 ps.setString(6, "/" + sockAddr.substring(1, sockAddr.lastIndexOf(':')));
                 ps.executeUpdate();

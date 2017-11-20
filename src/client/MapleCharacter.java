@@ -109,7 +109,7 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
     private String name, chalktext, BlessOfFairy_Origin, charmessage;
     private long lastCombo, lastfametime, keydown_skill;
     private byte dojoRecord, gmLevel, gender, initialSpawnPoint, skinColor, guildrank = 5, allianceRank = 5, world, fairyExp = 30, subcategory; // Make this a quest record, TODO : Transfer it somehow with the current data
-    private short level, mulung_energy, combo, availableCP, totalCP, fame, hpApUsed, job, remainingAp;
+    private short level, mulung_energy, combo, availableCP, totalCP, fame, fame2, hpApUsed, job, remainingAp;
     private int accountid, id, meso, exp, hair, face, mapid, bookCover, dojo,
             guildid = 0, fallcounter = 0, maplepoints, acash, chair, itemEffect, points, vpoints,
             rank = 1, rankMove = 0, jobRank = 1, jobRankMove = 0, marriageId, marriageItemId = 0,
@@ -2260,6 +2260,10 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
 
     public final short getFame() {
         return fame;
+    }
+    
+    public final short getTotalFame() {
+        return (short) (fame + fame2);
     }
 
     public final int getDojo() {
