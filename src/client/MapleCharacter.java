@@ -3124,12 +3124,12 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
         }
     }
 
-    public void 天谴降临() {
+    public void 天谴降临(int subtractiveFame) {
         // 标记作弊玩家
         标记作弊玩家();
 
         // 减人气
-        加减人气(level * -2, false);
+        加减人气(subtractiveFame > -10 ? -10 : subtractiveFame, false);
 
         无敌指数 = 0;
         吸怪指数 = 0;
@@ -3142,13 +3142,13 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
     public int 计算无敌指数上限(int mobLevel) {
         int lvBalance = level - mobLevel;
         if (lvBalance <= 0) {
-            return 100;
+            return 100 * 2;
         } else if (lvBalance < 5) {
-            return 150;
+            return 150 * 2;
         } else if (lvBalance < 10) {
-            return 200;
+            return 200 * 2;
         } else {
-            return lvBalance * 20;
+            return lvBalance * 20 * 2;
         }
     }
 
@@ -3171,12 +3171,12 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
             吸怪指数 = 0;
         }
 
-        if (吸怪指数 > 200) { // 在同一个位置杀怪过多，判断为吸怪
+        if (吸怪指数 > 200 * 2) { // 在同一个位置杀怪过多，判断为吸怪
             吸怪指数 = 0;
             if (isGM()) {
                 dropMessage("[天谴降临] : 吸怪");
             } else {
-                天谴降临();
+                天谴降临(-100);
             }
             return;
         }
@@ -3201,7 +3201,7 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
             if (isGM()) {
                 dropMessage("[天谴降临] : 无敌");
             } else {
-                天谴降临();
+                天谴降临(-100);
             }
             return;
         }
@@ -3247,7 +3247,7 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
 
             // 高效杀怪判断
             if (spend >= 0 && spend < 12) {
-                天谴降临();
+                天谴降临(level * -2);
                 IsDropNone = true;
                 return;
             } else if (spend >= 12 && spend < 16) {
