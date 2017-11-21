@@ -186,10 +186,10 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
     private int _tiredPoints = 0;
     private int _isCheatingPlayer = 0;
     private int _questPoints = 0;
-    
+
     private static final int _maxKillCountInCurrentMap = Integer.parseInt(ServerProperties.getProperty("mxmxd.杀怪数量限制", "1000"));
     private static final int _tiredMinutes = Integer.parseInt(ServerProperties.getProperty("mxmxd.疲劳度最大值", "600"));
-    private static final int _expGainLimit = Integer.parseInt(ServerProperties.getProperty("mxmxd.经验加成条件", "500"));
+    //private static final int _expGainLimit = Integer.parseInt(ServerProperties.getProperty("mxmxd.经验加成条件", "500"));
     private static final Boolean _isCheckKillAction = Boolean.parseBoolean(ServerProperties.getProperty("mxmxd.检查杀怪异常", "false"));
 
     private MapleCharacter(final boolean ChannelServer) {
@@ -454,6 +454,8 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
         ret.client = client;
         ret.id = charid;
 
+        ret.fame2 = (short) MonsterBook.getMonsterCategories(charid);
+
         Connection con = DatabaseConnection.getConnection();
         PreparedStatement ps = null;
         PreparedStatement pse = null;
@@ -471,7 +473,9 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
             ret.name = rs.getString("name");
 
             ret.level = rs.getShort("level");
-            ret.fame = rs.getShort("fame");
+
+            // 读取时加上奖励人气值
+            ret.fame = (short) (rs.getShort("fame") + ret.fame2);
 
             ret.stats.str = rs.getShort("str");
             ret.stats.dex = rs.getShort("dex");
@@ -1062,6 +1066,12 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
     }
 
     public void saveToDB(boolean dc, boolean fromcs) {
+        try {
+            fame2 = (short) MonsterBook.getMonsterCategories(id);
+        } catch (SQLException ex) {
+            System.err.println("读取怪物卡数据出错：" + ex);
+        }
+        
         Connection con = DatabaseConnection.getConnection();
 
         PreparedStatement ps = null;
@@ -1121,7 +1131,9 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
 
             ps = con.prepareStatement("UPDATE characters SET level = ?, fame = ?, str = ?, dex = ?, luk = ?, `int` = ?, exp = ?, hp = ?, mp = ?, maxhp = ?, maxmp = ?, sp = ?, ap = ?, gm = ?, skincolor = ?, gender = ?, job = ?, hair = ?, face = ?, map = ?, meso = ?, hpApUsed = ?, spawnpoint = ?, party = ?, buddyCapacity = ?, monsterbookcover = ?, dojo_pts = ?, dojoRecord = ?, pets = ?, subcategory = ?, marriageId = ?, currentrep = ?, totalrep = ?, charmessage = ?, expression = ?, constellation = ?, blood = ?, month = ?, day = ?, beans = ?, prefix = ?, name = ?, mountid = ? WHERE id = ?", Statement.RETURN_GENERATED_KEYS);
             ps.setInt(1, level);
-            ps.setShort(2, fame);
+
+            // 保存时减去奖励人气值
+            ps.setShort(2, (short) (fame - fame2));
             ps.setShort(3, stats.getStr());
             ps.setShort(4, stats.getDex());
             ps.setShort(5, stats.getLuk());
@@ -2258,12 +2270,14 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
         return level;
     }
 
+    // 总人气
     public final short getFame() {
         return fame;
     }
-    
-    public final short getTotalFame() {
-        return (short) (fame + fame2);
+
+    // 根据收集的怪物卡数据，奖励的人气值
+    public final short getFame2() {
+        return fame2;
     }
 
     public final int getDojo() {
@@ -3066,6 +3080,10 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
     public int getQuestExp(final int questPoints) {
         return questPoints * 10 + 20;
     }
+    
+    public int getPerKilledRewardExp() {
+        return getQuestExp(_questPoints) + fame;
+    }
 
     // 此集合在每次角色存档时会被清空
     List<MxmxdGainExpMonsterLog> mxmxdGainExpMonsterLogs = new ArrayList<>();
@@ -3216,7 +3234,7 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
             } else {
                 int count = mxmxdMapKilledCountMap.get(mapId);
                 mxmxdMapKilledCountMap.put(mapId, count + 1);
-                
+
                 if (count > _maxKillCountInCurrentMap + (fame * 100)) {
                     IsDropNone = true;
                     if (new Random().nextInt(5) == 1) {
@@ -3317,8 +3335,8 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
         int total = gain + Class_Bonus_EXP + Equipment_Bonus_EXP + Premium_Bonus_EXP + wedding_EXP;
 
         // 任务成就经验奖励
-        if (_questPoints > 0 && gain >= _expGainLimit) {
-            total += getQuestExp(_questPoints);
+        if (_questPoints > 0 && fame > 20) {
+            total += getPerKilledRewardExp();
         }
 
         int partyinc = 0;
@@ -3379,8 +3397,8 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
                 client.getSession().write(MaplePacketCreator.GainEXP_Monster(gain, white, wedding_EXP, partyinc, Class_Bonus_EXP, Equipment_Bonus_EXP, Premium_Bonus_EXP));
 
                 // 任务奖励经验
-                if (_questPoints > 0 && gain >= _expGainLimit) {
-                    client.getSession().write(MaplePacketCreator.GainEXP_Others(getQuestExp(_questPoints), false, white));
+                if (_questPoints > 0 && fame > 20) {
+                    client.getSession().write(MaplePacketCreator.GainEXP_Others(getPerKilledRewardExp(), false, white));
                 }
             }
             //stats.checkEquipLevels(this, total);

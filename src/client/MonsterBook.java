@@ -100,6 +100,22 @@ public class MonsterBook implements Serializable {
         
         return count > 0;
     }
+    
+    public static int getMonsterCategories(final int charid) throws SQLException {
+        int count = 0;
+        
+        final Connection con = DatabaseConnection.getConnection();
+        try (PreparedStatement ps = con.prepareStatement("select count(charid) monsterCategories from monsterbook where `LEVEL` >= 3 AND charid = ? GROUP BY charid")) {
+            ps.setInt(1, charid);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    count = rs.getInt("monsterCategories");
+                }
+            }
+        }
+        
+        return count;
+    }
 
     public final void saveCards(final int charid) throws SQLException {
         if (!changed || cards.isEmpty()) {

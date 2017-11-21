@@ -32,19 +32,23 @@ function action(mode, type, selection) {
         }
 
         cm.getPlayer().dropTopMsg("“限制每个地图的每日击杀总量”的设定是反外挂措施之一。");
-        var text = "\t\t\t\t#e#d  欢迎来到萌新冒险岛#n\r\n";
+        var text = "\t\t\t\t#e#d  欢迎来到萌新冒险岛#n";
 
         var 点券 = cm.getPlayer().getCSPoints(1);
         var 抵用券 = cm.getPlayer().getCSPoints(2);
-        var 人气值 = cm.getPlayer().getFame();
-        var 任务值 = cm.getPlayer().getNumQuest();
-        text += "   点券：" + 点券 + " | 抵用券：" + 抵用券 + " | 人气：" + 人气值 + " | 任务：" + 任务值 + "\r\n";
+        var 人气值 = parseInt(cm.getPlayer().getFame());
+        var 人气值2 = parseInt(cm.getPlayer().getFame2());
+        var 任务值 = parseInt(cm.getPlayer().getNumQuest());
+        text += "\r\n点券 #e" + 点券 + "#n | 抵用券 #e" + 抵用券 + "#n | 人气 #r#e" + 人气值 + "#n#d | 任务 #e" + 任务值 + "#n";
+
+        var 额外经验值奖励 = parseInt(cm.getPlayer().getPerKilledRewardExp());
+        text += "\r\n每个击杀额外奖励经验 #r#e" + 额外经验值奖励 + "#n#d，要求人气度 #e20+#n";
 
         var 当日当前地图可击杀总数 = parseInt(cm.getPlayer().getMaxKillCountInCurrentMap());
         当日当前地图可击杀总数 += parseInt(人气值 * 100);
         var 当日当前地图已击杀数 = cm.getPlayer().getKilledCountInCurrentMap();
 
-        text += "   当前地图内今日总共可击杀：" + 当日当前地图可击杀总数 + "，今日已击杀：" + 当日当前地图已击杀数 + "\r\n#b";
+        text += "\r\n每个地图内今日总共可击杀 #e" + 当日当前地图可击杀总数 + "#n，今日已击杀 #e" + 当日当前地图已击杀数 + "#n\r\n#b";
         //for (var i = 0; i < 21; i++) {
         //    text += 爱心;
         //}
@@ -52,8 +56,8 @@ function action(mode, type, selection) {
         text += "#L100005#快捷传送#l #L100006#快捷仓库#l #L100007#快捷商店#l\r\n";
         var v1 = cm.getPlayer().getTiredProgress();
         var v2 = cm.getPlayer().getQuestProgress();
-        text += "\r\n#k   #B" + v1 + "# 今日疲劳值(" + v1 + "%)";
-        text += "\r\n#k   #B" + v2 + "# 当前任务成就之进度(" + v2 + "%)";
+        text += "\r\n#k#B" + v1 + "# 今日疲劳值(" + v1 + "%)";
+        text += "\r\n#k#B" + v2 + "# 当前任务成就之进度(" + v2 + "%)";
         //text += "#L4##b枫叶兑换#l #L2##b在线奖励#l\r\n";
         //text += "#L4##b枫叶兑换#l #L22##b材料兑换#l #L998##b副本兑换#l\r\n";
         //text += "#L5##b删除物品#l\r\n";
