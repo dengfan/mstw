@@ -45,10 +45,9 @@ function action(mode, type, selection) {
         text += "\r\n每个击杀额外奖励经验 #r#e" + 额外经验值奖励 + "#n#d，要求人气度 #e20+#n";
 
         var 当日当前地图可击杀总数 = parseInt(cm.getPlayer().getMaxKillCountInCurrentMap());
-        当日当前地图可击杀总数 += parseInt(人气值 * 100);
-        var 当日当前地图已击杀数 = cm.getPlayer().getKilledCountInCurrentMap();
+        var 当日当前地图已击杀数 = parseInt(cm.getPlayer().getKilledCountInCurrentMap());
 
-        text += "\r\n每个地图内今日总共可击杀 #e" + 当日当前地图可击杀总数 + "#n，今日已击杀 #e" + 当日当前地图已击杀数 + "#n\r\n#b";
+        text += "\r\n每个地图内今日可击杀 #e" + 当日当前地图可击杀总数 + "#n，本地图今日已击杀 #e" + 当日当前地图已击杀数 + "#n\r\n#b";
         //for (var i = 0; i < 21; i++) {
         //    text += 爱心;
         //}

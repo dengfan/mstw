@@ -187,12 +187,15 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
     private int _isCheatingPlayer = 0;
     private int _questPoints = 0;
 
-    private static final int _maxKillCountInCurrentMap = Integer.parseInt(ServerProperties.getProperty("mxmxd.杀怪数量限制", "1000"));
-    private static final int _tiredMinutes = Integer.parseInt(ServerProperties.getProperty("mxmxd.疲劳度最大值", "600"));
-    //private static final int _expGainLimit = Integer.parseInt(ServerProperties.getProperty("mxmxd.经验加成条件", "500"));
-    private static final Boolean _isCheckKillAction = Boolean.parseBoolean(ServerProperties.getProperty("mxmxd.检查杀怪异常", "false"));
+    private static int _maxKillCountInCurrentMap = 0;
+    private static int _tiredMinutes = 0;
+    private static Boolean _isCheckKillAction = false;
 
     private MapleCharacter(final boolean ChannelServer) {
+        _maxKillCountInCurrentMap = Integer.parseInt(ServerProperties.getProperty("mxmxd.杀怪数量限制", "1000"));
+        _tiredMinutes = Integer.parseInt(ServerProperties.getProperty("mxmxd.疲劳度最大值", "600"));
+        _isCheckKillAction = Boolean.parseBoolean(ServerProperties.getProperty("mxmxd.检查杀怪异常", "false"));
+        
         setStance(0);
         setPosition(new Point(0, 0));
 
@@ -294,6 +297,7 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
 
     public final static MapleCharacter ReconstructChr(final CharacterTransfer ct, final MapleClient client, final boolean isChannel) {
         final MapleCharacter ret = new MapleCharacter(true); // Always true, it's change channel
+        ret._questPoints = ct.questPoints;
         ret.client = client;
         if (!isChannel) {
             ret.client.setChannel(ct.channel);
@@ -442,7 +446,6 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
         ret.lastGainHM = ct.lastGainHM;
         ret.maplepoints = ct.MaplePoints;
         ret.mount = new MapleMount(ret, ct.mount_itemid, GameConstants.isKOC(ret.job) ? 10001004 : (GameConstants.isAran(ret.job) ? 20001004 : (GameConstants.isEvan(ret.job) ? 20011004 : 1004)), ct.mount_Fatigue, ct.mount_level, ct.mount_exp);
-
         ret.stats.recalcLocalStats(true);
 
         return ret;
@@ -476,7 +479,8 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
 
             // 读取时加上奖励人气值
             ret.fame = (short) (rs.getShort("fame") + ret.fame2);
-
+            FileoutputUtil.logToFile("log\\人气值操作\\" + charid + ".log", FileoutputUtil.NowTime() + " 玩家[" + ret.name + "][" + charid + "]读取角色数据时，人气值[" + rs.getShort("fame") + "] + [" + ret.fame2 + "] = [" + ret.fame + "]\r\n");
+            
             ret.stats.str = rs.getShort("str");
             ret.stats.dex = rs.getShort("dex");
             ret.stats.int_ = rs.getShort("int");
@@ -1133,7 +1137,9 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
             ps.setInt(1, level);
 
             // 保存时减去奖励人气值
-            ps.setShort(2, (short) (fame - fame2));
+            short actualFame = (short) (fame - fame2);
+            FileoutputUtil.logToFile("log\\人气值操作\\" + id + ".log", FileoutputUtil.NowTime() + " 玩家[" + name + "][" + id + "]保存角色数据时，人气值[" + fame + "] - [" + fame2 + "] = [" + actualFame + "]\r\n");
+            ps.setShort(2, actualFame);
             ps.setShort(3, stats.getStr());
             ps.setShort(4, stats.getDex());
             ps.setShort(5, stats.getLuk());
@@ -3084,6 +3090,11 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
     public int getPerKilledRewardExp() {
         return getQuestExp(_questPoints) + fame;
     }
+    
+    public int getQuestPoints()
+    {
+        return _questPoints;
+    }
 
     // 此集合在每次角色存档时会被清空
     List<MxmxdGainExpMonsterLog> mxmxdGainExpMonsterLogs = new ArrayList<>();
@@ -3101,7 +3112,7 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
     int 吸怪指数 = 0;
 
     public int getMaxKillCountInCurrentMap() {
-        return _maxKillCountInCurrentMap;
+        return _maxKillCountInCurrentMap + (fame * 50);
     }
 
     public int getKilledCountInCurrentMap() {
@@ -3235,7 +3246,7 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
                 int count = mxmxdMapKilledCountMap.get(mapId);
                 mxmxdMapKilledCountMap.put(mapId, count + 1);
 
-                if (count > _maxKillCountInCurrentMap + (fame * 100)) {
+                if (count > getMaxKillCountInCurrentMap()) {
                     IsDropNone = true;
                     if (new Random().nextInt(5) == 1) {
                         dropTopMsg("你在此地图上的击杀量已超过当日限制，请去别的地方吧。");
