@@ -3120,7 +3120,7 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
     int Îü¹ÖÖ¸Êı = 0;
 
     public int getMaxKillCountInCurrentMap() {
-        return _maxKillCountInCurrentMap + (fame * 50);
+        return _maxKillCountInCurrentMap + (fame * 20);
     }
 
     public int getKilledCountInCurrentMap() {

@@ -214,19 +214,19 @@ public class CashShopOperation {
             int snCS = slea.readInt();
             CashItemInfo item = CashItemFactory.getInstance().getItem(snCS);
             if (item == null) {
-                chr.dropMessage(1, "该物品暂未开放！请留意最新公告");
+                chr.dropMessage(1, "此道具暂时无货。");
                 doCSPackets(c);
                 return;
             }
             for (int i = 0; i < itembp_id.length; i++) {
                 if (item.getId() == Integer.parseInt(itembp_id[i])) {
-                    c.getPlayer().dropMessage(1, "这个物品是禁止购买的.");
+                    c.getPlayer().dropMessage(1, "此道具暂时无货。");
                     doCSPackets(c);
                     return;
                 }
             }
             if (item.getPrice() < 100) {
-                c.getPlayer().dropMessage(1, "价格(" + item.getPrice() + ")低于100点卷的物品是禁止购买的.");
+                c.getPlayer().dropMessage(1, "此道具暂时无货。");
                 doCSPackets(c);
                 return;
             }
