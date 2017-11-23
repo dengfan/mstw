@@ -297,7 +297,10 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
 
     public final static MapleCharacter ReconstructChr(final CharacterTransfer ct, final MapleClient client, final boolean isChannel) {
         final MapleCharacter ret = new MapleCharacter(true); // Always true, it's change channel
-        ret._questPoints = ct.questPoints;
+        
+        ret._questPoints = ct.QuestPoints;
+        ret._mxmxdMapKilledCountMap = ct.MxmxdMapKilledCountMap;
+        
         ret.client = client;
         if (!isChannel) {
             ret.client.setChannel(ct.channel);
@@ -827,14 +830,14 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
                 rs.close();
 
                 // 加载杀怪数量
-                ret.mxmxdMapKilledCountMap.clear();
+                ret._mxmxdMapKilledCountMap.clear();
                 String date = new java.text.SimpleDateFormat("yyyy-MM-dd").format(new java.util.Date());
                 ps = con.prepareStatement("SELECT mapId, `count` FROM mxmxd_mapkilledcount WHERE chrId = ? AND `date` = ?");
                 ps.setInt(1, charid);
                 ps.setString(2, date);
                 rs = ps.executeQuery();
                 while (rs.next()) {
-                    ret.mxmxdMapKilledCountMap.put(rs.getInt("mapId"), rs.getInt("count"));
+                    ret._mxmxdMapKilledCountMap.put(rs.getInt("mapId"), rs.getInt("count"));
                 }
                 ps.close();
                 rs.close();
@@ -1093,7 +1096,7 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
             con.setAutoCommit(false);
 
             // 保存杀怪数量
-            if (mxmxdMapKilledCountMap.size() > 0) {
+            if (_mxmxdMapKilledCountMap.size() > 0) {
                 String date = new java.text.SimpleDateFormat("yyyy-MM-dd").format(new java.util.Date());
                 ps = con.prepareStatement("DELETE FROM mxmxd_mapkilledcount WHERE chrId = ? AND `date` = ?");
                 ps.setInt(1, id);
@@ -1101,7 +1104,7 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
                 ps.execute();
                 ps.close();
 
-                for (Entry<Integer, Integer> pair : mxmxdMapKilledCountMap.entrySet()) {
+                for (Entry<Integer, Integer> pair : _mxmxdMapKilledCountMap.entrySet()) {
                     ps = con.prepareStatement("INSERT INTO mxmxd_mapkilledcount (chrId, mapId, `count`, `date`) VALUES (?,?,?,?)");
                     ps.setInt(1, id);
                     ps.setInt(2, pair.getKey()); // mapId
@@ -1113,7 +1116,7 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
             }
 
             // 保存杀怪日志
-            for (MxmxdGainExpMonsterLog log : mxmxdGainExpMonsterLogs) {
+            for (MxmxdGainExpMonsterLog log : _mxmxdGainExpMonsterLogs) {
                 ps = con.prepareStatement("INSERT INTO mxmxd_gainexpmonster_logs (chrId, lv, hp, hpMax, mp, mpMax, mapId, skillId, mobId, killedCount, expAmount, spend, time) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)");
                 ps.setInt(1, id);
                 ps.setInt(2, level);
@@ -1131,7 +1134,7 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
                 ps.execute();
                 ps.close();
             }
-            mxmxdGainExpMonsterLogs.clear();
+            _mxmxdGainExpMonsterLogs.clear();
 
             ps = con.prepareStatement("UPDATE characters SET level = ?, fame = ?, str = ?, dex = ?, luk = ?, `int` = ?, exp = ?, hp = ?, mp = ?, maxhp = ?, maxmp = ?, sp = ?, ap = ?, gm = ?, skincolor = ?, gender = ?, job = ?, hair = ?, face = ?, map = ?, meso = ?, hpApUsed = ?, spawnpoint = ?, party = ?, buddyCapacity = ?, monsterbookcover = ?, dojo_pts = ?, dojoRecord = ?, pets = ?, subcategory = ?, marriageId = ?, currentrep = ?, totalrep = ?, charmessage = ?, expression = ?, constellation = ?, blood = ?, month = ?, day = ?, beans = ?, prefix = ?, name = ?, mountid = ? WHERE id = ?", Statement.RETURN_GENERATED_KEYS);
             ps.setInt(1, level);
@@ -3097,8 +3100,13 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
     }
 
     // 此集合在每次角色存档时会被清空
-    List<MxmxdGainExpMonsterLog> mxmxdGainExpMonsterLogs = new ArrayList<>();
-    Map<Integer, Integer> mxmxdMapKilledCountMap = new HashMap<>();
+    private List<MxmxdGainExpMonsterLog> _mxmxdGainExpMonsterLogs = new ArrayList<>();
+    private Map<Integer, Integer> _mxmxdMapKilledCountMap = new HashMap<>();
+    
+    public Map<Integer, Integer> GetMxmxdMapKilledCountMap() {
+        return _mxmxdMapKilledCountMap;
+    }
+
     int m = 0;
     long t = 0;
     int c = 0; // 当前地图杀怪累积数量
@@ -3116,8 +3124,8 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
     }
 
     public int getKilledCountInCurrentMap() {
-        if (mxmxdMapKilledCountMap.containsKey(map.getId())) {
-            return mxmxdMapKilledCountMap.get(map.getId());
+        if (_mxmxdMapKilledCountMap.containsKey(map.getId())) {
+            return _mxmxdMapKilledCountMap.get(map.getId());
         }
 
         return 0;
@@ -3240,11 +3248,11 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
             // 检查杀怪效率开始 ----------
 
             // 记录在每个地图杀怪的数量
-            if (!mxmxdMapKilledCountMap.containsKey(mapId)) {
-                mxmxdMapKilledCountMap.put(mapId, 1);
+            if (!_mxmxdMapKilledCountMap.containsKey(mapId)) {
+                _mxmxdMapKilledCountMap.put(mapId, 1);
             } else {
-                int count = mxmxdMapKilledCountMap.get(mapId);
-                mxmxdMapKilledCountMap.put(mapId, count + 1);
+                int count = _mxmxdMapKilledCountMap.get(mapId);
+                _mxmxdMapKilledCountMap.put(mapId, count + 1);
 
                 if (count > getMaxKillCountInCurrentMap()) {
                     IsDropNone = true;
@@ -3270,7 +3278,7 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
                 java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
                 MxmxdGainExpMonsterLog log = new MxmxdGainExpMonsterLog(hp, hpMax, mp, mpMax, mapId, skillId, mobId, 0, 0, 0, sdf.format(dt));
-                mxmxdGainExpMonsterLogs.add(log);
+                _mxmxdGainExpMonsterLogs.add(log);
                 return;
             }
 
@@ -3333,7 +3341,7 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
 
                 spend = (System.currentTimeMillis() - t) / 1000;
                 MxmxdGainExpMonsterLog log = new MxmxdGainExpMonsterLog(hp, hpMax, mp, mpMax, mapId, skillId, mobId, c, e, spend, sdf.format(dt));
-                mxmxdGainExpMonsterLogs.add(log);
+                _mxmxdGainExpMonsterLogs.add(log);
 
                 t = System.currentTimeMillis();
                 e = 0;

@@ -58,13 +58,15 @@ public class CharacterTransfer implements Externalizable {
     public final Map<Integer, Object> Quest = new LinkedHashMap<Integer, Object>(); // Questid instead of MapleQuest, as it's huge. Cant be transporting MapleQuest.java
     public Map<Integer, String> InfoQuest = new LinkedHashMap<Integer, String>();
     public final Map<Integer, SkillEntry> Skills = new LinkedHashMap<Integer, SkillEntry>(); // Skillid instead of Skill.java, as it's huge. Cant be transporting Skill.java and MapleStatEffect.java
-    public int questPoints = 0;
+    public int QuestPoints = 0;
+    public Map<Integer, Integer> MxmxdMapKilledCountMap;
     
     public CharacterTransfer() {
     }
 
     public CharacterTransfer(final MapleCharacter chr) {
-        this.questPoints = chr.getQuestPoints();
+        this.QuestPoints = chr.getQuestPoints();
+        this.MxmxdMapKilledCountMap = chr.GetMxmxdMapKilledCountMap();
         this.lastGainHM = chr.getLastHM();
         this.mount_id = chr.getMountId();
         this.DebugMessage = chr.getDebugMessage();
