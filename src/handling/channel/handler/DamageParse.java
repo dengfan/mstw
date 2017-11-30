@@ -37,6 +37,7 @@ public class DamageParse {
 
     private final static int[] charges = {1211005, 1211006};
 
+    // Ó¦ÓÃÎïÀí¹¥»÷
     public static void applyAttack(final AttackInfo attack, final ISkill theSkill, final MapleCharacter player, int attackCount, final double maxDamagePerMonster, final MapleStatEffect effect, final AttackType attack_type) {
         if (!player.isAlive()) {
             player.getCheatTracker().registerOffense(CheatingOffense.ÈËÎïËÀÍö¹¥»÷);
@@ -470,6 +471,7 @@ public class DamageParse {
         }
     }
 
+    // Ó¦ÓÃÄ§·¨¹¥»÷
     public static final void applyAttackMagic(final AttackInfo attack, final ISkill theSkill, final MapleCharacter player, final MapleStatEffect effect) {
         if (!player.isAlive()) {
             player.getCheatTracker().registerOffense(CheatingOffense.ÈËÎïËÀÍö¹¥»÷);

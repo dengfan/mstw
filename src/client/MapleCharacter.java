@@ -109,7 +109,7 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
     private String name, chalktext, BlessOfFairy_Origin, charmessage;
     private long lastCombo, lastfametime, keydown_skill;
     private byte dojoRecord, gmLevel, gender, initialSpawnPoint, skinColor, guildrank = 5, allianceRank = 5, world, fairyExp = 30, subcategory; // Make this a quest record, TODO : Transfer it somehow with the current data
-    private short level, mulung_energy, combo, availableCP, totalCP, fame, fame2, hpApUsed, job, remainingAp;
+    private short level, mulung_energy, combo, availableCP, totalCP, fame, _fame2, _fame3, hpApUsed, job, remainingAp;
     private int accountid, id, meso, exp, hair, face, mapid, bookCover, dojo,
             guildid = 0, fallcounter = 0, maplepoints, acash, chair, itemEffect, points, vpoints,
             rank = 1, rankMove = 0, jobRank = 1, jobRankMove = 0, marriageId, marriageItemId = 0,
@@ -298,6 +298,8 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
     public final static MapleCharacter ReconstructChr(final CharacterTransfer ct, final MapleClient client, final boolean isChannel) {
         final MapleCharacter ret = new MapleCharacter(true); // Always true, it's change channel
         
+        ret._fame2 = ct.Fame2;
+        ret._fame3 = ct.Fame3;
         ret._questPoints = ct.QuestPoints;
         ret._mxmxdMapKilledCountMap = ct.MxmxdMapKilledCountMap;
         
@@ -460,8 +462,6 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
         ret.client = client;
         ret.id = charid;
 
-        ret.fame2 = (short) MonsterBook.getMonsterCategories(charid);
-
         Connection con = DatabaseConnection.getConnection();
         PreparedStatement ps = null;
         PreparedStatement pse = null;
@@ -477,13 +477,8 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
 
             ret.mount_id = rs.getInt("mountid");
             ret.name = rs.getString("name");
-
             ret.level = rs.getShort("level");
-
-            // 读取时加上奖励人气值
-            ret.fame = (short) (rs.getShort("fame") + ret.fame2);
-            FileoutputUtil.logToFile("log\\人气值操作\\" + charid + ".log", FileoutputUtil.NowTime() + " 玩家[" + ret.name + "][" + charid + "]读取角色数据时，人气值[" + rs.getShort("fame") + "] + [" + ret.fame2 + "] = [" + ret.fame + "]\r\n");
-            
+            ret.fame = rs.getShort("fame");
             ret.stats.str = rs.getShort("str");
             ret.stats.dex = rs.getShort("dex");
             ret.stats.int_ = rs.getShort("int");
@@ -1034,6 +1029,44 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
             }
         }
     }
+    
+    public void LoadNewFameData() throws SQLException {
+        Connection con = DatabaseConnection.getConnection();
+        try {
+            PreparedStatement ps = con.prepareStatement("select fame from characters where id = ?");
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                fame = rs.getShort("fame");
+            }
+            rs.close();
+            ps.close();
+        } catch (SQLException ex) {
+            System.err.println("查询原始人气值出错。" + ex);
+        }
+        
+        // 根据收集的怪物卡数据来得到附加的人气值 _fame2
+        _fame2 = (short) MonsterBook.getMonsterCategories(id);
+        
+        // 根据地图杀怪的数据来得到附加的人气值 _fame3
+        _fame3 = 0;
+        try {
+            PreparedStatement ps = con.prepareStatement("select COUNT(DISTINCT(mapId)) as DATA from mxmxd_mapkilledcount where count > 5 and chrId = ?");
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                _fame3 = rs.getShort("DATA");
+            }
+            rs.close();
+            ps.close();
+        } catch (SQLException ex) {
+            System.err.println("查询附加人气值fame3出错。" + ex);
+        }
+        
+        FileoutputUtil.logToFile("log\\人气值操作\\" + id + ".log", FileoutputUtil.NowTime() + " 玩家[" + name + "][" + id + "]读取角色数据时，人气值[" + this.fame + "] + [" + _fame2 + "] + [" + _fame3 + "] = [" + (fame + _fame2 + _fame3) + "]\r\n");
+        addFame(_fame2 + _fame3);
+        updateSingleStat(MapleStat.FAME, getFame());
+    }
 
     public void 定时记录状态(int period) throws SQLException {
         if (isGM()) {
@@ -1073,12 +1106,6 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
     }
 
     public void saveToDB(boolean dc, boolean fromcs) {
-        try {
-            fame2 = (short) MonsterBook.getMonsterCategories(id);
-        } catch (SQLException ex) {
-            System.err.println("读取怪物卡数据出错：" + ex);
-        }
-        
         Connection con = DatabaseConnection.getConnection();
 
         PreparedStatement ps = null;
@@ -1140,9 +1167,10 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
             ps.setInt(1, level);
 
             // 保存时减去奖励人气值
-            short actualFame = (short) (fame - fame2);
-            FileoutputUtil.logToFile("log\\人气值操作\\" + id + ".log", FileoutputUtil.NowTime() + " 玩家[" + name + "][" + id + "]保存角色数据时，人气值[" + fame + "] - [" + fame2 + "] = [" + actualFame + "]\r\n");
+            short actualFame = (short) (fame - _fame2 - _fame3);
+            FileoutputUtil.logToFile("log\\人气值操作\\" + id + ".log", FileoutputUtil.NowTime() + " 玩家[" + name + "][" + id + "]保存角色数据时，人气值[" + fame + "] - [" + _fame2 + "] - [" + _fame3 + "] = [" + actualFame + "]\r\n");
             ps.setShort(2, actualFame);
+            //ps.setShort(2, fame);
             ps.setShort(3, stats.getStr());
             ps.setShort(4, stats.getDex());
             ps.setShort(5, stats.getLuk());
@@ -2279,14 +2307,17 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
         return level;
     }
 
-    // 总人气
+    // 人气
     public final short getFame() {
         return fame;
     }
-
-    // 根据收集的怪物卡数据，奖励的人气值
+    
     public final short getFame2() {
-        return fame2;
+        return _fame2;
+    }
+    
+    public final short getFame3() {
+        return _fame3;
     }
 
     public final int getDojo() {

@@ -20,6 +20,9 @@ function action(mode, type, selection) {
     }
 
     if (status == 0) {
+		// 加载声望值
+		cm.getPlayer().LoadNewFameData();
+
         var r = Math.ceil(Math.random() * 5);
         if (r == 1) {
             cm.getPlayer().dropMessage("[小贴士] : 人气度越高，你的“每个地图”的“当日可击杀总量”也会越高。");
@@ -37,9 +40,8 @@ function action(mode, type, selection) {
         var 点券 = cm.getPlayer().getCSPoints(1);
         var 抵用券 = cm.getPlayer().getCSPoints(2);
         var 人气值 = parseInt(cm.getPlayer().getFame());
-        var 人气值2 = parseInt(cm.getPlayer().getFame2());
         var 任务值 = parseInt(cm.getPlayer().getNumQuest());
-        text += "\r\n点券 #e" + 点券 + "#n | 抵用券 #e" + 抵用券 + "#n | 人气 #r#e" + 人气值 + "#n#d | 任务 #e" + 任务值 + "#n";
+        text += "\r\n点券 #e" + 点券 + "#n | 抵用券 #e" + 抵用券 + "#n | 声望 #r#e" + 人气值 + "#n#d | 任务 #e" + 任务值 + "#n";
 
         var 额外经验值奖励 = parseInt(cm.getPlayer().getPerKilledRewardExp());
         text += "\r\n每个击杀额外奖励经验 #r#e" + 额外经验值奖励 + "#n#d，要求人气度 #e20+#n";
