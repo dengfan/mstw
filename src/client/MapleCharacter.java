@@ -1032,8 +1032,10 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
         }
     }
     
-    public void LoadNewFameData() throws SQLException {
+    public int LoadNewFameData() throws SQLException {
         Connection con = DatabaseConnection.getConnection();
+        
+        // 读取原始人气值 fame
         try {
             PreparedStatement ps = con.prepareStatement("select fame from characters where id = ?");
             ps.setInt(1, id);
@@ -1065,9 +1067,14 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
             System.err.println("查询附加人气值fame3出错。" + ex);
         }
         
+        // 写入日志
         FileoutputUtil.logToFile("log\\人气值操作\\" + id + ".log", FileoutputUtil.NowTime() + " 玩家[" + name + "][" + id + "]读取角色数据时，人气值[" + this.fame + "] + [" + _fame2 + "] + [" + _fame3 + "] = [" + (fame + _fame2 + _fame3) + "]\r\n");
+        
+        // 为角色临时增加人气值
         addFame(_fame2 + _fame3);
         updateSingleStat(MapleStat.FAME, getFame());
+        
+        return _fame2 + _fame3;
     }
 
     public void 定时记录状态(int period) throws SQLException {
