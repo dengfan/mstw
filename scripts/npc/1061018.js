@@ -1,9 +1,9 @@
-function start() {
+ï»¿function start() {
 	if (cm.getMap().getAllMonstersThreadsafe().size() == 0) {
 		cm.warpPlayer(105100300, 105100301);
 		cm.dispose();
 	} else {
-    cm.sendYesNo("ÄãÈ·¶¨ÒªÀë¿ªÕâ¸öµØÍ¼Âï£¿£¿");
+    cm.sendYesNo("ä½ ç¡®å®šè¦ç¦»å¼€è¿™ä¸ªåœ°å›¾å˜›ï¼Ÿï¼Ÿ");
 }
 }
 

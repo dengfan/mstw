@@ -1,4 +1,4 @@
-/* Denma the Owner
+ï»¿/* Denma the Owner
 	Henesys VIP Eye Change.
 */
 var status = -1;
@@ -16,7 +16,7 @@ function action(mode, type, selection) {
         status++;
     }
     if (status == 0) {
-        cm.sendNext("ºÙ~£¡ÄãºÃ!Èç¹ûÄãÓĞ#b#t5152001##k£¬ÎÒ¿ÉÒÔÎªÄã½øĞĞÕûĞÎÊÖÊõ¡£");
+        cm.sendNext("å˜¿~ï¼ä½ å¥½!å¦‚æœä½ æœ‰#b#t5152001##kï¼Œæˆ‘å¯ä»¥ä¸ºä½ è¿›è¡Œæ•´å½¢æ‰‹æœ¯ã€‚");
     } else if (status == 1) {
         var face = cm.getPlayerStat("FACE");
         if (cm.getPlayerStat("GENDER") == 0) {
@@ -29,12 +29,12 @@ function action(mode, type, selection) {
         for (var i = 0; i < facetype.length; i++) {
             facetype[i] = facetype[i] + face % 1000 - (face % 100);
         }
-        cm.askAvatar("¿ÉÒÔÈÃÄãµÄÃæÈİ»ÀÈ»Ò»ĞÂ¡­²»ÏëÈÃÄãµÄÃæÈİ±äÒ»±äÂğ£¿ Ö»ĞèÒª#b#t5152001##k¾Í¿ÉÒÔ¸øÄã×öÕûĞÎÊÖÊõ.ÔõÃ´Ñù~ÂıÂıÌôÑ¡Ò»ÏÂÄãÏëÒªµÄÃæÈİ~", 5152057, facetype);
+        cm.askAvatar("å¯ä»¥è®©ä½ çš„é¢å®¹ç„•ç„¶ä¸€æ–°â€¦ä¸æƒ³è®©ä½ çš„é¢å®¹å˜ä¸€å˜å—ï¼Ÿ åªéœ€è¦#b#t5152001##kå°±å¯ä»¥ç»™ä½ åšæ•´å½¢æ‰‹æœ¯.æ€ä¹ˆæ ·~æ…¢æ…¢æŒ‘é€‰ä¸€ä¸‹ä½ æƒ³è¦çš„é¢å®¹~", 5152057, facetype);
     } else if (status == 2) {
         if (cm.setAvatar(5152001, facetype[selection]) == 1) {
-            cm.sendOk("ºÃÁË,ÄãµÄÅóÓÑÃÇÒ»¶¨ÈÏ²»³öÀ´ÊÇÄãÁË!");
+            cm.sendOk("å¥½äº†,ä½ çš„æœ‹å‹ä»¬ä¸€å®šè®¤ä¸å‡ºæ¥æ˜¯ä½ äº†!");
         } else {
-            cm.sendOk("àÅ¡£¡£¡£Äã¿Ï¶¨Ã»ÓĞÎÒÃÇÒ½ÔºµÄ»áÔ±¿¨¡£¡£¡£²»ºÃÒâË¼Èç¹ûÄãÃ»#t5152001#£¬ÎÒ²»ÄÜ¸øÄã×öÊÖÊõ¡£");
+            cm.sendOk("å—¯ã€‚ã€‚ã€‚ä½ è‚¯å®šæ²¡æœ‰æˆ‘ä»¬åŒ»é™¢çš„ä¼šå‘˜å¡ã€‚ã€‚ã€‚ä¸å¥½æ„æ€å¦‚æœä½ æ²¡#t5152001#ï¼Œæˆ‘ä¸èƒ½ç»™ä½ åšæ‰‹æœ¯ã€‚");
         }
         cm.dispose();
     }

@@ -1,4 +1,4 @@
-/* global cm, Packages, MapleItemInformationProvider, World, MaplePacketCreator */
+ï»¿/* global cm, Packages, MapleItemInformationProvider, World, MaplePacketCreator */
 
 importPackage(Packages.tools);
 importPackage(Packages.handling.world);
@@ -22,14 +22,14 @@ var inv = null;
 var statsSel = null;
 
 var slot = Array();
-var bosslog = ["Àñ°İÈÕ", "Àñ°İÒ»", "Àñ°İ¶ş", "Àñ°İÈı", "Àñ°İËÄ", "Àñ°İÎå", "Àñ°İÁù"];
+var bosslog = ["ç¤¼æ‹œæ—¥", "ç¤¼æ‹œä¸€", "ç¤¼æ‹œäºŒ", "ç¤¼æ‹œä¸‰", "ç¤¼æ‹œå››", "ç¤¼æ‹œäº”", "ç¤¼æ‹œå…­"];
 
 var d = new Date();
 var day = d.getDay();
 
 function start() {
     if (edit && !cm.getPlayer().isGM()) {
-        msg = "±¾NPC#rÎ¬ĞŞÖĞ#k£¬ÇëÉÔºóÔÙÊÔ¡£";
+        msg = "æœ¬NPC#rç»´ä¿®ä¸­#kï¼Œè¯·ç¨åå†è¯•ã€‚";
         cm.sendNext(msg);
         cm.dispose();
         return;
@@ -48,30 +48,30 @@ function action(mode, type, selection) {
     }
 
     if (status == 0) {
-        if (cm.getPlayer().getAcLog(bosslog[day] + "_¹ã²¥") >= maxtimesperday) {
-            msg = "Ò»Ìì×î¶àÊ¹ÓÃ´ÎÊıÎª#r" + maxtimesperday;
+        if (cm.getPlayer().getAcLog(bosslog[day] + "_å¹¿æ’­") >= maxtimesperday) {
+            msg = "ä¸€å¤©æœ€å¤šä½¿ç”¨æ¬¡æ•°ä¸º#r" + maxtimesperday;
             cm.sendNext(msg);
             cm.dispose();
             return;
         }
-        msg = "±¾NPC¿ÉÒÔÌá¹©¸øÄú¹ã²¥¹¦ÄÜ£¬Ê¹ÓÃÒ»´ÎÎª" + neededCash + "µãµãÊı(¿ÉÒÔÑ¡ÔñµãÊı/·ãÒ¶µãÊı)\r\n" +
-                "ÇëÑ¡ÔñËùÊ¹ÓÃµÄµãÊı£º\r\n \r\n#r" +
-                "#L1#Ò»°ãµãÊı\r\n" +
-                "#L2#·ãÒ¶µãÊı";
+        msg = "æœ¬NPCå¯ä»¥æä¾›ç»™æ‚¨å¹¿æ’­åŠŸèƒ½ï¼Œä½¿ç”¨ä¸€æ¬¡ä¸º" + neededCash + "ç‚¹ç‚¹æ•°(å¯ä»¥é€‰æ‹©ç‚¹æ•°/æ«å¶ç‚¹æ•°)\r\n" +
+                "è¯·é€‰æ‹©æ‰€ä½¿ç”¨çš„ç‚¹æ•°ï¼š\r\n \r\n#r" +
+                "#L1#ä¸€èˆ¬ç‚¹æ•°\r\n" +
+                "#L2#æ«å¶ç‚¹æ•°";
         cm.sendSimple(msg);
     } else if (status == 1) {
         if (mode == 1) {
             Cash = selection;
         }
-        msg = "ÇëÑ¡ÔñÒª··ÂôµÄµÀ¾ßÖÖÀà#r\r\n" +
-                "#L1#×°±¸À¸\r\n" +
-                "#L2#ÏûºÄÀ¸\r\n" +
-                "#L3#×°ÊÎÀ¸\r\n" +
-                "#L4#ÆäËûÀ¸\r\n" +
-                "#L5#ÌØÊâÀ¸";
+        msg = "è¯·é€‰æ‹©è¦è´©å–çš„é“å…·ç§ç±»#r\r\n" +
+                "#L1#è£…å¤‡æ \r\n" +
+                "#L2#æ¶ˆè€—æ \r\n" +
+                "#L3#è£…é¥°æ \r\n" +
+                "#L4#å…¶ä»–æ \r\n" +
+                "#L5#ç‰¹æ®Šæ ";
         cm.sendSimple(msg);
     } else if (status == 2) {
-        msg = "ÇëÑ¡ÔñÒª¹ã²¥µÄµÀ¾ß\r\n";
+        msg = "è¯·é€‰æ‹©è¦å¹¿æ’­çš„é“å…·\r\n";
         if (mode == 1) {
             bag = selection;
             inv = cm.getInventory(bag);
@@ -88,7 +88,7 @@ function action(mode, type, selection) {
     } else if (status == 3) {
         selected = selection - 1;
         if (selected >= inv.getSlotLimit()) {
-            msg = "´íÎó£¬ÇëÉÔºóÔÙÊÔ¡£";
+            msg = "é”™è¯¯ï¼Œè¯·ç¨åå†è¯•ã€‚";
             cm.sendNext(msg);
             cm.dispose();
             return;
@@ -99,22 +99,22 @@ function action(mode, type, selection) {
 
         }
         if (statsSel == null) {
-            msg = "´íÎó£¬ÇëÉÔºóÔÙÊÔ¡£";
+            msg = "é”™è¯¯ï¼Œè¯·ç¨åå†è¯•ã€‚";
             cm.sendNext(msg);
             cm.dispose();
             return;
         }
         itemId = statsSel.getItemId();
-        msg = "ÇëÈ·ÈÏÒÔÏÂÊÂÏîÊÇ·ñÕıÈ·£º\r\n" +
-                "\tÒ»¡¢Ê¹ÓÃµãÊıÀàĞÍÎª£º" + (Cash == 1 ? "ÆÕÍ¨µãÊı" : Cash == 2 ? "·ãÒ¶µãÊı" : "·¢Éú´íÎó") + "\r\n" +
-                "\t¶ş¡¢Ñ¡ÔñµÀ¾ßÀ¸Î»Îª£º" + (bag == 1 ? "×°±¸" : bag == 2 ? "ÏûºÄ" : bag == 3 ? "×°ÊÎ" : bag == 4 ? "ÆäËû" : bag == 5 ? "ÌØÊâ" : "·¢Éú´íÎó") + "À¸\r\n" +
-                "\tÈı¡¢ËùÑ¡ÔñµÄµÀ¾ßÎª£º#v" + itemId + "##t" + itemId + "#\r\n";
+        msg = "è¯·ç¡®è®¤ä»¥ä¸‹äº‹é¡¹æ˜¯å¦æ­£ç¡®ï¼š\r\n" +
+                "\tä¸€ã€ä½¿ç”¨ç‚¹æ•°ç±»å‹ä¸ºï¼š" + (Cash == 1 ? "æ™®é€šç‚¹æ•°" : Cash == 2 ? "æ«å¶ç‚¹æ•°" : "å‘ç”Ÿé”™è¯¯") + "\r\n" +
+                "\täºŒã€é€‰æ‹©é“å…·æ ä½ä¸ºï¼š" + (bag == 1 ? "è£…å¤‡" : bag == 2 ? "æ¶ˆè€—" : bag == 3 ? "è£…é¥°" : bag == 4 ? "å…¶ä»–" : bag == 5 ? "ç‰¹æ®Š" : "å‘ç”Ÿé”™è¯¯") + "æ \r\n" +
+                "\tä¸‰ã€æ‰€é€‰æ‹©çš„é“å…·ä¸ºï¼š#v" + itemId + "##t" + itemId + "#\r\n";
         cm.sendYesNo(msg);
     } else if (status == 4) {
-        // ¾É°æ¹¦ÄÜ
-        // msg = "ÇëÊäÈëÒª¹ã²¥µÄÑ¶Ï¢";
+        // æ—§ç‰ˆåŠŸèƒ½
+        // msg = "è¯·è¾“å…¥è¦å¹¿æ’­çš„è®¯æ¯";
         // cm.sendGetText(msg);
-        msg = "ÇëÑ¡ÔñÒª¹ã²¥³öÀ´µÄÆµµÀÊıÖµ( ÆµµÀ-¶´Êı µÄÆµµÀ)\r\n" +
+        msg = "è¯·é€‰æ‹©è¦å¹¿æ’­å‡ºæ¥çš„é¢‘é“æ•°å€¼( é¢‘é“-æ´æ•° çš„é¢‘é“)\r\n" +
                 "#L1#1\r\n" +
                 "#L2#2\r\n" +
                 "#L3#3\r\n" +
@@ -127,7 +127,7 @@ function action(mode, type, selection) {
         cm.sendSimple(msg);
     } else if (status == 5) {
         s = selection;
-        msg = "ÇëÑ¡ÔñÒª¹ã²¥³öÀ´µÄ¶´ÊıÊıÖµ( ÆµµÀ-¶´Êı µÄ¶´Êı)\r\n" +
+        msg = "è¯·é€‰æ‹©è¦å¹¿æ’­å‡ºæ¥çš„æ´æ•°æ•°å€¼( é¢‘é“-æ´æ•° çš„æ´æ•°)\r\n" +
                 "#L1#1\r\n" +
                 "#L2#2\r\n" +
                 "#L3#3\r\n" +
@@ -141,7 +141,7 @@ function action(mode, type, selection) {
     } else if (status == 6) {
         h = selection;
         if (cm.getPlayer().getCSPoints(Cash) < neededCash) {
-            msg = "ÄúµÄµãÊı²»×ã¡£";
+            msg = "æ‚¨çš„ç‚¹æ•°ä¸è¶³ã€‚";
             cm.sendNext(msg);
             cm.dispose();
             return;
@@ -149,7 +149,7 @@ function action(mode, type, selection) {
         cm.getPlayer().setAcLog(bosslog[day]);
         cm.getPlayer().modifyCSPoints(Cash, -neededCash, false);
         // var text = cm.getText();
-        var text = "      " + s + " - " + h + " ¿ìÀ´Õâ±ßÕÒÎÒÂò°É!";
+        var text = "      " + s + " - " + h + " å¿«æ¥è¿™è¾¹æ‰¾æˆ‘ä¹°å§!";
         World.Broadcast.broadcastMessage(MaplePacketCreator.getGachaponMega(cm.getPlayer().getName(), " : " + text, statsSel, 0).getBytes());
         cm.dispose();
     } else {

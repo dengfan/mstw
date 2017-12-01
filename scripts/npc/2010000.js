@@ -1,4 +1,4 @@
-/**
+ï»¿/**
 -- Odin JavaScript --------------------------------------------------------------------------------
 	Master Sergeant Fox <Orbis Exchange Quest> - Orbis(200000000)
 -- By ---------------------------------------------------------------------------------------------
@@ -175,13 +175,13 @@ function start() {
 function action(mode, type, selection) {
 
     if (mode == 0 && (status == 1 || status == 3)) {
-	cm.sendNext("ĞèÒªµÄÊ±ºòÔÙÀ´ÕÒÎÒ°É¡£");
+	cm.sendNext("éœ€è¦çš„æ—¶å€™å†æ¥æ‰¾æˆ‘å§ã€‚");
 	cm.dispose();
 	return;
     } else if (mode == 0 && status == 3) {
 	cm.dispose();
     } else if (mode == 0 && status == 4) {
-	cm.sendNext("ĞèÒªµÄÊ±ºòÔÙÀ´ÕÒÎÒ°É¡£");
+	cm.sendNext("éœ€è¦çš„æ—¶å€™å†æ¥æ‰¾æˆ‘å§ã€‚");
 	cm.dispose();
 	return;
     }
@@ -190,37 +190,37 @@ function action(mode, type, selection) {
     else
 	status--;
     if (status == 0) { // first interaction with NPC
-	cm.sendNext("ºÙ£¬µÃµ½ÁËÒ»µãµãÊ±¼ä£¿ºÃÁË£¬ÎÒµÄ¹¤×÷¾ÍÊÇÔÚÕâÀïÊÕ¼¯ÎïÆ·ºÍÆäËûµØ·½³öÊÛ£¬µ«ÕâĞ©Ìì¹ÖÎï±äµÃ¸ü¼ÓµĞ¶ÔµÄ£¬ËùÒÔËüºÜÄÑ»ñµÃÁ¼ºÃµÄµÀ¾ß...ÄãÔõÃ´¿´£¿ÄãÏëÒª×öµÄÒ»Ğ©ÒµÎñºÍÎÒÔÚÒ»Æğ£¿");
+	cm.sendNext("å˜¿ï¼Œå¾—åˆ°äº†ä¸€ç‚¹ç‚¹æ—¶é—´ï¼Ÿå¥½äº†ï¼Œæˆ‘çš„å·¥ä½œå°±æ˜¯åœ¨è¿™é‡Œæ”¶é›†ç‰©å“å’Œå…¶ä»–åœ°æ–¹å‡ºå”®ï¼Œä½†è¿™äº›å¤©æ€ªç‰©å˜å¾—æ›´åŠ æ•Œå¯¹çš„ï¼Œæ‰€ä»¥å®ƒå¾ˆéš¾è·å¾—è‰¯å¥½çš„é“å…·...ä½ æ€ä¹ˆçœ‹ï¼Ÿä½ æƒ³è¦åšçš„ä¸€äº›ä¸šåŠ¡å’Œæˆ‘åœ¨ä¸€èµ·ï¼Ÿ");
     } else if (status == 1) {
-	cm.sendYesNo("Õâ±Ê½»Ò×ºÜ¼òµ¥£¬Ê×ÏÈÄãµÃµÃµ½ÎÒĞèÒªµÄ¶«Î÷£¬µ±È»ÎÒ»á¸øÄã²»´íµÄ³êÀÍ¡£");
+	cm.sendYesNo("è¿™ç¬”äº¤æ˜“å¾ˆç®€å•ï¼Œé¦–å…ˆä½ å¾—å¾—åˆ°æˆ‘éœ€è¦çš„ä¸œè¥¿ï¼Œå½“ç„¶æˆ‘ä¼šç»™ä½ ä¸é”™çš„é…¬åŠ³ã€‚");
     } else if (status == 2) {
 	var eQuestChoice = makeChoices(eQuestChoices);
 	cm.sendSimple(eQuestChoice);
     } else if (status == 3){
 	lastSelection = selection;
 	requiredItem = eQuestChoices[selection];
-	cm.sendYesNo("ÈÃÎÒ¿´¿´£¬ÄãÏëÒª½»»»ÄãµÄ #b100¸ö #t" + requiredItem + "##k À´»»È¡Ò»Ğ©³êÀÍÊÇ°É£¿ ½»Ò×Ç°È·±£ÄãµÄµÀ¾ßÀ¸Î»ÊÇ·ñ×ã¹»°É£¡£¡");
+	cm.sendYesNo("è®©æˆ‘çœ‹çœ‹ï¼Œä½ æƒ³è¦äº¤æ¢ä½ çš„ #b100ä¸ª #t" + requiredItem + "##k æ¥æ¢å–ä¸€äº›é…¬åŠ³æ˜¯å§ï¼Ÿ äº¤æ˜“å‰ç¡®ä¿ä½ çš„é“å…·æ ä½æ˜¯å¦è¶³å¤Ÿå§ï¼ï¼");
     }else if (status == 4){
 	itemSet = (Math.floor(Math.random() * eQuestPrizes[lastSelection].length));
 	reward = eQuestPrizes[lastSelection];
 	prizeItem = reward[itemSet][0];
 	prizeQuantity = reward[itemSet][1];
 	if(!cm.haveItem(requiredItem,100)){
-	    cm.sendOk("àÅ... ÄãÈ·¶¨ÄãÓĞ #b100¸ö #t" + requiredItem + "##k? Èç¹ûÓĞÇë¶¨ÄãµÀ¾ßÀ¹ÊÇ²»ÊÇÂúÁË....");
+	    cm.sendOk("å—¯... ä½ ç¡®å®šä½ æœ‰ #b100ä¸ª #t" + requiredItem + "##k? å¦‚æœæœ‰è¯·å®šä½ é“å…·æ‹¦æ˜¯ä¸æ˜¯æ»¡äº†....");
 	} else if(!cm.canHold(prizeItem)){
-	    cm.sendNext("ÄãµÄµÀ¾ßÀ¹ËÆºõÂúÁË£¬ÇëÇå¿ÕÒ»Ğ©²»ÒªµÄ¶«Î÷ÔÙÀ´ÕÒÎÒ½»Ò×Ò»´ÎĞ»Ğ»¡£");
+	    cm.sendNext("ä½ çš„é“å…·æ‹¦ä¼¼ä¹æ»¡äº†ï¼Œè¯·æ¸…ç©ºä¸€äº›ä¸è¦çš„ä¸œè¥¿å†æ¥æ‰¾æˆ‘äº¤æ˜“ä¸€æ¬¡è°¢è°¢ã€‚");
 	} else {
 	    cm.gainItem(requiredItem,-100);
 	    cm.gainExp(500);
 	    cm.gainItem(prizeItem, prizeQuantity);
-	    cm.sendOk("ÎªÄãµÄ #b100¸ö #t"+requiredItem+"##k, ÕâÀïÊÇÎÒµÄ½±Àø #b"+prizeQuantity+" #t"+prizeItem+"##k. ÄãÔõÃ´¿´£¿£¿ ÄãÊÇ·ñÏ²»¶ÎÒµÄ½±ÀøÄØ£¿£¿ \r\nÈç¹ûÏ²»¶»¶Ó­ÏÂ´ÎÔÙÀ´ÕÒÎÒ½»Ò×£¬ÎÒ»áÔÚÕâÀïµÈ×ÅÄãµÄ£¡£¡");
+	    cm.sendOk("ä¸ºä½ çš„ #b100ä¸ª #t"+requiredItem+"##k, è¿™é‡Œæ˜¯æˆ‘çš„å¥–åŠ± #b"+prizeQuantity+" #t"+prizeItem+"##k. ä½ æ€ä¹ˆçœ‹ï¼Ÿï¼Ÿ ä½ æ˜¯å¦å–œæ¬¢æˆ‘çš„å¥–åŠ±å‘¢ï¼Ÿï¼Ÿ \r\nå¦‚æœå–œæ¬¢æ¬¢è¿ä¸‹æ¬¡å†æ¥æ‰¾æˆ‘äº¤æ˜“ï¼Œæˆ‘ä¼šåœ¨è¿™é‡Œç­‰ç€ä½ çš„ï¼ï¼");
 	}
 	cm.dispose();
     }
 }
 
 function makeChoices(a){
-    var result  = "ºÃ£¬Ê×ÏÈÄãĞèÒªÑ¡Ôñ£¬ÄãÊÖÉÏÓĞµÄµÀ¾ß£¬µ±È»¸ü¶àµÀ¾ßÊÕ»ñ¸ü¶à¡£\r\n";
+    var result  = "å¥½ï¼Œé¦–å…ˆä½ éœ€è¦é€‰æ‹©ï¼Œä½ æ‰‹ä¸Šæœ‰çš„é“å…·ï¼Œå½“ç„¶æ›´å¤šé“å…·æ”¶è·æ›´å¤šã€‚\r\n";
     for (var x = 0; x< a.length; x++){
 	result += " #L" + x + "##v" + a[x] + "#  #t" + a[x] + "##l\r\n";
     }

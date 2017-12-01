@@ -1,10 +1,10 @@
-/*
+﻿/*
  * Time Temple - Kirston
  * Twilight of the Gods
  */
 
 function start() {
-    cm.askAcceptDecline("��ȷ��Ҫ������µĶ�ħ�ٻ�������\r\n����Ĳ�֪��������ʲô������ԥʲô\r\n\��Ҫ����˵�����ˡ��ٻ���� �� �۹���� �ܾ� \r\n�������ĺܿ���\r\n�ð����������룬������ڸ����Ұ�\r\n");
+    cm.askAcceptDecline("你确定要把这可怕的恶魔召唤出来吗\r\n我真的不知道你在想什么还在犹豫什么\r\n\重要的事说三遍了。召唤请点 是 观光请点 拒绝 \r\n这怪物真的很可怕\r\n好吧我容你想想，想清楚在告诉我吧\r\n");
 }
 
 function action(mode, type, selection) {

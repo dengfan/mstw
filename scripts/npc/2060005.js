@@ -1,4 +1,4 @@
-/* 
+ï»¿/* 
  *   NPC   : Kenta
  *   Map   : Aquariun - Zoo
  */
@@ -7,7 +7,7 @@ function start() {
         cm.sendOk("1");
     } else {
         cm.warp(922200000);
-        cm.sendOk("ÇëÕÒµ½Ğ¡Öí ÓÃÎäÁ¦Õ÷·şËû ´ø»ØËüÄÃÎÒµÄÏãË®.");
+        cm.sendOk("è¯·æ‰¾åˆ°å°çŒª ç”¨æ­¦åŠ›å¾æœä»– å¸¦å›å®ƒæ‹¿æˆ‘çš„é¦™æ°´.");
     }
     cm.dispose();
 }

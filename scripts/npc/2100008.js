@@ -1,4 +1,4 @@
-/* Author: aaroncsn (MapleSea Like)
+ï»¿/* Author: aaroncsn (MapleSea Like)
 	NPC Name: 		Badr
 	Map(s): 		The Burning Road: Ariant(2600000000)
 	Description: 	Ariant Plastic Surgery
@@ -39,16 +39,16 @@ function action(mode, type, selection) {
 						facenew.push(fface[i] + cm.getChar().getFace() % 1000 - (cm.getChar().getFace() % 100));
 					}
 				}
-				cm.sendStyle("Ñ¡ÔñÒ»¸öÄãÏëÒªµÄ¡£", facenew);
+				cm.sendStyle("é€‰æ‹©ä¸€ä¸ªä½ æƒ³è¦çš„ã€‚", facenew);
 			}
 		else if (status == 1){
 			cm.dispose();
 			if (cm.haveItem(5152030) == true){
 				cm.gainItem(5152030, -1);
 				cm.setFace(facenew[selection]);
-				cm.sendOk("ÏíÊÜ£¡");
+				cm.sendOk("äº«å—ï¼");
 			} else {
-				cm.sendNext("¯z.... Ã²ËÆÃ»ÓĞ#t5152030#¡£");
+				cm.sendNext("ç—¾.... è²Œä¼¼æ²¡æœ‰#t5152030#ã€‚");
 			}
 		}
 	}

@@ -1,4 +1,4 @@
-var status = -1;
+﻿var status = -1;
 
 function action(mode, type, selection) {
     if (mode == 1) {
@@ -9,15 +9,15 @@ function action(mode, type, selection) {
     }
     if (status == 0) {
 	if (cm.getPlayer().getMarriageId() > 0) {
-	    cm.sendSimple("��ô�ˣ�������������....\r\n#b#L0#����Ҫ��顣#l\r\n#L1#����Ҫ����װ����ɾ���ҵĽ�ָ��#l#k");
+	    cm.sendSimple("怎么了，看起来很伤心....\r\n#b#L0#我想要离婚。#l\r\n#L1#我想要从我装备栏删除我的戒指。#l#k");
 	} else  {
-	    cm.sendSimple("�ˣ��ҿ���Ϊ����ʲô���� \r\n#L1#����Ҫ����װ����ɾ���ҵĽ�ָ��#l#k");
+	    cm.sendSimple("嗨，我可以为您做什么？？ \r\n#L1#我想要从我装备栏删除我的戒指。#l#k");
 	}
     } else if (status == 1) {
 	if (selection == 0) {
-	    cm.sendYesNo("��飿��ȷ����������飿�ⲻ����Ц��...��");
+	    cm.sendYesNo("离婚？你确定吗？你想离婚？这不是玩笑吧...？");
 	} else {
-	    var selStr = "����Ҫɾ��ʲô��ָ�����ҿ�����";
+	    var selStr = "你想要删除什么戒指，让我看看。";
 	    var found = false;
 	    for (var i = 1112300; i < 1112312; i++) {
 		if (cm.haveItem(i)) {
@@ -32,7 +32,7 @@ function action(mode, type, selection) {
 			}
 	    }
 	    if (!found) {
-		cm.sendOk("����û���κν�ָ��");
+		cm.sendOk("身上没有任何戒指。");
 		cm.dispose();
 	    } else {
 		cm.sendSimple(selStr);
@@ -42,9 +42,9 @@ function action(mode, type, selection) {
 	if (selection == -1) {
 	    var cPlayer = cm.getClient().getChannelServer().getPlayerStorage().getCharacterById(cm.getPlayer().getMarriageId());
 	    if (cPlayer == null) {
-	        cm.sendNext("��ȷ����İ��������ϡ�");
+	        cm.sendNext("请确定你的伴侣在线上。");
 	    } else {
-	    	cPlayer.dropMessage(1, "��İ�����Ҫ������顣");
+	    	cPlayer.dropMessage(1, "你的伴侣想要跟你离婚。");
 	    	cPlayer.setMarriageId(0);
 	    	cm.setQuestRecord(cPlayer, 160001, "0");
 	    	cm.setQuestRecord(cm.getPlayer(), 160001, "0");
@@ -54,15 +54,15 @@ function action(mode, type, selection) {
                 for (var i = 1112300; i < 1112312; i++) {
                 cm.gainItem(i, -1);
 	        }
-	    	cm.sendNext("�ɹ�����ˡ�");
+	    	cm.sendNext("成功离婚了。");
 	    }
 	} else {
 	    if (selection >= 1112300 && selection < 1112312) {
 		cm.gainItem(selection, -1);
-		cm.sendOk("��ɹ��Ƴ��˽�ָ��");
+		cm.sendOk("你成功移除了戒指。");
 	    } else if (selection >= 2240004 && selection < 2240016) {
 		cm.gainItem(selection, -1);
-		cm.sendOk("��Ķ����ָ�ѱ�ɾ����");
+		cm.sendOk("你的订婚戒指已被删除。");
 	    }
 	}		
 	cm.dispose();

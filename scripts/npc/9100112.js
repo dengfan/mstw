@@ -1,4 +1,4 @@
-function start() {
+ï»¿function start() {
     status = -1;
 
     action(1, 0, 0);
@@ -10,7 +10,7 @@ function action(mode, type, selection) {
     else {
         if (status >= 0 && mode == 0) {
 
-            cm.sendOk("¸ĞĞ»ÄãµÄ¹âÁÙ£¡");
+            cm.sendOk("æ„Ÿè°¢ä½ çš„å…‰ä¸´ï¼");
             cm.dispose();
             return;
         }
@@ -26,13 +26,13 @@ function action(mode, type, selection) {
             for (i = 0; i < 10; i++) {
                 text += "";
             }
-			//ÏÔÊ¾ÎïÆ·IDÍ¼Æ¬ÓÃµÄ´úÂëÊÇ  #vÕâÀïĞ´ÈëID#
-            text += "#e#dÎÒ²»ÊÇ×ªÖ°NPCÅ¶~Òª×ªÖ°µÄ»°Çëµã»÷ÓÎÏ·ÓÒÏÂ½Ç[ÅÄÂô]½ÇÉ«¿ì½İ×ªÖ°£¬»áºÜ·½±ãµÄ£¬ÓĞÊÂÇé¾ÍÁªÏµQQÈºÖ÷£¬»¶Ó­ÄúµÄ¼ÓÈë£¡#l\r\n\r\n"//3
-            text += "#L1##r²é¿´¹ÙÍø#l\r\n\r\n"//3
-			text += "#L2##r²é¿´¹ÙÍø#l\r\n\r\n"//3
-			text += "#L3##r²é¿´¹ÙÍø#l\r\n\r\n"//3
-			text += "#L4##r²é¿´¹ÙÍø#l\r\n\r\n"//3
-			text += "#L5##r²é¿´¹ÙÍø#l\r\n\r\n"//3
+			//æ˜¾ç¤ºç‰©å“IDå›¾ç‰‡ç”¨çš„ä»£ç æ˜¯  #vè¿™é‡Œå†™å…¥ID#
+            text += "#e#dæˆ‘ä¸æ˜¯è½¬èŒNPCå“¦~è¦è½¬èŒçš„è¯è¯·ç‚¹å‡»æ¸¸æˆå³ä¸‹è§’[æ‹å–]è§’è‰²å¿«æ·è½¬èŒï¼Œä¼šå¾ˆæ–¹ä¾¿çš„ï¼Œæœ‰äº‹æƒ…å°±è”ç³»QQç¾¤ä¸»ï¼Œæ¬¢è¿æ‚¨çš„åŠ å…¥ï¼#l\r\n\r\n"//3
+            text += "#L1##ræŸ¥çœ‹å®˜ç½‘#l\r\n\r\n"//3
+			text += "#L2##ræŸ¥çœ‹å®˜ç½‘#l\r\n\r\n"//3
+			text += "#L3##ræŸ¥çœ‹å®˜ç½‘#l\r\n\r\n"//3
+			text += "#L4##ræŸ¥çœ‹å®˜ç½‘#l\r\n\r\n"//3
+			text += "#L5##ræŸ¥çœ‹å®˜ç½‘#l\r\n\r\n"//3
             cm.sendSimple(text);
         } else if (selection == 1) {
 			cm.openWeb("www.sf5y.com");

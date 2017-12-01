@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * 8001000.js: Zipangu: The Nightmarish Last Days
  * Summons BodyGuard A
 */
@@ -6,5 +6,5 @@
 function act() {
     rm.changeMusic("Bgm06/FinalFight");
     rm.spawnMonster(9400112, 830, 160);
-    rm.mapMessage("±£ïÚA ³öÏÖÁË¡£")
+    rm.mapMessage("ä¿é•–A å‡ºç°äº†ã€‚")
 }

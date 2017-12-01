@@ -1,5 +1,5 @@
-/* 
- * ÆÕÍ¨ÔúÀ¥
+ï»¿/* 
+ * æ™®é€šæ‰æ˜†
  */
 
 function init() {
@@ -12,11 +12,11 @@ function setup(eim, leaderid) {
     em.setProperty("leader", "true");
     var eim = em.newInstance("ZakumBattle" + leaderid);
     eim.setProperty("zakSummoned", "0");
-    var map = eim.setInstanceMap(280030000); //ÉèÖÃ»î¶¯½Å±¾µÄµØÍ¼
-    map.resetFully(); //ÖØÖÃµØÍ¼
-    //var mob = em.getMonster(9999999); //»Æ½ğµ°
-    //map.spawnMonsterOnGroundBelow(mob, new java.awt.Point(-329, -215)); //Ë¢³öÕâ¸ö¹ÖÎï
-    eim.startEventTimer(3000000); //50·ÖÖÓ
+    var map = eim.setInstanceMap(280030000); //è®¾ç½®æ´»åŠ¨è„šæœ¬çš„åœ°å›¾
+    map.resetFully(); //é‡ç½®åœ°å›¾
+    //var mob = em.getMonster(9999999); //é»„é‡‘è›‹
+    //map.spawnMonsterOnGroundBelow(mob, new java.awt.Point(-329, -215)); //åˆ·å‡ºè¿™ä¸ªæ€ªç‰©
+    eim.startEventTimer(3000000); //50åˆ†é’Ÿ
     return eim;
 }
 

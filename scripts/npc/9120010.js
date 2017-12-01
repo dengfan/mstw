@@ -1,4 +1,4 @@
-/**
+﻿/**
 -- Odin JavaScript --------------------------------------------------------------------------------
 	Faito(Showa Exchange Quest) - Showa Town(801000300)
 -- By ---------------------------------------------------------------------------------------------
@@ -143,7 +143,7 @@ function action(mode, type, selection) {
 	status++;
     } else {
 	if (status == 0) {
-	    cm.sendOk("���������֪���������ı������⡣");
+	    cm.sendOk("真的吗？让我知道，如果你改变了主意。");
 	    cm.safeDispose();
 	    return;
 	}
@@ -151,7 +151,7 @@ function action(mode, type, selection) {
     }
 
     if (status == 0) {
-	cm.sendYesNo("���������Ѱ��ĳ�ˣ����Ծ�ȷ��λ������Ʒ���ص㣬�㿴һ�����ڡ�Ŀǰ��������Ѱ�ҵĶ��������������ҵĹ�����");
+	cm.sendYesNo("如果你正在寻找某人，可以精确定位各种物品的特点，你看一个现在。目前，我正在寻找的东西。你想听听我的故事吗？");
     } else if (status == 1) {
 	var eQuestChoice = makeChoices(eQuestChoices);
 	cm.sendSimple(eQuestChoice);
@@ -162,20 +162,20 @@ function action(mode, type, selection) {
 	prizeItem = reward[itemSet][0];
 	prizeQuantity = reward[itemSet][1];
 	if (!cm.canHold(prizeItem)){
-	    cm.sendNext("ʲô���Ҳ��ܸ��㽱����ȷ����ĵ�������������");
+	    cm.sendNext("什么？我不能给你奖励，确保你的道具栏有无满。");
 	} else if (checkQuantity(requiredItem) >= 100){   // check they have >= 100 in Inventory
 	    cm.gainItem(requiredItem,-100);
 	    cm.gainItem(prizeItem,prizeQuantity);
-	    cm.sendOk("��......���������Ϊ���С����......̾�˿�����������ֻ����Ϊ����һ����׼��Ʒ����Ŀ����ô������� \r\n#t"+ prizeItem +"# ���㡣");
+	    cm.sendOk("嗯......如果不是因为这个小划痕......叹了口气。恐怕我只能认为这是一个标准的品质项目。那么，这里的 \r\n#t"+ prizeItem +"# 给你。");
 	} else{
-	    cm.sendOk("�٣������������ʲô��������ȥƭ���ˣ���֪������˵ʲô��");
+	    cm.sendOk("嘿，你觉得你在做什么？不是我去骗别人，不知道他在说什么！");
 	}
 	cm.safeDispose();
     }
 }
 
 function makeChoices(a){
-    var result  = "����Ѱ����Ŀ1,2,3... ̫����\r\n�ᡣ��֮��������ռ�����ͬ����Ŀ100����\r\nȻ���ҿ��������ƵĶ���������ʲô�������\r\n��֪����һ�㣬�������س�ŵ�ҽ�����������\r\n���õ��ġ����ڣ�����Ӧ�ý��ף�\r\n";
+    var result  = "我在寻找项目1,2,3... 太多了\r\n提。总之，如果你收集了相同的项目100个，\r\n然后我可以用类似的东西换它。什么？你可以\r\n不知道这一点，但我信守承诺我结束，所以你\r\n不用担心。现在，我们应该交易？\r\n";
     for (var x = 0; x< a.length; x++){
 	result += " #L" + x + "##v" + a[x] + "##t" + a[x] + "##l\r\n";
     }

@@ -1,9 +1,9 @@
-/*
+ï»¿/*
  *  Strawhat Snowman - Happy Ville NPC
  */
 
 function start() {
-    cm.sendSimple("°²°² ÎÒÊÇ #p2001003# ÄãÒªÈ¥ÄÄ¸öĞ¡·¿¼ä? PS¿É½á°éÍ¬ĞĞ \n\r #b#L0#ÔÂ¹âÉ­ÁÖ11#l \n\r #L1#ÔÂ¹âÉ­ÁÖ12#l \n\r #L2#ÔÂ¹âÉ­ÁÖ13#l \n\r #L3#ÔÂ¹âÉ­ÁÖ14#l \n\r #L4#ÔÂ¹âÉ­ÁÖ15#l");
+    cm.sendSimple("å®‰å®‰ æˆ‘æ˜¯ #p2001003# ä½ è¦å»å“ªä¸ªå°æˆ¿é—´? PSå¯ç»“ä¼´åŒè¡Œ \n\r #b#L0#æœˆå…‰æ£®æ—11#l \n\r #L1#æœˆå…‰æ£®æ—12#l \n\r #L2#æœˆå…‰æ£®æ—13#l \n\r #L3#æœˆå…‰æ£®æ—14#l \n\r #L4#æœˆå…‰æ£®æ—15#l");
 }
 
 function action(mode, type, selection) {

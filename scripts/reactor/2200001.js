@@ -1,11 +1,11 @@
-/* @Author Lerk
+ï»¿/* @Author Lerk
  * 
  * 2200001.js: Warps player into one of two Secret Factories
  * 
 */
 
 function act() {
-    rm.playerMessage(5, "ÕÒµ½ÁËÃØÃÜ¹¤³§¡£");
+    rm.playerMessage(5, "æ‰¾åˆ°äº†ç§˜å¯†å·¥å‚ã€‚");
     if (Math.random() < .5) {
         rm.warp(922000020);
     } else {

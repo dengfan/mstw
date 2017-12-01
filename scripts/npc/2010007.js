@@ -1,4 +1,4 @@
-/* guild creation npc */
+﻿/* guild creation npc */
 var status = 0;
 var sel;
 function start() {
@@ -20,7 +20,7 @@ function action(mode, type, selection) {
 			status--;
 
 		if (status == 0)
-			cm.sendSimple("��ӭ�������幫�ݣ�����������ʲô��?\r\n#b#L0#�������� #r250W#k#l\r\n#L1#��ɢ����#l\r\n#L2#���Ӽ����Ա��������#l#k");
+			cm.sendSimple("欢迎来到家族公馆，你现在想做什么呢?\r\n#b#L0#创建家族 #r250W#k#l\r\n#L1#解散家族#l\r\n#L2#增加家族成员人数上限#l#k");
 		else if (status == 1)
 		{
 			sel = selection;
@@ -28,32 +28,32 @@ function action(mode, type, selection) {
 			{
 				if (cm.getChar().getGuildId() > 0)
 				{
-					cm.sendOk("���Ѿ�ӵ�м����ˣ������ٴ�������.");
+					cm.sendOk("你已经拥有家族了，不能再创建家族.");
 					cm.dispose();
 				}
 				else
-					cm.sendYesNo("����һ���µļ�����Ҫ #b500W���#k, ��ȷ����������һ���µļ�����");
+					cm.sendYesNo("创建一个新的家族需要 #b500W金币#k, 你确定继续创建一个新的家族吗？");
 			}
 			else if (selection == 1)
 			{
 				if (cm.getChar().getGuildId() <= 0 || cm.getChar().getGuildRank() != 1)
 				{
-					cm.sendOk("�㻹û�м��壡\r\n�㲻���峤������㲻�ܽ�ɢ�ü���.");
+					cm.sendOk("你还没有家族！\r\n你不是族长，因此你不能解散该家族.");
 					cm.dispose();
 				}
 				else
-					cm.sendYesNo("��ȷ�����Ҫ��ɢ��ļ��壿����ɢ���㽫���ָܻ����м�����������Լ�GP����ֵ���Ƿ������");
+					cm.sendYesNo("你确定真的要解散你的家族？当解散后你将不能恢复所有家族相关资料以及GP的数值，是否继续？");
 			}
 			else if (selection == 2)
 			{
 				if (cm.getChar().getGuildId() <= 0 || cm.getChar().getGuildRank() != 1)
 				{
-					cm.sendOk("�㲻���峤������㽫�������Ӽ����Ա����������.");
+					cm.sendOk("你不是族长，因此你将不能增加家族成员的人数上限.");
 					cm.dispose();
 				}
 				else
-					//cm.sendYesNo("�����Ա����ÿ���� #b5#k λ��Ҫ֧�� #b" + cm.getChar().capacityCost() + " ���#k, ��ȷ��Ҫ������");
-					cm.sendYesNo("�����Ա����ÿ���� #b5#k λ��Ҫ֧�� #b2500000 ���#k, ��ȷ��Ҫ������");
+					//cm.sendYesNo("家族成员人数每增加 #b5#k 位需要支付 #b" + cm.getChar().capacityCost() + " 金币#k, 你确定要增加吗？");
+					cm.sendYesNo("家族成员人数每增加 #b5#k 位需要支付 #b2500000 金币#k, 你确定要增加吗？");
 			}
 		}
 		else if (status == 2)

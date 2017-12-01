@@ -1,12 +1,12 @@
-/*
+ï»¿/*
 	Marr - Tokyo Park 2095
 */
 
 function start() {
     if (cm.getMapId() != 802000310) {
-	cm.sendSimple("ÎØÎØÎØÎØ! \r\n#b#L0#ÎÒÏëÒªÓÃ#t4032192#¶Ò»»½±Àø¡£#l \r\n#b#L1#ÎÒÏëÒªÅÜ×ß!!#l");
+	cm.sendSimple("å‘œå‘œå‘œå‘œ! \r\n#b#L0#æˆ‘æƒ³è¦ç”¨#t4032192#å…‘æ¢å¥–åŠ±ã€‚#l \r\n#b#L1#æˆ‘æƒ³è¦è·‘èµ°!!#l");
     } else {
-	cm.sendOk("Ã»ÊÂ²»Òª´òÈÅÎÒ!");
+	cm.sendOk("æ²¡äº‹ä¸è¦æ‰“æ‰°æˆ‘!");
 	cm.dispose();
 }
 }
@@ -18,7 +18,7 @@ function action(mode, type, selection) {
 		cm.removeAll(4032192);
 		cm.warp(802000313, 0);
 	    } else {
-		cm.sendOk("Çë¸øÎÒ#t4032192#¡£");
+		cm.sendOk("è¯·ç»™æˆ‘#t4032192#ã€‚");
 	    }
 	} else if (selection == 1) {
 	    cm.warp(802000310, 0);

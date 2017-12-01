@@ -1,10 +1,10 @@
-/*
+ï»¿/*
 	Encrypted Slate of the Squad - Leafre Cave of life
 */
 
 var status = -1;
 
 function action(mode, type, selection) {
-	cm.sendOk("#b(Ò»×ùÊ¯±®£¬ÉÏÃæĞ´×Å¿´²»¶®µÄÎÄ×Ö¡­¡­¡£)");
+	cm.sendOk("#b(ä¸€åº§çŸ³ç¢‘ï¼Œä¸Šé¢å†™ç€çœ‹ä¸æ‡‚çš„æ–‡å­—â€¦â€¦ã€‚)");
 	cm.safeDispose();
 }

@@ -1,4 +1,4 @@
-var status = -1;
+﻿var status = -1;
 
 function start() {
 	action(1, 0, 0);
@@ -11,7 +11,7 @@ function action(mode, type, selection) {
 	status--;
     }
     if (status == 0) {
-            cm.sendYesNo("ȷ��Ҫ�뿪��?");
+            cm.sendYesNo("确定要离开吗?");
         } else if (status == 1) {
             cm.warp(501030104);
 		if (cm.getPlayerCount(501030105) == 0) {

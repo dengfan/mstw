@@ -1,4 +1,4 @@
-var status = -1;
+ï»¿var status = -1;
 
 function action(mode, type, selection) {
     if (mode == 1) {
@@ -39,8 +39,8 @@ function action(mode, type, selection) {
 	    cm.sendNext("This is it! Place the Magic Stone on the Altar!");
 	    break;
 	case 930000700:
-	    cm.removeAll(4001169);//¹ÖÎïÖ®Öé
-	    cm.removeAll(2270004);//¾»»¯Ö®Öé
+	    cm.removeAll(4001169);//æ€ªç‰©ä¹‹ç 
+	    cm.removeAll(2270004);//å‡€åŒ–ä¹‹ç 
 	    cm.removeAll(4001162);
 	    cm.removeAll(4001163);
 	    cm.warp(930000800,0);

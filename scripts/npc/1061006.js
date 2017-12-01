@@ -1,7 +1,7 @@
-var status = -1;
+ï»¿var status = -1;
 
 function start() {
-    cm.sendNext("°ÑÊÖ·ÅÔÚÊ¯ÏñÉÏ£¬Ò²Ã»ÓĞÈÎºÎ±ä»¯¡£");
+    cm.sendNext("æŠŠæ‰‹æ”¾åœ¨çŸ³åƒä¸Šï¼Œä¹Ÿæ²¡æœ‰ä»»ä½•å˜åŒ–ã€‚");
     cm.dispose();
 }
 

@@ -1,23 +1,23 @@
-// mxmxd
-// еепп╟Я
+О╩©// mxmxd
+// Ф▌▓Х║▄Ф╕°
 function start() {
     if (cm.getChar().getMapId() != 209000015) {
-        cm.sendSimple("\t\t\t\t\t#e#dцхпбц╟оу╣╨еепп╟Я#k#n\r\n\t\t\t#b#L0#хннЯеепп╟Я#l\t#L1#╣х╪╤еепп╟Я#l\r\n\t\t\t#L2#хкфЬеепп╟Я#l\t#L3#╫П╠реепп╟Я#l\r\n\t\t\t#L4#у╫а╕еепп╟Я#l");
+        cm.sendSimple("\t\t\t\t\t#e#dХ░▄Ф√╟Е├▓И≥╘Е╡⌡Ф▌▓Х║▄Ф╕°#k#n\r\n\t\t\t#b#L0#Д╩╩Е┼║Ф▌▓Х║▄Ф╕°#l\t#L1#Г╜┴Г╨╖Ф▌▓Х║▄Ф╕°#l\r\n\t\t\t#L2#Д╨╨Ф╟■Ф▌▓Х║▄Ф╕°#l\t#L3#И┤▒Е╦│Ф▌▓Х║▄Ф╕°#l\r\n\t\t\t#L4#Ф┬≤Е┼⌡Ф▌▓Х║▄Ф╕°#l");
     } else {
-        cm.sendOk("нч╥╗тз╢к╣ьм╪╢Р©╙║ё")
+        cm.sendOk("Ф≈═ФЁ∙Е°╗Ф╜╓Е°╟Е⌡╬Ф┴⌠Е╪─Ц─┌")
     }
 }
 function action(mode, type, selection) {
-    if (selection == 0) { // хннЯеепп
-        cm.хннЯеепп╟Я();
+    if (selection == 0) { // Д╩╩Е┼║Ф▌▓Х║▄
+        cm.Д╩╩Е┼║Ф▌▓Х║▄Ф╕°();
     } else if (selection == 1) {
         cm.showlvl();
     } else if (selection == 2) {
-        cm.хкфЬеепп╟Я();
+        cm.Д╨╨Ф╟■Ф▌▓Х║▄Ф╕°();
     } else if (selection == 3) {
         cm.showmeso();
     } else if (selection == 4) {
-        cm.у╫╤╥а╕еепп╟Я();
+        cm.Ф┬≤Ф√≈Е┼⌡Ф▌▓Х║▄Ф╕°();
     }
 
     cm.dispose();

@@ -1,4 +1,4 @@
-/* Vogen
+ï»¿/* Vogen
 	El Nath: El Nath Market (211000100)
 	
 	Refining NPC: 
@@ -31,8 +31,8 @@ function action(mode, type, selection) {
         cm.dispose();
     }
     if (status == 0 && mode == 1) {
-        var selStr = "àÅ£¿ÄãÊÇË­¡­¡­£¿Å¶£¬ÄÑµÀÄãÌıËµ¹ıÎÒµÄ¶ÍÔì¼¼ÄÜÂğ£¿ÔÚÕâÖÖÇé¿öÏÂ£¬ÎÒºÜÔ¸ÒâÎªÄãÖÆ×÷Ò»Ğ©¿óÊ¯¡­¡­µ«ÊÇ£¬Äã±ØĞëÖ§¸¶ÎÒÒ»Ğ©½ğ±Ò¡£#b"
-        var options = new Array("Ò±Á¶¿óÊ¯Ä¸¿ó", "Ò±Á¶±¦Ê¯Ä¸¿ó", "Ò±Á¶º±¼ûÄ¸¿ó", "Ò±Á¶Ë®¾§Ä¸¿ó", "ÖÆ×÷²ÄÁÏ", "ÖÆ×÷¼ı");
+        var selStr = "å—¯ï¼Ÿä½ æ˜¯è°â€¦â€¦ï¼Ÿå“¦ï¼Œéš¾é“ä½ å¬è¯´è¿‡æˆ‘çš„é”»é€ æŠ€èƒ½å—ï¼Ÿåœ¨è¿™ç§æƒ…å†µä¸‹ï¼Œæˆ‘å¾ˆæ„¿æ„ä¸ºä½ åˆ¶ä½œä¸€äº›çŸ¿çŸ³â€¦â€¦ä½†æ˜¯ï¼Œä½ å¿…é¡»æ”¯ä»˜æˆ‘ä¸€äº›é‡‘å¸ã€‚#b"
+        var options = new Array("å†¶ç‚¼çŸ¿çŸ³æ¯çŸ¿", "å†¶ç‚¼å®çŸ³æ¯çŸ¿", "å†¶ç‚¼ç½•è§æ¯çŸ¿", "å†¶ç‚¼æ°´æ™¶æ¯çŸ¿", "åˆ¶ä½œææ–™", "åˆ¶ä½œç®­");
         for (var i = 0; i < options.length; i++) {
             selStr += "\r\n#L" + i + "# " + options[i] + "#l";
         }
@@ -40,7 +40,7 @@ function action(mode, type, selection) {
     } else if (status == 1 && mode == 1) {
         selectedType = selection;
         if (selectedType == 0) { //mineral refine
-            var selStr = "ÄÇÃ´£¬ÄãÏëÒ±Á¶Ê²Ã´ÑùµÄ¿óÊ¯£¿#b";
+            var selStr = "é‚£ä¹ˆï¼Œä½ æƒ³å†¶ç‚¼ä»€ä¹ˆæ ·çš„çŸ¿çŸ³ï¼Ÿ#b";
             var minerals = new Array("#t4011000#", "#t4011001#", "#t4011002#", "#t4011003#", "#t4011004#", "#t4011005#", "#t4011006#");
             for (var i = 0; i < minerals.length; i++) {
                 selStr += "\r\n#L" + i + "# " + minerals[i] + "#l";
@@ -48,7 +48,7 @@ function action(mode, type, selection) {
             equip = false;
             cm.sendSimple(selStr);
         } else if (selectedType == 1) { //jewel refine
-            var selStr = "ÄÇÃ´£¬ÄãÏëÒ±Á¶Ê²Ã´ÑùµÄ±¦Ê¯£¿#b";
+            var selStr = "é‚£ä¹ˆï¼Œä½ æƒ³å†¶ç‚¼ä»€ä¹ˆæ ·çš„å®çŸ³ï¼Ÿ#b";
             var jewels = new Array("#t4021000#", "#t4021001#", "#t4021002#", "#t4021003#", "#t4021004#", "#t4021005#", "#t4021006#", "#t4021007#", "#t4021008#");
             for (var i = 0; i < jewels.length; i++) {
                 selStr += "\r\n#L" + i + "# " + jewels[i] + "#l";
@@ -56,14 +56,14 @@ function action(mode, type, selection) {
             equip = false;
             cm.sendSimple(selStr);
         } else if (selectedType == 2) { //rock refine
-            var selStr = "Ò»¸ö±¦Ê¯£¿ÄãÏëÒªÊ²Ã´£¿#b";
+            var selStr = "ä¸€ä¸ªå®çŸ³ï¼Ÿä½ æƒ³è¦ä»€ä¹ˆï¼Ÿ#b";
             var items = new Array("#t4011007#", "#t4021009#");
             for (var i = 0; i < items.length; i++) {
                 selStr += "\r\n#L" + i + "# " + items[i] + "#l";
             }
             cm.sendSimple(selStr);
         } else if (selectedType == 3) { //crystal refine
-            var selStr = "ÄãÏëÒªË®¾§¿óÂğ£¿#b";
+            var selStr = "ä½ æƒ³è¦æ°´æ™¶çŸ¿å—ï¼Ÿ#b";
             var crystals = new Array("#t4005000#", "#t4005001#", "#t4005002#", "#t4005003#", "#t4005004#");
             for (var i = 0; i < crystals.length; i++) {
                 selStr += "\r\n#L" + i + "# " + crystals[i] + "#l";
@@ -71,7 +71,7 @@ function action(mode, type, selection) {
             equip = false;
             cm.sendSimple(selStr);
         } else if (selectedType == 4) { //material refine
-            var selStr = "²ÄÁÏÂğ£¿ÎÒÖªµÀÒ»Ğ©²ÄÁÏµÄ×ö·¨¡£#b";
+            var selStr = "ææ–™å—ï¼Ÿæˆ‘çŸ¥é“ä¸€äº›ææ–™çš„åšæ³•ã€‚#b";
             var materials = new Array("#t4003001#", "#t4003001#", "#t4003000#");
             for (var i = 0; i < materials.length; i++) {
                 selStr += "\r\n#L" + i + "# " + materials[i] + "#l";
@@ -79,7 +79,7 @@ function action(mode, type, selection) {
             equip = false;
             cm.sendSimple(selStr);
         } else if (selectedType == 5) { //arrow refine
-            var selStr = "¼ıÂğ£¿Õâ¸öĞ¡ÒâË¼À²~#b";
+            var selStr = "ç®­å—ï¼Ÿè¿™ä¸ªå°æ„æ€å•¦~#b";
             var arrows = new Array("#t2060000#", "#t2061000#", "#t2060001#", "#t2061001#", "#t2060002#", "#t2061002#");
             for (var i = 0; i < arrows.length; i++) {
                 selStr += "\r\n#L" + i + "# " + arrows[i] + "#l";
@@ -136,7 +136,7 @@ function action(mode, type, selection) {
             matQty = matQtySet[selectedItem];
             cost = costSet[selectedItem];
         }
-        var prompt = "ÄÇÃ´£¬ÄãÏëÒªÎÒ×ö #t" + item + "# Âğ£¿ÈÃÎÒ¿´¿´£¬ÄãÏë×ö¼¸¸ö£¿";
+        var prompt = "é‚£ä¹ˆï¼Œä½ æƒ³è¦æˆ‘åš #t" + item + "# å—ï¼Ÿè®©æˆ‘çœ‹çœ‹ï¼Œä½ æƒ³åšå‡ ä¸ªï¼Ÿ";
         cm.sendGetNumber(prompt, 1, 1, 100)
     } else if (status == 3 && mode == 1) {
         if (equip) {
@@ -156,13 +156,13 @@ function action(mode, type, selection) {
             cost = costSet[selectedItem];
         }
 
-        var prompt = "ÄãÏëÒªÎÒÈ¥×ö ";
+        var prompt = "ä½ æƒ³è¦æˆ‘å»åš ";
         if (qty == 1) {
-            prompt += "#t" + item + "# Âğ£¿";
+            prompt += "#t" + item + "# å—ï¼Ÿ";
         } else {
-            prompt += qty + " ¸ö #t" + item + "# Âğ£¿";
+            prompt += qty + " ä¸ª #t" + item + "# å—ï¼Ÿ";
         }
-        prompt += " ÈÃÎÒ¿´¿´£¬ÎÒ½«ĞèÒªÊ¹ÓÃÌØÊâµÄÎïÆ·£¬ÇëÈ·±£ÄãµÄ±³°üÊÇ·ñÓĞ×ã¹»µÄ¿Õ¼ä¡£#b";
+        prompt += " è®©æˆ‘çœ‹çœ‹ï¼Œæˆ‘å°†éœ€è¦ä½¿ç”¨ç‰¹æ®Šçš„ç‰©å“ï¼Œè¯·ç¡®ä¿ä½ çš„èƒŒåŒ…æ˜¯å¦æœ‰è¶³å¤Ÿçš„ç©ºé—´ã€‚#b";
         if (mats instanceof Array) {
             for (var i = 0; i < mats.length; i++) {
                 prompt += "\r\n#i" + mats[i] + "# " + matQty[i] * qty + " #t" + mats[i] + "#";
@@ -171,13 +171,13 @@ function action(mode, type, selection) {
             prompt += "\r\n#i" + mats + "# " + matQty * qty + " #t" + mats + "#";
         }
         if (cost > 0) {
-            prompt += "\r\n#i4031138# " + cost * qty + " ½ğ±Ò";
+            prompt += "\r\n#i4031138# " + cost * qty + " é‡‘å¸";
         }
         cm.sendYesNo(prompt);
     } else if (status == 4 && mode == 1) {
         var complete = false;
         if (cm.getMeso() < cost * qty) {
-            cm.sendOk("ÄãºÃÏñÃ»ÓĞ×ã¹»µÄ½ğ±Ò¡£")
+            cm.sendOk("ä½ å¥½åƒæ²¡æœ‰è¶³å¤Ÿçš„é‡‘å¸ã€‚")
             cm.dispose();
             return;
         } else {
@@ -193,7 +193,7 @@ function action(mode, type, selection) {
             }
         }
         if (!complete) {
-            cm.sendOk("ÄãºÃÏñÃ»ÓĞ×ã¹»µÄ²ÄÁÏ¡£");
+            cm.sendOk("ä½ å¥½åƒæ²¡æœ‰è¶³å¤Ÿçš„ææ–™ã€‚");
         } else {
             if (mats instanceof Array) {
                 for (var i = 0; i < mats.length; i++) {
@@ -214,7 +214,7 @@ function action(mode, type, selection) {
             } else {
                 cm.gainItem(item, qty);
             }
-            cm.sendOk("È«²¿×öºÃÁË£¬Èç¹ûÄã»¹ĞèÒªÊ²Ã´¶«Î÷£¬ÇëÔÙÀ´ÕÒÎÒ¡£");
+            cm.sendOk("å…¨éƒ¨åšå¥½äº†ï¼Œå¦‚æœä½ è¿˜éœ€è¦ä»€ä¹ˆä¸œè¥¿ï¼Œè¯·å†æ¥æ‰¾æˆ‘ã€‚");
         }
         cm.dispose();
     }

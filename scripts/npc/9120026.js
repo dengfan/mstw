@@ -1,4 +1,4 @@
-
+﻿
 /*
 	Crysta; - Kamuma (Neo Tokyo Teleporter)
 */
@@ -96,7 +96,7 @@ function start() {
             cm.dispose();
             break;
         default:
-            cm.sendSimple("��~ ����ˮ������Ҫ�Ұ�æ�� \r #b#L0##m802000200##l \r #L1##m802000300##l \r #L2##m802000500##l \r #L3##m802000600##l \r #L5##m802000800##l  \r #L7##m802000200##l \r #L6#���Һúÿ���һ�¡�#l");
+            cm.sendSimple("嗨~ 我是水晶，需要我帮忙？ \r #b#L0##m802000200##l \r #L1##m802000300##l \r #L2##m802000500##l \r #L3##m802000600##l \r #L5##m802000800##l  \r #L7##m802000200##l \r #L6#让我好好考虑一下。#l");
             break;
     }
 }
@@ -143,7 +143,7 @@ function action(mode, type, selection) {
         if (questid && mapid > 0) {
             cm.warp(mapid, portal);
         } else {
-            cm.sendOk("�Ҳ���Ϊ�����Դ�Խ�����ǿ���������");
+            cm.sendOk("我不认为您可以穿越过这个强大的力量。");
         }
     }
 

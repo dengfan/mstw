@@ -1,7 +1,7 @@
-/* 	Cassandra
+ï»¿/* 	Cassandra
 */
 
 function action(mode, type, selection) {
-    cm.sendOk("¸Ï½ô¼ì²éÄúµÄµÀ¾ßÀ¸£¬ÓĞÒâÏë²»µ½µÄ¾ªÏ²£¡");
+    cm.sendOk("èµ¶ç´§æ£€æŸ¥æ‚¨çš„é“å…·æ ï¼Œæœ‰æ„æƒ³ä¸åˆ°çš„æƒŠå–œï¼");
     cm.safeDispose()
 }

@@ -1,7 +1,7 @@
-function start() {
+﻿function start() {
     var status = cm.getQuestStatus(20706);
     if (status == 0) {
-        cm.sendNext("��ͨ�Ĳݴԡ�");
+        cm.sendNext("普通的草丛。");
     } else if (status == 1) {
         cm.forceCompleteQuest(20706);
         cm.sendNext("You have spotted the shadow! Better report to #p1103001#.");

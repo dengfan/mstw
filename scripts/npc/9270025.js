@@ -1,4 +1,4 @@
-/* 	Xan
+ï»¿/* 	Xan
 	Lian Hua Hua Skin Care
 */
 var status = -1;
@@ -13,12 +13,12 @@ function action(mode, type, selection) {
     }
 
     if (status == 0) {
-	cm.sendNext("àË£¬»¶Ó­À´µ½ĞÂ¼ÓÆÂ£¬ÎÒÊÇ#p9270025# Èç¹ûÄúÓĞ#b#t5153010##k ÎÒ¾Í¿ÉÒÔÃâ·Ñ°ïÄúÕûĞÎÒ»´Î¡£");
+	cm.sendNext("å—¨ï¼Œæ¬¢è¿æ¥åˆ°æ–°åŠ å¡ï¼Œæˆ‘æ˜¯#p9270025# å¦‚æœæ‚¨æœ‰#b#t5153010##k æˆ‘å°±å¯ä»¥å…è´¹å¸®æ‚¨æ•´å½¢ä¸€æ¬¡ã€‚");
     } else if (status == 1){
 	if (cm.setRandomAvatar(5153010, skin) == 1) {
-	    cm.sendOk("ÏíÊÜÄãĞÂµÄÔìĞÍ°É£¡");
+	    cm.sendOk("äº«å—ä½ æ–°çš„é€ å‹å§ï¼");
 	} else {
-	    cm.sendOk("ÓÉÓÚÃ»ÓĞ#b#t5153010##k ËùÒÔÎÒ²»ÄÜ°ïÃ¦¡£");
+	    cm.sendOk("ç”±äºæ²¡æœ‰#b#t5153010##k æ‰€ä»¥æˆ‘ä¸èƒ½å¸®å¿™ã€‚");
 	}
 	cm.safeDispose();
     }

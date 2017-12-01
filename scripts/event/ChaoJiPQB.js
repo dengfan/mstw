@@ -1,5 +1,5 @@
-/* 
- * ÆÕÍ¨ºÚÁú
+ï»¿/* 
+ * æ™®é€šé»‘é¾™
  */
 
 
@@ -14,11 +14,11 @@ function setup(eim, leaderid) {
     em.setProperty("preheadCheck", "0");
     em.setProperty("leader", "true");
     var eim = em.newInstance("HorntailBattle");
-    var map = eim.setInstanceMap(240060200); //ÉèÖÃ»î¶¯½Å±¾µÄµØÍ¼
-    map.resetFully(); //ÖØÖÃµØÍ¼
-   // var mob = em.getMonster(9999999); //»Æ½ğµ°
-    //map.spawnMonsterOnGroundBelow(mob, new java.awt.Point(-550, 260)); //Ë¢³öÕâ¸ö¹ÖÎï
-    eim.startEventTimer(4500000); //1Ğ¡Ê±15·ÖÖÓ
+    var map = eim.setInstanceMap(240060200); //è®¾ç½®æ´»åŠ¨è„šæœ¬çš„åœ°å›¾
+    map.resetFully(); //é‡ç½®åœ°å›¾
+   // var mob = em.getMonster(9999999); //é»„é‡‘è›‹
+    //map.spawnMonsterOnGroundBelow(mob, new java.awt.Point(-550, 260)); //åˆ·å‡ºè¿™ä¸ªæ€ªç‰©
+    eim.startEventTimer(4500000); //1å°æ—¶15åˆ†é’Ÿ
     return eim;
 }
 

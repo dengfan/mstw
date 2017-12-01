@@ -1,4 +1,4 @@
-/*
+ï»¿/*
 	NPC Name: 		Sgt. Anderson
 	Map(s): 		Ludibrium PQ Maps
 	Description: 		Warps you out from Ludi PQ
@@ -15,7 +15,7 @@ function action(mode, type, selection) {
 		cm.dispose();
 	} else {
 		if (status == 0 && mode == 0) {
-			cm.sendOk("¼á³ÖÏÂÈ¥£¡");
+			cm.sendOk("åšæŒä¸‹å»ï¼");
 			cm.dispose();
 			return;
 		}
@@ -25,7 +25,7 @@ function action(mode, type, selection) {
 			status--;
 		if (status == 0) {
 			if (cm.getMapId() != 922010000) {
-				cm.sendYesNo("ÊÇ·ñ¾õµÃ³ÔÁ¦£¿²»Ïë¼ÌĞøÌôÕ½ÁËÂğ£¿");
+				cm.sendYesNo("æ˜¯å¦è§‰å¾—åƒåŠ›ï¼Ÿä¸æƒ³ç»§ç»­æŒ‘æˆ˜äº†å—ï¼Ÿ");
 			} else {
 				if (cm.haveItem(4001022)) {
 					cm.removeAll(4001022);

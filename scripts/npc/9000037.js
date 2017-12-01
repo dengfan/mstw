@@ -1,4 +1,4 @@
-/*
+ï»¿/*
 	NPC Name: 		Agent Kitty
 	Map(s): 		Special Training Camp for Agent (970030000)
 	Description: 		Agent event Starter
@@ -11,7 +11,7 @@ function start() {
 
 		if(cm.getParty() != null){
 
-			cm.sendOk("Ö»ÄÜ1¸öÈË½øÈë.");
+			cm.sendOk("åªèƒ½1ä¸ªäººè¿›å…¥.");
 
 			cm.dispose();
 
@@ -27,11 +27,11 @@ function start() {
 
     } else if (cm.getMapId() == 910000000) {
 
-	cm.sendYesNo("ÄãÏëÒª¿ªÊ¼27¹Ø¸±±¾Âğ£¿")
+	cm.sendYesNo("ä½ æƒ³è¦å¼€å§‹27å…³å‰¯æœ¬å—ï¼Ÿ")
 	type = 1;
  
    } else {
-	cm.sendYesNo("ÄãÏëÒªÀë¿ªÂğ?");
+	cm.sendYesNo("ä½ æƒ³è¦ç¦»å¼€å—?");
 	type = 2;
   
   }

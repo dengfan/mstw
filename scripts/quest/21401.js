@@ -1,4 +1,4 @@
-var status = -1;
+ï»¿var status = -1;
 
 function start(mode, type, selection) {
 	if (mode == -1) {
@@ -9,7 +9,7 @@ function start(mode, type, selection) {
 		else
 			status--;
 		if (status == 0) {
-			qm.sendAcceptDecline("¡­¡­¡­¡­ÌıËµÄãÊÇ¸öÉñ¿Ó£¬ÎÒÏëºÍÄã±È½Ï±È½Ï£¬Ë­¸ü¿Ó");
+			qm.sendAcceptDecline("â€¦â€¦â€¦â€¦å¬è¯´ä½ æ˜¯ä¸ªç¥å‘ï¼Œæˆ‘æƒ³å’Œä½ æ¯”è¾ƒæ¯”è¾ƒï¼Œè°æ›´å‘");
 		} else if (status == 1) {
 			qm.openNpc(1201001,2);
 			//qm.forceCompleteQuest();

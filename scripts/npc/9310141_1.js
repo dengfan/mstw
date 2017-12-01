@@ -1,28 +1,28 @@
-var equip = null;
+ï»¿var equip = null;
 var change = null;
 var ii = Packages.server.MapleItemInformationProvider.getInstance();
-var statNames = new Array("Á¦Á¿(STR)", "Ãô½İ(DEX)", "ÖÇÁ¦(INT)", "ÔËÆø(LUK)", "ºì(HP)", "Ä§(MP)", "ÎïÀí¹¥»÷(Weapon attack)", "Ä§·¨¹¥»÷(Magic attack)", "ÎïÀí·ÀÓù(Weapon defense)", "Ä§·¨·ÀÓù(Magic defense)", "ÃüÖĞÂÊ(Accuracy)", "¶ã±ÜÂÊ(Avoidability)", "ËÙ¶È(Speed)", "ÌøÔ¾(Jump)", "¿ÉÉı¼¶´ÎÊı(Slots to Upgrade)"); //ÉèÖÃ×°±¸¸÷ÖÖÊôĞÔÃû³Æ
+var statNames = new Array("åŠ›é‡(STR)", "æ•æ·(DEX)", "æ™ºåŠ›(INT)", "è¿æ°”(LUK)", "çº¢(HP)", "é­”(MP)", "ç‰©ç†æ”»å‡»(Weapon attack)", "é­”æ³•æ”»å‡»(Magic attack)", "ç‰©ç†é˜²å¾¡(Weapon defense)", "é­”æ³•é˜²å¾¡(Magic defense)", "å‘½ä¸­ç‡(Accuracy)", "èº²é¿ç‡(Avoidability)", "é€Ÿåº¦(Speed)", "è·³è·ƒ(Jump)", "å¯å‡çº§æ¬¡æ•°(Slots to Upgrade)"); //è®¾ç½®è£…å¤‡å„ç§å±æ€§åç§°
 var toDrop;
-var needvip = 30166; //ĞèÒª¶àÉÙVIPµÈ¼¶ÒÔÉÏ²ÅÄÜÊ¹ÓÃ´Ë¹¦ÄÜ
+var needvip = 30166; //éœ€è¦å¤šå°‘VIPç­‰çº§ä»¥ä¸Šæ‰èƒ½ä½¿ç”¨æ­¤åŠŸèƒ½
 
-var number = Math.floor(Math.random() * 3 + 1); //ÉèÖÃËæ»úÒ»¸öÊı×Ö
-var needmark = 31111 * number; //ÖÆ×÷Ò»¼ş×°±¸ĞèÒªµÄ¼Û¸ñ
-var str = 0; //Ôö¼Ó1µãÁ¦Á¿(STR)¼Û¸ñ
-var dex = 0; //Ôö¼Ó1µãÃô½İ(DEX)¼Û¸ñ
-var ini = 0; //Ôö¼Ó1µãÖÇÁ¦(INT)¼Û¸ñ
-var luk = 0; //Ôö¼Ó1µãÔËÆø(LUK)¼Û¸ñ
-var hp = 0; //Ôö¼Ó1µãºì(HP)¼Û¸ñ
-var mp = 0; //Ôö¼Ó1µãÄ§(MP)¼Û¸ñ
-var wattack = 0; //Ôö¼Ó1µãÎïÀí¹¥»÷(Weapon attack)¼Û¸ñ
-var mattack = 0; //Ôö¼Ó1µãÄ§·¨¹¥»÷(Magic attack)¼Û¸ñ
-var wdefense = 0; //Ôö¼Ó1µãÎïÀí·ÀÓù(Weapon defense)¼Û¸ñ
-var mdefense = 0; //Ôö¼Ó1µãÄ§·¨·ÀÓù(Magic defense)¼Û¸ñ
-var accuracy = 0; //Ôö¼Ó1µãÃüÖĞÂÊ(Accuracy)¼Û¸ñ
-var avoidability = 5; //Ôö¼Ó1µã¶ã±ÜÂÊ(Avoidability)¼Û¸ñ
-var speed = 5; //Ôö¼Ó1µãËÙ¶È(Speed)¼Û¸ñ
-var jump = 5; //Ôö¼Ó1µãÌøÔ¾(Jump)¼Û¸ñ
-var upgrade = 6; //Ôö¼Ó1µã¿ÉÉı¼¶´ÎÊı(Slots to Upgrade)¼Û¸ñ
-var own = 5; //ĞŞ¸Ä×°±¸Ãû(Own)¼Û¸ñ
+var number = Math.floor(Math.random() * 3 + 1); //è®¾ç½®éšæœºä¸€ä¸ªæ•°å­—
+var needmark = 31111 * number; //åˆ¶ä½œä¸€ä»¶è£…å¤‡éœ€è¦çš„ä»·æ ¼
+var str = 0; //å¢åŠ 1ç‚¹åŠ›é‡(STR)ä»·æ ¼
+var dex = 0; //å¢åŠ 1ç‚¹æ•æ·(DEX)ä»·æ ¼
+var ini = 0; //å¢åŠ 1ç‚¹æ™ºåŠ›(INT)ä»·æ ¼
+var luk = 0; //å¢åŠ 1ç‚¹è¿æ°”(LUK)ä»·æ ¼
+var hp = 0; //å¢åŠ 1ç‚¹çº¢(HP)ä»·æ ¼
+var mp = 0; //å¢åŠ 1ç‚¹é­”(MP)ä»·æ ¼
+var wattack = 0; //å¢åŠ 1ç‚¹ç‰©ç†æ”»å‡»(Weapon attack)ä»·æ ¼
+var mattack = 0; //å¢åŠ 1ç‚¹é­”æ³•æ”»å‡»(Magic attack)ä»·æ ¼
+var wdefense = 0; //å¢åŠ 1ç‚¹ç‰©ç†é˜²å¾¡(Weapon defense)ä»·æ ¼
+var mdefense = 0; //å¢åŠ 1ç‚¹é­”æ³•é˜²å¾¡(Magic defense)ä»·æ ¼
+var accuracy = 0; //å¢åŠ 1ç‚¹å‘½ä¸­ç‡(Accuracy)ä»·æ ¼
+var avoidability = 5; //å¢åŠ 1ç‚¹èº²é¿ç‡(Avoidability)ä»·æ ¼
+var speed = 5; //å¢åŠ 1ç‚¹é€Ÿåº¦(Speed)ä»·æ ¼
+var jump = 5; //å¢åŠ 1ç‚¹è·³è·ƒ(Jump)ä»·æ ¼
+var upgrade = 6; //å¢åŠ 1ç‚¹å¯å‡çº§æ¬¡æ•°(Slots to Upgrade)ä»·æ ¼
+var own = 5; //ä¿®æ”¹è£…å¤‡å(Own)ä»·æ ¼
 
 function start() {
     status = -1;
@@ -43,70 +43,70 @@ function action(mode, type, selection) {
 
         if (status == 0) {
             if (cm.getChar().getId() == needvip) {
-                cm.sendYesNo("#d»¶Ó­#dÀ´µ½#rÍÃ»¨»¨Ã°ÏÕµº!ÄãĞèÒªÖÆ×÷×Ô¼ºµÄÖ¸¶¨ÊôĞÔ×°±¸Âğ?\r\n\r\n#b©¬©¬©¬©¬©¬©¬©¥¨T¡îÊÕ·ÑËµÃ÷¡î¨T©¥©¬©¬©¬©¬©¬©¬\r\n#rÔö¼ÓÒ»µã#gÁ¦Á¿(STR)#r¼Û¸ñ:#g" + str + "#r¸öÍÃÍÃ±Ò\r\n#rÔö¼ÓÒ»µã#gÃô½İ(DEX)#r¼Û¸ñ:#g" + dex + "#r¸öÍÃÍÃ±Ò\r\n#rÔö¼ÓÒ»µã#gÖÇÁ¦(INI)#r¼Û¸ñ:#g" + ini + "#r¸öÍÃÍÃ±Ò\r\n#rÔö¼ÓÒ»µã#gÔËÆø(LUK)#r¼Û¸ñ:#g" + luk + "#r¸öÍÃÍÃ±Ò\r\n\r\n#rÔö¼ÓÒ»µã#gºì(HP)#r¼Û¸ñ:#g" + hp + "#r¸öÍÃÍÃ±Ò\r\n#rÔö¼ÓÒ»µã#gÄ§(MP)#r¼Û¸ñ:#g" + mp + "#r¸öÍÃÍÃ±Ò\r\n#rÔö¼ÓÒ»µã#gÎïÀí¹¥»÷(Weapon attack)#r¼Û¸ñ:#g" + wattack + "#r¸öÍÃÍÃ±Ò\r\n#rÔö¼ÓÒ»µã#gÄ§·¨¹¥»÷(Magic attack)#r¼Û¸ñ:#g" + mattack + "#r¸öÍÃÍÃ±Ò\r\n#rÔö¼ÓÒ»µã#gÎïÀí·ÀÓù(Weapon defense)#r¼Û¸ñ:#g" + wdefense + "#r¸öÍÃÍÃ±Ò\r\n#rÔö¼ÓÒ»µã#gÄ§·¨·ÀÓù(Magic defense)#r¼Û¸ñ:#g" + mdefense + "#r¸öÍÃÍÃ±Ò\r\n\r\n#rÔö¼ÓÒ»µã#gÃüÖĞÂÊ(Accuracy)#r¼Û¸ñ:#g" + accuracy + "#r¸öÍÃÍÃ±Ò\r\n#rÔö¼ÓÒ»µã#g¶ã±ÜÂÊ(Avoidability)#r¼Û¸ñ:#g" + avoidability + "#r¸öÍÃÍÃ±Ò\r\n#rÔö¼ÓÒ»µã#gËÙ¶È(Speed)#r¼Û¸ñ:#g" + speed + "#r¸öÍÃÍÃ±Ò\r\n#rÔö¼ÓÒ»µã#gÌøÔ¾(Jump)#r¼Û¸ñ:#g" + jump + "#r¸öÍÃÍÃ±Ò\r\n#rÔö¼ÓÒ»µã#g¿ÉÉı¼¶´ÎÊı(Slots to Upgrade)#r¼Û¸ñ:#g" + upgrade + "#r¸öÍÃÍÃ±Ò\r\n#rÔö¼ÓÒ»µã#gĞŞ¸Ä×°±¸Ãû(Own)#r¼Û¸ñ:#g" + own + "#r¸öÍÃÍÃ±Ò\r\n\r\n#b©¬©¬©¬©¬©¬©¬©¥¨T¡îÌØÊâËµÃ÷¡î¨T©¥©¬©¬©¬©¬©¬©¬\r\n#dÖ»ÓĞ#gVIP" + needvip + "#dÒÔÉÏµÄµÈ¼¶²ÅÄÜÊ¹ÓÃ´Ë¹¦ÄÜ.\r\n#rÈç¹ûÄúÊÇ#gÓÎÏ·¹ÜÀíÔ±(Game Master,GM)#r,Ê¹ÓÃ´Ë¹¦ÄÜÖÆ×÷Ö¸¶¨ÊôĞÔ×°±¸,ÊÇ#gÎŞÊÕÈ¡ÈÎºÎ·ÑÓÃ#rµÄ,µ«ÊÇÄúÒªÓĞ#g×ã¹»#rµÄÍÃÍÃ±Ò±Ò!\r\nÖÆ×÷Ò»¼ş×°±¸ĞèÒª#g" + needmark + "ÍÃÍÃ±Ò#r(¼´Ê¹×°±¸ÎŞ¼ÓÈÎºÎÊôĞÔÒ²ÒªÊÕ·Ñ,±ÜÃâ»á³öÏÖË¢×°±¸µÄ#gBUG#r)");
+                cm.sendYesNo("#dæ¬¢è¿#dæ¥åˆ°#rå…”èŠ±èŠ±å†’é™©å²›!ä½ éœ€è¦åˆ¶ä½œè‡ªå·±çš„æŒ‡å®šå±æ€§è£…å¤‡å—?\r\n\r\n#bâ”ˆâ”ˆâ”ˆâ”ˆâ”ˆâ”ˆâ”â•â˜†æ”¶è´¹è¯´æ˜â˜†â•â”â”ˆâ”ˆâ”ˆâ”ˆâ”ˆâ”ˆ\r\n#rå¢åŠ ä¸€ç‚¹#gåŠ›é‡(STR)#rä»·æ ¼:#g" + str + "#rä¸ªå…”å…”å¸\r\n#rå¢åŠ ä¸€ç‚¹#gæ•æ·(DEX)#rä»·æ ¼:#g" + dex + "#rä¸ªå…”å…”å¸\r\n#rå¢åŠ ä¸€ç‚¹#gæ™ºåŠ›(INI)#rä»·æ ¼:#g" + ini + "#rä¸ªå…”å…”å¸\r\n#rå¢åŠ ä¸€ç‚¹#gè¿æ°”(LUK)#rä»·æ ¼:#g" + luk + "#rä¸ªå…”å…”å¸\r\n\r\n#rå¢åŠ ä¸€ç‚¹#gçº¢(HP)#rä»·æ ¼:#g" + hp + "#rä¸ªå…”å…”å¸\r\n#rå¢åŠ ä¸€ç‚¹#gé­”(MP)#rä»·æ ¼:#g" + mp + "#rä¸ªå…”å…”å¸\r\n#rå¢åŠ ä¸€ç‚¹#gç‰©ç†æ”»å‡»(Weapon attack)#rä»·æ ¼:#g" + wattack + "#rä¸ªå…”å…”å¸\r\n#rå¢åŠ ä¸€ç‚¹#gé­”æ³•æ”»å‡»(Magic attack)#rä»·æ ¼:#g" + mattack + "#rä¸ªå…”å…”å¸\r\n#rå¢åŠ ä¸€ç‚¹#gç‰©ç†é˜²å¾¡(Weapon defense)#rä»·æ ¼:#g" + wdefense + "#rä¸ªå…”å…”å¸\r\n#rå¢åŠ ä¸€ç‚¹#gé­”æ³•é˜²å¾¡(Magic defense)#rä»·æ ¼:#g" + mdefense + "#rä¸ªå…”å…”å¸\r\n\r\n#rå¢åŠ ä¸€ç‚¹#gå‘½ä¸­ç‡(Accuracy)#rä»·æ ¼:#g" + accuracy + "#rä¸ªå…”å…”å¸\r\n#rå¢åŠ ä¸€ç‚¹#gèº²é¿ç‡(Avoidability)#rä»·æ ¼:#g" + avoidability + "#rä¸ªå…”å…”å¸\r\n#rå¢åŠ ä¸€ç‚¹#gé€Ÿåº¦(Speed)#rä»·æ ¼:#g" + speed + "#rä¸ªå…”å…”å¸\r\n#rå¢åŠ ä¸€ç‚¹#gè·³è·ƒ(Jump)#rä»·æ ¼:#g" + jump + "#rä¸ªå…”å…”å¸\r\n#rå¢åŠ ä¸€ç‚¹#gå¯å‡çº§æ¬¡æ•°(Slots to Upgrade)#rä»·æ ¼:#g" + upgrade + "#rä¸ªå…”å…”å¸\r\n#rå¢åŠ ä¸€ç‚¹#gä¿®æ”¹è£…å¤‡å(Own)#rä»·æ ¼:#g" + own + "#rä¸ªå…”å…”å¸\r\n\r\n#bâ”ˆâ”ˆâ”ˆâ”ˆâ”ˆâ”ˆâ”â•â˜†ç‰¹æ®Šè¯´æ˜â˜†â•â”â”ˆâ”ˆâ”ˆâ”ˆâ”ˆâ”ˆ\r\n#dåªæœ‰#gVIP" + needvip + "#dä»¥ä¸Šçš„ç­‰çº§æ‰èƒ½ä½¿ç”¨æ­¤åŠŸèƒ½.\r\n#rå¦‚æœæ‚¨æ˜¯#gæ¸¸æˆç®¡ç†å‘˜(Game Master,GM)#r,ä½¿ç”¨æ­¤åŠŸèƒ½åˆ¶ä½œæŒ‡å®šå±æ€§è£…å¤‡,æ˜¯#gæ— æ”¶å–ä»»ä½•è´¹ç”¨#rçš„,ä½†æ˜¯æ‚¨è¦æœ‰#gè¶³å¤Ÿ#rçš„å…”å…”å¸å¸!\r\nåˆ¶ä½œä¸€ä»¶è£…å¤‡éœ€è¦#g" + needmark + "å…”å…”å¸#r(å³ä½¿è£…å¤‡æ— åŠ ä»»ä½•å±æ€§ä¹Ÿè¦æ”¶è´¹,é¿å…ä¼šå‡ºç°åˆ·è£…å¤‡çš„#gBUG#r)");
             } else {
-                cm.sendOk("¶Ô²»Æğ,Ö»ÓĞ#rGMÖ¸¶¨µÄIDÎª" + needvip + "µÄÈË#k²ÅÄÜÊ¹ÓÃÖÆ×÷Ö¸¶¨ÊôĞÔ×°±¸¹¦ÄÜ..");
+                cm.sendOk("å¯¹ä¸èµ·,åªæœ‰#rGMæŒ‡å®šçš„IDä¸º" + needvip + "çš„äºº#kæ‰èƒ½ä½¿ç”¨åˆ¶ä½œæŒ‡å®šå±æ€§è£…å¤‡åŠŸèƒ½..");
                 cm.dispose();
             }
         } else if (status == 1) {
-            cm.sendGetNumber("ÇëÊäÈë×°±¸´úÂë.", 1000000, 1000000, 1999999); //²ÎÊıÎª:ÏÔÊ¾µÄ¶Ô»°ÄÚÈİ,Ä¬ÈÏÊäÈëµÄÄÚÈİ,¿ÉÊäÈë×°±¸´úÂë×îĞ¡Öµ,¿ÉÊäÈë×°±¸´úÂë×î´óÖµ 
+            cm.sendGetNumber("è¯·è¾“å…¥è£…å¤‡ä»£ç .", 1000000, 1000000, 1999999); //å‚æ•°ä¸º:æ˜¾ç¤ºçš„å¯¹è¯å†…å®¹,é»˜è®¤è¾“å…¥çš„å†…å®¹,å¯è¾“å…¥è£…å¤‡ä»£ç æœ€å°å€¼,å¯è¾“å…¥è£…å¤‡ä»£ç æœ€å¤§å€¼ 
         } else if (status == 2) {
-            var items = ii.getAllItems().toArray(); //´Ó»º´æ»ñÈ¡×°±¸¼¯ºÏ
-            for (var i = 0; i < items.length; i++) { //Ñ­»·ËùÓĞ»º´æÀïÃæµÄ×°±¸
-                if (items[i].itemId == selection) { //ÅĞ¶ÏÊäÈëµÄ×°±¸ÔÚ»º´æÀïÃæÊÇ·ñ´æÔÚ
+            var items = ii.getAllItems().toArray(); //ä»ç¼“å­˜è·å–è£…å¤‡é›†åˆ
+            for (var i = 0; i < items.length; i++) { //å¾ªç¯æ‰€æœ‰ç¼“å­˜é‡Œé¢çš„è£…å¤‡
+                if (items[i].itemId == selection) { //åˆ¤æ–­è¾“å…¥çš„è£…å¤‡åœ¨ç¼“å­˜é‡Œé¢æ˜¯å¦å­˜åœ¨
                     //equip = ii.getEquipById(selection);
-                    toDrop = ii.randomizeStats(ii.getEquipById(selection)).copy(); // Éú³ÉÒ»¸öEquipÀà(Éú³ÉÕâ¸ö×°±¸)
-                    cm.sendYesNo("ÄãĞèÒªÖÆ×÷ #b#v" + selection + "##z" + selection + "##k Âğ?");
+                    toDrop = ii.randomizeStats(ii.getEquipById(selection)).copy(); // ç”Ÿæˆä¸€ä¸ªEquipç±»(ç”Ÿæˆè¿™ä¸ªè£…å¤‡)
+                    cm.sendYesNo("ä½ éœ€è¦åˆ¶ä½œ #b#v" + selection + "##z" + selection + "##k å—?");
                     return;
                 }
             }
-            cm.sendPrev("ÄãĞèÒªÖÆ×÷µÄ×°±¸²»´æÔÚ.");
+            cm.sendPrev("ä½ éœ€è¦åˆ¶ä½œçš„è£…å¤‡ä¸å­˜åœ¨.");
         } else if (status == 3) {
-            var needpoints = str * getEquipStat(0) + dex * getEquipStat(1) + ini * getEquipStat(2) + luk * getEquipStat(3) + hp * getEquipStat(4) + mp * getEquipStat(5) + wattack * getEquipStat(6) + mattack * getEquipStat(7) + wdefense * getEquipStat(8) + mdefense * getEquipStat(9) + accuracy * getEquipStat(10) + avoidability * getEquipStat(11) + speed * getEquipStat(12) + jump * getEquipStat(13) + upgrade * getEquipStat(14) + own * 1; //¶¨ÒåÔö¼ÓÊôĞÔµÄ×Ü¹²¼ÛÇ®
-            var s = "ÄãÕıÔÚÖÆ×÷: #b#z" + toDrop.getItemId() + "##k.\r\nÇëËæÒâĞŞ¸ÄËüµÄÊôĞÔ.\r\nÒ»¹²ĞèÒª»¨·ÑÄúµÄ#g" + needpoints + " + " + needmark + "#k¸öÍÃÍÃ±Ò\r\nÈç¹ûÄãÊÇ#rÓÎÏ·¹ÜÀíÔ±(Game Master,GM)#k,¾Í#gÎŞ#kÊÕÈ¡ÈÎºÎ·ÑÓÃ!\r\n";
+            var needpoints = str * getEquipStat(0) + dex * getEquipStat(1) + ini * getEquipStat(2) + luk * getEquipStat(3) + hp * getEquipStat(4) + mp * getEquipStat(5) + wattack * getEquipStat(6) + mattack * getEquipStat(7) + wdefense * getEquipStat(8) + mdefense * getEquipStat(9) + accuracy * getEquipStat(10) + avoidability * getEquipStat(11) + speed * getEquipStat(12) + jump * getEquipStat(13) + upgrade * getEquipStat(14) + own * 1; //å®šä¹‰å¢åŠ å±æ€§çš„æ€»å…±ä»·é’±
+            var s = "ä½ æ­£åœ¨åˆ¶ä½œ: #b#z" + toDrop.getItemId() + "##k.\r\nè¯·éšæ„ä¿®æ”¹å®ƒçš„å±æ€§.\r\nä¸€å…±éœ€è¦èŠ±è´¹æ‚¨çš„#g" + needpoints + " + " + needmark + "#kä¸ªå…”å…”å¸\r\nå¦‚æœä½ æ˜¯#ræ¸¸æˆç®¡ç†å‘˜(Game Master,GM)#k,å°±#gæ— #kæ”¶å–ä»»ä½•è´¹ç”¨!\r\n";
             for (var i = 0; i < 16; i++) {
                 s += "#L" + i + "##b" + statNames[i] + ": " + getEquipStat(i) + "#k#l\r\n";
             }
 
-            s += "\r\n#L16##e#rÖÆ×÷×°±¸#k#l";
+            s += "\r\n#L16##e#råˆ¶ä½œè£…å¤‡#k#l";
             cm.sendSimple(s);
         }
         else if (status == 4) {
             if (selection == 16) {
-                var needpoints = str * getEquipStat(0) + dex * getEquipStat(1) + ini * getEquipStat(2) + luk * getEquipStat(3) + hp * getEquipStat(4) + mp * getEquipStat(5) + wattack * getEquipStat(6) + mattack * getEquipStat(7) + wdefense * getEquipStat(8) + mdefense * getEquipStat(9) + accuracy * getEquipStat(10) + avoidability * getEquipStat(11) + speed * getEquipStat(12) + jump * getEquipStat(13) + upgrade * getEquipStat(14) + own * 1; //¶¨ÒåÔö¼ÓÊôĞÔµÄ×Ü¹²¼ÛÇ®
+                var needpoints = str * getEquipStat(0) + dex * getEquipStat(1) + ini * getEquipStat(2) + luk * getEquipStat(3) + hp * getEquipStat(4) + mp * getEquipStat(5) + wattack * getEquipStat(6) + mattack * getEquipStat(7) + wdefense * getEquipStat(8) + mdefense * getEquipStat(9) + accuracy * getEquipStat(10) + avoidability * getEquipStat(11) + speed * getEquipStat(12) + jump * getEquipStat(13) + upgrade * getEquipStat(14) + own * 1; //å®šä¹‰å¢åŠ å±æ€§çš„æ€»å…±ä»·é’±
                 if (cm.getHyPay(1) < needpoints+needmark) {
-                    cm.sendOk("ÄãµÄÍÃÍÃ±ÒÓà¶î²»×ãÓÚ:#g" + needpoints + " + " + needmark + "#k¸ö.");
+                    cm.sendOk("ä½ çš„å…”å…”å¸ä½™é¢ä¸è¶³äº:#g" + needpoints + " + " + needmark + "#kä¸ª.");
                     cm.dispose();
                     return;
                 } else {
                     var text;
-                    if (cm.getSpace(1) < 1) { //ÅĞ¶Ï×°±¸À¸ÊÇ·ñÓĞ¿Õ¸ñ
-                        cm.sendOk("ÇëÈ·ÈÏÄãµÄ×°±¸À¸ÊÇ·ñÓĞ¿Õ¸ñ.Äãµ±Ç°×°±¸Ö»ÓĞ" + cm.getSpace(1)+"¸ö¿Õ¸ñ!");
+                    if (cm.getSpace(1) < 1) { //åˆ¤æ–­è£…å¤‡æ æ˜¯å¦æœ‰ç©ºæ ¼
+                        cm.sendOk("è¯·ç¡®è®¤ä½ çš„è£…å¤‡æ æ˜¯å¦æœ‰ç©ºæ ¼.ä½ å½“å‰è£…å¤‡åªæœ‰" + cm.getSpace(1)+"ä¸ªç©ºæ ¼!");
                         cm.dispose();
                         return;
                     }
                     if (!cm.getChar().isGM()) {
-                        allpoints = needpoints + needmark //¶¨ÒåĞèÒªËùÓĞµÄÍÃÍÃ±Ò
-                        cm.addHyPay(allpoints, true); //¿ÛÈ¡ĞèÒªµÄÍÃÍÃ±Ò
-                        text = "¹§Ï²,ÄãÒÑ¾­³É¹¦ÖÆ×÷Ò»¼ş×°±¸: #b#t" + toDrop.getItemId() + "##k!Ò»¹²»¨·ÑÁËÄúµÄ#g" + allpoints + "#k¸öÍÃÍÃ±Ò!";
-                    } else { //Èç¹ûÊÇGM
-                        text = "¹§Ï²,ÄãÒÑ¾­³É¹¦ÖÆ×÷Ò»¼ş×°±¸: #b#t" + toDrop.getItemId() + "##k!ÒòÎªÄúÊÇ#rÓÎÏ·¹ÜÀíÔ±(Game Master,GM)#k,ËùÒÔ#gÎŞ#kÊÕÈ¡ÈÎºÎ·ÑÓÃ!";
+                        allpoints = needpoints + needmark //å®šä¹‰éœ€è¦æ‰€æœ‰çš„å…”å…”å¸
+                        cm.addHyPay(allpoints, true); //æ‰£å–éœ€è¦çš„å…”å…”å¸
+                        text = "æ­å–œ,ä½ å·²ç»æˆåŠŸåˆ¶ä½œä¸€ä»¶è£…å¤‡: #b#t" + toDrop.getItemId() + "##k!ä¸€å…±èŠ±è´¹äº†æ‚¨çš„#g" + allpoints + "#kä¸ªå…”å…”å¸!";
+                    } else { //å¦‚æœæ˜¯GM
+                        text = "æ­å–œ,ä½ å·²ç»æˆåŠŸåˆ¶ä½œä¸€ä»¶è£…å¤‡: #b#t" + toDrop.getItemId() + "##k!å› ä¸ºæ‚¨æ˜¯#ræ¸¸æˆç®¡ç†å‘˜(Game Master,GM)#k,æ‰€ä»¥#gæ— #kæ”¶å–ä»»ä½•è´¹ç”¨!";
                     }
-                    cm.getChar().getInventory(Packages.client.inventory.MapleInventoryType.EQUIP).addItem(toDrop); //½«Õâ¸ö×°±¸·ÅÈë°üÖĞ
-                    cm.fakeRelog();//Ë¢ĞÂÊı¾İ
-                    //cm.getChar().getClient().getSession().write(Packages.tools.MaplePacketCreator.addInventorySlot(Packages.client.inventory.MapleInventoryType.EQUIP, toDrop)); //Ë¢ĞÂ±³°ü
+                    cm.getChar().getInventory(Packages.client.inventory.MapleInventoryType.EQUIP).addItem(toDrop); //å°†è¿™ä¸ªè£…å¤‡æ”¾å…¥åŒ…ä¸­
+                    cm.fakeRelog();//åˆ·æ–°æ•°æ®
+                    //cm.getChar().getClient().getSession().write(Packages.tools.MaplePacketCreator.addInventorySlot(Packages.client.inventory.MapleInventoryType.EQUIP, toDrop)); //åˆ·æ–°èƒŒåŒ…
                     cm.sendOk(text);
                     cm.dispose();
                 }
             } else {
                 change = selection;
                 if (selection == 15) {
-                    cm.sendGetText("ÇëÊäÈë#bowner#kµÄÖµ.");
+                    cm.sendGetText("è¯·è¾“å…¥#bowner#kçš„å€¼.");
                     return;
                 }
 
                 var def = getEquipStat(selection);
-                cm.sendGetNumber("ÊäÈëĞÂµÄÖµµ½: #b" + statNames[selection] + "#k.", def, 0, 32767); //ÊäÈëµÄÊôĞÔ×î´óÖµ
+                cm.sendGetNumber("è¾“å…¥æ–°çš„å€¼åˆ°: #b" + statNames[selection] + "#k.", def, 0, 32767); //è¾“å…¥çš„å±æ€§æœ€å¤§å€¼
             }
         } else if (status == 5) {
             setEquipStat(change, selection);
@@ -116,7 +116,7 @@ function action(mode, type, selection) {
     }
 }
 
-//»ñÈ¡×°±¸ÊôĞÔ
+//è·å–è£…å¤‡å±æ€§
 
 
 function getEquipStat(i) {
@@ -156,7 +156,7 @@ function getEquipStat(i) {
     }
 }
 
-//ÉèÖÃ×°±¸ÊôĞÔ
+//è®¾ç½®è£…å¤‡å±æ€§
 
 
 function setEquipStat(i, v) {

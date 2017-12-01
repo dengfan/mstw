@@ -1,4 +1,4 @@
-function enter(pi) {
+ï»¿function enter(pi) {
     if (pi.haveItem(4031870) && pi.getPlayer().getSkillLevel(5121010) <= 0) {
         pi.warp(922020300, 0);
         return true;
@@ -20,7 +20,7 @@ function enter(pi) {
             pi.warp(220080001, "st00");
             return true;
         } else {
-            pi.playerMessage(5, "¶Ô¿¹ÄÖÖÓBOSSµÄÌôÕ½ÒÑ¾­¿ªÊ¼ÁË£¬Äã²»ÄÜ½øÈëµ½ÀïÃæ¡£");
+            pi.playerMessage(5, "å¯¹æŠ—é—¹é’ŸBOSSçš„æŒ‘æˆ˜å·²ç»å¼€å§‹äº†ï¼Œä½ ä¸èƒ½è¿›å…¥åˆ°é‡Œé¢ã€‚");
             return false;
         }
     }
@@ -53,7 +53,7 @@ function enter(pi) {
 	return false;
     }
     if (!canEnter) {
-	pi.playerMessage(5, "Ê±ËþµÄ±¾Ô´Ò»ÌìÖ»ÄÜ½øÈëÁ½´Î¡£");
+	pi.playerMessage(5, "æ—¶å¡”çš„æœ¬æºä¸€å¤©åªèƒ½è¿›å…¥ä¸¤æ¬¡ã€‚");
 	return false;
     }*/
 }

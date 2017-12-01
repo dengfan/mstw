@@ -1,20 +1,20 @@
-/*
+ï»¿/*
  * 
  * @wnms
- * @´óÀŞÌ¨´«ËÍ¸±±¾npc
+ * @å¤§æ“‚å°ä¼ é€å‰¯æœ¬npc
  */
 function start() {
     status = -1;
     action(1, 0, 0);
 }
-var Ã°ÏÕ±Ò = 5000;
+var å†’é™©å¸ = 5000;
 function action(mode, type, selection) {
     if (mode == -1) {
         cm.dispose();
     }
     else {
         if (status >= 0 && mode == 0) {
-            cm.sendOk("·ÅÆú¾ÍËãÁË");
+            cm.sendOk("æ”¾å¼ƒå°±ç®—äº†");
             cm.dispose();
             return;
         }
@@ -25,13 +25,13 @@ function action(mode, type, selection) {
             status--;
         }
         if (status == 0) {
-            cm.sendSimple("»¶Ó­À´µ½ÃÈĞÂÃ°ÏÕµº\r\nÈç¹ûÄãÔÚÊĞ³¡¹Ò»ú»ñµÃÁË¶¹¶¹£¬¿ÉÒÔÔÚÎÒÕâÀï¶Ò»»½±ÀøÅ¶£¡£¡£¡\r\n\r\n#L1##bÎÒÒª¶Ò»»ÎïÆ·#l\r\n\r\n"); 
+            cm.sendSimple("æ¬¢è¿æ¥åˆ°èŒæ–°å†’é™©å²›\r\nå¦‚æœä½ åœ¨å¸‚åœºæŒ‚æœºè·å¾—äº†è±†è±†ï¼Œå¯ä»¥åœ¨æˆ‘è¿™é‡Œå…‘æ¢å¥–åŠ±å“¦ï¼ï¼ï¼\r\n\r\n#L1##bæˆ‘è¦å…‘æ¢ç‰©å“#l\r\n\r\n"); 
         } else if (status == 1) {
-            if (selection == 1) {//¸±±¾´«ËÍ
+            if (selection == 1) {//å‰¯æœ¬ä¼ é€
              cm.openNpc(2000,2);  
             } else if (selection == 2) {
              cm.openNpc(2000,23);   
-//        cm.getC().getChannelServer().getWorldInterface().broadcastMessage(null, Packages.tools.MaplePacketCreator.serverNotice(2,cm.getC().getChannel(),"[·ÏÆú¶¼ÊĞ]" + " : " + " [" + cm.getPlayer().getName() + "]ÓëĞ¡×é¿ªÊ¼ÁËµØÌúÌôÕ½¡£ÔÚ" + cm.getC().getChannel() + "ÆµµÀ",true).getBytes()); 
+//        cm.getC().getChannelServer().getWorldInterface().broadcastMessage(null, Packages.tools.MaplePacketCreator.serverNotice(2,cm.getC().getChannel(),"[åºŸå¼ƒéƒ½å¸‚]" + " : " + " [" + cm.getPlayer().getName() + "]ä¸å°ç»„å¼€å§‹äº†åœ°é“æŒ‘æˆ˜ã€‚åœ¨" + cm.getC().getChannel() + "é¢‘é“",true).getBytes()); 
                                             
         }	
         }

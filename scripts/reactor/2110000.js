@@ -1,9 +1,9 @@
-/* @Author Lerk
+ï»¿/* @Author Lerk
  * 
  * 2110000.js: Zakum Party Quest Chest - action go280010000
 */
 
 function act(){
-    rm.playerMessage(5, "Î´ÖªµÄÁ¦Á¿½«ÄãËÍµ½ÁËÍâÃæ¡£");
+    rm.playerMessage(5, "æœªçŸ¥çš„åŠ›é‡å°†ä½ é€åˆ°äº†å¤–é¢ã€‚");
     rm.warp(280010000);
 }

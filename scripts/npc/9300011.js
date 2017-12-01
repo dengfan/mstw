@@ -1,9 +1,9 @@
-var points;
+ï»¿var points;
 
 function start() {
     var record = cm.getQuestRecord(150001);
     points = record.getCustomData() == null ? "0" : record.getCustomData();
-    cm.sendSimple("ÏëÌôÕ½BOSS¸±±¾Âğ£¿£¿\n\r\n\r #b#L3#²é¿´¿É¶Ò»»µãÊı#l#k \r\n\r\n #b#L0##v03994115##l#l#L1##v03994116##l#L2##v03994117##l#L28##v03994118##l \r\n #b#L4#½øÈëĞÒ¸£´å#l#k");
+    cm.sendSimple("æƒ³æŒ‘æˆ˜BOSSå‰¯æœ¬å—ï¼Ÿï¼Ÿ\n\r\n\r #b#L3#æŸ¥çœ‹å¯å…‘æ¢ç‚¹æ•°#l#k \r\n\r\n #b#L0##v03994115##l#l#L1##v03994116##l#L2##v03994117##l#L28##v03994118##l \r\n #b#L4#è¿›å…¥å¹¸ç¦æ‘#l#k");
 }
 
 function action(mode, type, selection) {
@@ -29,24 +29,24 @@ function action(mode, type, selection) {
                         if (next) {
                             var q = cm.getEventManager("BossQuestEASY");
                             if (q == null) {
-                                cm.sendOk("ÕÒ²»µ½½Å±¾£¬ÇëÁªÏµGM£¡");
+                                cm.sendOk("æ‰¾ä¸åˆ°è„šæœ¬ï¼Œè¯·è”ç³»GMï¼");
 								cm.dispose();
 								break;
                             } else {
                                 q.startInstance(cm.getParty(), cm.getMap());
                             }
                         } else {
-                            cm.sendOk("È«²¿¶ÓÓÑ±ØĞë´ïµ½70µÈ.");
+                            cm.sendOk("å…¨éƒ¨é˜Ÿå‹å¿…é¡»è¾¾åˆ°70ç­‰.");
 							cm.dispose();
 							break;
                         }
                     } else {
-                        cm.sendOk("Äã²»ÊÇ¶Ó³¤.");
+                        cm.sendOk("ä½ ä¸æ˜¯é˜Ÿé•¿.");
 						cm.dispose();
 						break;
                     }
                 } else {
-                    cm.sendOk("ÄãÃ»ÓĞ¶ÓÎé.");
+                    cm.sendOk("ä½ æ²¡æœ‰é˜Ÿä¼.");
 					cm.dispose();
 					break;
                 }
@@ -71,24 +71,24 @@ function action(mode, type, selection) {
                         if (next) {
                             var q = cm.getEventManager("BossQuestMed");
                             if (q == null) {
-                                cm.sendOk("ÕÒ²»µ½½Å±¾£¬ÇëÁªÏµGM£¡");
+                                cm.sendOk("æ‰¾ä¸åˆ°è„šæœ¬ï¼Œè¯·è”ç³»GMï¼");
 								cm.dispose();
 								break;
                             } else {
                                 q.startInstance(cm.getParty(), cm.getMap());
                             }
                         } else {
-                            cm.sendOk("È«²¿¶ÓÓÑ±ØĞë´ïµ½100µÈ.");
+                            cm.sendOk("å…¨éƒ¨é˜Ÿå‹å¿…é¡»è¾¾åˆ°100ç­‰.");
 							cm.dispose();
 							break;
                         }
                     } else {
-                        cm.sendOk("Äã²»ÊÇ¶Ó³¤.");
+                        cm.sendOk("ä½ ä¸æ˜¯é˜Ÿé•¿.");
 						cm.dispose();
 						break;
                     }
                 } else {
-                    cm.sendOk("ÄãÃ»ÓĞ¶ÓÎé.");
+                    cm.sendOk("ä½ æ²¡æœ‰é˜Ÿä¼.");
 					cm.dispose();
 					break;
                 }
@@ -113,23 +113,23 @@ function action(mode, type, selection) {
                         if (next) {
                             var q = cm.getEventManager("BossQuestHARD");
                             if (q == null) {
-                                cm.sendOk("ÕÒ²»µ½½Å±¾£¬ÇëÁªÏµGM£¡");
+                                cm.sendOk("æ‰¾ä¸åˆ°è„šæœ¬ï¼Œè¯·è”ç³»GMï¼");
 								cm.dispose();
                             } else {
                                 q.startInstance(cm.getParty(), cm.getMap());
                             }
                         } else {
-                            cm.sendOk("È«²¿¶ÓÓÑ±ØĞë´ïµ½120µÈ.");
+                            cm.sendOk("å…¨éƒ¨é˜Ÿå‹å¿…é¡»è¾¾åˆ°120ç­‰.");
 							cm.dispose();
 							break;
                         }
                     } else {
-                        cm.sendOk("Äã²»ÊÇ¶Ó³¤.");
+                        cm.sendOk("ä½ ä¸æ˜¯é˜Ÿé•¿.");
 						cm.dispose();
 						break;
                     }
                 } else {
-                    cm.sendOk("ÄãÃ»ÓĞ¶ÓÎé.");
+                    cm.sendOk("ä½ æ²¡æœ‰é˜Ÿä¼.");
 					cm.dispose();
 					break;
                 }
@@ -154,29 +154,29 @@ function action(mode, type, selection) {
                         if (next) {
                             var q = cm.getEventManager("BossQuestHELL");
                             if (q == null) {
-                                cm.sendOk("ÕÒ²»µ½½Å±¾£¬ÇëÁªÏµGM£¡");
+                                cm.sendOk("æ‰¾ä¸åˆ°è„šæœ¬ï¼Œè¯·è”ç³»GMï¼");
 								cm.dispose();
                             } else {
                                 q.startInstance(cm.getParty(), cm.getMap());
                             }
                         } else {
-                            cm.sendOk("È«²¿¶ÓÓÑ±ØĞë´ïµ½160µÈ.");
+                            cm.sendOk("å…¨éƒ¨é˜Ÿå‹å¿…é¡»è¾¾åˆ°160ç­‰.");
 							cm.dispose();
 							break;
                         }
                     } else {
-                        cm.sendOk("Äã²»ÊÇ¶Ó³¤.");
+                        cm.sendOk("ä½ ä¸æ˜¯é˜Ÿé•¿.");
 						cm.dispose();
 						break;
                     }
                 } else {
-                    cm.sendOk("ÄãÃ»ÓĞ¶ÓÎé.");
+                    cm.sendOk("ä½ æ²¡æœ‰é˜Ÿä¼.");
 					cm.dispose();
 					break;
                 }
                 break;
             case 3:
-                cm.sendOk("#bµãÊıÊıÁ¿ : " + points);
+                cm.sendOk("#bç‚¹æ•°æ•°é‡ : " + points);
 				cm.dispose();
                 break;
             case 4:

@@ -1,4 +1,4 @@
-/* ===========================================================
+ï»¿/* ===========================================================
 			Resonance
 	NPC Name: 		Dragon's Nest
 	Map(s): 		Hidden Street: Lost Forest(900020220)
@@ -25,7 +25,7 @@ function action(mode, type, selection) {
 			status--;
 		if (status == 0) {
 			cm.forceStartQuest(22011);
-			cm.playerMessage("ÄãÒÑ¾­»ñµÃÁËÁúµ°¡£");
+			cm.playerMessage("ä½ å·²ç»è·å¾—äº†é¾™è›‹ã€‚");
 			cm.warp(900090103);
 			cm.dispose();
 		}

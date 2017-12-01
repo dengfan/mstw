@@ -1,7 +1,7 @@
-/* ==================
- ½Å±¾ÀàÐÍ:  NPC	    
- ½Å±¾×÷Õß£º¹ÊÊÂØ¼     
- ÁªÏµ·½Ê½£º840645183  
+ï»¿/* ==================
+ è„šæœ¬ç±»åž‹:  NPC	    
+ è„šæœ¬ä½œè€…ï¼šæ•…äº‹ä¸¶     
+ è”ç³»æ–¹å¼ï¼š840645183  
  =====================
  */
 //load("nashorn:mozilla_compat.js");
@@ -33,23 +33,23 @@ function action(mode, type, selection) {
                         cm.removeAll(4001022);
                         clear(3, eim, cm);
                         cm.givePartyExp(exp, party);
-                        cm.sendOk("¹§Ï²ÄãÃÇÍ¨¹ýÁËµÚ3½×¶Î¡£ÏÖÔÚÍ¨¹ý´«ËÍÃÅµ½´ïÏÂÒ»¸ö½×¶Î°É¡­¡­");
+                        cm.sendOk("æ­å–œä½ ä»¬é€šè¿‡äº†ç¬¬3é˜¶æ®µã€‚çŽ°åœ¨é€šè¿‡ä¼ é€é—¨åˆ°è¾¾ä¸‹ä¸€ä¸ªé˜¶æ®µå§â€¦â€¦");
                         cm.dispose();
                     } else {
-                        cm.sendNext("ÄãÈ·¶¨¸øÎÒ´øÀ´ÁË28ÕÅ#i4001022#£¿Çë¼ì²éÒ»ÏÂ×Ô¼ºµÄ±³°üÊÇ·ñ×ã¹»¡£");
+                        cm.sendNext("ä½ ç¡®å®šç»™æˆ‘å¸¦æ¥äº†28å¼ #i4001022#ï¼Ÿè¯·æ£€æŸ¥ä¸€ä¸‹è‡ªå·±çš„èƒŒåŒ…æ˜¯å¦è¶³å¤Ÿã€‚");
                     }
                     cm.dispose();
                 } else {
-                    cm.sendOk("»¶Ó­À´µ½ Íæ¾ßÖ®³Ç - (#r×é¶ÓÈÎÎñ#k)µÚ#b3#k½×¶Î\r\n\r\nµ½´¦×ß×ß¿´¿´¡£ÇëÄãºÍÄãµÄ¶ÓÔ±Ò»Æð´øÀ´#r28ÕÅÍ¨ÐÐÖ¤#k¸øÎÒ¡­¡­");
+                    cm.sendOk("æ¬¢è¿Žæ¥åˆ° çŽ©å…·ä¹‹åŸŽ - (#rç»„é˜Ÿä»»åŠ¡#k)ç¬¬#b3#ké˜¶æ®µ\r\n\r\nåˆ°å¤„èµ°èµ°çœ‹çœ‹ã€‚è¯·ä½ å’Œä½ çš„é˜Ÿå‘˜ä¸€èµ·å¸¦æ¥#r28å¼ é€šè¡Œè¯#kç»™æˆ‘â€¦â€¦");
                     eim.setProperty("stage3leader", "done");
                     cm.dispose();
                 }
             } else {
-                cm.sendNext("»¶Ó­À´µ½ Íæ¾ßÖ®³Ç - (#r×é¶ÓÈÎÎñ#k)µÚ#b3#k½×¶Î\r\n\r\nµ½´¦×ß×ß¿´¿´¡£´øÀ´#r28ÕÅÍ¨ÐÐÖ¤#k¸øÎÒ,Èç¹ûÄã³É¹¦ÄÃµ½ÁËÍ¨ÐÐÖ¤Çë½»¸øÄãÃÇµÄ×é³¤¡£È»ºóÔÙÇëËû×ª½»¸øÎÒ¡­¡­");
+                cm.sendNext("æ¬¢è¿Žæ¥åˆ° çŽ©å…·ä¹‹åŸŽ - (#rç»„é˜Ÿä»»åŠ¡#k)ç¬¬#b3#ké˜¶æ®µ\r\n\r\nåˆ°å¤„èµ°èµ°çœ‹çœ‹ã€‚å¸¦æ¥#r28å¼ é€šè¡Œè¯#kç»™æˆ‘,å¦‚æžœä½ æˆåŠŸæ‹¿åˆ°äº†é€šè¡Œè¯è¯·äº¤ç»™ä½ ä»¬çš„ç»„é•¿ã€‚ç„¶åŽå†è¯·ä»–è½¬äº¤ç»™æˆ‘â€¦â€¦");
                 cm.dispose();
             }
         } else {
-            cm.sendNext("¹§Ï²ÄãÃÇÍ¨¹ýÁËµÚ3½×¶Î¡£ÏÖÔÚÍ¨¹ý´«ËÍÃÅµ½´ïÏÂÒ»¸ö½×¶Î°É¡­¡­");
+            cm.sendNext("æ­å–œä½ ä»¬é€šè¿‡äº†ç¬¬3é˜¶æ®µã€‚çŽ°åœ¨é€šè¿‡ä¼ é€é—¨åˆ°è¾¾ä¸‹ä¸€ä¸ªé˜¶æ®µå§â€¦â€¦");
             cm.dispose();
         }
     }

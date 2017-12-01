@@ -1,9 +1,9 @@
-function enter(pi) {
+ï»¿function enter(pi) {
     var em = pi.getEventManager("HorntailBattle");
     if (em != null) {
         var prop = em.getProperty("preheadCheck");
         if (prop != null && prop.equals("2")) {
-            pi.mapMessage(6, "»¶Ó­À´µ½ÊÔÁ·¶´Ñ¨2£¬ÕâÀïÊÇ°µºÚÁúÍõÓÒ±ßÍ·Â­µÄÊÔÁ·£¡")
+            pi.mapMessage(6, "æ¬¢è¿æ¥åˆ°è¯•ç»ƒæ´ç©´2ï¼Œè¿™é‡Œæ˜¯æš—é»‘é¾™ç‹å³è¾¹å¤´é¢…çš„è¯•ç»ƒï¼")
             em.setProperty("preheadCheck", "3");
         }
     }

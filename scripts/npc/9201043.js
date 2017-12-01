@@ -1,4 +1,4 @@
-var status = -1;
+ï»¿var status = -1;
 
 function action(mode, type, selection) {
     if (mode == 1) {
@@ -20,11 +20,11 @@ function action(mode, type, selection) {
             data = "0";
         }
         if (cm.getPlayer().getLevel() < 40 || cm.getPlayer().getMarriageId() <= 0 || !data.equals("3")) {
-            cm.sendNext("Äã±ØÐëÒÑ¾­½á»éÇÒµÈ¼¶´ïµ½40µÈÒÔÉÏ²ÅÄÜ¸úÎÒËµ»°à¡¡«£¡");
+            cm.sendNext("ä½ å¿…é¡»å·²ç»ç»“å©šä¸”ç­‰çº§è¾¾åˆ°40ç­‰ä»¥ä¸Šæ‰èƒ½è·Ÿæˆ‘è¯´è¯å”·ï½žï¼");
             cm.dispose();
         } else {
             if (cm.haveItem(4031592)) {
-                cm.sendNext("ÎÒ¿ÉÒÔÈÃÄã½øÈ¥. ½øÈ¥ºó¾Í»áÊ§È¥Èë³¡¾íÁËà¡¡«È·¶¨Òª£¿.");
+                cm.sendNext("æˆ‘å¯ä»¥è®©ä½ è¿›åŽ». è¿›åŽ»åŽå°±ä¼šå¤±åŽ»å…¥åœºå·äº†å”·ï½žç¡®å®šè¦ï¼Ÿ.");
                 return;
             }
             var apq = cm.getQuestRecord(160000);
@@ -41,7 +41,7 @@ function action(mode, type, selection) {
              cm.sendOk("Here you are. I've recorded your time right now.");
              apq.setCustomData("" + cm.getCurrentTime());
              } else {*/
-            cm.sendOk("´Ó¹ÖÎïÉíÉÏÈ¡µÃ 10 ¸öÀ¶»·Ô¿³×¸øÎÒ. ÄãÒ»´ÎÖ»ÄÜÓµÓÐÒ»¸öÈë³¡¾í.");
+            cm.sendOk("ä»Žæ€ªç‰©èº«ä¸Šå–å¾— 10 ä¸ªè“çŽ¯é’¥åŒ™ç»™æˆ‘. ä½ ä¸€æ¬¡åªèƒ½æ‹¥æœ‰ä¸€ä¸ªå…¥åœºå·.");
             /*		}
              } else {
              cm.sendNext("Oho, it looks like you've already went in here for the past 6 hours. Come back later.");

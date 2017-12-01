@@ -1,4 +1,4 @@
-
+ï»¿
 var status = 0;
 var choose = 0;
 function start() {
@@ -17,9 +17,9 @@ function action(mode, type, selection) {
 		 if (mode == 1)
             status++;
 	 	if (status == 0) {
-			var text = "#eÄãºÃ,ÓÃµã¾í¹ºÂò¶«Î÷Âğ!\r\n";
+			var text = "#eä½ å¥½,ç”¨ç‚¹å·è´­ä¹°ä¸œè¥¿å—!\r\n";
 			
-			text += "#b#L1#¹ºÂòXXX#l \r\n\r\n";
+			text += "#b#L1#è´­ä¹°XXX#l \r\n\r\n";
 	
 			
 			 cm.sendSimple(text);
@@ -27,17 +27,17 @@ function action(mode, type, selection) {
 		}else if(status == 1){
 			switch(selection){
 				case 1:
-					var text = "#eÄãºÃ,ÇëÄú¿´¿´ÏÂÃæµÄÉÌÆ·!\r\n";
+					var text = "#eä½ å¥½,è¯·æ‚¨çœ‹çœ‹ä¸‹é¢çš„å•†å“!\r\n";
 			
-					text += "#b#L1##v1042312# ¼Û¸ñ800ÓÎÏ·±Ò#l\r\n";
-					text += "#b#L2##v1042315# ¼Û¸ñ800ÓÎÏ·±Ò#l\r\n";
+					text += "#b#L1##v1042312# ä»·æ ¼800æ¸¸æˆå¸#l\r\n";
+					text += "#b#L2##v1042315# ä»·æ ¼800æ¸¸æˆå¸#l\r\n";
 					
 			
 					cm.sendSimple(text);
 					choose = selection;
 					break;
 				case 2:
-					cm.sendSimple("ÖÆ×÷µ±ÖĞ");
+					cm.sendSimple("åˆ¶ä½œå½“ä¸­");
 					cm.dispose();
 					break;
 					
@@ -46,7 +46,7 @@ function action(mode, type, selection) {
 		}else if(status == 2){
 			if(choose == 1){
 				if(cm.getNX(1)<80000){
-					cm.sendSimple("Äúµã¾í²»×ã8Íò");
+					cm.sendSimple("æ‚¨ç‚¹å·ä¸è¶³8ä¸‡");
 					cm.dispose();
 					return;
 				}
@@ -61,7 +61,7 @@ function action(mode, type, selection) {
 						break;
 					
 				}
-				cm.sendSimple("¹ºÂò³É¹¦");
+				cm.sendSimple("è´­ä¹°æˆåŠŸ");
 				cm.dispose();
 			}
 			

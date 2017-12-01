@@ -1,4 +1,4 @@
-/* Author: Xterminator
+ï»¿/* Author: Xterminator
 	NPC Name: 		Heena
 	Map(s): 		Maple Road : Lower level of the Training Camp (2)
 	Description: 		Takes you outside of Training Camp
@@ -12,7 +12,7 @@ function start() {
 
 function action(mode, type, selection) {
     if (status >= 0 && mode == 0) {
-	cm.sendOk("Ã»Íê³ÉĞÂÊÖÑµÑéÂï? Èç¹ûÏëÒªÀë¿ªÕâÀï, Çë²»ÒªÁßØÄµÄ¸æËßÎÒ¡£.");
+	cm.sendOk("æ²¡å®Œæˆæ–°æ‰‹è®­éªŒå˜›? å¦‚æœæƒ³è¦ç¦»å¼€è¿™é‡Œ, è¯·ä¸è¦åå•¬çš„å‘Šè¯‰æˆ‘ã€‚.");
 	cm.dispose();
 	return;
     }
@@ -21,9 +21,9 @@ function action(mode, type, selection) {
     else
 	status--;
     if (status == 0) {
-	cm.sendYesNo("ÄãÍê³ÉÄãµÄÑµÁ·ÁËÂï? Èç¹ûÄãÏëÒªÀë¿ªµÄ»°£¬ÎÒ¿ÉÒÔ´øÄãÀë¿ª¡£");
+	cm.sendYesNo("ä½ å®Œæˆä½ çš„è®­ç»ƒäº†å˜›? å¦‚æœä½ æƒ³è¦ç¦»å¼€çš„è¯ï¼Œæˆ‘å¯ä»¥å¸¦ä½ ç¦»å¼€ã€‚");
     } else if (status == 1) {
-	cm.sendNext("ÄÇÎÒÒª´øÄãÀë¿ªÕâÀï£¬ ¼ÓÓÍ£¡");
+	cm.sendNext("é‚£æˆ‘è¦å¸¦ä½ ç¦»å¼€è¿™é‡Œï¼Œ åŠ æ²¹ï¼");
     } else if (status == 2) {
 	cm.warp(3, 0);
 	cm.dispose();

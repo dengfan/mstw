@@ -1,4 +1,4 @@
-var status = -1;
+ï»¿var status = -1;
 
 function start(mode, type, selection) {
     if (mode == 1) {
@@ -17,7 +17,7 @@ function start(mode, type, selection) {
         status--;
     }
     if (status == 0) {
-        qm.sendYesNo("#b(ÈÃÎÒÈ·ÈÏ×Ô¼ºÊÇ²»ÊÇÊ¹ÓÃ#p1201001#µÄÓ¢ĞÛ£¿Ê¹¾¢×¥×¡#p1201001#ÊÔÊÔ£¬¿Ï¶¨»áÓĞÊ²Ã´·´Ó³µÄ¡£)#k");
+        qm.sendYesNo("#b(è®©æˆ‘ç¡®è®¤è‡ªå·±æ˜¯ä¸æ˜¯ä½¿ç”¨#p1201001#çš„è‹±é›„ï¼Ÿä½¿åŠ²æŠ“ä½#p1201001#è¯•è¯•ï¼Œè‚¯å®šä¼šæœ‰ä»€ä¹ˆåæ˜ çš„ã€‚)#k");
     } else if (status == 1) {
         if (qm.getJob() == 2000) {
             qm.changeJob(2100);
@@ -29,11 +29,11 @@ function start(mode, type, selection) {
             qm.expandInventory(4, 4);
             qm.gainItem(1142129, 1);
             qm.forceCompleteQuest(29924); //medal
-            qm.teachSkill(21000000,0,10);//Ã¬Á¬»÷Ç¿»¯
-            qm.teachSkill(21000002,0,20);//Ë«ÖØÖØ»÷
-            qm.teachSkill(21001001,0,15);//Õ½¶·²½·¥
-            qm.teachSkill(21001003,0,20);//¿ìËÙÃ¬
-            qm.sendNextS("#b(ËÆºõÏëÆğÀ´ÁËÊ²Ã´¡­¡­)#k", 3);
+            qm.teachSkill(21000000,0,10);//çŸ›è¿å‡»å¼ºåŒ–
+            qm.teachSkill(21000002,0,20);//åŒé‡é‡å‡»
+            qm.teachSkill(21001001,0,15);//æˆ˜æ–—æ­¥ä¼
+            qm.teachSkill(21001003,0,20);//å¿«é€ŸçŸ›
+            qm.sendNextS("#b(ä¼¼ä¹æƒ³èµ·æ¥äº†ä»€ä¹ˆâ€¦â€¦)#k", 3);
         }
     } else if (status == 2) {
         qm.sendYesNoS("Will you skip the video clip? Even if you skip the scene, game-play will not be affected.", 1);

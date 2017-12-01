@@ -1,8 +1,8 @@
-var ticket = new Array(4031047, 4031074, 4031331, 4031576);
+ï»¿var ticket = new Array(4031047, 4031074, 4031331, 4031576);
 var cost = new Array(5000, 6000, 30000, 6000);
 var tmsg = new Array(15, 10, 10, 10);
-var mapNames = new Array("Ä§·¨ÃÜÁÖ", "Íæ¾ß³Ç", "ÉñÄ¾´å", "°¢Àï°²ÌØ");
-var mapName2 = new Array("Ä§·¨ÃÜÁÖ", "Íæ¾ß³Ç", "ÉñÄ¾´å", "°¢Àï°²ÌØ");
+var mapNames = new Array("é­”æ³•å¯†æ—", "ç©å…·åŸ", "ç¥æœ¨æ‘", "é˜¿é‡Œå®‰ç‰¹");
+var mapName2 = new Array("é­”æ³•å¯†æ—", "ç©å…·åŸ", "ç¥æœ¨æ‘", "é˜¿é‡Œå®‰ç‰¹");
 var select;
 
 function start() {
@@ -19,7 +19,7 @@ function action(mode, type, selection) {
 			return;
 		}
 		if(mode == 0) {
-			cm.sendNext("Äã»¹ÓĞÊ²Ã´ÊÂÇéÔÚÕâÀïÃ»°ìÍêÂğ£¿");
+			cm.sendNext("ä½ è¿˜æœ‰ä»€ä¹ˆäº‹æƒ…åœ¨è¿™é‡Œæ²¡åŠå®Œå—ï¼Ÿ");
 			cm.dispose();
 			return;
 		}
@@ -27,17 +27,17 @@ function action(mode, type, selection) {
 			status++;
 		}
 		if(status == 0) {
-			var where = "ÄúºÃ£¬ÎÒÊÇÌì¿ÕÖ®³ÇÊÛÆ±Ô±£¬ÎÒ¸ºÔğÏúÊÛ¿ªÍù¸÷µØ´¬Æ±¡£ÄãÏë¹ºÂòÈ¥ÄÇÀïµÄ´¬Æ±ÄØ£¿";
+			var where = "æ‚¨å¥½ï¼Œæˆ‘æ˜¯å¤©ç©ºä¹‹åŸå”®ç¥¨å‘˜ï¼Œæˆ‘è´Ÿè´£é”€å”®å¼€å¾€å„åœ°èˆ¹ç¥¨ã€‚ä½ æƒ³è´­ä¹°å»é‚£é‡Œçš„èˆ¹ç¥¨å‘¢ï¼Ÿ";
 			for (var i = 0; i < ticket.length; i++) {
 				where += "\r\n#L" + i + "##b" + mapNames[i] + "#k#l";
 			}
 			cm.sendSimple(where);
 		} else if(status == 1) {
 			select = selection;
-			cm.sendYesNo("Ìì¿ÕÖ®³Ç¿ªÍù #b" + mapName2[select] + "#k µÄ·É´¬Ã¿ "+tmsg[select]+" ·ÖÖÓÒ»°à£¬´¬Æ±µÄÊÛ¼Û #b"+cost[select]+" ½ğ±Ò#k¡£ÄãÈ·¶¨Òª¹ºÂò¿ªÍù #b"+mapName2[select]+"#k µÄ´¬Æ±Âğ£¿");
+			cm.sendYesNo("å¤©ç©ºä¹‹åŸå¼€å¾€ #b" + mapName2[select] + "#k çš„é£èˆ¹æ¯ "+tmsg[select]+" åˆ†é’Ÿä¸€ç­ï¼Œèˆ¹ç¥¨çš„å”®ä»· #b"+cost[select]+" é‡‘å¸#kã€‚ä½ ç¡®å®šè¦è´­ä¹°å¼€å¾€ #b"+mapName2[select]+"#k çš„èˆ¹ç¥¨å—ï¼Ÿ");
 		} else if(status == 2) {
 			if(cm.getMeso() < cost[select] || !cm.canHold(ticket[select])) {
-				cm.sendOk("ÄãÈ·¶¨ÄãÓĞ #b" + cost[select] + " ½ğ±Ò#kÂğ£¿ Ã»ÓĞ´¬Æ±ÊÇ²»¿ÉÒÔµÇ´¬µÄ¡£");
+				cm.sendOk("ä½ ç¡®å®šä½ æœ‰ #b" + cost[select] + " é‡‘å¸#kå—ï¼Ÿ æ²¡æœ‰èˆ¹ç¥¨æ˜¯ä¸å¯ä»¥ç™»èˆ¹çš„ã€‚");
 				cm.dispose();
 			} else {
 				cm.gainMeso(-cost[select]);

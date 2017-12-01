@@ -1,11 +1,11 @@
-var status = -1;
+ï»¿var status = -1;
 
 function action(mode, type, selection) {
     if (mode == 1) {
 	status++;
     } else {
 	if (status == 0) {
-	    cm.sendOk("ºÃ°É£¬µÈÄãÓĞĞèÒªÔÙÀ´ÕÒÎÒ¡£");
+	    cm.sendOk("å¥½å§ï¼Œç­‰ä½ æœ‰éœ€è¦å†æ¥æ‰¾æˆ‘ã€‚");
 	    cm.dispose();
 	    return;
 	}
@@ -35,7 +35,7 @@ function action(mode, type, selection) {
 	    cm.dispose();
 	    return;
         } else if ( chr == null ) {
-            cm.sendOk("ÄãµÄÁíÒ»°ëÅÜÄÄÈ¥ÁË?");
+            cm.sendOk("ä½ çš„å¦ä¸€åŠè·‘å“ªå»äº†?");
         } 
         else {
 	    cm.dispose();
@@ -44,7 +44,7 @@ function action(mode, type, selection) {
     if (cm.getMapId() == 680000401 && cm.getQuestRecord(160002).getCustomData() != null) {
 	var dat = parseInt(cm.getQuestRecord(160002).getCustomData());
 //	    if (status == 0) {
-//	    	cm.sendYesNo("ÄãÒª»ØÈ¥Âğ?");
+//	    	cm.sendYesNo("ä½ è¦å›å»å—?");
 //	    } else {
 		cm.warpMap(680000500,0);
 		cm.dispose();
@@ -53,7 +53,7 @@ function action(mode, type, selection) {
 //	}
     }
     if (status == 0) {
-	cm.sendYesNo("ÄãÈ·¶¨ÒªÀë¿ª»éÀñ»á³¡Âğ? Àë¿ªÁË¾Í½ü²»À´ÁËà¸");
+	cm.sendYesNo("ä½ ç¡®å®šè¦ç¦»å¼€å©šç¤¼ä¼šåœºå—? ç¦»å¼€äº†å°±è¿‘ä¸æ¥äº†å–”");
     } else if (status == 1) {
 	cm.warp(680000500, 0);
 	cm.dispose();

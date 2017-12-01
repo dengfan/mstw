@@ -1,4 +1,4 @@
-/* 
+ï»¿/* 
  * @Author Lerk
  * 
  * Gatekeeper, Sharenian: Door to the Sharenian Castle (990000300)
@@ -25,7 +25,7 @@ function action(mode, type, selection) {
     } else {
         if (eim.getProperty("leader").equals(cm.getName())) {
             if (cm.getMap().getReactorByName("statuegate").getState() > 0) {
-                cm.sendOk("½øĞĞ¡£");
+                cm.sendOk("è¿›è¡Œã€‚");
                 cm.safeDispose();
             } else {
                 if (status == 0) {
@@ -37,9 +37,9 @@ function action(mode, type, selection) {
                             stage = parseInt(eim.getProperty("stage1phase"));
                         }
                         if (stage == 1) {
-                            cm.sendOk("ÔÚÕâ¸öÌôÕ½ÖĞ£¬ÎÒ½«Õ¹Ê¾ÎÒÖÜÎ§µÄµñÏñµÄÍ¼°¸¡£µ±ÎÒ¸øÕâ¸ö´Ê£¬ÖØ¸´µÄÄ£Ê½£¬ÎÒ¼ÌĞø¡£");
+                            cm.sendOk("åœ¨è¿™ä¸ªæŒ‘æˆ˜ä¸­ï¼Œæˆ‘å°†å±•ç¤ºæˆ‘å‘¨å›´çš„é›•åƒçš„å›¾æ¡ˆã€‚å½“æˆ‘ç»™è¿™ä¸ªè¯ï¼Œé‡å¤çš„æ¨¡å¼ï¼Œæˆ‘ç»§ç»­ã€‚");
                         } else {
-                            cm.sendOk("ÎÒ½«ÎªÄã³ÊÏÖÒ»¸ö¸üÄÑµÄÃÕÌâ¡£ºÃÔË¡£")
+                            cm.sendOk("æˆ‘å°†ä¸ºä½ å‘ˆç°ä¸€ä¸ªæ›´éš¾çš„è°œé¢˜ã€‚å¥½è¿ã€‚")
                         }
                     } else if (eim.getProperty("stage1status").equals("active")) {
                         stage = parseInt(eim.getProperty("stage1phase"));
@@ -48,7 +48,7 @@ function action(mode, type, selection) {
 								var react = cm.getMap().getReactorByName("statuegate");
                                 cm.getMap().getReactorByName("statuegate").forceHitReactor(react.getState() + 1);
                                 //cm.getMap().getReactorByName("statuegate").hitReactor(cm.getClient());
-                                cm.sendOk("Æ¯ÁÁ¡£Çë½øÈëÏÂÒ»½×¶Î¡£");
+                                cm.sendOk("æ¼‚äº®ã€‚è¯·è¿›å…¥ä¸‹ä¸€é˜¶æ®µã€‚");
                                 cm.showEffect(true, "quest/party/clear");
                                 cm.playSound(true, "Party1/Clear");
                                 var prev = eim.setProperty("stage1clear", "true", true);
@@ -56,19 +56,19 @@ function action(mode, type, selection) {
                                     cm.gainGP(900);
                                 }
                             } else {
-                                cm.sendOk("ºÜºÃ¡£È»¶øÄãÈÔÈ»ÓĞ¸ü¶àµÄÀ´Íê³É¡£µ±Äã×¼±¸ºÃµÄÊ±ºòÔÙºÍÎÒËµ»°¡£");
+                                cm.sendOk("å¾ˆå¥½ã€‚ç„¶è€Œä½ ä»ç„¶æœ‰æ›´å¤šçš„æ¥å®Œæˆã€‚å½“ä½ å‡†å¤‡å¥½çš„æ—¶å€™å†å’Œæˆ‘è¯´è¯ã€‚");
                                 eim.setProperty("stage1phase", stage + 1);
-                                cm.mapMessage("ÄãÒÑ¾­Íê³ÉÁË²¿·Ö " + stage + " µÄÊ¯Ïñ²âÊÔ¡£");
+                                cm.mapMessage("ä½ å·²ç»å®Œæˆäº†éƒ¨åˆ† " + stage + " çš„çŸ³åƒæµ‹è¯•ã€‚");
                             }
                         } else {
-                            cm.sendOk("Äã²»¼°¸ñ¡£");
-                            cm.mapMessage("ÄãÒÑ¾­Ê§°ÜÁË¡£");
+                            cm.sendOk("ä½ ä¸åŠæ ¼ã€‚");
+                            cm.mapMessage("ä½ å·²ç»å¤±è´¥äº†ã€‚");
                             eim.setProperty("stage1phase", "1")
                         }
                         eim.setProperty("stage1status", "waiting");
                         cm.safeDispose();
                     } else {
-                        cm.sendOk("ÇëµÈ´ı¡£");
+                        cm.sendOk("è¯·ç­‰å¾…ã€‚");
                         cm.safeDispose();
                     }
                 } else if (status == 1) {
@@ -85,7 +85,7 @@ function action(mode, type, selection) {
                                                         reactorString += combo[i] + " ";
                                                 }
                                                 cm.playerMessage(reactorString);
-                    cm.mapMessage("ÇëÉÔºò£¬¸Ã×éºÏÏÔÊ¾¡£");
+                    cm.mapMessage("è¯·ç¨å€™ï¼Œè¯¥ç»„åˆæ˜¾ç¤ºã€‚");
                     var delay = 5000;
                     for (var i = 0; i < combo.length; i++) {
                         cm.getMap().getReactorByOid(combo[i]).delayedHitReactor(cm.getClient(), delay + 3500 * i);
@@ -96,7 +96,7 @@ function action(mode, type, selection) {
                 }
             }
         } else {
-            cm.sendOk("Äã²»ÊÇ×å³¤£¡Çë½ĞÄãÃÇ×å³¤À´ÕÒÎÒ£¡");
+            cm.sendOk("ä½ ä¸æ˜¯æ—é•¿ï¼è¯·å«ä½ ä»¬æ—é•¿æ¥æ‰¾æˆ‘ï¼");
             cm.safeDispose();
         }
     }

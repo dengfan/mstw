@@ -1,4 +1,4 @@
-var status = 0;
+ï»¿var status = 0;
 var request;
 
 function start() {
@@ -15,7 +15,7 @@ function action(mode, type, selection) {
     if (status == 0) {
         request = cm.getNextCarnivalRequest();
         if (request != null) {
-            cm.sendYesNo(request.getChallengeInfo() + "\r\nÄãÏëÓëÕâ¸ö¶ÓÎé½øĞĞ¹ÖÎï¼ÎÄê»ª2Õ½¶·Âğ?");
+            cm.sendYesNo(request.getChallengeInfo() + "\r\nä½ æƒ³ä¸è¿™ä¸ªé˜Ÿä¼è¿›è¡Œæ€ªç‰©å˜‰å¹´å2æˆ˜æ–—å—?");
         } else {
             cm.dispose();
         }
@@ -24,7 +24,7 @@ function action(mode, type, selection) {
             cm.getChar().getEventInstance().registerCarnivalParty(request.getChallenger(), request.getChallenger().getMap(), 1);
             cm.dispose();
         } catch(e) {
-            cm.sendOk("ÄãÑ¡ÔñµÄÌôÕ½¶ÓÎéÎŞĞ§.");
+            cm.sendOk("ä½ é€‰æ‹©çš„æŒ‘æˆ˜é˜Ÿä¼æ— æ•ˆ.");
         }
         status = -1;
     }

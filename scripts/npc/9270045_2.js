@@ -1,4 +1,4 @@
-
+﻿
 function start() { 
  status = -1; 
  action(1, 0, 0); 
@@ -13,7 +13,7 @@ function action(mode, type, selection) {
   else 
    status--; 
   if (status == 0) { 
-   cm.sendYesNo("ȷ��Ҫ�뿪��?"); 
+   cm.sendYesNo("确定要离开吗?"); 
   } 
   else if(status == 1) { 
    cm.warp(541020700); 

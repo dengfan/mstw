@@ -1,19 +1,19 @@
-function enter(pi) {
+ï»¿function enter(pi) {
     if (pi.getQuestStatus(6134) == 1) {
         var em = pi.getEventManager("s4resurrection2");
         if (em == null) {
-            pi.playerMessage("ÓÉÓÚÎ´ÖªµÄÔ­Òò£¬Äã²»ÄÜ½øÈëµ½ÀïÃæ¡£");
+            pi.playerMessage("ç”±äºæœªçŸ¥çš„åŸå› ï¼Œä½ ä¸èƒ½è¿›å…¥åˆ°é‡Œé¢ã€‚");
         } else {
             var prop = em.getProperty("started");
             if (prop == null || prop.equals("false")) {
                 em.startInstance(pi.getPlayer());
                 return true;
             } else {
-                pi.playerMessage("ÒÑ¾­ÓĞÈËÔÚÌôÕ½ÈÎÎñ¡£");
+                pi.playerMessage("å·²ç»æœ‰äººåœ¨æŒ‘æˆ˜ä»»åŠ¡ã€‚");
             }
         }
     } else {
-        pi.playerMessage("Äã²»ÄÜ½øÈëµ½ÀïÃæ¡£");
+        pi.playerMessage("ä½ ä¸èƒ½è¿›å…¥åˆ°é‡Œé¢ã€‚");
     }
     return false;
 }

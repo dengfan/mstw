@@ -1,14 +1,14 @@
-function enter(pi) {
+ï»¿function enter(pi) {
     var em = pi.getEventManager("Romeo");
     if (em != null && em.getProperty("stage4").equals("2")) {
 	if(pi.isLeader()){
 		pi.givePartyExp(50000);
 		pi.warpParty(926100203);
 	}else{
-        pi.playerMessage(5, "¶Ó³¤½øÈë£¡");
+        pi.playerMessage(5, "é˜Ÿé•¿è¿›å…¥ï¼");
 	}
        // pi.warp(926100203, 0);
     } else {
-        pi.playerMessage(5, "´«ËÍÃÅÉĞÎ´´ò¿ª¡£");
+        pi.playerMessage(5, "ä¼ é€é—¨å°šæœªæ‰“å¼€ã€‚");
     }
 }

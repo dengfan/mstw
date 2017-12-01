@@ -1,4 +1,4 @@
-/*
+ï»¿/*
 	Red Sign - 101st Floor Eos Tower (221024500)
 */
 
@@ -24,9 +24,9 @@ function action(mode, type, selection) {
 	cm.removeAll(4001022);
 	cm.removeAll(4001023);
 	if (cm.getParty() == null) { // No Party
-	    cm.sendSimple("ÄãÃ²ËÆÃ»ÓĞ´ïµ½ÒªÇó...:\r\n\r\n#rÒªÇó: " + minPartySize + " Íæ¼Ò³ÉÔ±, Ã¿¸öÈËµÄµÈ¼¶±ØĞëÔÚ " + minLevel + " µ½ µÈ¼¶ " + maxLevel + ".#b\r\n#L0#ÎÒÒª¶Ò»»ÓĞÁÑºÛµÄÑÛ¾µ#l");
+	    cm.sendSimple("ä½ è²Œä¼¼æ²¡æœ‰è¾¾åˆ°è¦æ±‚...:\r\n\r\n#rè¦æ±‚: " + minPartySize + " ç©å®¶æˆå‘˜, æ¯ä¸ªäººçš„ç­‰çº§å¿…é¡»åœ¨ " + minLevel + " åˆ° ç­‰çº§ " + maxLevel + ".#b\r\n#L0#æˆ‘è¦å…‘æ¢æœ‰è£‚ç—•çš„çœ¼é•œ#l");
 	} else if (!cm.isLeader()) { // Not Party Leader
-	    cm.sendSimple("Èç¹ûÄãÏë×öÈÎÎñ£¬Çë #b¶Ó³¤#k ¸úÎÒÌ¸.#b\r\n#L0#ÎÒÒª¶Ò»»ÓĞÁÑºÛµÄÑÛ¾µ#l");
+	    cm.sendSimple("å¦‚æœä½ æƒ³åšä»»åŠ¡ï¼Œè¯· #bé˜Ÿé•¿#k è·Ÿæˆ‘è°ˆ.#b\r\n#L0#æˆ‘è¦å…‘æ¢æœ‰è£‚ç—•çš„çœ¼é•œ#l");
 	} else {
 	    // Check if all party members are within PQ levels
 	    var party = cm.getParty().getMembers();
@@ -53,7 +53,7 @@ function action(mode, type, selection) {
 	    if (next) {
 		var em = cm.getEventManager("LudiPQ");
 		if (em == null) {
-		    cm.sendSimple("ÕÒ²»µ½½Å±¾ÇëÁªÂçGM#b\r\n#L0#ÎÒÒª¶Ò»»ÓĞÁÑºÛµÄÑÛ¾µ#l");
+		    cm.sendSimple("æ‰¾ä¸åˆ°è„šæœ¬è¯·è”ç»œGM#b\r\n#L0#æˆ‘è¦å…‘æ¢æœ‰è£‚ç—•çš„çœ¼é•œ#l");
 		} else {
 		    var prop = em.getProperty("state");
 		    if (prop.equals("0") || prop == null) {
@@ -63,27 +63,27 @@ function action(mode, type, selection) {
 			cm.dispose();
 			return;
 		    } else {
-			cm.sendSimple("ÆäËû¶ÓÎéÒÑ¾­ÔÚÀïÃæ×ö #r×é¶ÓÈÎÎñÁË#k Çë³¢ÊÔ»»ÆµµÀ»òÕßµÈÆäËû¶ÓÎéÍê³É¡£#b\r\n#L0#ÎÒÒª¶Ò»»ÓĞÁÑºÛµÄÑÛ¾µ#l");
+			cm.sendSimple("å…¶ä»–é˜Ÿä¼å·²ç»åœ¨é‡Œé¢åš #rç»„é˜Ÿä»»åŠ¡äº†#k è¯·å°è¯•æ¢é¢‘é“æˆ–è€…ç­‰å…¶ä»–é˜Ÿä¼å®Œæˆã€‚#b\r\n#L0#æˆ‘è¦å…‘æ¢æœ‰è£‚ç—•çš„çœ¼é•œ#l");
 		    }
 		}
 	    } else {
-		cm.sendSimple("ÄãµÄ¶ÓÎéÃ²ËÆÃ»ÓĞ´ïµ½ÒªÇó...:\r\n\r\n#rÒªÇó: " + minPartySize + " Íæ¼Ò³ÉÔ±, Ã¿¸öÈËµÄµÈ¼¶±ØĞëÔÚ " + minLevel + " µ½ µÈ¼¶ " + maxLevel + ".#b\r\n#L0#ÎÒÒª¶Ò»»ÓĞÁÑºÛµÄÑÛ¾µ#l");
+		cm.sendSimple("ä½ çš„é˜Ÿä¼è²Œä¼¼æ²¡æœ‰è¾¾åˆ°è¦æ±‚...:\r\n\r\n#rè¦æ±‚: " + minPartySize + " ç©å®¶æˆå‘˜, æ¯ä¸ªäººçš„ç­‰çº§å¿…é¡»åœ¨ " + minLevel + " åˆ° ç­‰çº§ " + maxLevel + ".#b\r\n#L0#æˆ‘è¦å…‘æ¢æœ‰è£‚ç—•çš„çœ¼é•œ#l");
 	    }
 	}
     } else { //broken glass
 	var cmp = cm.getPlayer().getOneInfo(1202, "cmp");
 	if (cm.haveItem(1022073,1)) {
-	    cm.sendOk("×öºÃÁË¡£");
+	    cm.sendOk("åšå¥½äº†ã€‚");
 	} else if (!cm.canHold(1022073,1)) {
-	    cm.sendOk("Çë¿Õ³öÒ»Ğ©×°±¸À¹¿Õ¼ä¡£");
+	    cm.sendOk("è¯·ç©ºå‡ºä¸€äº›è£…å¤‡æ‹¦ç©ºé—´ã€‚");
 	} else if (cmp != null && parseInt(cmp) >= 35) {
 	    if (cm.getPlayer().getOneInfo(1202, "have") == null || cm.getPlayer().getOneInfo(1202, "have").equals("0")) {
 	    	cm.gainItem(1022073, 1, true); //should handle automatically for "have"
 	    } else {
-		cm.sendOk("ÄãÒÑ¾­ÓĞ#t1022073#ÁË.");
+		cm.sendOk("ä½ å·²ç»æœ‰#t1022073#äº†.");
 	    }
 	} else {
-	    cm.sendOk("Äã»¹Ã»ÓĞ×ö35´ÎPQ Ä¿Ç°×öÁË: " + (cmp == null ? "0" : cmp) + "´Î");
+	    cm.sendOk("ä½ è¿˜æ²¡æœ‰åš35æ¬¡PQ ç›®å‰åšäº†: " + (cmp == null ? "0" : cmp) + "æ¬¡");
 	}
 	cm.dispose();
 

@@ -1,4 +1,4 @@
-var status = -1;
+ï»¿var status = -1;
 
 function action(mode, type, selection) {
     var em = cm.getEventManager("ZChaosPQ3");
@@ -8,14 +8,14 @@ function action(mode, type, selection) {
         return;
     }
     if (em.getProperty("stage").equals("1")) {
-        cm.sendOk("¸ÉÂï¡£Ò»¸ö¿ÉÒÉµÄÒõÄ±£¿ÕâÊÇ²»¿ÉÄÜµÄ¡­");
+        cm.sendOk("å¹²å˜›ã€‚ä¸€ä¸ªå¯ç–‘çš„é˜´è°‹ï¼Ÿè¿™æ˜¯ä¸å¯èƒ½çš„â€¦");
         em.setProperty("stage", "2");
     } else if (em.getProperty("stage").equals("2") && cm.getMap().getAllMonstersThreadsafe().size() == 0) {
-	cm.mapMessage(6, "ÊµÑéÊÒÈë¿ÚÒÑ¿ªÆô!");
+	cm.mapMessage(6, "å®éªŒå®¤å…¥å£å·²å¼€å¯!");
         em.setProperty("stage4", "2");
         cm.getMap().setReactorState();
     } else {
-        cm.sendOk("...»¹ÓĞ¹ÖÎïÃ»ÏûÃğ£¡");
+        cm.sendOk("...è¿˜æœ‰æ€ªç‰©æ²¡æ¶ˆç­ï¼");
     }
     cm.dispose();
 }

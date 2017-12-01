@@ -1,4 +1,4 @@
-var letters = Array(2010000, 2010001, 2010002, 2010003, 2010004, 2010005, 2010009, 2020000, 2020001, 2020002, 2020003, 2020004, 2020005, 2020007, 2020008, 2020009, 2020010, 2020012, 2020013, 2020014, 2020015, 2020016);
+锘縱ar letters = Array(2010000, 2010001, 2010002, 2010003, 2010004, 2010005, 2010009, 2020000, 2020001, 2020002, 2020003, 2020004, 2020005, 2020007, 2020008, 2020009, 2020010, 2020012, 2020013, 2020014, 2020015, 2020016);
 var answers = Array("APPLE", "MEAT", "EGG", "ORANGE", "LEMON", "HONEY", "GREENAPPLE", "SALAD", "FRIEDCHICKEN", "CAKE", "PIZZA", "HAMBURGER", "HOTDOG", "DRIEDSQUID", "FATSAUSAGE", "ORANGEJUICE", "GRAPEJUICE", "MELTINGCHEESE", "REINDEERMILK", "SUNRISEDEW", "SUNSETDEW", "CHEESECAKE");
 
 function init() {
@@ -28,56 +28,56 @@ function playerEntry(eim, player) {
     var map = eim.getMapInstance(0);
 	var Name = "";
 	if(parseInt(eim.getProperty("question")) == 2010000){
-		Name = "苹果";
+		Name = "鑻规灉";
 	}else if(parseInt(eim.getProperty("question")) == 2010001){
-		Name = "苹果";
+		Name = "鑻规灉";
 	}else if(parseInt(eim.getProperty("question")) == 2010002){
-		Name = "苹果";
+		Name = "鑻规灉";
 	}else if(parseInt(eim.getProperty("question")) == 2010003){
-		Name = "苹果";
+		Name = "鑻规灉";
 	}else if(parseInt(eim.getProperty("question")) == 2010004){
-		Name = "苹果";
+		Name = "鑻规灉";
 	}else if(parseInt(eim.getProperty("question")) == 2010005){
-		Name = "苹果";
+		Name = "鑻规灉";
 	}else if(parseInt(eim.getProperty("question")) == 2010009){
-		Name = "苹果";
+		Name = "鑻规灉";
 	}else if(parseInt(eim.getProperty("question")) == 2020000){
-		Name = "苹果";
+		Name = "鑻规灉";
 	}else if(parseInt(eim.getProperty("question")) == 2020001){
-		Name = "苹果";
+		Name = "鑻规灉";
 	}else if(parseInt(eim.getProperty("question")) == 2020002){
-		Name = "苹果";
+		Name = "鑻规灉";
 	}else if(parseInt(eim.getProperty("question")) == 2020003){
-		Name = "苹果";
+		Name = "鑻规灉";
 	}else if(parseInt(eim.getProperty("question")) == 2020004){
-		Name = "苹果";
+		Name = "鑻规灉";
 	}else if(parseInt(eim.getProperty("question")) == 2020005){
-		Name = "苹果";
+		Name = "鑻规灉";
 	}else if(parseInt(eim.getProperty("question")) == 2020007){
-		Name = "苹果";
+		Name = "鑻规灉";
 	}else if(parseInt(eim.getProperty("question")) == 2020008){
-		Name = "苹果";
+		Name = "鑻规灉";
 	}else if(parseInt(eim.getProperty("question")) == 2020009){
-		Name = "苹果";
+		Name = "鑻规灉";
 	}else if(parseInt(eim.getProperty("question")) == 2020010){
-		Name = "苹果";
+		Name = "鑻规灉";
 	}else if(parseInt(eim.getProperty("question")) == 2020012){
-		Name = "苹果";
+		Name = "鑻规灉";
 	}else if(parseInt(eim.getProperty("question")) == 2020013){
-		Name = "苹果";
+		Name = "鑻规灉";
 	}else if(parseInt(eim.getProperty("question")) == 2020014){
-		Name = "苹果";
+		Name = "鑻规灉";
 	}else if(parseInt(eim.getProperty("question")) == 2020015){
-		Name = "苹果";
+		Name = "鑻规灉";
 	}else if(parseInt(eim.getProperty("question")) == 2020016){
-		Name = "苹果";
+		Name = "鑻规灉";
 	}
     player.changeMap(map, map.getPortal(0));
-	player.dropMessage(5, "请帮我把 " + Name + "的所有的字母都拿给我.");
-	player.dropMessage(5, "请帮我把 " + Name + "的所有的字母都拿给我.");
-	player.dropMessage(5, "请帮我把 " + Name + "的所有的字母都拿给我.");
-	player.dropMessage(5, "请帮我把 " + Name + "的所有的字母都拿给我.");
-    player.sendEnglishQuiz("请帮我把所有的字母都拿给我 #i" + parseInt(eim.getProperty("question")) + "#.");
+	player.dropMessage(5, "璇峰府鎴戞妸 " + Name + "鐨勬墍鏈夌殑瀛楁瘝閮芥嬁缁欐垜.");
+	player.dropMessage(5, "璇峰府鎴戞妸 " + Name + "鐨勬墍鏈夌殑瀛楁瘝閮芥嬁缁欐垜.");
+	player.dropMessage(5, "璇峰府鎴戞妸 " + Name + "鐨勬墍鏈夌殑瀛楁瘝閮芥嬁缁欐垜.");
+	player.dropMessage(5, "璇峰府鎴戞妸 " + Name + "鐨勬墍鏈夌殑瀛楁瘝閮芥嬁缁欐垜.");
+    player.sendEnglishQuiz("璇峰府鎴戞妸鎵�鏈夌殑瀛楁瘝閮芥嬁缁欐垜 #i" + parseInt(eim.getProperty("question")) + "#.");
 }
 
 function playerDead(eim, player) {}

@@ -1,9 +1,9 @@
-/*
+ï»¿/*
  *  Metal Bucket Snowman - Happy Ville NPC
  */
 
 function start() {
-    cm.sendSimple("°²°² ÎÒÊÇ #p2001002# ÄãÒªÈ¥ÄÄ¸öĞ¡·¿¼ä? PS¿É½á°éÍ¬ĞĞ \n\r #b#L0#ÔÂ¹âÉ­ÁÖ6#l \n\r #L1#ÔÂ¹âÉ­ÁÖ7#l \n\r #L2#ÔÂ¹âÉ­ÁÖ8#l \n\r #L3#ÔÂ¹âÉ­ÁÖ9#l \n\r #L4#ÔÂ¹âÉ­ÁÖ10#l");
+    cm.sendSimple("å®‰å®‰ æˆ‘æ˜¯ #p2001002# ä½ è¦å»å“ªä¸ªå°æˆ¿é—´? PSå¯ç»“ä¼´åŒè¡Œ \n\r #b#L0#æœˆå…‰æ£®æ—6#l \n\r #L1#æœˆå…‰æ£®æ—7#l \n\r #L2#æœˆå…‰æ£®æ—8#l \n\r #L3#æœˆå…‰æ£®æ—9#l \n\r #L4#æœˆå…‰æ£®æ—10#l");
 }
 
 function action(mode, type, selection) {

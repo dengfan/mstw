@@ -1,4 +1,4 @@
-var status = -1;
+ï»¿var status = -1;
 
 function action(mode, type, selection) {
     var em = cm.getEventManager("Romeo");
@@ -16,7 +16,7 @@ function action(mode, type, selection) {
             if (em.getProperty("stage1").equals("0")) {
                 em.setProperty("stage1", "1");
                 cm.getMap().setReactorState();
-                cm.sendOk("³É¹¦ÕÒµ½³ö¿Ú¡£Çëµ½µØÍ¼ÖĞ¼ä½øÈëÏÂÒ»¹Ø(ÂŞÃÜÅ·NPC×ó±ß)£¡");
+                cm.sendOk("æˆåŠŸæ‰¾åˆ°å‡ºå£ã€‚è¯·åˆ°åœ°å›¾ä¸­é—´è¿›å…¥ä¸‹ä¸€å…³(ç½—å¯†æ¬§NPCå·¦è¾¹)ï¼");
                 //cm.sendOk("1");
             }
         } else if (java.lang.Math.random() < 0.05) {

@@ -1,40 +1,40 @@
-function enter(pi) {
+ï»¿function enter(pi) {
     if (pi.getQuestStatus(6241) == 1 || pi.getQuestStatus(6243) == 1) {
         if (pi.getJob() == 312) {
             if (pi.haveItem(4001113)) {
                 if (pi.getPlayerCount(924000100) > 0) {
-                    pi.playerMessage("ÌôÕ½ÒÑ¾­¿ªÊ¼ÁË£¬Äã²»ÄÜ½øÈ¥¡£");
+                    pi.playerMessage("æŒ‘æˆ˜å·²ç»å¼€å§‹äº†ï¼Œä½ ä¸èƒ½è¿›å»ã€‚");
                     return false;
                 }
                 var em = pi.getEventManager("s4nest");
                 if (em == null) {
-                    pi.playerMessage("ÓÉÓÚÎ´ÖªµÄÔ­Òò£¬Äã²»ÄÜ½øÈë¡£");
+                    pi.playerMessage("ç”±äºæœªçŸ¥çš„åŸå› ï¼Œä½ ä¸èƒ½è¿›å…¥ã€‚");
                 } else {
                     em.startInstance(pi.getPlayer());
                     return true;
                 }
             } else {
-                pi.playerMessage("ÄãÃ»ÓĞ»ğ·ï»ËµÄÂÑ£¬²»ÄÜ½øÈë¡£");
+                pi.playerMessage("ä½ æ²¡æœ‰ç«å‡¤å‡°çš„åµï¼Œä¸èƒ½è¿›å…¥ã€‚");
             }
         } else if (pi.getJob() == 322) {
             if (pi.haveItem(4001114)) {
                 if (pi.getPlayerCount(924000100) > 0) {
-                    pi.playerMessage("ÌôÕ½ÒÑ¾­¿ªÊ¼ÁË£¬Äã²»ÄÜ½øÈ¥¡£");
+                    pi.playerMessage("æŒ‘æˆ˜å·²ç»å¼€å§‹äº†ï¼Œä½ ä¸èƒ½è¿›å»ã€‚");
                     return false;
                 }
                 var em = pi.getEventManager("s4nest");
                 if (em == null) {
-                    pi.playerMessage("ÓÉÓÚÎ´ÖªµÄÔ­Òò£¬Äã²»ÄÜ½øÈë¡£");
+                    pi.playerMessage("ç”±äºæœªçŸ¥çš„åŸå› ï¼Œä½ ä¸èƒ½è¿›å…¥ã€‚");
                 } else {
                     em.startInstance(pi.getPlayer());
                     return true;
                 }
             } else {
-                pi.playerMessage("ÄãÃ»ÓĞ±ù·ï»ËµÄÂÑ£¬²»ÄÜ½øÈë¡£");
+                pi.playerMessage("ä½ æ²¡æœ‰å†°å‡¤å‡°çš„åµï¼Œä¸èƒ½è¿›å…¥ã€‚");
             }
         }
     } else {
-        pi.playerMessage("Î´ÖªµÄÁ¦Á¿×èµ²×ÅÄãµÄÇ°½ø¡£");
+        pi.playerMessage("æœªçŸ¥çš„åŠ›é‡é˜»æŒ¡ç€ä½ çš„å‰è¿›ã€‚");
     }
     return false;
 }

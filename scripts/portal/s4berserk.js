@@ -1,10 +1,10 @@
-function enter(pi) {
+ï»¿function enter(pi) {
     if (pi.getQuestStatus(6153) == 1) {
         if (!pi.haveItem(4031471)) {
             if (pi.haveItem(4031475)) {
                 var em = pi.getEventManager("4jberserk");
                 if (em == null) {
-                    pi.playerMessage("ÓÉÓÚÎ´ÖªµÄÔ­Òò£¬Äã²»ÄÜ½øÈëµ½ÀïÃæ¡£");
+                    pi.playerMessage("ç”±äºæœªçŸ¥çš„åŸå› ï¼Œä½ ä¸èƒ½è¿›å…¥åˆ°é‡Œé¢ã€‚");
                 } else {
                     em.startInstance(pi.getPlayer());
                     return true;
@@ -18,7 +18,7 @@ function enter(pi) {
             pi.playerMessage("Sayram already has shield.");
         }
     } else {
-        pi.playerMessage("Äã²»ÄÜ½øÈëµ½ÀïÃæ¡£");
+        pi.playerMessage("ä½ ä¸èƒ½è¿›å…¥åˆ°é‡Œé¢ã€‚");
     }
     return false;
 }

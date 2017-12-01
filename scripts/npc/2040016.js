@@ -1,4 +1,4 @@
-/* Pi
+ï»¿/* Pi
 	Ludibrium Village (220000300)
 	
 	Refining NPC: 
@@ -28,7 +28,7 @@ function action(mode, type, selection) {
 	return;
     }
     if (status == 0) {
-	var selStr = "¶îÄãÊÇË­£¬ÄãÓĞÌıËµ¹ıÎÒ¶ÍÔìµÄ¼¼ÄÜ?? ÔÚÕâÖÖÇé¿öÏÂ£¬ÎÒ»áºÜ¸ßĞËÀ´´¦ÀíÄãµÄÒ»Ğ©¿óÊ¯...µ«·ÑÓÃÒ²ÊÇ²¿±ãÒËµÄ£¡#b"
+	var selStr = "é¢ä½ æ˜¯è°ï¼Œä½ æœ‰å¬è¯´è¿‡æˆ‘é”»é€ çš„æŠ€èƒ½?? åœ¨è¿™ç§æƒ…å†µä¸‹ï¼Œæˆ‘ä¼šå¾ˆé«˜å…´æ¥å¤„ç†ä½ çš„ä¸€äº›çŸ¿çŸ³...ä½†è´¹ç”¨ä¹Ÿæ˜¯éƒ¨ä¾¿å®œçš„ï¼#b"
 	var options = new Array("Refine a mineral ore","Refine a jewel ore","Refine a rare jewel","Refine a crystal ore","Create materials","Create Arrows");
 	for (var i = 0; i < options.length; i++){
 	    selStr += "\r\n#L" + i + "# " + options[i] + "#l";
@@ -37,15 +37,15 @@ function action(mode, type, selection) {
     } else if (status == 1) {
 	selectedType = selection;
 	if (selectedType == 0){ //mineral refine
-	    var selStr = "ËùÒÔ£¬ÄãÏëÒª×öÒ»ÖÖ??#b";
-	    var minerals = new Array ("ÇàÍ­","¸ÖÌú","ï®¿óÊ¯","Öì¿óÊ¯","Òø","×Ï¿óÊ¯","»Æ½ğ");
+	    var selStr = "æ‰€ä»¥ï¼Œä½ æƒ³è¦åšä¸€ç§??#b";
+	    var minerals = new Array ("é’é“œ","é’¢é“","é”‚çŸ¿çŸ³","æœ±çŸ¿çŸ³","é“¶","ç´«çŸ¿çŸ³","é»„é‡‘");
 	    for (var i = 0; i < minerals.length; i++){
 		selStr += "\r\n#L" + i + "# " + minerals[i] + "#l";
 	    }
 	    equip = false;
 	    cm.sendSimple(selStr);
 	} else if (selectedType == 1){ //jewel refine
-	    var selStr = "ËùÒÔ£¬ÄãÏëÒª×öÒ»ÖÖ??#b";
+	    var selStr = "æ‰€ä»¥ï¼Œä½ æƒ³è¦åšä¸€ç§??#b";
 	    var jewels = new Array ("Garnet","Amethyst","Aquamarine","Emerald","Opal","Sapphire","Topaz","Diamond","Black Crystal");
 	    for (var i = 0; i < jewels.length; i++){
 		selStr += "\r\n#L" + i + "# " + jewels[i] + "#l";
@@ -53,7 +53,7 @@ function action(mode, type, selection) {
 	    equip = false;
 	    cm.sendSimple(selStr);
 	} else if (selectedType == 2){ //rock refine
-	    var selStr = "ËùÒÔ£¬ÄãÏëÒª×öÒ»ÖÖ??#b";
+	    var selStr = "æ‰€ä»¥ï¼Œä½ æƒ³è¦åšä¸€ç§??#b";
 	    var items = new Array ("Moon Rock","Star Rock");
 	    for (var i = 0; i < items.length; i++){
 		selStr += "\r\n#L" + i + "# " + items[i] + "#l";
@@ -61,7 +61,7 @@ function action(mode, type, selection) {
 	    equip = false;
 	    cm.sendSimple(selStr);
 	} else if (selectedType == 3){ //crystal refine
-	    var selStr = "ËùÒÔ£¬ÄãÏëÒª×öÒ»ÖÖ??#b";
+	    var selStr = "æ‰€ä»¥ï¼Œä½ æƒ³è¦åšä¸€ç§??#b";
 	    var crystals = new Array ("Power Crystal","Wisdom Crystal","DEX Crystal","LUK Crystal");
 	    for (var i = 0; i < crystals.length; i++){
 		selStr += "\r\n#L" + i + "# " + crystals[i] + "#l";
@@ -69,7 +69,7 @@ function action(mode, type, selection) {
 	    equip = false;
 	    cm.sendSimple(selStr);
 	} else if (selectedType == 4){ //material refine
-	    var selStr = "ËùÒÔ£¬ÄãÏëÒª×öÒ»ÖÖ??#b";
+	    var selStr = "æ‰€ä»¥ï¼Œä½ æƒ³è¦åšä¸€ç§??#b";
 	    var materials = new Array ("Make Processed Wood with Tree Branch","Make Processed Wood with Firewood","Make Screws (packs of 15)");
 	    for (var i = 0; i < materials.length; i++){
 		selStr += "\r\n#L" + i + "# " + materials[i] + "#l";
@@ -77,7 +77,7 @@ function action(mode, type, selection) {
 	    equip = false;
 	    cm.sendSimple(selStr);
 	} else if (selectedType == 5){ //arrow refine
-	    var selStr = "ËùÒÔ£¬ÄãÏëÒª×öÒ»ÖÖ??#b";
+	    var selStr = "æ‰€ä»¥ï¼Œä½ æƒ³è¦åšä¸€ç§??#b";
 	    var arrows = new Array ("Arrow for Bow","Arrow for Crossbow","Bronze Arrow for Bow","Bronze Arrow for Crossbow","Steel Arrow for Bow","Steel Arrow for Crossbow");
 	    for (var i = 0; i < arrows.length; i++){
 		selStr += "\r\n#L" + i + "# " + arrows[i] + "#l";
@@ -140,7 +140,7 @@ function action(mode, type, selection) {
 	    cost = costSet[selectedItem];
 	}
 		
-	var prompt = "ËùÒÔ£¬ÄãÏëÒª×öÒ»Ğ© #t" + item + "#? ¶ÔÎÒÀ´Ëµ£¬ËûºÜÈİÒ×!\r\nÇëÎÊÄã½²Òª×ö¼¸¸ö??";
+	var prompt = "æ‰€ä»¥ï¼Œä½ æƒ³è¦åšä¸€äº› #t" + item + "#? å¯¹æˆ‘æ¥è¯´ï¼Œä»–å¾ˆå®¹æ˜“!\r\nè¯·é—®ä½ è®²è¦åšå‡ ä¸ª??";
 		
 	cm.sendGetNumber(prompt,1,1,100)
     } else if (status == 3) {
@@ -162,13 +162,13 @@ function action(mode, type, selection) {
 	    cost = costSet[selectedItem];
 	}
 		
-	var prompt = "ÄãÏë×ö ";
+	var prompt = "ä½ æƒ³åš ";
 	if (qty == 1) {
-	    prompt += "Ò»¸ö #t" + item + "#?";
+	    prompt += "ä¸€ä¸ª #t" + item + "#?";
 	} else {
 	    prompt += qty + " #t" + item + "#?";
 	}
-	prompt += "ÄãÏëÒª×ö #t" + item + "#? ÔÚÕâÖÖÇé¿öÏÂ, ÎÒÎªÁËÒª×ö³ö×î°ôµÄÆ·ÖÊ£¬ÎÒ½¨ÒéÄãÈ·±£×°±¸À¸¿Õ¼ä×ã¹»¡£#b";
+	prompt += "ä½ æƒ³è¦åš #t" + item + "#? åœ¨è¿™ç§æƒ…å†µä¸‹, æˆ‘ä¸ºäº†è¦åšå‡ºæœ€æ£’çš„å“è´¨ï¼Œæˆ‘å»ºè®®ä½ ç¡®ä¿è£…å¤‡æ ç©ºé—´è¶³å¤Ÿã€‚#b";
 		
 	if (mats instanceof Array){
 	    for (var i = 0; i < mats.length; i++) {
@@ -178,14 +178,14 @@ function action(mode, type, selection) {
 	    prompt += "\r\n#i"+mats+"# " + matQty * qty + " #t" + mats + "#";
 	}
 	if (cost > 0) {
-	    prompt += "\r\n#i4031138# " + cost * qty + " ·ã±Ò";
+	    prompt += "\r\n#i4031138# " + cost * qty + " æ«å¸";
 	}
 	cm.sendYesNo(prompt);
     } else if (status == 4) {
 	var complete = true;
 				
 	if (cm.getMeso() < cost * qty) {
-	    cm.sendNext("±§Ç¸ÎÒÖ»½ÓÊÜ·ã±Ò.");
+	    cm.sendNext("æŠ±æ­‰æˆ‘åªæ¥å—æ«å¸.");
 		cm.dispose();
 		return;
 	} else {
@@ -203,7 +203,7 @@ function action(mode, type, selection) {
 	}
 			
 	if (!complete)
-	    cm.sendOk("ºÜ±§Ç¸ÓÉÓÚÄãµÄ²ÄÁÏ²»×ã£¬ËùÒÔÎÒ²»Ïë°ïÄã×öÁË¡£");
+	    cm.sendOk("å¾ˆæŠ±æ­‰ç”±äºä½ çš„ææ–™ä¸è¶³ï¼Œæ‰€ä»¥æˆ‘ä¸æƒ³å¸®ä½ åšäº†ã€‚");
 	else {
 	    if (mats instanceof Array) {
 		for (var i = 0; i < mats.length; i++){
@@ -224,7 +224,7 @@ function action(mode, type, selection) {
 		cm.gainItem(4003000, 15 * qty);
 	    else
 		cm.gainItem(item, qty);
-	    cm.sendOk("ÖÆ×÷Íê±Ï¡£");
+	    cm.sendOk("åˆ¶ä½œå®Œæ¯•ã€‚");
 	}
 	cm.safeDispose();
     }

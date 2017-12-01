@@ -1,4 +1,4 @@
-var status;
+ï»¿var status;
 
 function start() {
     status = -1;
@@ -17,12 +17,12 @@ function action(mode, type, selection){
 		var mapId = cm.getMapId();
 	    var outText;
 	    if (mapId == 740000000) {
-		outText = "ÄãÈ·¶¨ÒªÀë¿ªBOSS PQ£¿£¿";
+		outText = "ä½ ç¡®å®šè¦ç¦»å¼€BOSS PQï¼Ÿï¼Ÿ";
 	    }
 	    if (status == 0) {
 		cm.sendYesNo(outText);
 	    } else if (mode == 1) {
-		cm.warp(910000000, 0); // »Ø×ÔÓÉ
+		cm.warp(910000000, 0); // å›è‡ªç”±
 		cm.dispose();
 	    }
     }

@@ -1,4 +1,4 @@
-/*
+ï»¿/*
 	This file is part of the odinms Maple Story Server
     Copyright (C) 2008 Patrick Huy <patrick.huy@frz.cc> 
                        Matthias Butz <matze@odinms.de>
@@ -45,7 +45,7 @@ function action(mode, type, selection) {
 		cm.dispose();
 	}
 	if (mode == 0) {
-		cm.sendNext("#r#m"+toMap[location]+"##k#bºÜÎ£ÏÕ¡£");
+		cm.sendNext("#r#m"+toMap[location]+"##k#bå¾ˆå±é™©ã€‚");
 		cm.dispose();
 		return;
 	}
@@ -64,18 +64,18 @@ function action(mode, type, selection) {
 				location = 2;
 				break;
 		}
-		cm.sendNext("#bÄãÈ·¶¨ÒªÈ¥Âğ#r#m"+toMap[location]+"##k?");
+		cm.sendNext("#bä½ ç¡®å®šè¦å»å—#r#m"+toMap[location]+"##k?");
 	} else if(status == 1) {
 		if (cm.getJob() == 0) {
-		cm.sendYesNo("#bÄãÈ·¶¨ÒªÈ¥Âğ#b#m"+toMap[location]+"##k?");
+		cm.sendYesNo("#bä½ ç¡®å®šè¦å»å—#b#m"+toMap[location]+"##k?");
 			cost = 45000;
 		} else {
-			cm.sendYesNo("#bÄãºÃ!ÏëÒª×øºÚ³µÂğ?·ÑÓÃ#r45000#b½ğ±Ò");
+			cm.sendYesNo("#bä½ å¥½!æƒ³è¦åé»‘è½¦å—?è´¹ç”¨#r45000#bé‡‘å¸");
 			cost = 45000;
 		}
 	} else if(status == 2) {
 		if(cm.getMeso() < cost) {
-			cm.sendNext("#r¶Ô²»Æğ£¬ÄãµÄ½ğ±Ò²»¹»Ö§¸¶³µ·Ñ¡£");
+			cm.sendNext("#rå¯¹ä¸èµ·ï¼Œä½ çš„é‡‘å¸ä¸å¤Ÿæ”¯ä»˜è½¦è´¹ã€‚");
 			cm.dispose();
 		} else{
 			cm.warp(toMap[location]);

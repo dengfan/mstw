@@ -1,4 +1,4 @@
-function enter(pi) {
+ï»¿function enter(pi) {
     var mapid = pi.getMapId();
     var questid;
     var state = 2;
@@ -25,9 +25,9 @@ function enter(pi) {
         pi.warp(pi.getMapId() + 1, "sp");
     } else {
         if (mapid == 130030001) {
-            pi.playerMessage(5, "Çëµã»÷NPCÁìÈ¡ÈÎÎñ¡£");
+            pi.playerMessage(5, "è¯·ç‚¹å‡»NPCé¢†å–ä»»åŠ¡ã€‚");
         } else {
-            pi.playerMessage(5, "ÇëÍê³ÉÈÎÎñ¡£");
+            pi.playerMessage(5, "è¯·å®Œæˆä»»åŠ¡ã€‚");
         }
     }
 }

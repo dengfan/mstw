@@ -1,4 +1,4 @@
-/* 
+ï»¿/* 
  * Spiegelmann - Monster Carnival
  */
 
@@ -24,13 +24,13 @@ function action(mode, type, selection) {
         return;
     }
     if (status == 0) {
-        cm.sendSimple("ÄãÏë×öÊ²Ã´£¿Èç¹ûÄã´ÓÀ´Ã»ÓĞ²Î¼Ó¹ı¼ÎÄê»ª£¬ÄãĞèÒªÏÈÖªµÀÁ½¼şÊÂ²ÅÄÜ¼ÓÈë¡£\r\n#b#L0#ÎÒÒªÈ¥¼ÎÄê»ª#l");
+        cm.sendSimple("ä½ æƒ³åšä»€ä¹ˆï¼Ÿå¦‚æœä½ ä»æ¥æ²¡æœ‰å‚åŠ è¿‡å˜‰å¹´åï¼Œä½ éœ€è¦å…ˆçŸ¥é“ä¸¤ä»¶äº‹æ‰èƒ½åŠ å…¥ã€‚\r\n#b#L0#æˆ‘è¦å»å˜‰å¹´å#l");
     } else if (status == 1) {
         switch (selection) {
         case 0: {
                 var level = cm.getPlayerStat("LVL");
                 if (level < 30) {
-                    cm.sendOk("ÄãµÄµÈ¼¶Ğ¡ÓÚ30.²»ÄÜ²Î¼Ó¼ÎÄê»ª.");
+                    cm.sendOk("ä½ çš„ç­‰çº§å°äº30.ä¸èƒ½å‚åŠ å˜‰å¹´å.");
                 } else {
                     cm.warp(980000000, "st00");
                 }
@@ -59,9 +59,9 @@ function action(mode, type, selection) {
         }
         cm.getPlayer().endPartyQuest(1301);
         if (carnivalparty.isWinner()) {
-            cm.sendOk("ÄãÊ¤ÀûÁË.¹§Ï²Äã. \r\n#bMonster Carnival Rank : " + rank);
+            cm.sendOk("ä½ èƒœåˆ©äº†.æ­å–œä½ . \r\n#bMonster Carnival Rank : " + rank);
         } else {
-            cm.sendOk("²»ĞÒµÄÄãÔÚÕ½¶·ÖĞÊ§°ÜÁË.ÏÂ´Î¼ÓÓÍ°É. \r\n#bMonster Carnival Rank : " + rank);
+            cm.sendOk("ä¸å¹¸çš„ä½ åœ¨æˆ˜æ–—ä¸­å¤±è´¥äº†.ä¸‹æ¬¡åŠ æ²¹å§. \r\n#bMonster Carnival Rank : " + rank);
         }
     } else if (status == 101) {
         var carnivalparty = cm.getCarnivalParty();

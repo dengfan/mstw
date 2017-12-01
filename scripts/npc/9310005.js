@@ -1,4 +1,4 @@
-//cherry_MS
+ï»¿//cherry_MS
 importPackage(Packages.client);
 
 var status = 0;
@@ -17,7 +17,7 @@ function action(mode, type, selection) {
 		else
 			status--;
 		if (status == 0) {
-			cm.sendNext("ÎªÁËÖ´ĞĞÃØÃÜÈÎÎñ£¬ÎÒËÍÄã½øÈëÍ¨µÀ¡£¡£¡£");
+			cm.sendNext("ä¸ºäº†æ‰§è¡Œç§˜å¯†ä»»åŠ¡ï¼Œæˆ‘é€ä½ è¿›å…¥é€šé“ã€‚ã€‚ã€‚");
 		}
 		else if (status == 1) {
 			
@@ -26,12 +26,12 @@ function action(mode, type, selection) {
 					cm.warp(701010322, 0);
 					cm.dispose();
 				}else{
-				cm.sendNextPrev("ÄãÃ»ÓĞ20¸öºÚÑòÃ«ÎŞ·¨½øÈë£¡");
+				cm.sendNextPrev("ä½ æ²¡æœ‰20ä¸ªé»‘ç¾Šæ¯›æ— æ³•è¿›å…¥ï¼");
 				cm.dispose();
 				}
 		}
 		else{
-				cm.sendOk("¾ÍÕâÑù°É¡£");
+				cm.sendOk("å°±è¿™æ ·å§ã€‚");
 				cm.dispose();
 		}
 	}

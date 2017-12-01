@@ -1,4 +1,4 @@
-/*
+ï»¿/*
 Moose
 */
 
@@ -13,9 +13,9 @@ function action(mode, type, selection) {
 
     if (status == 0) {
 	if (cm.getQuestStatus(6180) == 1) {
-	    cm.sendOk("²»´í¡£ÎÒ»áËÍÄãÆÁ±ÎÑµÁ·³¡¡£ÔÙ´Î¸úÎÒËµ»°¡£" );
+	    cm.sendOk("ä¸é”™ã€‚æˆ‘ä¼šé€ä½ å±è”½è®­ç»ƒåœºã€‚å†æ¬¡è·Ÿæˆ‘è¯´è¯ã€‚" );
 	} else {
-		cm.sendNext("ÕÒÎÒÓĞÊÂÇéÂğ£¿£¿");
+		cm.sendNext("æ‰¾æˆ‘æœ‰äº‹æƒ…å—ï¼Ÿï¼Ÿ");
 	    cm.dispose();
 	}
     } else if (status == 1) {

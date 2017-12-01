@@ -1,4 +1,4 @@
-var status = -1;
+ï»¿var status = -1;
 
 function action(mode, type, selection) {
     var em = cm.getEventManager("Romeo");
@@ -11,20 +11,20 @@ function action(mode, type, selection) {
 		//cm.givePartyExp(0);
 		//pi.warpParty(926100100);
 	}else{
-        cm.playerMessage(5, "¶Ó³¤½øÈë£¡");
+        cm.playerMessage(5, "é˜Ÿé•¿è¿›å…¥ï¼");
         cm.dispose();
         return;
 	}
     if (em.getProperty("stage").equals("1") && em.getProperty("stage5").equals("0")) {
         //advance to angry!
-        cm.sendOk("°Ñ¹ÖÎï¶¼ÏûÃğÁË£¡");
+        cm.sendOk("æŠŠæ€ªç‰©éƒ½æ¶ˆç­äº†ï¼");
         em.setProperty("stage", "2");
     } else if (em.getProperty("stage5").equals("1") && cm.getMap().getAllMonstersThreadsafe().size() == 0) {
-        cm.sendOk("Çë½ø°É£¡");
+        cm.sendOk("è¯·è¿›å§ï¼");
         em.setProperty("stage5", "2");
         cm.getMap().setReactorState();
     } else {
-        cm.sendOk("ÏûÃğËùÓĞµÄ¹ÖÎï£¡£¡");
+        cm.sendOk("æ¶ˆç­æ‰€æœ‰çš„æ€ªç‰©ï¼ï¼");
     }
     cm.dispose();
 }

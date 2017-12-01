@@ -1,16 +1,16 @@
-/* 
+ï»¿/* 
  *  NPC   : Kiriko
  *  Maps  : Training Hall 2
  *  FUNC  : Second job Advancement
  */
 
 function start() {
-    cm.askAcceptDecline("ÄãÏëÀë¿ª£¿£¿");
+    cm.askAcceptDecline("ä½ æƒ³ç¦»å¼€ï¼Ÿï¼Ÿ");
 }
 
 function action(mode, type, selection) {
     if (mode == 0) {
-	cm.sendNext("Äã¿ÉÄÜĞèÒªÒ»Ğ©Ê±¼ä¡£.");
+	cm.sendNext("ä½ å¯èƒ½éœ€è¦ä¸€äº›æ—¶é—´ã€‚.");
     } else {
 	cm.warp(130020000, 0);
     }

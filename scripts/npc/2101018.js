@@ -1,10 +1,10 @@
-function start() {
-    //cm.sendOk("°¢Àï°²ÌØ¾º¼¼´ó»áÏÖÔÚ½áÊøÁË¡£");
+ï»¿function start() {
+    //cm.sendOk("é˜¿é‡Œå®‰ç‰¹ç«æŠ€å¤§ä¼šç°åœ¨ç»“æŸäº†ã€‚");
 	if(cm.getPlayer().getMapId() == 980010101){
     cm.warp(980010000,0);
     cm.dispose();
 	}else{
-    cm.sendOk("¡£");
+    cm.sendOk("ã€‚");
     cm.dispose();
 	}
 }

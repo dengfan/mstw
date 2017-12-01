@@ -1,6 +1,6 @@
-function act() {
+ï»¿function act() {
     rm.getReactor().forceTrigger();
     rm.getReactor().delayedDestroyReactor(1000);
-    rm.mapMessage("À³¸ñË¹³öÏÖÁË¡£");
+    rm.mapMessage("è±æ ¼æ–¯å‡ºç°äº†ã€‚");
     rm.spawnMonster(9300281);
 }

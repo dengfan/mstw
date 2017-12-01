@@ -1,6 +1,6 @@
-function enter(pi) {
+ï»¿function enter(pi) {
     if (!pi.haveItem(4032246)) {
-        pi.playerMessage(5, "ÄãÃ»ÓÐÃÎ»ÃÖ÷Ìâ¹«Ô°»êÆÇ¡£");
+        pi.playerMessage(5, "ä½ æ²¡æœ‰æ¢¦å¹»ä¸»é¢˜å…¬å›­é­‚é­„ã€‚");
     } else {
         //pi.openNpc(9270047);
         if (pi.getPlayerCount(551030200) <= 0) { // Fant. Map
@@ -14,7 +14,7 @@ function enter(pi) {
                 pi.playPortalSE();
                 pi.warp(551030200, "sp");
             } else {
-                pi.playerMessage(5, "¶Ô¿¹¹ÖÎïµÄÌôÕ½ÒÑ¾­¿ªÊ¼ÁË£¬Äã²»ÄÜ½øÈ¥¡£");
+                pi.playerMessage(5, "å¯¹æŠ—æ€ªç‰©çš„æŒ‘æˆ˜å·²ç»å¼€å§‹äº†ï¼Œä½ ä¸èƒ½è¿›åŽ»ã€‚");
             }
         }
     }

@@ -1,4 +1,4 @@
-var status = -1;
+ï»¿var status = -1;
 
 function action(mode, type, selection) {
 
@@ -18,11 +18,11 @@ function action(mode, type, selection) {
 
 		if (cm.getPlayer().getLevel() < 255) {
 
-			cm.sendYesNo("ÄãÈ·¶¨ÄãÒª½øÈ¥Âð£¿");
+			cm.sendYesNo("ä½ ç¡®å®šä½ è¦è¿›åŽ»å—ï¼Ÿ");
 
 		} else {
 
-			cm.sendOk("ÄãÐèÒªÓµÓÐÒ»¸ö#v4032492##z4032482#²ÅÄÜ½øÈ¥.");
+			cm.sendOk("ä½ éœ€è¦æ‹¥æœ‰ä¸€ä¸ª#v4032492##z4032482#æ‰èƒ½è¿›åŽ».");
 
 			cm.dispose();
 

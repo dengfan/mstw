@@ -1,8 +1,8 @@
-/*
+ï»¿/*
 			Resonance
 	NPC Name: 	Minister of Home Affairs
 	Map(s): 	Mushroom Castle: Corner of Mushroom Forest(106020000)
-	Description: 	Quest -  Ô½¹ý³ÇÇ½(3)
+	Description: 	Quest -  è¶Šè¿‡åŸŽå¢™(3)
 */
 
 importPackage(Packages.client);

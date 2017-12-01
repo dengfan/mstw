@@ -1,4 +1,4 @@
-/* 
+ï»¿/* 
  * Nuris, Sharenian: Returning Path (990001100)
  * Exit of Guild Quest
  */
@@ -6,7 +6,7 @@ var GQItems = Array(1032033, 4001024, 4001025, 4001026, 4001027, 4001028, 400103
 
 function start() {
     if (cm.getPlayer().hasEquipped(1032033)) {
-        cm.sendOk("Çë¶ªµôÄãµÄ¶ú»·£¡");
+        cm.sendOk("è¯·ä¸¢æ‰ä½ çš„è€³ç¯ï¼");
     } else {
         for (var i = 0; i < GQItems.length; i++) {
             cm.removeAll(GQItems[i]);

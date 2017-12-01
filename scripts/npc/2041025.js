@@ -1,4 +1,4 @@
-/*
+ï»¿/*
 	Machine Apparatus - Origin of Clocktower(220080001)
 */
 
@@ -15,13 +15,13 @@ function action(mode, type, selection) {
         status--;
     }
     if (status == 0) {
-        cm.sendYesNo("ÄãµÄÒªÀë¿ªÕâÀïÂğ£¿");
+        cm.sendYesNo("ä½ çš„è¦ç¦»å¼€è¿™é‡Œå—ï¼Ÿ");
     } else if (status == 1) {
         cm.warp(220080000);
         if (cm.getPlayerCount(220080001) == 0) {
             cm.getMap(220080000).resetReactors();
         }
-		cm.getPlayer().setbosslog(0);//BOSSÖØ·µ
+		cm.getPlayer().setbosslog(0);//BOSSé‡è¿”
         cm.dispose();
     } else {
         cm.dispose();

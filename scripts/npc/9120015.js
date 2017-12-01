@@ -1,4 +1,4 @@
-/*
+ï»¿/*
 	Konpei - Showa Town(801000000)
 */
 
@@ -14,14 +14,14 @@ function action(mode, type, selection) {
 	if (mode == 1)
 	    status++;
 	if (status == 0) {
-	    cm.sendSimple ("ÓĞÊ²Ã´ÎÒ¿ÉÒÔÎªÄã·şÎñµÄÂğ£¿£¿\r #L0##b¸æËßÎÒ²ØÉíÖ®´¦µÄÒ»Ğ©ÏûÏ¢¡£#l\r\n#L1#´øÎÒÈ¥µÄ²ØÉíÖ®´¦¡£#l\r\n#L2#Ã»ÓĞ¡£#l#k");
+	    cm.sendSimple ("æœ‰ä»€ä¹ˆæˆ‘å¯ä»¥ä¸ºä½ æœåŠ¡çš„å—ï¼Ÿï¼Ÿ\r #L0##bå‘Šè¯‰æˆ‘è—èº«ä¹‹å¤„çš„ä¸€äº›æ¶ˆæ¯ã€‚#l\r\n#L1#å¸¦æˆ‘å»çš„è—èº«ä¹‹å¤„ã€‚#l\r\n#L2#æ²¡æœ‰ã€‚#l#k");
 	} else if (status == 1) {
 	    if (selection == 0) {
-		cm.sendNext("ÎÒÀÁµÃËµÃ÷¡£");
+		cm.sendNext("æˆ‘æ‡’å¾—è¯´æ˜ã€‚");
 	    } if (selection == 1) {
-		cm.sendNext("×¼±¸×ßÁË£¡");
+		cm.sendNext("å‡†å¤‡èµ°äº†ï¼");
 	    } if (selection == 2) {
-		cm.sendOk("ÎÒÊÇÒ»¸öÃ¦ÂµµÄÈË£¡ÀëÎÒÔ¶Ò»µã£¡");
+		cm.sendOk("æˆ‘æ˜¯ä¸€ä¸ªå¿™ç¢Œçš„äººï¼ç¦»æˆ‘è¿œä¸€ç‚¹ï¼");
 	    } if(selection != 1) {
 		cm.dispose();
 	    }

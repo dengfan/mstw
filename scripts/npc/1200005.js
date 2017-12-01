@@ -1,4 +1,4 @@
-var status = -1;
+ï»¿var status = -1;
 
 function action(mode, type, selection) {
     if (mode == 1)
@@ -6,7 +6,7 @@ function action(mode, type, selection) {
     else
 	status--;
     if (status == 0) {
-        cm.sendOk("½ñÌìÌìÆøÕæºÃ°¡?");
+        cm.sendOk("ä»Šå¤©å¤©æ°”çœŸå¥½å•Š?");
 	cm.dispose();
     }
 }

@@ -1,4 +1,4 @@
-function start() {
+ï»¿function start() {
     status = -1;
 
     action(1, 0, 0);
@@ -9,7 +9,7 @@ function action(mode, type, selection) {
     }
     else {
         if (status >= 0 && mode == 0) {
-            cm.sendOk("¸ĞĞ»ÄãµÄ¹âÁÙ£¡");
+            cm.sendOk("æ„Ÿè°¢ä½ çš„å…‰ä¸´ï¼");
             cm.dispose();
             return;
         }
@@ -21,29 +21,29 @@ function action(mode, type, selection) {
         }
         if(status == 0){
 		if(cm.petgm() == false){
-            //cm.sendOk("ÇëÕÙ»½³ö¸ÄÃû³èÎï£¡");
+            //cm.sendOk("è¯·å¬å”¤å‡ºæ”¹åå® ç‰©ï¼");
             cm.dispose();
 			}else if(cm.haveItem(5170000,1)){
 				cm.sendGetText("");
 			}else{
-            cm.sendOk("ÇëÈ¥ÉÌ³¡¹ºÂò#v5170000#£¡");
+            cm.sendOk("è¯·å»å•†åœºè´­ä¹°#v5170000#ï¼");
             cm.dispose();
 			}
-           // cm.sendGetText("ÄãºÃ.\r\nÄãÏë¸øÄã¿É°®µÄ³èÎï»»¸öÊ²Ã´Ãû×ÖÄØ£¿\r\nÃû×ÖÔÚ6¸öÖĞÎÄÒÔÏÂ»ò12¸öÓ¢ÎÄÒÔÏÂ£¡\r\n#r·ñÔòÎŞ·¨ÎŞ·¨±£´æÃû×Ö¶øÇÒ³ö´í»¹»áµ½ÄãÄãµÄ¸ÄÃû¿¨É¾µô");
+           // cm.sendGetText("ä½ å¥½.\r\nä½ æƒ³ç»™ä½ å¯çˆ±çš„å® ç‰©æ¢ä¸ªä»€ä¹ˆåå­—å‘¢ï¼Ÿ\r\nåå­—åœ¨6ä¸ªä¸­æ–‡ä»¥ä¸‹æˆ–12ä¸ªè‹±æ–‡ä»¥ä¸‹ï¼\r\n#rå¦åˆ™æ— æ³•æ— æ³•ä¿å­˜åå­—è€Œä¸”å‡ºé”™è¿˜ä¼šåˆ°ä½ ä½ çš„æ”¹åå¡åˆ æ‰");
 			//cm.sendGetText("");
 			//cm.setGetText(cm.getText);
        //     var text = cm.getText();
         }else if(status == 1){
 			var n = cm.calculatePlaces(cm.getText());  
 			if(n > 13){
-            cm.sendOk("ÄãºÃ.\r\nÄãÏë¸øÄã¿É°®µÄ³èÎï»»¸öÊ²Ã´Ãû×ÖÄØ£¿\r\nÃû×ÖÔÚ6¸öÖĞÎÄÒÔÏÂ»ò12¸öÓ¢ÎÄÒÔÏÂ£¡\r\n#r·ñÔòÎŞ·¨ÎŞ·¨±£´æÃû×Ö");
+            cm.sendOk("ä½ å¥½.\r\nä½ æƒ³ç»™ä½ å¯çˆ±çš„å® ç‰©æ¢ä¸ªä»€ä¹ˆåå­—å‘¢ï¼Ÿ\r\nåå­—åœ¨6ä¸ªä¸­æ–‡ä»¥ä¸‹æˆ–12ä¸ªè‹±æ–‡ä»¥ä¸‹ï¼\r\n#rå¦åˆ™æ— æ³•æ— æ³•ä¿å­˜åå­—");
 			}else{
 			cm.gainItem(5170000, -1);
             cm.petName(cm.getText());
-            cm.sendOk("ºÇºÇ£¬³É¹¦¿©!:"+cm.getText());
+            cm.sendOk("å‘µå‘µï¼ŒæˆåŠŸå’¯!:"+cm.getText());
 			}
            // cm.petName(cm.getText());
-            //cm.sendOk("ºÇºÇ£¬³É¹¦¿©!:"+cm.getText());
+            //cm.sendOk("å‘µå‘µï¼ŒæˆåŠŸå’¯!:"+cm.getText());
             cm.dispose();
         }
     }

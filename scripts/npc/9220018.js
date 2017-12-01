@@ -1,7 +1,7 @@
-function action(mode, type, selection) {
+ï»¿function action(mode, type, selection) {
     cm.removeAll(4032248);
     if (cm.getPlayer().getParty() == null || !cm.isLeader()) {
-        cm.sendOk("¶Ó³¤±ØĞëÔÚÕâÀï£¬ÇëÈÃËûºÍÎÒËµ»°¡£.");
+        cm.sendOk("é˜Ÿé•¿å¿…é¡»åœ¨è¿™é‡Œï¼Œè¯·è®©ä»–å’Œæˆ‘è¯´è¯ã€‚.");
     } else {
         var party = cm.getPlayer().getParty().getMembers();
         var mapId = cm.getPlayer().getMapId();

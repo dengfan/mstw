@@ -1,5 +1,5 @@
-// mxmxd
-// Òì½çÖ®ÃÅ
+ï»¿// mxmxd
+// å¼‚ç•Œä¹‹é—¨
 
 function start() {
     var nextmap1 = cm.getMapFactory().getMap(108010201);
@@ -56,16 +56,16 @@ function start() {
 					cm.spawnMobOnMap(9001004, 1, -276, -3, 108010501);
 					cm.dispose();
 				} else {
-					cm.sendOk("ÓĞÈËÔÚÀïÃæ¡£");
+					cm.sendOk("æœ‰äººåœ¨é‡Œé¢ã€‚");
 				}
 			} else {
-				cm.sendOk("ÄãÒÑ¾­ÄÃµ½#e#t4031059##nÁË¡£");
+				cm.sendOk("ä½ å·²ç»æ‹¿åˆ°#e#t4031059##näº†ã€‚");
 			}
 		} else {
-			cm.sendOk("Çë¼ì²éÊÇ·ñÓĞ×ã¹»µÄ¿Õ¼ä¡£");
+			cm.sendOk("è¯·æ£€æŸ¥æ˜¯å¦æœ‰è¶³å¤Ÿçš„ç©ºé—´ã€‚");
 		}
 	} else {
-		cm.sendOk("µÈ¼¶±ØĞë´ïµ½70²ÅÄÜ½øÈë¡£");
+		cm.sendOk("ç­‰çº§å¿…é¡»è¾¾åˆ°70æ‰èƒ½è¿›å…¥ã€‚");
 	}
     cm.dispose();
 }

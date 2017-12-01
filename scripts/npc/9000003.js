@@ -1,4 +1,4 @@
-function start() {
+ï»¿function start() {
     status = -1;
 
     action(1, 0, 0);
@@ -10,7 +10,7 @@ function action(mode, type, selection) {
     else {
         if (status >= 0 && mode == 0) {
 
-            cm.sendOk("¸ĞĞ»ÄãµÄ¹âÁÙ£¡");
+            cm.sendOk("æ„Ÿè°¢ä½ çš„å…‰ä¸´ï¼");
             cm.dispose();
             return;
         }
@@ -26,9 +26,9 @@ function action(mode, type, selection) {
             for (i = 0; i < 10; i++) {
                 text += "";
             }
-			//ÏÔÊ¾ÎïÆ·IDÍ¼Æ¬ÓÃµÄ´úÂëÊÇ  #vÕâÀïĞ´ÈëID#
-            text += "#e#d#l´ó¼ÒºÃ£ºÏë³öÈ¥µÄ»° ¿ÉÒÔÕÒÎÒÅ¶.\r\n\r\n"//3
-            text += "#L6##e#r³ÇÕò´«ËÍ#l\r\n"//3
+			//æ˜¾ç¤ºç‰©å“IDå›¾ç‰‡ç”¨çš„ä»£ç æ˜¯  #vè¿™é‡Œå†™å…¥ID#
+            text += "#e#d#lå¤§å®¶å¥½ï¼šæƒ³å‡ºå»çš„è¯ å¯ä»¥æ‰¾æˆ‘å“¦.\r\n\r\n"//3
+            text += "#L6##e#råŸé•‡ä¼ é€#l\r\n"//3
             cm.sendSimple(text);
         } else if (selection == 1) {
 		cm.openNpc(9900004, 70);

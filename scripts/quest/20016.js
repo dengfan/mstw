@@ -1,4 +1,4 @@
-/*
+ï»¿/*
 	NPC Name: 		Nineheart
 	Description: 		Quest - Do you know the black Magician?
 */
@@ -10,7 +10,7 @@ function start(mode, type, selection) {
         status++;
     } else {
         if (status == 8) {
-            qm.sendNext("àŞ£¬Äã»¹ÓĞÊ²Ã´ÎÊÌâÂğ£¿Èç¹ûÄãÒª¸úÎÒ¶Ô»°£¬ÇëÖØĞÂ´ò¿ª½çÃæ¡£");
+            qm.sendNext("å™¢ï¼Œä½ è¿˜æœ‰ä»€ä¹ˆé—®é¢˜å—ï¼Ÿå¦‚æœä½ è¦è·Ÿæˆ‘å¯¹è¯ï¼Œè¯·é‡æ–°æ‰“å¼€ç•Œé¢ã€‚");
             qm.safeDispose();
             return;
         }

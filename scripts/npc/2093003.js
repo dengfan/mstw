@@ -1,5 +1,5 @@
-/*
-×ÔÓÉÊĞ³¡ÅÆ×Ó
+ï»¿/*
+è‡ªç”±å¸‚åœºç‰Œå­
 */
 
 
@@ -19,7 +19,7 @@ function action(mode, type, selection) {
 	else
 		status--;
 	if (status == 0) {
-            cm.sendNext("#dÇ×°®µÄ#r#h ##dÄãºÃ£¬ÎÒ¿ÉÒÔËÍÄã½øÈ¥Ìì¿ÕÖ®³Ç!!!");
+            cm.sendNext("#däº²çˆ±çš„#r#h ##dä½ å¥½ï¼Œæˆ‘å¯ä»¥é€ä½ è¿›å»å¤©ç©ºä¹‹åŸ!!!");
         } else if (status == 1) {            
 			cm.warp(200000000);
 		cm.dispose();

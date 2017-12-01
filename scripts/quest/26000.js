@@ -1,4 +1,4 @@
-/* ���ŵ�G-ҩˮ */
+﻿/* 黛雅的G-药水 */
 
 var status = -1;
 
@@ -6,7 +6,7 @@ function start(mode, type, selection) {
     if (mode == 1) {
         status++;
     } else {
-        qm.sendNext("�㲻��������ȡ����Ҫ�Ļ���������һ֮�����ߡ�");
+        qm.sendNext("你不想现在领取吗？需要的话，请在周一之内领走。");
         qm.dispose();
         return;
     }
@@ -15,14 +15,14 @@ function start(mode, type, selection) {
         return;
     }
     if (status == 0) {
-        qm.sendYesNo("���嶨��֧Ԯ��Ʒ���ˡ��������š�ϣ���㲻Ҫ��ʲô������Ŭ������ȼ���ȼ����֮�󣬾Ϳ��Ի�ø���Ķ����ˡ�");
+        qm.sendYesNo("家族定期支援物品到了。来，拿着。希望你不要有什么不满。努力活动，等家族等级提高之后，就可以获得更多的东西了。");
     } else {
         if (!qm.canHold(2002037, qm.getGuild().getLevel() * 20)) {
-            qm.sendOk("��ȷ�������㹻�ı����ռ䡣");
+            qm.sendOk("请确保您有足够的背包空间。");
         } else {
             qm.gainItemPeriod(2002037, qm.getGuild().getLevel() * 20, 7);
             qm.forceCompleteQuest();
-            qm.sendNext("��һ���������ˡ�����һ��ʱ�򣬻������µ�֧Ԯ��Ʒ����ʱ���ٹ���������");
+            qm.sendNext("这一周辛苦你了。下周一的时候，还会有新的支援物品，到时你再过来看看。");
         }
         qm.dispose();
     }
@@ -32,7 +32,7 @@ function end(mode, type, selection) {
     if (mode == 1) {
         status++;
     } else {
-        qm.sendNext("�㲻��������ȡ����Ҫ�Ļ���������һ֮�����ߡ�");
+        qm.sendNext("你不想现在领取吗？需要的话，请在周一之内领走。");
         qm.dispose();
         return;
     }
@@ -41,14 +41,14 @@ function end(mode, type, selection) {
         return;
     }
     if (status == 0) {
-        qm.sendYesNo("���嶨��֧Ԯ��Ʒ���ˡ��������š�ϣ���㲻Ҫ��ʲô������Ŭ������ȼ���ȼ����֮�󣬾Ϳ��Ի�ø���Ķ����ˡ�");
+        qm.sendYesNo("家族定期支援物品到了。来，拿着。希望你不要有什么不满。努力活动，等家族等级提高之后，就可以获得更多的东西了。");
     } else {
         if (!qm.canHold(2002037, qm.getGuild().getLevel() * 20)) {
-            qm.sendOk("��ȷ�������㹻�ı����ռ䡣");
+            qm.sendOk("请确保您有足够的背包空间。");
         } else {
             qm.gainItemPeriod(2002037, qm.getGuild().getLevel() * 20, 7);
             qm.forceCompleteQuest();
-            qm.sendNext("��һ���������ˡ�����һ��ʱ�򣬻������µ�֧Ԯ��Ʒ����ʱ���ٹ���������");
+            qm.sendNext("这一周辛苦你了。下周一的时候，还会有新的支援物品，到时你再过来看看。");
         }
         qm.dispose();
     }

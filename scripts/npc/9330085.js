@@ -1,4 +1,4 @@
-var status = -1;
+﻿var status = -1;
 
 function action(mode, type, selection) {
     switch (status) {
@@ -10,7 +10,7 @@ function action(mode, type, selection) {
 	            cm.dispose();
 		    break;
 		default:
-		    cm.sendOk("���Ƶ��û�л�");
+		    cm.sendOk("这个频道没有活动喔");
 		    break;
 	    }
 }

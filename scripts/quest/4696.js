@@ -1,4 +1,4 @@
-/*
+ï»¿/*
 	NPC Name: 		Old Fox Flagship Al
 	Description: 		Quest - Battling Nibergen
 */
@@ -12,7 +12,7 @@ function start(mode, type, selection) {
             status++;
         }
         if (status == 0) {
-            qm.sendNext("ºÃÁË£¬Äã¼´½«ÌôÕ½ËüÁË£¡Ğ»Ğ»¡­¡­¡£Ö»ÊÇÈÃÄãÖªµÀ£¬µĞÈË¿ÉÄÜÊÇ·Ç³£Ç¿´óµÄ¡£Äã×¼±¸ºÃÁËÂğ£¿");
+            qm.sendNext("å¥½äº†ï¼Œä½ å³å°†æŒ‘æˆ˜å®ƒäº†ï¼è°¢è°¢â€¦â€¦ã€‚åªæ˜¯è®©ä½ çŸ¥é“ï¼Œæ•Œäººå¯èƒ½æ˜¯éå¸¸å¼ºå¤§çš„ã€‚ä½ å‡†å¤‡å¥½äº†å—ï¼Ÿ");
         } else if (status == 1) {
             qm.warp(802000609, 0);
             //qm.forceStartQuest();

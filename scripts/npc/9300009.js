@@ -1,4 +1,4 @@
-var status = -1;
+锘縱ar status = -1;
 var need = 0;
 
 function start() {
@@ -13,7 +13,7 @@ function action(mode, type, selection){
 		 returm;
 	 }
 	 if(status == 0){
-		 cm.sendYesNo("你们的婚礼进行完了啊？好的我将送你回去!");
+		 cm.sendYesNo("浣犱滑鐨勫绀艰繘琛屽畬浜嗗晩锛熷ソ鐨勬垜灏嗛�佷綘鍥炲幓!");
 	 } else if(status == 1){
 		 if(cm.getPlayer().getMeso() < need){
 			 cm.sendNext("~ ");

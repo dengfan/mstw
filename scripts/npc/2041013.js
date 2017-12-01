@@ -1,4 +1,4 @@
-/* Gina
+ï»¿/* Gina
 	Ludibrium Skin Change.
 */
 var status = -1;
@@ -12,14 +12,14 @@ function action(mode, type, selection) {
 	status++;
     }
     if (status == 0) {
-	cm.sendNext("à¸£¬àË! »¶Ó­À´µ½Íæ¾ß³Ç»¤·ôÖĞĞÄ! ÄãÏëÒª±äĞÔ¸ĞÂğ?? ¶àÃ´ÃÀÀö, Ñ©°×µÄÆ¤·ô?? Èç¹ûÄãÓĞ #b#t5153002##k, Äã¿ÉÒÔ¸úÎÒÃÇÌ¸Ì¸ÄãÏëÒª±äµÃÔõÃ´Ñù~");
+	cm.sendNext("å–”ï¼Œå—¨! æ¬¢è¿æ¥åˆ°ç©å…·åŸæŠ¤è‚¤ä¸­å¿ƒ! ä½ æƒ³è¦å˜æ€§æ„Ÿå—?? å¤šä¹ˆç¾ä¸½, é›ªç™½çš„çš®è‚¤?? å¦‚æœä½ æœ‰ #b#t5153002##k, ä½ å¯ä»¥è·Ÿæˆ‘ä»¬è°ˆè°ˆä½ æƒ³è¦å˜å¾—æ€ä¹ˆæ ·~");
     } else if (status == 1) {
-	cm.askAvatar("Ñ¡ÔñÒ»¸öÏëÒªµÄ¡£",5153002, skin);
+	cm.askAvatar("é€‰æ‹©ä¸€ä¸ªæƒ³è¦çš„ã€‚",5153002, skin);
     } else if (status == 2){
 	if (cm.setAvatar(5153002, skin[selection]) == 1) {
-	    cm.sendOk("ÏíÊÜ!");
+	    cm.sendOk("äº«å—!");
 	} else {
-	    cm.sendOk("¯zÃ²ËÆÃ»ÓĞ#t5153002#");
+	    cm.sendOk("ç—¾è²Œä¼¼æ²¡æœ‰#t5153002#");
 	}
 	cm.safeDispose();
     }

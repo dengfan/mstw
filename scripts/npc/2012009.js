@@ -1,4 +1,4 @@
-/* Riza the Assistant
+ï»¿/* Riza the Assistant
 	Orbis Random Eye Change.
 */
 var status = -1;
@@ -16,9 +16,9 @@ function action(mode, type, selection) {
     }
     
     if (status == 0) {
-	cm.sendNext("àË, ÎÒÊÇ#p2012009# Èç¹ûÄãÓĞÒ»ÕÅ #b#t5152004##k, ÎÒ¿ÉÒÔ°ïÄãËæ»úÕûĞÎ£¡");
+	cm.sendNext("å—¨, æˆ‘æ˜¯#p2012009# å¦‚æœä½ æœ‰ä¸€å¼  #b#t5152004##k, æˆ‘å¯ä»¥å¸®ä½ éšæœºæ•´å½¢ï¼");
     } else if (status == 1) {
-	cm.sendYesNo("ÄãÈ·¶¨ÒªÊ¹ÓÃ #b#t5152004##k?");
+	cm.sendYesNo("ä½ ç¡®å®šè¦ä½¿ç”¨ #b#t5152004##k?");
     } else if (status == 2){
 	var face = cm.getPlayerStat("FACE");
 	var facetype;
@@ -33,9 +33,9 @@ function action(mode, type, selection) {
 	}
 
 	if (cm.setRandomAvatar(5152004, facetype) == 1) {
-	    cm.sendOk("ÏíÊÜ!");
+	    cm.sendOk("äº«å—!");
 	} else {
-	    cm.sendOk("ÄãºÃÏñÃ»ÓĞ#t5152004#");
+	    cm.sendOk("ä½ å¥½åƒæ²¡æœ‰#t5152004#");
 	}
 	cm.dispose();
     }

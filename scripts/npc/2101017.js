@@ -1,4 +1,4 @@
-var status = 0;
+ï»¿var status = 0;
 
 
 function start() {
@@ -20,7 +20,7 @@ function action(mode, type, selection) {
             status--;
         if (status == 0) {
             //p=cm.paiMing();
-            var a = "#bµºÄÚÈËÆøÅÅÐÐ°ñ<Ç°Ê®>£º#r#e\r\n"; 
+            var a = "#bå²›å†…äººæ°”æŽ’è¡Œæ¦œ<å‰å>ï¼š#r#e\r\n"; 
             a+=cm.rq(); 
             cm.sendOk(a);
             cm.dispose();

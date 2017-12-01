@@ -1,4 +1,4 @@
-/* Ms. Tan 
+﻿/* Ms. Tan 
 	Henesys Skin Change.
 */
 var status = 0;
@@ -17,14 +17,14 @@ function action(mode, type, selection) {
         status++;
     }
     if (status == 0) {
-        cm.sendNext("��ã���ӭ�������ִ廤�����ġ������ú���һ������������Ƥ����ֻҪ��#b���ܻ�Ա��#k�Ļ����ҾͿ��԰������Ҫ��Ϊ�㻤��Ƥ�������볢��һ����");
+        cm.sendNext("你好！欢迎光临射手村护肤中心。你想获得和我一样健康紧绷的皮肤吗？只要有#b万能会员卡#k的话，我就可以按照你的要求为你护理皮肤。你想尝试一下吗？");
     } else if (status == 1) {
-        cm.sendStyle("�����ǻ������Ŀ��ŵĻ�е�����Բ鿴�������Ч��������Ҫʲô����Ƥ���أ�����ѡһ�¡�", 5153000, skin);
+        cm.sendStyle("用我们护肤中心开放的机械，可以查看护肤后的效果。你想要什么样的皮肤呢？请挑选一下～", 5153000, skin);
     } else if (status == 2) {
         if (cm.setAvatar(5153000, skin[selection]) == 1) {
-            cm.sendOk("�����,����������̾����·�ɫ��!");
+            cm.sendOk("完成了,让朋友们赞叹你的新肤色吧!");
         } else {
-            cm.sendOk("�š��������û�л���ȯ�����Բ���û�л���ȯ�Ļ����ҾͲ��ܰ��㻤��Ƥ����");
+            cm.sendOk("嗯……你好像没有护肤券啊。对不起，没有护肤券的话，我就不能帮你护理皮肤。");
         }
         cm.dispose();
     }

@@ -1,4 +1,4 @@
-function enter(pi) {
+ï»¿function enter(pi) {
     if (pi.getPlayerCount(541020800) <= 0) { // krex. Map
         var krexMap = pi.getMap(541020800);
         krexMap.resetFully();
@@ -11,7 +11,7 @@ function enter(pi) {
             pi.warp(541020800, "sp");
             return true;
         } else {
-            pi.playerMessage(5, "¶Ô¿¹BOSSµÄÌôÕ½ÒÑ¾­¿ªÊ¼ÁË£¬Äã²»ÄÜ½øÈëµ½ÀïÃæ¡£");
+            pi.playerMessage(5, "å¯¹æŠ—BOSSçš„æŒ‘æˆ˜å·²ç»å¼€å§‹äº†ï¼Œä½ ä¸èƒ½è¿›å…¥åˆ°é‡Œé¢ã€‚");
             return false;
         }
     }

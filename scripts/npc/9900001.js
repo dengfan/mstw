@@ -1,4 +1,4 @@
-/** Author: nejevoli
+ï»¿/** Author: nejevoli
  NPC Name: 		NimaKin
  Map(s): 		Victoria Road : Ellinia (180000000)
  Description: 		Maxes out your stats and able to modify your equipment stats
@@ -7,7 +7,7 @@ importPackage(java.lang);
 
 var status = 0;
 var slot = Array();
-var stats = Array("Á¦Á¿", "Ãô½İ", "ÖÇÁ¦", "ĞÒÔË", "HP", "MP", "ÎïÀí¹¥»÷", "Ä§·¨¹¥»÷", "ÎïÀí·ÀÓù", "Ä§·¨·ÀÓù", "ÃüÖĞÂÊ", "»Ø±ÜÂÊ", "ÁéÃô¶È", "ÒÆ¶¯ËÙ¶È", "ÌøÔ¾Á¦", "¾íÖáÊı", "»Æ½ğÌú´¸Ê¹ÓÃÊı", "Ê¹ÓÃ¾íÖáÊı", "ĞÇĞÇÊı", "Ç³ÄÜ 1", "Ç³ÄÜ 2", "Ç³ÄÜ 3", "×°±¸Ãû×Ö");
+var stats = Array("åŠ›é‡", "æ•æ·", "æ™ºåŠ›", "å¹¸è¿", "HP", "MP", "ç‰©ç†æ”»å‡»", "é­”æ³•æ”»å‡»", "ç‰©ç†é˜²å¾¡", "é­”æ³•é˜²å¾¡", "å‘½ä¸­ç‡", "å›é¿ç‡", "çµæ•åº¦", "ç§»åŠ¨é€Ÿåº¦", "è·³è·ƒåŠ›", "å·è½´æ•°", "é»„é‡‘é“é”¤ä½¿ç”¨æ•°", "ä½¿ç”¨å·è½´æ•°", "æ˜Ÿæ˜Ÿæ•°", "æµ…èƒ½ 1", "æµ…èƒ½ 2", "æµ…èƒ½ 3", "è£…å¤‡åå­—");
 var selected;
 var statsSel;
 
@@ -28,9 +28,9 @@ function action(mode, type, selection) {
 
     if (status == 0) {
         if (cm.getPlayerStat("ADMIN") == 1) {
-            cm.sendSimple("Ç×°®µÄ#h \r\n¹ÜÀíÔ±ÎÒÄÜÎªÄú×öÊ²Ã´ÄØ£¿£¿#b\r\n#L0#°ïÎÒÄÜÁ¦Öµ¼Óµ½È«Âú£¡£¡#l\r\n#L1#°ïÎÒ¼¼ÄÜ¼Óµ½È«Âú£¡£¡#l\r\n#L2#°ïÎÒĞŞ¸Ä×°±¸ÊıÖµ£¡£¡#l\r\n#L4#°ïÎÒ³õÊ¼»¯AP/SP£¡#l#k");
+            cm.sendSimple("äº²çˆ±çš„#h \r\nç®¡ç†å‘˜æˆ‘èƒ½ä¸ºæ‚¨åšä»€ä¹ˆå‘¢ï¼Ÿï¼Ÿ#b\r\n#L0#å¸®æˆ‘èƒ½åŠ›å€¼åŠ åˆ°å…¨æ»¡ï¼ï¼#l\r\n#L1#å¸®æˆ‘æŠ€èƒ½åŠ åˆ°å…¨æ»¡ï¼ï¼#l\r\n#L2#å¸®æˆ‘ä¿®æ”¹è£…å¤‡æ•°å€¼ï¼ï¼#l\r\n#L4#å¸®æˆ‘åˆå§‹åŒ–AP/SPï¼#l#k");
         } else if (cm.getPlayerStat("GM") == 1) {
-            cm.sendSimple("Ç×°®µÄ#h \r\n¹ÜÀíÔ±ÎÒÄÜÎªÄú×öÊ²Ã´ÄØ£¿£¿#b\r\n#L0#°ïÎÒÄÜÁ¦Öµ¼Óµ½È«Âú£¡£¡#l\r\n#L1#°ïÎÒ¼¼ÄÜ¼Óµ½È«Âú£¡£¡#l\r\n#L2#°ïÎÒĞŞ¸Ä×°±¸ÊıÖµ£¡£¡#l\r\n#L4#°ïÎÒ³õÊ¼»¯AP/SP£¡#l#k");
+            cm.sendSimple("äº²çˆ±çš„#h \r\nç®¡ç†å‘˜æˆ‘èƒ½ä¸ºæ‚¨åšä»€ä¹ˆå‘¢ï¼Ÿï¼Ÿ#b\r\n#L0#å¸®æˆ‘èƒ½åŠ›å€¼åŠ åˆ°å…¨æ»¡ï¼ï¼#l\r\n#L1#å¸®æˆ‘æŠ€èƒ½åŠ åˆ°å…¨æ»¡ï¼ï¼#l\r\n#L2#å¸®æˆ‘ä¿®æ”¹è£…å¤‡æ•°å€¼ï¼ï¼#l\r\n#L4#å¸®æˆ‘åˆå§‹åŒ–AP/SPï¼#l#k");
         } else {
             cm.dispose();
         }
@@ -38,7 +38,7 @@ function action(mode, type, selection) {
         if (selection == 0) {
             if (cm.getPlayerStat("GM") == 1) {
                 cm.maxStats();
-                cm.sendOk("ÒÑ¾­°ïÄú¼ÓÂúÁË£¡£¡");
+                cm.sendOk("å·²ç»å¸®æ‚¨åŠ æ»¡äº†ï¼ï¼");
             }
             cm.dispose();
         } else if (selection == 1) {
@@ -55,18 +55,18 @@ function action(mode, type, selection) {
                 }
                 slot.push(i);
             }
-            cm.sendSimple("ÏëÒªĞŞ¸ÄÄÄÒ»¼ş×°±¸ÄÜÁ¦ÖµÄØ£¿£¿\r\n#b" + avail);
+            cm.sendSimple("æƒ³è¦ä¿®æ”¹å“ªä¸€ä»¶è£…å¤‡èƒ½åŠ›å€¼å‘¢ï¼Ÿï¼Ÿ\r\n#b" + avail);
         } else if (selection == 3 && cm.getPlayerStat("ADMIN") == 1) {
             var eek = cm.getAllPotentialInfo();
             var avail = "";
             for (var ii = 0; ii < eek.size(); ii++) {
-                avail += "#L" + eek.get(ii) + "#Ç³ÄÜ ID " + eek.get(ii) + "#l\r\n";
+                avail += "#L" + eek.get(ii) + "#æµ…èƒ½ ID " + eek.get(ii) + "#l\r\n";
             }
-            cm.sendSimple("ÇëÎÊÏëÁË½â£¿£¿\r\n#b" + avail);
+            cm.sendSimple("è¯·é—®æƒ³äº†è§£ï¼Ÿï¼Ÿ\r\n#b" + avail);
             status = 9;
         } else if (selection == 4) {
             cm.getPlayer().resetAPSP();
-            cm.sendNext("Íê³É£¬Çë»»ÆµµÀorÖØĞÂµÇÈë¡£");
+            cm.sendNext("å®Œæˆï¼Œè¯·æ¢é¢‘é“oré‡æ–°ç™»å…¥ã€‚");
             cm.dispose();
         } else {
             cm.dispose();
@@ -77,17 +77,17 @@ function action(mode, type, selection) {
         for (var i = 0; i < stats.length; i++) {
             text += "#L" + i + "#" + stats[i] + "#l\r\n";
         }
-        cm.sendSimple("ÄãÏëÒªĞŞ¸ÄÄãµÄ #b#t" + cm.getInventory(-1).getItem(slot[selected]).getItemId() + "##k.\r\nÏëĞŞ¸ÄÄÄ¸öÄÜÁ¦Öµ£¿£¿\r\n#b" + text);
+        cm.sendSimple("ä½ æƒ³è¦ä¿®æ”¹ä½ çš„ #b#t" + cm.getInventory(-1).getItem(slot[selected]).getItemId() + "##k.\r\næƒ³ä¿®æ”¹å“ªä¸ªèƒ½åŠ›å€¼ï¼Ÿï¼Ÿ\r\n#b" + text);
     } else if (status == 3 && cm.getPlayerStat("ADMIN") == 1) {
         statsSel = selection;
         if (selection == 22) {
-            cm.sendGetText("ÇëÎÊÄãÏëÉèÖÃ¶àÉÙ #b#t" + cm.getInventory(-1).getItem(slot[selected]).getItemId() + "##k's " + stats[statsSel] + " ÄÜÁ¦Öµ?");
+            cm.sendGetText("è¯·é—®ä½ æƒ³è®¾ç½®å¤šå°‘ #b#t" + cm.getInventory(-1).getItem(slot[selected]).getItemId() + "##k's " + stats[statsSel] + " èƒ½åŠ›å€¼?");
         } else {
-            cm.sendGetNumber("ÇëÎÊÄãÏëÉèÖÃ #b#t" + cm.getInventory(-1).getItem(slot[selected]).getItemId() + "##k's " + stats[statsSel] + " ¶àÉÙÄÜÁ¦Öµ?", 0, 0, 32767);
+            cm.sendGetNumber("è¯·é—®ä½ æƒ³è®¾ç½® #b#t" + cm.getInventory(-1).getItem(slot[selected]).getItemId() + "##k's " + stats[statsSel] + " å¤šå°‘èƒ½åŠ›å€¼?", 0, 0, 32767);
         }
     } else if (status == 4 && cm.getPlayerStat("ADMIN") == 1) {
         cm.changeStat(slot[selected], statsSel, selection);
-        cm.sendOk("ÄãµÄ #b#t" + cm.getInventory(-1).getItem(slot[selected]).getItemId() + "##k's " + stats[statsSel] + " ÒÑ±»ÉèÖÃÎª " + selection + ".");
+        cm.sendOk("ä½ çš„ #b#t" + cm.getInventory(-1).getItem(slot[selected]).getItemId() + "##k's " + stats[statsSel] + " å·²è¢«è®¾ç½®ä¸º " + selection + ".");
         cm.dispose();
         cm.getPlayer().fakeRelog();
     } else if (status == 10 && cm.getPlayerStat("ADMIN") == 1) {

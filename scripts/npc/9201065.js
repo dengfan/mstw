@@ -1,4 +1,4 @@
-/* Miranda
+ï»¿/* Miranda
 	NLC Skin Change.
 */
 var status = -1;
@@ -17,14 +17,14 @@ function action(mode, type, selection) {
     }
 
     if (status == 0) {
-	cm.sendNext("àË£¬ÎÒÊÇ#p9201065# Èç¹ûÄúÓĞ5153009 ÄÇÎÒ¿ÉÒÔ°ïÖúÄú~");
+	cm.sendNext("å—¨ï¼Œæˆ‘æ˜¯#p9201065# å¦‚æœæ‚¨æœ‰5153009 é‚£æˆ‘å¯ä»¥å¸®åŠ©æ‚¨~");
     } else if (status == 1) {
-	cm.askAvatar("Ñ¡ÔñÒ»¸öÏ²»¶µÄ", skin);
+	cm.askAvatar("é€‰æ‹©ä¸€ä¸ªå–œæ¬¢çš„", skin);
     } else if (status == 2){
 	if (cm.setAvatar(5153009, skin[selection]) == 1) {
-	    cm.sendOk("ÏíÊÜ£¡");
+	    cm.sendOk("äº«å—ï¼");
 	} else {
-	    cm.sendOk("¯z...Ã²ËÆÃ»ÓĞ#b#t5153009##k");
+	    cm.sendOk("ç—¾...è²Œä¼¼æ²¡æœ‰#b#t5153009##k");
 	}
 
 	cm.dispose();

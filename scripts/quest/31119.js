@@ -1,16 +1,16 @@
-/*
-	ÈÎÎñ: ±äÁËµÄÉ­ÁÖ
-	ÃèÊö: È¥¼û¼ûÊ¥µØÉ­ÁÖÖĞµÄèñ°É¡£
+ï»¿/*
+	ä»»åŠ¡: å˜äº†çš„æ£®æ—
+	æè¿°: å»è§è§åœ£åœ°æ£®æ—ä¸­çš„æ¡‰å§ã€‚
 */
 var status = -1;
 
 function start(mode, type, selection) {
-    qm.sendNext("Äã¹ıÀ´µã£¬ÎÒ¾ÍÔÚÄãµÄºóÃæ¡£");
+    qm.sendNext("ä½ è¿‡æ¥ç‚¹ï¼Œæˆ‘å°±åœ¨ä½ çš„åé¢ã€‚");
     qm.forceCompleteQuest();
     qm.dispose();
 }
 function end(mode, type, selection) {
-    qm.sendNext("Äã¹ıÀ´µã£¬ÎÒ¾ÍÔÚÄãµÄºóÃæ¡£");
+    qm.sendNext("ä½ è¿‡æ¥ç‚¹ï¼Œæˆ‘å°±åœ¨ä½ çš„åé¢ã€‚");
     qm.forceCompleteQuest();
     qm.dispose();
 }

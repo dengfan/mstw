@@ -1,4 +1,4 @@
-/*/*
+ï»¿/*/*
 	This file is part of the OdinMS Maple Story Server
     Copyright (C) 2008 Patrick Huy <patrick.huy@frz.cc>
 		       Matthias Butz <matze@odinms.de>
@@ -39,12 +39,12 @@ var curMap;
 var random = java.lang.Math.floor(Math.random() * 9 + 1);
 var random1 = java.lang.Math.floor(Math.random() * 10 + 1);
 var random2 = java.lang.Math.floor(Math.random() * 10 + 1);
-var questions = Array("µÚÒ»¸öÎÊÌâ£º×ªÖ°³ÉÕ½Ê¿µÄ×îµÍµÈ¼¶ÊÇ¶àÉÙ£¿#b\r\n£¨ÓÑÇéÌáÊ¾£º\r\n´ğ°¸ÊÇ£º10£©",
-    "µÚÒ»¸öÎÊÌâ£º×ªÖ°³ÉÕ½Ê¿µÄ×îµÍÁ¦Á¿Öµ£¨SEX£©ÊÇ¶àÉÙ£¿#b\r\n£¨ÓÑÇéÌáÊ¾£º\r\n´ğ°¸ÊÇ£º35£©",
-    "µÚÒ»¸öÎÊÌâ£º×ªÖ°³ÉÄ§·¨Ê¦µÄ×îµÍÖÇÁ¦Öµ£¨INT£©ÊÇ¶àÉÙ£¿#b\r\n£¨ÓÑÇéÌáÊ¾£º\r\n´ğ°¸ÊÇ£º20£©",
-    "µÚÒ»¸öÎÊÌâ£º×ªÖ°³É¹­¼ıÊÖµÄ×îµÍÃô½İÖµ£¨DEX£©ÊÇ¶àÉÙ£¿#b\r\n£¨ÓÑÇéÌáÊ¾£º\r\n´ğ°¸ÊÇ£º25£©",
-    "µÚÒ»¸öÎÊÌâ£º×ªÖ°³É·ÉÏÀµÄ×îµÍÃô½İÖµ£¨DEX£©ÊÇ¶àÉÙ£¿#b\r\n£¨ÓÑÇéÌáÊ¾£º\r\n´ğ°¸ÊÇ£º25£©",
-    "µÚÒ»¸öÎÊÌâ£ºµÈ¼¶1 ¡«¡¡µÈ¼¶2 ËùĞèµÄ¾­ÑéÖµÊÇ¶àÉÙ£¿#b\r\n£¨ÓÑÇéÌáÊ¾£º\r\n´ğ°¸ÊÇ£º15£©");
+var questions = Array("ç¬¬ä¸€ä¸ªé—®é¢˜ï¼šè½¬èŒæˆæˆ˜å£«çš„æœ€ä½ç­‰çº§æ˜¯å¤šå°‘ï¼Ÿ#b\r\nï¼ˆå‹æƒ…æç¤ºï¼š\r\nç­”æ¡ˆæ˜¯ï¼š10ï¼‰",
+    "ç¬¬ä¸€ä¸ªé—®é¢˜ï¼šè½¬èŒæˆæˆ˜å£«çš„æœ€ä½åŠ›é‡å€¼ï¼ˆSEXï¼‰æ˜¯å¤šå°‘ï¼Ÿ#b\r\nï¼ˆå‹æƒ…æç¤ºï¼š\r\nç­”æ¡ˆæ˜¯ï¼š35ï¼‰",
+    "ç¬¬ä¸€ä¸ªé—®é¢˜ï¼šè½¬èŒæˆé­”æ³•å¸ˆçš„æœ€ä½æ™ºåŠ›å€¼ï¼ˆINTï¼‰æ˜¯å¤šå°‘ï¼Ÿ#b\r\nï¼ˆå‹æƒ…æç¤ºï¼š\r\nç­”æ¡ˆæ˜¯ï¼š20ï¼‰",
+    "ç¬¬ä¸€ä¸ªé—®é¢˜ï¼šè½¬èŒæˆå¼“ç®­æ‰‹çš„æœ€ä½æ•æ·å€¼ï¼ˆDEXï¼‰æ˜¯å¤šå°‘ï¼Ÿ#b\r\nï¼ˆå‹æƒ…æç¤ºï¼š\r\nç­”æ¡ˆæ˜¯ï¼š25ï¼‰",
+    "ç¬¬ä¸€ä¸ªé—®é¢˜ï¼šè½¬èŒæˆé£ä¾ çš„æœ€ä½æ•æ·å€¼ï¼ˆDEXï¼‰æ˜¯å¤šå°‘ï¼Ÿ#b\r\nï¼ˆå‹æƒ…æç¤ºï¼š\r\nç­”æ¡ˆæ˜¯ï¼š25ï¼‰",
+    "ç¬¬ä¸€ä¸ªé—®é¢˜ï¼šç­‰çº§1 ï½ã€€ç­‰çº§2 æ‰€éœ€çš„ç»éªŒå€¼æ˜¯å¤šå°‘ï¼Ÿ#b\r\nï¼ˆå‹æƒ…æç¤ºï¼š\r\nç­”æ¡ˆæ˜¯ï¼š15ï¼‰");
 var qanswers = Array(10, 35, 20, 25, 25, 15);
 var party;
 var preamble; // we dont even need this mother fucker ! --
@@ -110,7 +110,7 @@ function action(mode, type, selection) {
             party = eim.getPlayers();
             preamble = eim.getProperty("leader1stpreamble");
             if (preamble == null) {
-                cm.sendNext("ÄãºÃ£¬»¶Ó­À´µ½µÚÒ»¸ö½×¶Î£¬ÔÚÕâÀïÄã¿ÉÄÜ»á¿¼µ½ºÜ¶àĞ×ºİµÄöùÓã£¬¸úÎÒ¶Ô»°£¬ÎÒ»á¸øÄãÃÇÃ¿Ò»¸öÈË³öÒ»µÀÌâÄ¿£¬ÄãÃÇÔÙ´òµ¹Ğ×ºİµÄöùÓã»ñÈ¡ÏàÓ¦ÊıÄ¿µÄÖ¤Êé¿¨½»¸øÎÒ£¬¾ÍĞĞÁË¡£Ö®ºóÎÒ»á¸øÄãÃÇÒ»ÕÅÍ¨ĞĞÖ¤£¬ÄãÃÇ°ÑÍ¨ĞĞÖ¤È«²¿½»¸ø×é¶Ó³¤£¬×é¶Ó³¤ÔÙºÍÎÒ½²»°£¬¾Í¿ÉÒÔË³ÀûÍ¨¹ØÁË£¬ÄÇÃ´×£ÄãÒ»ÇĞË³Àû£¡");
+                cm.sendNext("ä½ å¥½ï¼Œæ¬¢è¿æ¥åˆ°ç¬¬ä¸€ä¸ªé˜¶æ®µï¼Œåœ¨è¿™é‡Œä½ å¯èƒ½ä¼šè€ƒåˆ°å¾ˆå¤šå‡¶ç‹ çš„é³„é±¼ï¼Œè·Ÿæˆ‘å¯¹è¯ï¼Œæˆ‘ä¼šç»™ä½ ä»¬æ¯ä¸€ä¸ªäººå‡ºä¸€é“é¢˜ç›®ï¼Œä½ ä»¬å†æ‰“å€’å‡¶ç‹ çš„é³„é±¼è·å–ç›¸åº”æ•°ç›®çš„è¯ä¹¦å¡äº¤ç»™æˆ‘ï¼Œå°±è¡Œäº†ã€‚ä¹‹åæˆ‘ä¼šç»™ä½ ä»¬ä¸€å¼ é€šè¡Œè¯ï¼Œä½ ä»¬æŠŠé€šè¡Œè¯å…¨éƒ¨äº¤ç»™ç»„é˜Ÿé•¿ï¼Œç»„é˜Ÿé•¿å†å’Œæˆ‘è®²è¯ï¼Œå°±å¯ä»¥é¡ºåˆ©é€šå…³äº†ï¼Œé‚£ä¹ˆç¥ä½ ä¸€åˆ‡é¡ºåˆ©ï¼");
                 eim.setProperty("leader1stpreamble","done");
                 cm.dispose();
             } else {
@@ -122,10 +122,10 @@ function action(mode, type, selection) {
                     var numpasses = party.size() - 1; // All the players in the party need to get a pass besides the leader.
                     var strpasses = "#b" + numpasses + " passes#k";
                     if (!cm.haveItem(4001008, numpasses)) {
-                        cm.sendNext("ÎÒºÜ±§Ç¸£¬µ«ÄãµÄÍ¨ĞĞÖ¤ÊıÁ¿²»¶Ô¡£ÄãĞèÒª¸øÎÒÕıÈ·µÄ´ÎÊı£»ËüÓ¦¸ÃÊÇÄãµÄ³ÉÔ±ÊıÁ¿¼õÈ¥µÄ¶Ó³¤µÄÊıÁ¿£¬¸æËßÄãµÄ³ÉÔ±À´½â¾öÎÊÌâ£¬ÊÕ¼¯Í¨ĞĞÖ¤£¬²¢°ÑËûÃÇ½»¸øÄã.");
+                        cm.sendNext("æˆ‘å¾ˆæŠ±æ­‰ï¼Œä½†ä½ çš„é€šè¡Œè¯æ•°é‡ä¸å¯¹ã€‚ä½ éœ€è¦ç»™æˆ‘æ­£ç¡®çš„æ¬¡æ•°ï¼›å®ƒåº”è¯¥æ˜¯ä½ çš„æˆå‘˜æ•°é‡å‡å»çš„é˜Ÿé•¿çš„æ•°é‡ï¼Œå‘Šè¯‰ä½ çš„æˆå‘˜æ¥è§£å†³é—®é¢˜ï¼Œæ”¶é›†é€šè¡Œè¯ï¼Œå¹¶æŠŠä»–ä»¬äº¤ç»™ä½ .");
                         cm.dispose();
                     } else {
-                        cm.sendNext("×£ºØÄãÃÇ³É¹¦Í¨¹Ø£¬¿ì¿ì½øÈëÏÂÒ»¹Ø°É£¬Ê±¼äÓĞÏŞ£¡£¡£¡");
+                        cm.sendNext("ç¥è´ºä½ ä»¬æˆåŠŸé€šå…³ï¼Œå¿«å¿«è¿›å…¥ä¸‹ä¸€å…³å§ï¼Œæ—¶é—´æœ‰é™ï¼ï¼ï¼");
                         clear(1, eim, cm);
                         cm.givePartyExp(10000, party);
                         cm.gainItem(4001008, -numpasses);
@@ -147,11 +147,11 @@ function action(mode, type, selection) {
                         var questionNum = Math.floor(Math.random() * questions.length);
                         eim.setProperty(qstring, questionNum);
                     }
-                    cm.sendNext("ºÃÁË£¬ÄãĞèÒªÊÕ¼¯#bÏàÓ¦ÊıÄ¿#kµÄÖ¤Êé¸øÎÒ¡£\r\nHere, you need to collect #bcoupons#k by defeating the same number of Ligators as the answer to the questions asked individually.");
+                    cm.sendNext("å¥½äº†ï¼Œä½ éœ€è¦æ”¶é›†#bç›¸åº”æ•°ç›®#kçš„è¯ä¹¦ç»™æˆ‘ã€‚\r\nHere, you need to collect #bcoupons#k by defeating the same number of Ligators as the answer to the questions asked individually.");
                 } else { // Otherwise, check for stage completed
                     var complete = eim.getProperty(curMap + "stageclear");
                     if (complete != null) { // Strage completed
-                        cm.sendNext("ÏÖÔÚ¿ÉÒÔµ½ÏÂÒ»¸ö¹Ø¿¨ÁË£¬Èç¹û²»¿ìµãµÄ»°£¬ÃÅ¿ÉÄÜ¾Í¹Ø±ÕÁË¡£");
+                        cm.sendNext("ç°åœ¨å¯ä»¥åˆ°ä¸‹ä¸€ä¸ªå…³å¡äº†ï¼Œå¦‚æœä¸å¿«ç‚¹çš„è¯ï¼Œé—¨å¯èƒ½å°±å…³é—­äº†ã€‚");
 						//cm.sendNext("Please hurry on to the next stage, the portal is open!");
                         cm.dispose();
                     } else {
@@ -160,12 +160,12 @@ function action(mode, type, selection) {
                         var numcoupons = qanswers[parseInt(eim.getProperty(qstring))];
                         var qcorr = cm.itemQuantity(4001007);
                         if (numcoupons == qcorr) {
-                            cm.sendNext("×£ºØÄã£¬ÎÒÒÑ¾­¸øÄãÁËÍ¨ĞĞÖ¤£¬Çë°ÑÍ¨ĞĞÖ¤½»¸ø¶Ó³¤Ö®ºó£¬°ïÖúÆäËü¶ÓÓÑ°É£¡");
+                            cm.sendNext("ç¥è´ºä½ ï¼Œæˆ‘å·²ç»ç»™ä½ äº†é€šè¡Œè¯ï¼Œè¯·æŠŠé€šè¡Œè¯äº¤ç»™é˜Ÿé•¿ä¹‹åï¼Œå¸®åŠ©å…¶å®ƒé˜Ÿå‹å§ï¼");
 							//cm.sendNext("That's the right answer! For that you have just received a #bpass#k. Please hand it to the leader of the party.");
                             cm.gainItem(4001007, -numcoupons);
                             cm.gainItem(4001008, 1);
                         } else
-                            cm.sendNext("ÎÒºÜ±§Ç¸£¬µ«Õâ²»ÊÇÕıÈ·µÄ´ğ°¸£¡ÇëÔÚÄúµÄ¿â´æÖĞÓĞÕıÈ·µÄÓÅ»İÈ¯ÊıÁ¿¡£");
+                            cm.sendNext("æˆ‘å¾ˆæŠ±æ­‰ï¼Œä½†è¿™ä¸æ˜¯æ­£ç¡®çš„ç­”æ¡ˆï¼è¯·åœ¨æ‚¨çš„åº“å­˜ä¸­æœ‰æ­£ç¡®çš„ä¼˜æƒ åˆ¸æ•°é‡ã€‚");
                     }
                     cm.dispose();
                 }
@@ -191,7 +191,7 @@ function action(mode, type, selection) {
             if (cm.isLeader()) { // Leader
                 if (cm.haveItem(4001008, 10)) {
                     // Clear stage
-                    cm.sendNext("ÕâÀï¿ÉÒÔÍ¨¹ı×îºóÒ»¸ö¹Ø¿¨£¬ÕâÀïÓĞºÜ¶àĞ×ÃÍµÄ¹ÖÎï£¬ÎÒÖÔĞÄ×£¸£ÄãºÍÄãµÄ×é¶ÓÄÜÍ¨¹ıÕâÏîÌôÕ½¡£");
+                    cm.sendNext("è¿™é‡Œå¯ä»¥é€šè¿‡æœ€åä¸€ä¸ªå…³å¡ï¼Œè¿™é‡Œæœ‰å¾ˆå¤šå‡¶çŒ›çš„æ€ªç‰©ï¼Œæˆ‘è¡·å¿ƒç¥ç¦ä½ å’Œä½ çš„ç»„é˜Ÿèƒ½é€šè¿‡è¿™é¡¹æŒ‘æˆ˜ã€‚");
 						//cm.sendNext("Here's the portal that leads you to the last, bonus stage. It's a stage that allows you to defeat regular monsters a little easier. You'll be given a set amount of time to hunt as much as possible, but you can always leave the stage in the middle of it through the NPC. Again, congratulations on clearing all the stages. Take care...");
                     party = eim.getPlayers();
                     cm.gainItem(4001008, -10);
@@ -199,18 +199,18 @@ function action(mode, type, selection) {
                     cm.givePartyExp(20000, party);
                     cm.dispose();
                 } else { // Not done yet
-                 	cm.sendNext("ÄãºÃ£¬»¶Ó­À´µ½µÚ5½×¶Î£¬µ½´¦×ß×ß£¬¿ÉÄÜ»á·¢ÏÖºÜ¶àĞ×ÃÍµÄ¹ÖÎï£¬´ò°ÜËüÃÇ£¬»ñÈ¡Í¨ĞĞÖ¤£¬ÔÙ°ÑËûÃÇ½»¸øÎÒ¡£¼Ç×¡£¬¹ÖÎï¿ÉÄÜ±ÈÄãÇ¿´óºÜ¶à£¬ÇëĞ¡ĞÄÒ»µã£¬×£ÄãÍ¨¹ıÕâÒ»¹Ø¡£");
+                 	cm.sendNext("ä½ å¥½ï¼Œæ¬¢è¿æ¥åˆ°ç¬¬5é˜¶æ®µï¼Œåˆ°å¤„èµ°èµ°ï¼Œå¯èƒ½ä¼šå‘ç°å¾ˆå¤šå‡¶çŒ›çš„æ€ªç‰©ï¼Œæ‰“è´¥å®ƒä»¬ï¼Œè·å–é€šè¡Œè¯ï¼Œå†æŠŠä»–ä»¬äº¤ç»™æˆ‘ã€‚è®°ä½ï¼Œæ€ªç‰©å¯èƒ½æ¯”ä½ å¼ºå¤§å¾ˆå¤šï¼Œè¯·å°å¿ƒä¸€ç‚¹ï¼Œç¥ä½ é€šè¿‡è¿™ä¸€å…³ã€‚");
 					//   cm.sendNext("Hello. Welcome to the 5th and final stage. Walk around the map and you'll be able to find some Boss monsters. Defeat all of them, gather up #bthe passes#k, and please get them to me. Once you earn your pass, the leader of your party will collect them, and then get them to me once the #bpasses#k are gathered up. The monsters may be familiar to you, but they may be much stronger than you think, so please be careful. Good luck!\r\nAs a result of complaints, it is now mandatory to kill all the Slimes! Do it!");
                 }
                 cm.dispose();
             } else { // Members
                 //cm.sendNext("Welcome to the 5th and final stage.  Walk around the map and you will be able to find some Boss monsters.  Defeat them all, gather up the #bpasses#k, and give them to your leader.  Once you are done, return to me to collect your reward.");
-                cm.sendNext("»¶Ó­À´µ½µÚ5½×¶Î£¬ÔÚµØÍ¼ÉÏ×ß×ß£¬Äã¾Í»á¿´¼ûĞí¶àĞ×ÃÍµÄ¹ÖÎï£¬´ò°ÜËûÃÇ»ñÈ¡ËûÃÇÉíÉÏµÄÍ¨ĞĞÖ¤£¬½»¸øÄãÃÇµÄ×é¶Ó³¤¡£");
+                cm.sendNext("æ¬¢è¿æ¥åˆ°ç¬¬5é˜¶æ®µï¼Œåœ¨åœ°å›¾ä¸Šèµ°èµ°ï¼Œä½ å°±ä¼šçœ‹è§è®¸å¤šå‡¶çŒ›çš„æ€ªç‰©ï¼Œæ‰“è´¥ä»–ä»¬è·å–ä»–ä»¬èº«ä¸Šçš„é€šè¡Œè¯ï¼Œäº¤ç»™ä½ ä»¬çš„ç»„é˜Ÿé•¿ã€‚");
 					cm.dispose();
             }
         } else { // Give rewards and warp to bonus
             if (status == 0) {
-                cm.sendNext("²»¸ÒÏàĞÅ£¡ÄãºÍÄãµÄ×é¶ÓÔ±ÃÇÖÕÓÚÍê³ÉÁËËùÓĞÌôÕ½£¡×öÎª½±Àø£¬ÎÒ½«ËÍÄãÒ»Ğ©¶«Î÷£¬ÇëÈ·±£ÄãµÄÏûºÄÀ¸¡¢ÆäËüÀ¸¡¢×°±¸À¸ÊÇ·ñÓĞÒ»¸öÀ¸Ä¿ÒÔÉÏµÄ¿Õ¸ñ£¿");
+                cm.sendNext("ä¸æ•¢ç›¸ä¿¡ï¼ä½ å’Œä½ çš„ç»„é˜Ÿå‘˜ä»¬ç»ˆäºå®Œæˆäº†æ‰€æœ‰æŒ‘æˆ˜ï¼åšä¸ºå¥–åŠ±ï¼Œæˆ‘å°†é€ä½ ä¸€äº›ä¸œè¥¿ï¼Œè¯·ç¡®ä¿ä½ çš„æ¶ˆè€—æ ã€å…¶å®ƒæ ã€è£…å¤‡æ æ˜¯å¦æœ‰ä¸€ä¸ªæ ç›®ä»¥ä¸Šçš„ç©ºæ ¼ï¼Ÿ");
             } else if (status == 1) {
                 getPrize(eim,cm);
                 cm.dispose();
@@ -289,7 +289,7 @@ function rectanglestages (cm) {
             party = eim.getPlayers();
             preamble = eim.getProperty("leader" + nthtext + "preamble");
             if (preamble == null) { // first time talking.
-                cm.sendNext("»¶Ó­À´µ½µÚ " + nthtext + " stage. Next to me, you'll see a number of " + nthobj + ". Out of these " + nthobj + ", #b3 are connected to the portal that sends you to the next stage#k. All you need to do is have #b3 party members find the correct " + nthobj + " and " + nthverb + " on them.#k\r\nBUT, it doesn't count as an answer if you " + nthpos + "; please be near the middle of the " + nthobj + " to be counted as a correct answer. Also, only 3 members of your party are allowed on the " + nthobj + ". Once they are " + nthverb + "ing on them, the leader of the party must #bdouble-click me to check and see if the answer's correct or not#k. Now, find the right " + nthobj + " to " + nthverb + " on!");
+                cm.sendNext("æ¬¢è¿æ¥åˆ°ç¬¬ " + nthtext + " stage. Next to me, you'll see a number of " + nthobj + ". Out of these " + nthobj + ", #b3 are connected to the portal that sends you to the next stage#k. All you need to do is have #b3 party members find the correct " + nthobj + " and " + nthverb + " on them.#k\r\nBUT, it doesn't count as an answer if you " + nthpos + "; please be near the middle of the " + nthobj + " to be counted as a correct answer. Also, only 3 members of your party are allowed on the " + nthobj + ". Once they are " + nthverb + "ing on them, the leader of the party must #bdouble-click me to check and see if the answer's correct or not#k. Now, find the right " + nthobj + " to " + nthverb + " on!");
                 eim.setProperty("leader" + nthtext + "preamble","done");
                 var sequenceNum = Math.floor(Math.random() * curCombo.length);
                 eim.setProperty("stage" + nthtext + "combo", sequenceNum.toString());
@@ -337,7 +337,7 @@ function rectanglestages (cm) {
                             cm.dispose();
                         }
                     } else {
-                        cm.sendNext("Äã¿´ÆğÀ´ºÃÏñÃ»ÓĞ·¢ÏÖÕıÈ·µÄÎ»ÖÃ£¬±ğÆøÄÙ£¬ÈÃ×é¶Ó³ÉÔ±ÔÚÉş×ÓÉÏÕÒµ½ÕıÈ·µÄÎ»ÖÃ¡£\r\nIt looks like you haven't found the 3 " + nthobj + " just yet. Please think of a different combination of " + nthobj + ". Only 3 are allowed to " + nthverb + " on " + nthobj + ", and if you " + nthpos + " it may not count as an answer, so please keep that in mind. Keep going!");
+                        cm.sendNext("ä½ çœ‹èµ·æ¥å¥½åƒæ²¡æœ‰å‘ç°æ­£ç¡®çš„ä½ç½®ï¼Œåˆ«æ°”é¦ï¼Œè®©ç»„é˜Ÿæˆå‘˜åœ¨ç»³å­ä¸Šæ‰¾åˆ°æ­£ç¡®çš„ä½ç½®ã€‚\r\nIt looks like you haven't found the 3 " + nthobj + " just yet. Please think of a different combination of " + nthobj + ". Only 3 are allowed to " + nthverb + " on " + nthobj + ", and if you " + nthpos + " it may not count as an answer, so please keep that in mind. Keep going!");
                         cm.dispose();
                     }
                 }
@@ -354,9 +354,9 @@ function rectanglestages (cm) {
     } else { // Not leader
         var complete = eim.getProperty(curMap.toString() + "stageclear");
         if (complete != null) {
-            cm.sendNext("Ê±¼ä²»¶àÁË£¬Çë¿ìµãµ½´ïÏÂÒ»¸ö¹Ø¿¨¡£");
+            cm.sendNext("æ—¶é—´ä¸å¤šäº†ï¼Œè¯·å¿«ç‚¹åˆ°è¾¾ä¸‹ä¸€ä¸ªå…³å¡ã€‚");
         } else {
-            cm.sendNext("ÇëÈÃÄãµÄ×é¶Ó³¤ºÍÎÒÌ¸»°¡£");
+            cm.sendNext("è¯·è®©ä½ çš„ç»„é˜Ÿé•¿å’Œæˆ‘è°ˆè¯ã€‚");
         }
         cm.dispose();
     }
@@ -384,10 +384,10 @@ function getPrize(eim,cm) {
     var qty = 1;
     if (hasQty)
         qty = itemSetQty[sel];
-if(cm.haveItem(4031326,1)){//ÓĞ²ÆÉñµÄĞÅ¼şµÄÍæ¼Ò£¬¿ÉÒÔ»ñµÃ¶·ÉñÖ¤Îï
+if(cm.haveItem(4031326,1)){//æœ‰è´¢ç¥çš„ä¿¡ä»¶çš„ç©å®¶ï¼Œå¯ä»¥è·å¾—æ–—ç¥è¯ç‰©
 	cm.gainItem(4310015,+1);}
     cm.gainItem(itemSet[sel], qty);
-	cm.gainMeso(+10000);//¶ÁÈ¡±äÁ¿
+	cm.gainMeso(+10000);//è¯»å–å˜é‡
 	cm.gainItem(4001322, 2);
                 var target = eim.getMapInstance(103000805);
                 var targetPortal = target.getPortal("st00");

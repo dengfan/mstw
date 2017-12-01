@@ -1,9 +1,9 @@
-/* Amon
+ï»¿/* Amon
  * Last Mission : Zakum's Altar (280030000)
  */
 
 function start() {
-    cm.sendYesNo("Èç¹ûÄãÏÖÔÚÀë¿ª£¬Äã½«²»µÃ²»ÖØĞÂ¿ªÊ¼¡£ÄãÈ·¶¨ÒªÀë¿ªÕâÀïµ½ÍâÃæÈ¥Âğ£¿");
+    cm.sendYesNo("å¦‚æœä½ ç°åœ¨ç¦»å¼€ï¼Œä½ å°†ä¸å¾—ä¸é‡æ–°å¼€å§‹ã€‚ä½ ç¡®å®šè¦ç¦»å¼€è¿™é‡Œåˆ°å¤–é¢å»å—ï¼Ÿ");
 }
 
 function action(mode, type, selection) {
@@ -13,7 +13,7 @@ function action(mode, type, selection) {
         } else {
             cm.warp(211042301);
         }
-		cm.getPlayer().setbosslog(0);//BOSSÖØ·µ
+		cm.getPlayer().setbosslog(0);//BOSSé‡è¿”
     }
     cm.dispose();
 }

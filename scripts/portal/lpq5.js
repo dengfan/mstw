@@ -1,7 +1,7 @@
-/* ==================
- ½Å±¾ÀàĞÍ:  NPC	    
- ½Å±¾×÷Õß£º¹ÊÊÂØ¼     
- ÁªÏµ·½Ê½£º840645183  
+ï»¿/* ==================
+ è„šæœ¬ç±»å‹:  NPC	    
+ è„šæœ¬ä½œè€…ï¼šæ•…äº‹ä¸¶     
+ è”ç³»æ–¹å¼ï¼š840645183  
  =====================
  */
 function enter(pi) {
@@ -11,7 +11,7 @@ function enter(pi) {
 	var targetPortal = target.getPortal("st00");
 	var avail = eim.getProperty("stage5status");
 	if (avail == null) {
-		pi.getPlayer().dropMessage(5, "ÏÖÔÚ»¹²»ÄÜ½øÈëÏÂÒ»½×¶Î¡£");
+		pi.getPlayer().dropMessage(5, "ç°åœ¨è¿˜ä¸èƒ½è¿›å…¥ä¸‹ä¸€é˜¶æ®µã€‚");
 		return false;	}
 	else {
 		pi.getPlayer().changeMap(target, targetPortal);

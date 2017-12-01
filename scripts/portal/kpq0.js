@@ -1,4 +1,4 @@
-
+ï»¿
 
 function enter(pi) {
     var eim = pi.getPlayer().getEventInstance();
@@ -8,7 +8,7 @@ function enter(pi) {
         pi.getPlayer().changeMap(target, target.getPortal("st00"));
         return true;
     } else {
-        pi.playerMessage(5, "ÏÖÔÚ»¹²»ÄÜ½øÈëÏÂÒ»½×¶Î¡£");
+        pi.playerMessage(5, "ç°åœ¨è¿˜ä¸èƒ½è¿›å…¥ä¸‹ä¸€é˜¶æ®µã€‚");
         return false;
     }
 }

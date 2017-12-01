@@ -1,4 +1,4 @@
-/*
+﻿/*
 	NPC Name: 		Ponicher
 	Description: 		Quest - A Battle Against Vergamot
 */
@@ -12,7 +12,7 @@ function start(mode, type, selection) {
             status++;
         }
         if (status == 0) {
-            qm.sendNext("��ȷ����Ҫ�뿪��������ս������Ī���Ǻܲ����׵ģ���Щ��Ҫ��ͻ���ǵ�Ŭ���ܶ������ܴ�����������׼�����ˣ��ҽ����㵽������Ī�صĻ��أ�׼��������");
+            qm.sendNext("你确定你要离开这里吗？挑战贝尔加莫特是很不容易的，这些需要你和伙伴们的努力奋斗，才能打败他！如果你准备好了，我将送你到贝尔加莫特的基地，准备好了吗？");
         } else if (status == 1) {
             qm.warp(802000209, 0);
             //qm.forceStartQuest();

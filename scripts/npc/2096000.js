@@ -1,4 +1,4 @@
-function start() {
-	cm.sendNext("你也会来关心你的成绩啊？");
+锘縡unction start() {
+	cm.sendNext("浣犱篃浼氭潵鍏冲績浣犵殑鎴愮哗鍟婏紵");
 	cm.dispose();
 }

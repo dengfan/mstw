@@ -1,4 +1,4 @@
-/* Author: Xterminator
+﻿/* Author: Xterminator
 	NPC Name: 		Trainer Bartos
 	Map(s): 		Victoria Road : Pet-Walking Road (100000202)
 	Description: 		Pet Trainer
@@ -24,7 +24,7 @@ function action(mode, type, selection) {
     else
 	status--;
     if (status == 0) {
-	cm.sendSimple("Do you have any business with me?\r\n#L0##bPlease tell me about this place.#l\r\n#L1#I'm here through a word from Mar the Fairy...#k#l\r\n#L2##rȺ�輼��ѧϰ#k#l");
+	cm.sendSimple("Do you have any business with me?\r\n#L0##bPlease tell me about this place.#l\r\n#L1#I'm here through a word from Mar the Fairy...#k#l\r\n#L2##r群宠技能学习#k#l");
     } else if (status == 1) {
 	if (selection == 0) {
 	    if (cm.haveItem(4031035)) {
@@ -43,10 +43,10 @@ function action(mode, type, selection) {
     cm.teachSkill(8,1,1);
 			}
 			cm.gainItem(5460000, -1);
-            cm.sendOk("�ɹ�ѧϰȺ�輼�ܣ�");
+            cm.sendOk("成功学习群宠技能！");
             cm.dispose();
 		}else{
-            cm.sendOk("��û�г���ĵ���#v5460000#�޷�ѧϰ���뵽�̳ǹ���");
+            cm.sendOk("你没有宠物的点心#v5460000#无法学习！请到商城购买！");
             cm.dispose();
 		}
 	} else {

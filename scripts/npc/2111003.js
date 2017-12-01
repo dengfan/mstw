@@ -1,10 +1,10 @@
-/* Author: aaroncsn(MapleSea Like)(Incomplete)
+ï»¿/* Author: aaroncsn(MapleSea Like)(Incomplete)
 	NPC Name: 		Humanoid A
 	Map(s): 		Sunset Road: Magatia(2610000000)
 	Description: 		Unknown
 */
 
 function start(){
-	cm.sendNext("ÎÒÏëÊÇÒ»¸öÈË£¬Ò»¸öÈËÓĞ×ÅÎÂÅ¯µÄĞÄÔà......ÕâÑùÒ²ĞíÎÒ¿ÉÒÔÇ£ËıµÄÊÖ¡£²»ĞÒµÄÊÇ£¬ÏÖÔÚÕâÊÇ²»¿ÉÄÜµÄ.");
+	cm.sendNext("æˆ‘æƒ³æ˜¯ä¸€ä¸ªäººï¼Œä¸€ä¸ªäººæœ‰ç€æ¸©æš–çš„å¿ƒè„......è¿™æ ·ä¹Ÿè®¸æˆ‘å¯ä»¥ç‰µå¥¹çš„æ‰‹ã€‚ä¸å¹¸çš„æ˜¯ï¼Œç°åœ¨è¿™æ˜¯ä¸å¯èƒ½çš„.");
 	cm.dispose();
 	}

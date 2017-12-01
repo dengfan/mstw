@@ -1,7 +1,7 @@
-var random = java.lang.Math.floor(Math.random() * 9 + 1);
+ï»¿var random = java.lang.Math.floor(Math.random() * 9 + 1);
 
 function action(mode, type, selection) {
-		//cm.setEventCount("ÉäÊÖ´åÔÂÃî");
+		//cm.setEventCount("å°„æ‰‹æ‘æœˆå¦™");
         cm.removeAll(4001095);
         cm.removeAll(4001096);
         cm.removeAll(4001097);
@@ -11,21 +11,21 @@ function action(mode, type, selection) {
 		if(random == 1){
 		//cm.gainPlayerEnergy(1);
 		//cm.gainItem(2430781,1);
-		//cm.worldSpouseMessage(0x20,"[×é¶Ó-ÉäÊÖ´åÔÂÃî] Íæ¼Ò "+ cm.getChar().getName() +" Í¨¹Ø "+ cm.getEventCount("ÉäÊÖ´åÔÂÃî") +" ´Î ÏµÍ³Ëæ»ú¸øÓè´óÁ¿Í¨¹Ø½±Àø£¬¶îÍâ»ñµÃÉÙÁ¿»îÁ¦Öµ¡£");
+		//cm.worldSpouseMessage(0x20,"[ç»„é˜Ÿ-å°„æ‰‹æ‘æœˆå¦™] ç©å®¶ "+ cm.getChar().getName() +" é€šå…³ "+ cm.getEventCount("å°„æ‰‹æ‘æœˆå¦™") +" æ¬¡ ç³»ç»Ÿéšæœºç»™äºˆå¤§é‡é€šå…³å¥–åŠ±ï¼Œé¢å¤–è·å¾—å°‘é‡æ´»åŠ›å€¼ã€‚");
 	   	cm.dispose();
 		}else if(random == 2){
 		//cm.gainItem(2430781,1);
 		//cm.gainItem(4310088,5);
-		//cm.worldSpouseMessage(0x20,"[×é¶Ó-ÉäÊÖ´åÔÂÃî] Íæ¼Ò "+ cm.getChar().getName() +" Í¨¹Ø "+ cm.getEventCount("ÉäÊÖ´åÔÂÃî") +" ´Î ÏµÍ³Ëæ»ú¸øÓè´óÁ¿Í¨¹Ø½±Àø£¬¶îÍâ»ñµÃ´óÁ¿RED±Ò¡£");
+		//cm.worldSpouseMessage(0x20,"[ç»„é˜Ÿ-å°„æ‰‹æ‘æœˆå¦™] ç©å®¶ "+ cm.getChar().getName() +" é€šå…³ "+ cm.getEventCount("å°„æ‰‹æ‘æœˆå¦™") +" æ¬¡ ç³»ç»Ÿéšæœºç»™äºˆå¤§é‡é€šå…³å¥–åŠ±ï¼Œé¢å¤–è·å¾—å¤§é‡REDå¸ã€‚");
 	   	cm.dispose();
 		}else if(random == 3){
 		//cm.gainItem(2430781,1);
 		//cm.gainItem(4033356,1);
-		//cm.worldSpouseMessage(0x20,"[×é¶Ó-ÉäÊÖ´åÔÂÃî] Íæ¼Ò "+ cm.getChar().getName() +" Í¨¹Ø "+ cm.getEventCount("ÉäÊÖ´åÔÂÃî") +" ´Î ÏµÍ³Ëæ»ú¸øÓè´óÁ¿Í¨¹Ø½±Àø,¶îÍâ»ñµÃÕıÒå»ğÖÖ1¡£");
+		//cm.worldSpouseMessage(0x20,"[ç»„é˜Ÿ-å°„æ‰‹æ‘æœˆå¦™] ç©å®¶ "+ cm.getChar().getName() +" é€šå…³ "+ cm.getEventCount("å°„æ‰‹æ‘æœˆå¦™") +" æ¬¡ ç³»ç»Ÿéšæœºç»™äºˆå¤§é‡é€šå…³å¥–åŠ±,é¢å¤–è·å¾—æ­£ä¹‰ç«ç§1ã€‚");
 	   	cm.dispose();
 		}else{
 		//cm.gainItem(2430781,1);
-		//cm.worldSpouseMessage(0x20,"[×é¶Ó-ÉäÊÖ´åÔÂÃî] Íæ¼Ò "+ cm.getChar().getName() +" Í¨¹Ø "+ cm.getEventCount("ÉäÊÖ´åÔÂÃî") +" ´Î ÏµÍ³Ëæ»ú¸øÓè´óÁ¿Í¨¹Ø½±Àø¡£");
+		//cm.worldSpouseMessage(0x20,"[ç»„é˜Ÿ-å°„æ‰‹æ‘æœˆå¦™] ç©å®¶ "+ cm.getChar().getName() +" é€šå…³ "+ cm.getEventCount("å°„æ‰‹æ‘æœˆå¦™") +" æ¬¡ ç³»ç»Ÿéšæœºç»™äºˆå¤§é‡é€šå…³å¥–åŠ±ã€‚");
 	  	 cm.dispose();
 		}
                  cm.warp(100000200);

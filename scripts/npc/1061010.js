@@ -1,8 +1,8 @@
-// mxmxd
-// иар╚╣дк╝╬╖
+О╩©// mxmxd
+// И≈╙Х──Г └Ф╟╢Ф≥╤
 
 function start() {
-    cm.sendYesNo("х╥╤╗р╙юК©╙ё©");
+    cm.sendYesNo("Г║╝Е╝ Х╕│Г╕╩Е╪─О╪÷");
 }
 
 function action(mode, type, selection) {

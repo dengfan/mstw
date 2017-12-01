@@ -1,10 +1,10 @@
-/* Author: aaroncsn (MapleSea Like)
+ï»¿/* Author: aaroncsn (MapleSea Like)
 	NPC Name: 		Shulinch
 	Map(s): 		Nautilus: PRactice Grounds(120000104)
 	Description: 		Unknown
 */
 
 function start(){
-	cm.sendOk("ÔÚÊÀ½çÉÏÊ²Ã´£¬ÄãËµÊ²Ã´£¿");
+	cm.sendOk("åœ¨ä¸–ç•Œä¸Šä»€ä¹ˆï¼Œä½ è¯´ä»€ä¹ˆï¼Ÿ");
 	cm.dispose();
 	}

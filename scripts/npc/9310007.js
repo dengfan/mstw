@@ -1,4 +1,4 @@
-//cherry_MS
+ï»¿//cherry_MS
 importPackage(Packages.tools);
 importPackage(Packages.client);
 
@@ -23,13 +23,13 @@ function action(mode, type, selection) {
 			status--;
 		if (status == 0) {
 			
-			cm.sendSimple("ÄãºÃÂğ£¿ÎÒÊÇ½­¾¯²ì¡£ÎÒÄÜ°ïÄã×öÊ²Ã´£¿\r\n#L1##bÎÒÏë´ÓÕâÀï³öÈ¥¡£#k ");
+			cm.sendSimple("ä½ å¥½å—ï¼Ÿæˆ‘æ˜¯æ±Ÿè­¦å¯Ÿã€‚æˆ‘èƒ½å¸®ä½ åšä»€ä¹ˆï¼Ÿ\r\n#L1##bæˆ‘æƒ³ä»è¿™é‡Œå‡ºå»ã€‚#k ");
 			} else if (status == 1) {
 			if (selection == 1) {
 				cm.warp(701010320, 0);
 				cm.dispose();
 			} else  {
-				cm.sendOk("³ö×´¿öÀ²!");
+				cm.sendOk("å‡ºçŠ¶å†µå•¦!");
 				cm.dispose();
 			} 
 

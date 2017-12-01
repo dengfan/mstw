@@ -1,11 +1,11 @@
-var status = -1;
+ï»¿var status = -1;
 
 function action(mode, type, selection) {
 	if (cm.getQuestStatus(3004) == 1) {
-        cm.sendNext("Íê³ÉÈÎÎñ¡£");
+        cm.sendNext("å®Œæˆä»»åŠ¡ã€‚");
 		cm.forceCompleteQuest(3004);
     } else {
-        cm.sendNext("ÇëÎÊÓĞÊ²Ã´ÊÂÇéÂğ??");
+        cm.sendNext("è¯·é—®æœ‰ä»€ä¹ˆäº‹æƒ…å—??");
 		cm.dispose();
     }   
 }

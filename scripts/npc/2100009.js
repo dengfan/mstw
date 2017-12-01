@@ -1,4 +1,4 @@
-/* Author: aaroncsn (MapleSea Like)
+ï»¿/* Author: aaroncsn (MapleSea Like)
 	NPC Name: 		Aldin
 	Map(s): 		The Burning Road: Ariant(2600000000)
 	Description: 	Ariant Plastic Surgery
@@ -20,7 +20,7 @@ function action(mode, type, selection) {
 		cm.dispose();
 	} else {
 		if (mode == 0 && status == 0) {
-			cm.sendNext("Èç¹ûÓĞĞèÒªÔÙÀ´ÕÒÎÒà¡¡£");
+			cm.sendNext("å¦‚æœæœ‰éœ€è¦å†æ¥æ‰¾æˆ‘å”·ã€‚");
 			cm.dispose();
 			return;
 		}
@@ -40,16 +40,16 @@ function action(mode, type, selection) {
 						facenew.push(fface[i] + cm.getChar().getFace() % 1000 - (cm.getChar().getFace() % 100));
 					}
 				}
-				cm.sendYesNo("ÄãÈ·¶¨ÒªÊ¹ÓÃ #b#t5152029##k#r×¢Òâ:ÕâÊÇËæ»ú#k £¿£¿");
+				cm.sendYesNo("ä½ ç¡®å®šè¦ä½¿ç”¨ #b#t5152029##k#ræ³¨æ„:è¿™æ˜¯éšæœº#k ï¼Ÿï¼Ÿ");
 			}
 		else if (status == 1){	
 			cm.dispose();
 			if (cm.haveItem(5152029) == true){
 				cm.gainItem(5152029, -1);
 				cm.setFace(facenew[Math.floor(Math.random() * facenew.length)]);
-				cm.sendOk("ÏíÊÜ£¡");
+				cm.sendOk("äº«å—ï¼");
 			} else {
-				cm.sendNext("¯z.... Ã²ËÆÃ»ÓĞ#t5152029#¡£");
+				cm.sendNext("ç—¾.... è²Œä¼¼æ²¡æœ‰#t5152029#ã€‚");
 			}
 		}
 	}

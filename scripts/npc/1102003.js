@@ -1,4 +1,4 @@
-/*
+ï»¿/*
 	This file is part of the odinms Maple Story Server
     Copyright (C) 2008 Patrick Huy <patrick.huy@frz.cc> 
                        Matthias Butz <matze@odinms.de>
@@ -24,6 +24,6 @@
 */
 
 function start() {
-	cm.sendOk("»¶Ó­À´µ½Ê¥µØ£¡");
+	cm.sendOk("æ¬¢è¿æ¥åˆ°åœ£åœ°ï¼");
 	cm.dispose();
 }

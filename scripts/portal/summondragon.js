@@ -1,8 +1,8 @@
-function enter(pi) {
+ï»¿function enter(pi) {
     if (pi.haveItem(4001094)) {
         pi.getMap().getReactorByName("dragonBaby").hitReactor(pi.getClient());
         pi.getMap().getReactorByName("dragonBaby2").hitReactor(pi.getClient());
-        pi.playerMessage(5, "¾ÅÁéÁúµÄµ°£¬ÊæÊæ·ş·şµÄ·¢ÁËÒ»µÀÉñÃØµÄ¹â£¬ÏÖÔÚÒÑ¾­»Øµ½³²Àï¡£");
+        pi.playerMessage(5, "ä¹çµé¾™çš„è›‹ï¼Œèˆ’èˆ’æœæœçš„å‘äº†ä¸€é“ç¥ç§˜çš„å…‰ï¼Œç°åœ¨å·²ç»å›åˆ°å·¢é‡Œã€‚");
         pi.gainItem(4001094, -1);
     }
 }

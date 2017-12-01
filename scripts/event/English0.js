@@ -1,4 +1,4 @@
-var letters = Array("A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z");
+ï»¿var letters = Array("A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z");
 var answers = Array("APPLE", "BEAR", "CHEESE", "DOUGHNUT", "EARTH", "FLY", "GOLD", "HALLOWEEN", "ICE", "JEWELRY", "KING", "LOVE", "MOUNTAIN", "NOTE", "ORANGE", "POLICE", "QUIZ", "ROSE", "SNAKE", "TEA", "UFO", "VIP", "WOOD", "XMAS", "YOUNG", "ZZZ");
 
 function init() {
@@ -27,10 +27,10 @@ function setup() {
 function playerEntry(eim, player) {
     var map = eim.getMapInstance(0);
     player.changeMap(map, map.getPortal(0));
-	player.dropMessage(5, "×ÖÄ¸±í [" + eim.getProperty("question") + "] ¿´ÆğÀ´ÏñÂğ£¿");
-	player.dropMessage(5, "×ÖÄ¸±í [" + eim.getProperty("question") + "] ¿´ÆğÀ´ÏñÂğ£¿");
-	player.dropMessage(5, "×ÖÄ¸±í [" + eim.getProperty("question") + "] ¿´ÆğÀ´ÏñÂğ£¿");
-    player.sendEnglishQuiz("×ÖÄ¸±í [" + eim.getProperty("question") + "] ¿´ÆğÀ´ÏñÂğ£¿");
+	player.dropMessage(5, "å­—æ¯è¡¨ [" + eim.getProperty("question") + "] çœ‹èµ·æ¥åƒå—ï¼Ÿ");
+	player.dropMessage(5, "å­—æ¯è¡¨ [" + eim.getProperty("question") + "] çœ‹èµ·æ¥åƒå—ï¼Ÿ");
+	player.dropMessage(5, "å­—æ¯è¡¨ [" + eim.getProperty("question") + "] çœ‹èµ·æ¥åƒå—ï¼Ÿ");
+    player.sendEnglishQuiz("å­—æ¯è¡¨ [" + eim.getProperty("question") + "] çœ‹èµ·æ¥åƒå—ï¼Ÿ");
 }
 
 function playerDead(eim, player) {}

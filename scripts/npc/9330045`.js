@@ -1,4 +1,4 @@
-function start() {
+ï»¿function start() {
     status = -1;
 
     action(1, 0, 0);
@@ -10,7 +10,7 @@ function action(mode, type, selection) {
     else {
         if (status >= 0 && mode == 0) {
 
-            cm.sendOk("¸ĞĞ»ÄãµÄ¹âÁÙ£¡");
+            cm.sendOk("æ„Ÿè°¢ä½ çš„å…‰ä¸´ï¼");
             cm.dispose();
             return;
         }
@@ -26,9 +26,9 @@ function action(mode, type, selection) {
             for (i = 0; i < 10; i++) {
                 text += "";//
             }
-			text += "\t\t\t  #e»¶Ó­À´µ½#bÌì³ÉÃ°ÏÕµº #k!#n\r\n"
-			text += "\t\t\t  #eÄúµ±Ç°»ı·ÖÎª£º#b"+cm.getHyPay(4)+"#k!#n\r\n"
-            text += "#L1##d5»ı·Ö³é½±(¾íÖá)#l\r\n\r\n"//3
+			text += "\t\t\t  #eæ¬¢è¿æ¥åˆ°#bå¤©æˆå†’é™©å²› #k!#n\r\n"
+			text += "\t\t\t  #eæ‚¨å½“å‰ç§¯åˆ†ä¸ºï¼š#b"+cm.getHyPay(4)+"#k!#n\r\n"
+            text += "#L1##d5ç§¯åˆ†æŠ½å¥–(å·è½´)#l\r\n\r\n"//3
             cm.sendSimple(text);
         } else if (selection == 1) {
             cm.gainExp(330000);1

@@ -1,7 +1,7 @@
-function act() {
+ï»¿function act() {
     rm.changeMusic("Bgm14/HonTale");
     rm.spawnMonster(8810026, 71, 260);
-    rm.mapMessage("Ëæ×ÅÒ»ÉùÅ­ºğ£¬°µºÚÁúÍõ³öÏÖÁË¡£");
+    rm.mapMessage("éšç€ä¸€å£°æ€’å¼ï¼Œæš—é»‘é¾™ç‹å‡ºç°äº†ã€‚");
     //rm.scheduleWarp(43200, 240000000);
     if (!rm.getPlayer().isGM()) {
         rm.getMap().startSpeedRun();

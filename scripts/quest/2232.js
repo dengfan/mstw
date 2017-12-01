@@ -1,4 +1,4 @@
-var status = -1;
+ï»¿var status = -1;
 
 function start(mode, type, selection) {
     if (qm.getPlayer().getJunior1() > 0) {
@@ -6,7 +6,7 @@ function start(mode, type, selection) {
         qm.gainExp(3000);
         qm.sendNext("Good job!");
     } else {
-        qm.sendNext("àÅ£¿£¿ ÎÒ¿´Äã»¹Ã»ÓĞ³É¹¦µÇÂ¼Ò»¸öÍ¬Ñ§ÄØ¡£¡£");
+        qm.sendNext("å—¯ï¼Ÿï¼Ÿ æˆ‘çœ‹ä½ è¿˜æ²¡æœ‰æˆåŠŸç™»å½•ä¸€ä¸ªåŒå­¦å‘¢ã€‚ã€‚");
     }
     qm.dispose();
 }
@@ -17,7 +17,7 @@ function end(mode, type, selection) {
         qm.gainExp(3000);
         qm.sendNext("Good job!");
     } else {
-        qm.sendNext("àÅ£¿£¿ ÎÒ¿´Äã»¹Ã»ÓĞ³É¹¦µÇÂ¼Ò»¸öÍ¬Ñ§ÄØ¡£¡£");
+        qm.sendNext("å—¯ï¼Ÿï¼Ÿ æˆ‘çœ‹ä½ è¿˜æ²¡æœ‰æˆåŠŸç™»å½•ä¸€ä¸ªåŒå­¦å‘¢ã€‚ã€‚");
     }
     qm.dispose();
 }

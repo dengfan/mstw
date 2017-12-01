@@ -1,5 +1,5 @@
-// mxmxd
-// Î£ÏÕµØÇø ¿ìËÙ³ö×â³µ
+ï»¿// mxmxd
+// å±é™©åœ°åŒº å¿«é€Ÿå‡ºç§Ÿè½¦
 
 var fromMap = new Array(211000000, 220000000, 240000000);
 var toMap = new Array(211040100, 220050300, 240030000);
@@ -16,7 +16,7 @@ function action(mode, type, selection) {
         cm.dispose();
     }
     if (mode == 0) {
-        cm.sendOk("~~~~²»È¥À¬»ø°Éµ¹~~");
+        cm.sendOk("~~~~ä¸å»åƒåœ¾å§å€’~~");
         cm.dispose();
     }
 
@@ -38,9 +38,9 @@ function action(mode, type, selection) {
                 location = 2;
                 break;
         }
-        cm.sendNext("~~~~ÒªÈ¥#e#m" + toMap[location] + "##n£¿GOGOGOGGO!");
+        cm.sendNext("~~~~è¦å»#e#m" + toMap[location] + "##nï¼ŸGOGOGOGGO!");
     } else if (status == 1) {
-        cm.sendYesNo("~~~~ÄúÇÆÇÆ~~·½Ô²°ÙÀï»¹ÓĞ±ÈÎÒ¸ü~»®ËãµÄÂğ£¿ÄúËµÊÇ²»ÊÇ£¿");
+        cm.sendYesNo("~~~~æ‚¨ç§ç§~~æ–¹åœ†ç™¾é‡Œè¿˜æœ‰æ¯”æˆ‘æ›´~åˆ’ç®—çš„å—ï¼Ÿæ‚¨è¯´æ˜¯ä¸æ˜¯ï¼Ÿ");
     } else if (status == 2) {
         var l = parseInt(cm.getPlayerStat("LVL"));
         var cost = Math.ceil(Math.random() * (l * l * 20));

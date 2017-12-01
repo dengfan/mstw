@@ -1,8 +1,8 @@
-/*
+ï»¿/*
 			Resonance
 	NPC Name: 	Head Patrol Officer
 	Map(s): 	Mushroom Castle: Corner of Mushroom Forest(106020000)
-	Description: 	Quest -  ÓÂÊ¿¿¼ÊÔ
+	Description: 	Quest -  å‹‡å£«è€ƒè¯•
 */
 
 importPackage(Packages.client);

@@ -1,14 +1,14 @@
-/**
+ï»¿/**
 	Konpei - Near the Hideout(801040000)
 */
 
 function start() {
-    cm.sendYesNo("Äãº¦ÅÂÁË£¿ Ïë»ØÈ¥ #m801000000#£¿");
+    cm.sendYesNo("ä½ å®³æ€•äº†ï¼Ÿ æƒ³å›å» #m801000000#ï¼Ÿ");
 }
 
 function action(mode, type, selection) {
     if (mode == 0) {
-	cm.sendOk("Èç¹ûÄãÏë»ØÈ¥ #m801000000#, ¸æËßÎÒ");
+	cm.sendOk("å¦‚æœä½ æƒ³å›å» #m801000000#, å‘Šè¯‰æˆ‘");
     } else {
 	cm.warp(801000000,0);
     }

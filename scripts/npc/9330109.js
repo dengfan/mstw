@@ -1,4 +1,4 @@
-/* Kedrick
+ï»¿/* Kedrick
 	Fishking King NPC
 */
 
@@ -18,14 +18,14 @@ function action(mode, type, selection) {
 
     if (status == 0) {
 	if( t == 0 ) {
-            cm.sendSimple("ÎÒÄÜÎªÄú×öÊ²Ã´Âğ£¿£¿#b\n\r #L1#ÂòÆÕÍ¨Óã¶ü¡£#l \n\r #L3#Ê¹ÓÃ¸ß¼¶µÄÓã¶ü¡£#l#k");
+            cm.sendSimple("æˆ‘èƒ½ä¸ºæ‚¨åšä»€ä¹ˆå—ï¼Ÿï¼Ÿ#b\n\r #L1#ä¹°æ™®é€šé±¼é¥µã€‚#l \n\r #L3#ä½¿ç”¨é«˜çº§çš„é±¼é¥µã€‚#l#k");
         } else {
-            cm.sendSimple("ÎÒÄÜÎªÄú×öÊ²Ã´Âğ£¿£¿#b\n\r #L1#Ê¹ÓÃ¸ß¼¶Óã¶ü¡£#l \n\r #L3#ÂòÆÕÍ¨Óã¶ü¡£#l#k");  
+            cm.sendSimple("æˆ‘èƒ½ä¸ºæ‚¨åšä»€ä¹ˆå—ï¼Ÿï¼Ÿ#b\n\r #L1#ä½¿ç”¨é«˜çº§é±¼é¥µã€‚#l \n\r #L3#ä¹°æ™®é€šé±¼é¥µã€‚#l#k");  
         }
   } else if (status == 1) {
 	sel = selection;
 	if ( ( t == 1 && sel == 3  )  || (sel == 1 && t == 0) ) {
-	    cm.sendYesNo("ÇëÎÊÈ·¶¨Òª»¨ 6Íò ·ã±Ò Âò 120 ¸öÆÕÍ¨Óã¶ü£¿£¿");
+	    cm.sendYesNo("è¯·é—®ç¡®å®šè¦èŠ± 6ä¸‡ æ«å¸ ä¹° 120 ä¸ªæ™®é€šé±¼é¥µï¼Ÿï¼Ÿ");
 	} else if (sel == 3) {
             cm.dispose();
 	    return;
@@ -33,12 +33,12 @@ function action(mode, type, selection) {
 		if (!cm.haveItem(2300001)) {
 		    cm.gainItem(2300001, 120);
 		    cm.gainItem(5350000,-1);
-		    cm.sendNext("¿ªĞÄµöÓã°É£¡");
+		    cm.sendNext("å¼€å¿ƒé’“é±¼å§ï¼");
 		} else {
-		    cm.sendNext("ÕæÌ°ĞÄ£¡µÈÓÃÍêÔÙÀ´ÕÒÎÒ£¡");
+		    cm.sendNext("çœŸè´ªå¿ƒï¼ç­‰ç”¨å®Œå†æ¥æ‰¾æˆ‘ï¼");
 		}
 	    } else {
-		cm.sendOk("ÇëÈ·ÈÏÊÇ·ñÓĞ¸ß¼¶µÄÓã¶ü¹ŞÍ·£¬»òÕß¼ì²éÄúµÄµÀ¾ßÀ¸ÓĞÃ»ÓĞÂúÁË¡£");
+		cm.sendOk("è¯·ç¡®è®¤æ˜¯å¦æœ‰é«˜çº§çš„é±¼é¥µç½å¤´ï¼Œæˆ–è€…æ£€æŸ¥æ‚¨çš„é“å…·æ æœ‰æ²¡æœ‰æ»¡äº†ã€‚");
 	    }
 	    cm.safeDispose();
 	}
@@ -48,12 +48,12 @@ function action(mode, type, selection) {
 		if (!cm.haveItem(2300000)) {
 		    cm.gainMeso(-60000);
 		    cm.gainItem(2300000, 120);
-		    cm.sendNext("¿ªĞÄµöÓã°É£¡");
+		    cm.sendNext("å¼€å¿ƒé’“é±¼å§ï¼");
 		} else {
-		    cm.sendNext("ÕæÌ°ĞÄ£¡µÈÓÃÍêÔÙÀ´ÕÒÎÒ£¡");
+		    cm.sendNext("çœŸè´ªå¿ƒï¼ç­‰ç”¨å®Œå†æ¥æ‰¾æˆ‘ï¼");
 		}
 	    } else {
-		cm.sendOk("ÇëÈ·ÈÏÊÇ·ñÓĞ×ã¹»µÄ·ã±Ò£¬»òÕß¼ì²éÄúµÄµÀ¾ßÀ¸ÓĞÃ»ÓĞÂúÁË¡£");
+		cm.sendOk("è¯·ç¡®è®¤æ˜¯å¦æœ‰è¶³å¤Ÿçš„æ«å¸ï¼Œæˆ–è€…æ£€æŸ¥æ‚¨çš„é“å…·æ æœ‰æ²¡æœ‰æ»¡äº†ã€‚");
 	    }
 	    cm.safeDispose();
 	}

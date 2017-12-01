@@ -1,4 +1,4 @@
-var status = 0;
+﻿var status = 0;
 
 function start() {
 	status = -1;
@@ -10,7 +10,7 @@ function action(mode, type, selection) {
 		cm.dispose();
 	} else {
 	if (status >= 0 && mode == 0) {
-		cm.sendNext("�������Ϻ���̲���ѵ��㲻��ȥ���������ź���");
+		cm.sendNext("美丽的上海外滩，难道你不想去看看吗！真遗憾。");
 		cm.dispose();
 		return;
 	}
@@ -19,10 +19,10 @@ function action(mode, type, selection) {
 	else
 		status--;
 	if (status == 0) {
-		cm.sendYesNo("�ˣ����Ǻ��ռ�ʻԱ���Ҹ����ʻ�����Ϻ��ķɻ�����������ķ��У��ҵļ�ʻ�����Ѿ����˲��á�������� #b2000 ���#k. �ҾͿ��Դ���ȥ������ #b�Ϻ���̲#k ��ô����Ҫȥ��");
+		cm.sendYesNo("嗨！我是洪姓驾驶员，我负责驾驶飞往上海的飞机。经过长年的飞行，我的驾驶技术已经很了不得。如果你有 #b2000 金币#k. 我就可以带你去美丽的 #b上海外滩#k 怎么样？要去吗？");
 	} else if (status == 1) {
 		if (cm.getMeso() < 2000) {
-			cm.sendNext("��ȷ������ #b2000 ���#k�� ���û�У��ҿɲ����������ȥ��");
+			cm.sendNext("你确定你有 #b2000 金币#k？ 如果没有，我可不能免费送你去。");
 			cm.dispose();
 		} else {
 			cm.gainMeso(-2000);

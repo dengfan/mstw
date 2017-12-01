@@ -1,4 +1,4 @@
-/* 
+ï»¿/* 
 	NPC Name: 		Cherry
 	Map(s): 		Victoria Road : Ellinia Station (101000300)
 	Description: 		Ellinia Ticketing Usher
@@ -28,7 +28,7 @@ function action(mode, type, selection) {
 	    cm.sendNext("The boat is getting ready for takeoff. I'm sorry, but you'll have to get on the next ride. The ride schedule is available through the usher at the ticketing booth.");
 	    cm.dispose();
 	} else {
-	    cm.sendNext("³ö·¢Ç°5·ÖÖÓ¿ªÊ¼²Å¿ÉÒÔÈë³¡¡£ÇëÉÔµÈÒ»ÏÂ¡£²»¹ıÒ²±ğÀ´µÃÌ«Íí¡£³ö·¢Ç°1·ÖÖÓ¾Í»á½áÊø³öº½×¼±¸£¬ÎŞ·¨ÈÃ¿ÍÈËµÇ´¬ÁË¡£");
+	    cm.sendNext("å‡ºå‘å‰5åˆ†é’Ÿå¼€å§‹æ‰å¯ä»¥å…¥åœºã€‚è¯·ç¨ç­‰ä¸€ä¸‹ã€‚ä¸è¿‡ä¹Ÿåˆ«æ¥å¾—å¤ªæ™šã€‚å‡ºå‘å‰1åˆ†é’Ÿå°±ä¼šç»“æŸå‡ºèˆªå‡†å¤‡ï¼Œæ— æ³•è®©å®¢äººç™»èˆ¹äº†ã€‚");
 	    cm.dispose();
 	}
     } else if(status == 1) {

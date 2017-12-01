@@ -1,4 +1,4 @@
-/*
+ï»¿/*
 	This file is part of the cherry Maple Story Server
     Copyright (C) 2008 Patrick Huy <patrick.huy@frz.cc> 
                        Matthias Butz <matze@cherry.de>
@@ -48,15 +48,15 @@ function action(mode, type, selection) {
 		else
 			status--;
 		if (status == 0) {
-			cm.sendSimple("ÔõÃ´Ñù£¿¶¼ËÑ¼¯ºÃÁËÂğ£¿#b\r\n#L0#¸æËßÎÒÓ¦¸Ã×öÊ²Ã´£¿#l\r\n#L1#ÒÑ¾­ËÑ¼¯ºÃÁËÎïÆ·£¡#l\r\n#L2#ÎÒÒªÀë¿ªÕâÀï£¡#l");
+			cm.sendSimple("æ€ä¹ˆæ ·ï¼Ÿéƒ½æœé›†å¥½äº†å—ï¼Ÿ#b\r\n#L0#å‘Šè¯‰æˆ‘åº”è¯¥åšä»€ä¹ˆï¼Ÿ#l\r\n#L1#å·²ç»æœé›†å¥½äº†ç‰©å“ï¼#l\r\n#L2#æˆ‘è¦ç¦»å¼€è¿™é‡Œï¼#l");
 		} else if (status == 1) {
 			selectedType = selection;
 			if (selection == 0) {
-				cm.sendNext("°×³Õ£¡ÄãÁ¬ÒªÄã½øÀ´µÄÄ¿µÄÊÇÊ²Ã´¡£ĞèÒªÊÕ¼¯Ê²Ã´¶¼²»ÖªµÀ£¬»¹½øÀ´×öÊ²Ã´£¿´ôÒ»±ßÈ¥°É£¡")
+				cm.sendNext("ç™½ç—´ï¼ä½ è¿è¦ä½ è¿›æ¥çš„ç›®çš„æ˜¯ä»€ä¹ˆã€‚éœ€è¦æ”¶é›†ä»€ä¹ˆéƒ½ä¸çŸ¥é“ï¼Œè¿˜è¿›æ¥åšä»€ä¹ˆï¼Ÿå‘†ä¸€è¾¹å»å§ï¼")
 				cm.dispose();
 			} else if (selection == 1) {
 				if (!cm.haveItem(4001018)) {
-					cm.sendNext("Æ­ÎÒÑ½¡«Äã¸ù±¾¾ÍÃ»ÓĞÂï£¡")
+					cm.sendNext("éª—æˆ‘å‘€ï½ä½ æ ¹æœ¬å°±æ²¡æœ‰å˜›ï¼")
 					cm.dispose();
 				} else {
 					if (!cm.haveItem(4001015, 30)) { //documents
@@ -68,7 +68,7 @@ function action(mode, type, selection) {
 					}
 				}
 			} else if (selection == 2) {
-				cm.sendYesNo("ÄãÈ·¶¨ÒªÍË³ö£¿Èç¹ûÄãÊÇ×é¶Ó³¤£¬Ò»µ©ÄãÀë¿ª×é¶Ó£¬ÄÇÃ´ÕâÏîÈÎÎñ¾ÍÎŞ·¨¼ÌĞøÏÂÈ¥¡£ÊÇ·ñ¾ö¶¨ÍË³ö£¿")
+				cm.sendYesNo("ä½ ç¡®å®šè¦é€€å‡ºï¼Ÿå¦‚æœä½ æ˜¯ç»„é˜Ÿé•¿ï¼Œä¸€æ—¦ä½ ç¦»å¼€ç»„é˜Ÿï¼Œé‚£ä¹ˆè¿™é¡¹ä»»åŠ¡å°±æ— æ³•ç»§ç»­ä¸‹å»ã€‚æ˜¯å¦å†³å®šé€€å‡ºï¼Ÿ")
 			}
 		} else if (status == 2) {
 			var eim = cm.getChar().getEventInstance();

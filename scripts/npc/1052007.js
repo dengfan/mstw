@@ -1,4 +1,4 @@
-/*
+ï»¿/*
 	This file is part of the cherry Maple Story Server
     Copyright (C) 2008 Patrick Huy <patrick.huy@frz.cc> 
 					   Matthias Butz <matze@cherry.de>
@@ -33,7 +33,7 @@
 
 var itemid = new Array(4031036,4031037,4031038,4031711);
 var mapid = new Array(103000900,103000903,103000906,600010004);
-var mapname = new Array("µØÌúB1", "µØÌúB2", "µØÌúB3","ÊĞĞÂÒ¶£¨Õı³££©");
+var mapname = new Array("åœ°é“B1", "åœ°é“B2", "åœ°é“B3","å¸‚æ–°å¶ï¼ˆæ­£å¸¸ï¼‰");
 var menu;
 var sw;
 
@@ -48,7 +48,7 @@ function action(mode, type, selection) {
 		cm.dispose();
 	} else {
 		if (mode == 0) {
-			cm.sendNext("Äã±ØĞëÓĞÒ»Ğ©ÆóÒµ¶ÔÕÕ¹ËÕâÀï£¬ºÃÂğ£¿");
+			cm.sendNext("ä½ å¿…é¡»æœ‰ä¸€äº›ä¼ä¸šå¯¹ç…§é¡¾è¿™é‡Œï¼Œå¥½å—ï¼Ÿ");
 			cm.dispose();
 			return;
 		}
@@ -58,11 +58,11 @@ function action(mode, type, selection) {
 			if (cm.haveItem(itemid[0]) || cm.haveItem(itemid[1]) || cm.haveItem(itemid[2]) || cm.haveItem(itemid[3])) {
 				status = 1;
 			} else {
-				cm.sendOk("ÕâÀïµÄÆ±»ú¡£²»ÔÊĞíÄãÔÚÎŞÆ±¡£");
+				cm.sendOk("è¿™é‡Œçš„ç¥¨æœºã€‚ä¸å…è®¸ä½ åœ¨æ— ç¥¨ã€‚");
 				cm.dispose();
 			}
 		} if (status == 1) {
-			menu = "ÕâÀïµÄÆ±»ú¡£Äã½«ÔÚÂíÉÏ¡£ÕâÆ±ÒªÓÃ£¿\r\n";
+			menu = "è¿™é‡Œçš„ç¥¨æœºã€‚ä½ å°†åœ¨é©¬ä¸Šã€‚è¿™ç¥¨è¦ç”¨ï¼Ÿ\r\n";
 			for(i=0; i < itemid.length; i++) {
 				if(cm.haveItem(itemid[i])) {
 					menu += "#L"+i+"##b"+mapname[i]+"#k#l\r\n";
@@ -78,15 +78,15 @@ function action(mode, type, selection) {
 			}
 			else {
 				if(sw == null) {
-					cm.sendNext("ÊÂ¼şµÄ´íÎó£¬ÇëÖØĞÂÆô¶¯ÄãµÄ·şÎñÆ÷½â¾ö·½°¸");
+					cm.sendNext("äº‹ä»¶çš„é”™è¯¯ï¼Œè¯·é‡æ–°å¯åŠ¨ä½ çš„æœåŠ¡å™¨è§£å†³æ–¹æ¡ˆ");
 					cm.dispose();
 				} else if(sw.getProperty("entry").equals("true")) {
-					cm.sendYesNo("¿´À´Õâ¸öÆï³ä×ãµÄ·¿¼ä¡£ÇëÄã°Ñ³µÆ±×¼±¸ºÃËùÒÔÎÒ¿ÉÒÔ¸æËßÄã£¬ÂÃĞĞ½«ÊÇÂş³¤µÄ£¬µ«Äã»áµÃµ½ÄãµÄÄ¿µÄµØ¾ÍºÃÁË¡£ÄãÊÇÔõÃ´ÏëµÄ£¿ÄãÏëÔÚÕâ×ø?");
+					cm.sendYesNo("çœ‹æ¥è¿™ä¸ªéª‘å……è¶³çš„æˆ¿é—´ã€‚è¯·ä½ æŠŠè½¦ç¥¨å‡†å¤‡å¥½æ‰€ä»¥æˆ‘å¯ä»¥å‘Šè¯‰ä½ ï¼Œæ—…è¡Œå°†æ˜¯æ¼«é•¿çš„ï¼Œä½†ä½ ä¼šå¾—åˆ°ä½ çš„ç›®çš„åœ°å°±å¥½äº†ã€‚ä½ æ˜¯æ€ä¹ˆæƒ³çš„ï¼Ÿä½ æƒ³åœ¨è¿™å?");
 				} else if(sw.getProperty("entry").equals("false") && sw.getProperty("docked").equals("true")) {
-					cm.sendNext("µØÌúÊÇ×¼±¸Æğ·É¡£ÎÒºÜ±§Ç¸£¬µ«ÄãµÃ³Ë×øÏÂÒ»ÌË¡£µÄ²»ÂÛÄúÊÇÑÇÉª×øÔÚÊÛÆ±Í¤.");
+					cm.sendNext("åœ°é“æ˜¯å‡†å¤‡èµ·é£ã€‚æˆ‘å¾ˆæŠ±æ­‰ï¼Œä½†ä½ å¾—ä¹˜åä¸‹ä¸€è¶Ÿã€‚çš„ä¸è®ºæ‚¨æ˜¯äºšç‘Ÿååœ¨å”®ç¥¨äº­.");
 					cm.dispose();
 				} else {
-					cm.sendNext("ÎÒÃÇ½«ÔÚÆğ·É1·ÖÖÓºó¿ªÊ¼µÇ»ú¡£ÇëÄÍĞÄµÈ´ı¼¸·ÖÖÓ¡£ÒªÖªµÀ£¬µØÌú½«ÔÚÕıÈ·µÄÊ±¼ä£¬ÎÒÃÇÍ£Ö¹½ÓÊÕÆ±Ö®Ç°1·ÖÖÓ£¬ËùÒÔÇëÎñ±Ø×¼Ê±µ½ÕâÀï¡£");
+					cm.sendNext("æˆ‘ä»¬å°†åœ¨èµ·é£1åˆ†é’Ÿåå¼€å§‹ç™»æœºã€‚è¯·è€å¿ƒç­‰å¾…å‡ åˆ†é’Ÿã€‚è¦çŸ¥é“ï¼Œåœ°é“å°†åœ¨æ­£ç¡®çš„æ—¶é—´ï¼Œæˆ‘ä»¬åœæ­¢æ¥æ”¶ç¥¨ä¹‹å‰1åˆ†é’Ÿï¼Œæ‰€ä»¥è¯·åŠ¡å¿…å‡†æ—¶åˆ°è¿™é‡Œã€‚");
 					cm.dispose();
 				}
 			}

@@ -1,9 +1,9 @@
-function start() {
+ï»¿function start() {
 	if (cm.getQuestStatus(8626) == 1 || cm.getQuestStatus(8626) == 2) {
              cm.warp(741020100);
              cm.dispose();
 	} else {
-	    cm.sendOk("ÄãÃ»ÓĞ½âÍæÇ°ÖÃÈÎÎñ");
+	    cm.sendOk("ä½ æ²¡æœ‰è§£ç©å‰ç½®ä»»åŠ¡");
             cm.dispose();
         }
     }

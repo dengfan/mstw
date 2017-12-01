@@ -1,4 +1,4 @@
-/* Author: aaroncsn (MapleSea Like)(INcomplete- HairStyle)
+ï»¿/* Author: aaroncsn (MapleSea Like)(INcomplete- HairStyle)
 	NPC Name: 		Wi
 	Map(s): 		Thailand:Floating Market(500000000)
 	Description: 		Thailand Hair Salon
@@ -28,7 +28,7 @@ function action(mode, type, selection) {
 		else
 			status--;
 		if (status == 0) {
-			cm.sendSimple("ÄúºÃ£¬ÎÒÊÇ#r #p9250049##k »¶Ó­À´µ½»Æ½ğËÂÃíµÄÃÀ·¢Ìü Èç¹ûÄúÓĞ\r\n#b#t5150042##k, »òÕß #b#t5151032##k ÎÒ¾Í¿ÉÒÔÃâ·Ñ°ïÄúÅª \r\n#L0##bÊ¹ÓÃ#t5150042##k#l \r\n#L1##bÊ¹ÓÃ#t5151032##k#l");
+			cm.sendSimple("æ‚¨å¥½ï¼Œæˆ‘æ˜¯#r #p9250049##k æ¬¢è¿æ¥åˆ°é»„é‡‘å¯ºåº™çš„ç¾å‘å… å¦‚æœæ‚¨æœ‰\r\n#b#t5150042##k, æˆ–è€… #b#t5151032##k æˆ‘å°±å¯ä»¥å…è´¹å¸®æ‚¨å¼„ \r\n#L0##bä½¿ç”¨#t5150042##k#l \r\n#L1##bä½¿ç”¨#t5151032##k#l");
 		} else if (status == 1) {
 			if (selection == 0) {
 				beauty = 1;
@@ -43,7 +43,7 @@ function action(mode, type, selection) {
 						hairnew.push(fhair[i] + parseInt(cm.getChar().getHair() % 10));
 					}
 				}
-				cm.sendStyle("Ñ¡ÔñÒ»¸öÏ²»¶µÄ", hairnew);
+				cm.sendStyle("é€‰æ‹©ä¸€ä¸ªå–œæ¬¢çš„", hairnew);
 			} else if (selection == 1) {
 				beauty = 2;
 				haircolor = Array();
@@ -51,25 +51,25 @@ function action(mode, type, selection) {
 				for(var i = 0; i < 8; i++) {
 					haircolor.push(current + i);
 				}
-				cm.sendStyle("Ñ¡ÔñÒ»¸öÏ²»¶µÄ", haircolor);
+				cm.sendStyle("é€‰æ‹©ä¸€ä¸ªå–œæ¬¢çš„", haircolor);
 			}
 		} else if (status == 2){
 			if (beauty == 1){
 				if (cm.haveItem(5150042) == true){
 					cm.gainItem(5150042, -1);
 					cm.setHair(hairnew[selection]);
-					cm.sendOk("ÏíÊÜ£¡");
+					cm.sendOk("äº«å—ï¼");
 				} else {
-					cm.sendNext("¯z...Ã²ËÆÃ»ÓĞ#t5150042#");
+					cm.sendNext("ç—¾...è²Œä¼¼æ²¡æœ‰#t5150042#");
 				}
 			}
 			if (beauty == 2){
 				if (cm.haveItem(5151032) == true){
 					cm.gainItem(5151032, -1);
 					cm.setHair(haircolor[selection]);
-					cm.sendOk("ÏíÊÜ£¡");
+					cm.sendOk("äº«å—ï¼");
 				} else {
-					cm.sendNext("¯z...Ã²ËÆÃ»ÓĞ#t5151032#");
+					cm.sendNext("ç—¾...è²Œä¼¼æ²¡æœ‰#t5151032#");
 				}
 			}
 			cm.dispose();

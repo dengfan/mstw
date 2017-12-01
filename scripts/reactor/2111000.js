@@ -1,9 +1,9 @@
-/* @Author Lerk
+ï»¿/* @Author Lerk
  * 
  * 2111000.js: Zakum Party Quest Chest - summons 3 "Mimics"
 */
 
 function act() {
-    rm.playerMessage(5, "¹ÖÎï³öÏÖÁË¡£");
+    rm.playerMessage(5, "æ€ªç‰©å‡ºç°äº†ã€‚");
     rm.spawnMonster(9300004, 3);
 }

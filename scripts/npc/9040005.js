@@ -1,4 +1,4 @@
-var status = -1;
+锘縱ar status = -1;
 
 function action(mode, type, selection) {
     if (mode != 1) {
@@ -9,13 +9,13 @@ function action(mode, type, selection) {
     status++;
     if (status == 0) {
         if (cm.isPlayerInstance()) {
-            cm.sendSimple("你想做什么？ \r\n #L0#离开公会任务#l");
+            cm.sendSimple("浣犳兂鍋氫粈涔堬紵 \r\n #L0#绂诲紑鍏細浠诲姟#l");
         } else {
-            cm.sendOk("对不起，我不能为你做任何事！");
+            cm.sendOk("瀵逛笉璧凤紝鎴戜笉鑳戒负浣犲仛浠讳綍浜嬶紒");
             cm.dispose();
         }
     } else if (status == 1) {
-        cm.sendYesNo("你确定你想做的吗？你将不能回来！");
+        cm.sendYesNo("浣犵‘瀹氫綘鎯冲仛鐨勫悧锛熶綘灏嗕笉鑳藉洖鏉ワ紒");
     } else if (status == 2) {
         if (cm.isPlayerInstance()) {
             cm.getPlayer().getEventInstance().removePlayer(cm.getPlayer());

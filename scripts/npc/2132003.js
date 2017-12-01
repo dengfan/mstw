@@ -1,4 +1,4 @@
-function action(mode, type, selection) {
-    cm.sendNext("作为年轻并不意味着我与那些家伙不同。我会告诉他们！");
+锘縡unction action(mode, type, selection) {
+    cm.sendNext("浣滀负骞磋交骞朵笉鎰忓懗鐫�鎴戜笌閭ｄ簺瀹朵紮涓嶅悓銆傛垜浼氬憡璇変粬浠紒");
     cm.dispose();
 }

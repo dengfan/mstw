@@ -1,4 +1,4 @@
-/*
+ï»¿/*
 WNMS
 */
 
@@ -23,9 +23,9 @@ function action(mode, type, selection) {
 		status--;
 	if (status == 0) {
 		if (cm.haveItem(4001020)) {
-			cm.sendYesNo("ÄãÈç¹ûÓĞ#b#z4001020##kÎÒ¿ÉÒÔ´«ËÍÄãÈ¥µÚ#b41²ã#k¡£ÊÇ·ñÏëÈ¥?");
+			cm.sendYesNo("ä½ å¦‚æœæœ‰#b#z4001020##kæˆ‘å¯ä»¥ä¼ é€ä½ å»ç¬¬#b41å±‚#kã€‚æ˜¯å¦æƒ³å»?");
 		} else {
-			cm.sendOk("ÄãÈç¹ûÓĞ#b#z4001020##kÎÒ¿ÉÒÔ´«ËÍÄãÈ¥µÚ#b41²ã#k.");
+			cm.sendOk("ä½ å¦‚æœæœ‰#b#z4001020##kæˆ‘å¯ä»¥ä¼ é€ä½ å»ç¬¬#b41å±‚#k.");
 			cm.dispose();
 		}
 	} else if (status == 1) {

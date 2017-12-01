@@ -1,4 +1,4 @@
-var points;
+ï»¿var points;
 
 function start() {
     var record = cm.getQuestRecord(150001);
@@ -34,13 +34,13 @@ function action(mode, type, selection) {
                             q.startInstance(cm.getParty(), cm.getMap());
                         }
                     } else {
-                        cm.sendOk("ËùÓĞ×éÔ±±ØĞëÔÚµ±Ç°µØÍ¼,´óÓÚ70¼¶");
+                        cm.sendOk("æ‰€æœ‰ç»„å‘˜å¿…é¡»åœ¨å½“å‰åœ°å›¾,å¤§äº70çº§");
                     }
                 } else {
-                    cm.sendOk("Äã²»ÊÇ¶Ó³¤,Çë¶Ó³¤ÓëÎÒÌ¸»°.");
+                    cm.sendOk("ä½ ä¸æ˜¯é˜Ÿé•¿,è¯·é˜Ÿé•¿ä¸æˆ‘è°ˆè¯.");
                 }
             } else {
-                cm.sendOk("Çë×é¶ÓºóÓëÎÒÌ¸»°.");
+                cm.sendOk("è¯·ç»„é˜Ÿåä¸æˆ‘è°ˆè¯.");
             }
             break;
         case 1:

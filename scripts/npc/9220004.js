@@ -1,4 +1,4 @@
-var itemList = [5150016, 3010045, 3010049, 3010021, 2002099, 2022465, 2022466, 2022468, 2022246, 2022245];
+ï»¿var itemList = [5150016, 3010045, 3010049, 3010021, 2002099, 2022465, 2022466, 2022468, 2022246, 2022245];
 var chance = [70, 70, 70, 70, 500, 500, 500, 500, 500, 500];
 var sum = [];
 
@@ -31,14 +31,14 @@ function action(mode, type, selection) {
     }
 
     if (status == 0) {
-        cm.sendSimple("#b#L1#ÎÒÒª¶Ò»»°×É«ÀñÎïºĞ#l\r\n#L2#ÎÒÒª¶Ò»»ºìÉ«ÀñÎïºĞ#l\r\n#L3#ÎÒÒª¶Ò»»À¶É«ÀñÎïºĞ#l\r\n#L4#ÎÒÒª¶Ò»»×ÏÉ«ÀñÎïºĞ#l\r\n#L5#ÎÒÒªÁìÈ¡Ä§·¨ÊÖÌ×#l\r\n#L6#ÎÒÒªÁìÈ¡Ò»×é¾ŞĞÍÑ©Çò(ÏûºÄÀ¸Òª¿ÕÒ»¸ñà¸)#l\r\n#L7#ÎÒÒª¸øÄãÎÂÅ¯µÄÑ©»¨#l#k");
+        cm.sendSimple("#b#L1#æˆ‘è¦å…‘æ¢ç™½è‰²ç¤¼ç‰©ç›’#l\r\n#L2#æˆ‘è¦å…‘æ¢çº¢è‰²ç¤¼ç‰©ç›’#l\r\n#L3#æˆ‘è¦å…‘æ¢è“è‰²ç¤¼ç‰©ç›’#l\r\n#L4#æˆ‘è¦å…‘æ¢ç´«è‰²ç¤¼ç‰©ç›’#l\r\n#L5#æˆ‘è¦é¢†å–é­”æ³•æ‰‹å¥—#l\r\n#L6#æˆ‘è¦é¢†å–ä¸€ç»„å·¨å‹é›ªçƒ(æ¶ˆè€—æ è¦ç©ºä¸€æ ¼å–”)#l\r\n#L7#æˆ‘è¦ç»™ä½ æ¸©æš–çš„é›ªèŠ±#l#k");
     } else if (status == 1) {
         if (selection == 1) {
             if (cm.haveItem(4000422)) {
                 cm.gainItem(4000422, -1);
                 cm.gainItem(randItem, 1);
             } else {
-                cm.sendOk("ÄãÃ»ÓĞÀñÎïºĞ-.-");
+                cm.sendOk("ä½ æ²¡æœ‰ç¤¼ç‰©ç›’-.-");
             }
             cm.dispose();
         } else if (selection == 2) {
@@ -46,7 +46,7 @@ function action(mode, type, selection) {
                 cm.gainItem(4000423, -1);
                 cm.gainItem(randItem, 1);
             } else {
-                cm.sendOk("ÄãÃ»ÓĞÀñÎïºĞ-.-");
+                cm.sendOk("ä½ æ²¡æœ‰ç¤¼ç‰©ç›’-.-");
             }
             cm.dispose();
         } else if (selection == 3) {
@@ -54,7 +54,7 @@ function action(mode, type, selection) {
                 cm.gainItem(4000424, -1);
                 cm.gainItem(randItem, 1);
             } else {
-                cm.sendOk("ÄãÃ»ÓĞÀñÎïºĞ-.-");
+                cm.sendOk("ä½ æ²¡æœ‰ç¤¼ç‰©ç›’-.-");
             }
             cm.dispose();
         } else if (selection == 4) {
@@ -62,7 +62,7 @@ function action(mode, type, selection) {
                 cm.gainItem(4000425, -1);
                 cm.gainItem(randItem, 1);
             } else {
-                cm.sendOk("ÄãÃ»ÓĞÀñÎïºĞ-.-");
+                cm.sendOk("ä½ æ²¡æœ‰ç¤¼ç‰©ç›’-.-");
             }
             cm.dispose();
         } else if (selection == 5) {

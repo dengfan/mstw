@@ -1,5 +1,5 @@
-// mxmxd
-// ·ÑµÂÂŞ 3×ªº£µÁ×ªÖ°¹Ù
+ï»¿// mxmxd
+// è´¹å¾·ç½— 3è½¬æµ·ç›—è½¬èŒå®˜
 
 var status = 0;
 var job;
@@ -14,7 +14,7 @@ function action(mode, type, selection) {
         cm.dispose();
     } else {
         if (mode == 0 && status == 1) {
-            cm.sendOk("µÈÄãÏÂ¶¨¾öĞÄÔÙÀ´ÕÒÎÒ°É¡£");
+            cm.sendOk("ç­‰ä½ ä¸‹å®šå†³å¿ƒå†æ¥æ‰¾æˆ‘å§ã€‚");
             cm.dispose();
         }
 
@@ -25,27 +25,27 @@ function action(mode, type, selection) {
 
         if (status == 0) {
             if (cm.getJob() == 511 || cm.getJob() == 521 || cm.getJob() == 512 || cm.getJob() == 522) {
-                cm.sendOk("ÄãÒÑ¾­Íê³ÉÁËµÚÈı´Î×ªÖ°£¬×ß°É¡£");
+                cm.sendOk("ä½ å·²ç»å®Œæˆäº†ç¬¬ä¸‰æ¬¡è½¬èŒï¼Œèµ°å§ã€‚");
                 cm.dispose();
             }
 
             if (!(cm.getJob() == 510 || cm.getJob() == 520)) {
-                cm.sendOk("ÄãÈÏ´íÈËÁË¡£");
+                cm.sendOk("ä½ è®¤é”™äººäº†ã€‚");
                 cm.dispose();
             } else if (cm.getPlayer().getLevel() < 70) {
-                cm.sendOk("µÈÄãµ½ÁË70¼¶ÔÙÀ´ÕÒÎÒ¡£");
+                cm.sendOk("ç­‰ä½ åˆ°äº†70çº§å†æ¥æ‰¾æˆ‘ã€‚");
                 cm.dispose();
             }
 
             if (cm.haveItem(4031057, 1)) {
-                cm.sendNext("ÄãÀ´ÁË¡£");
+                cm.sendNext("ä½ æ¥äº†ã€‚");
             } else if (!(cm.haveItem(4031057, 1))) {
-                cm.sendOk("È¥ÕÒ#e¿­ÁÕ#n£¬Ëı»á°ïÖúÄãµÄ£¡");
+                cm.sendOk("å»æ‰¾#eå‡¯ç³#nï¼Œå¥¹ä¼šå¸®åŠ©ä½ çš„ï¼");
                 cm.dispose();
             } else if (cm.getPlayer().getRemainingSp() <= (cm.getLevel() - 70) * 3) {
-                cm.sendNext("ÄãµÄ¼¼ÄÜµã»¹Ã»ÓÃÍê¡£¡£¡£");
+                cm.sendNext("ä½ çš„æŠ€èƒ½ç‚¹è¿˜æ²¡ç”¨å®Œã€‚ã€‚ã€‚");
             } else {
-                cm.sendOk("Äã»¹²»ÄÜ×ªÖ°¡£¡£¡£");
+                cm.sendOk("ä½ è¿˜ä¸èƒ½è½¬èŒã€‚ã€‚ã€‚");
                 cm.dispose();
             }
 
@@ -55,24 +55,24 @@ function action(mode, type, selection) {
                     cm.changeJob(511);
                     cm.gainItem(4031057, -1);
                     cm.gainItem(4031058, -1);
-                    cm.sendOk("¹§Ï²ÄãµÚÈı´Î×ªÖ°³É¹¦£¡");
-                    cm.worldMessage(3, "[·ÑµÂÂŞ] : ¹§Ï²" + cm.getChar().getName() + "³ÉÎªÒ»Ãû¶·Ö¾°ºÑïµÄ¸ñ¶·¼Ò£¬ÄãµÄÇ°Í¾ÎŞ¿ÉÏŞÁ¿£¡");
+                    cm.sendOk("æ­å–œä½ ç¬¬ä¸‰æ¬¡è½¬èŒæˆåŠŸï¼");
+                    cm.worldMessage(3, "[è´¹å¾·ç½—] : æ­å–œ" + cm.getChar().getName() + "æˆä¸ºä¸€åæ–—å¿—æ˜‚æ‰¬çš„æ ¼æ–—å®¶ï¼Œä½ çš„å‰é€”æ— å¯é™é‡ï¼");
                     cm.dispose();
                 } else if (cm.getJob() == 520) {
                     cm.changeJob(521);
                     cm.gainItem(4031057, -1);
                     cm.gainItem(4031058, -1);
-                    cm.sendOk("¹§Ï²ÄãµÚÈı´Î×ªÖ°³É¹¦£¡");
-                    cm.worldMessage(3, "[·ÑµÂÂŞ] : ¹§Ï²" + cm.getChar().getName() + "³ÉÎªÒ»ÃûÎŞ¾«´ò²ÉµÄÉñÇ¹ÊÖ£¬ÄãµÄÇ°·½Ò»Æ¬ºÚ°µ£¡");
+                    cm.sendOk("æ­å–œä½ ç¬¬ä¸‰æ¬¡è½¬èŒæˆåŠŸï¼");
+                    cm.worldMessage(3, "[è´¹å¾·ç½—] : æ­å–œ" + cm.getChar().getName() + "æˆä¸ºä¸€åæ— ç²¾æ‰“é‡‡çš„ç¥æªæ‰‹ï¼Œä½ çš„å‰æ–¹ä¸€ç‰‡é»‘æš—ï¼");
                     cm.dispose();
                 }
             } else if (cm.haveItem(4031057, 1))
-                cm.sendAcceptDecline("Äã×¼±¸ºÃÁËÓ­½Ó×îºóµÄÌôÕ½Âğ£¿");
+                cm.sendAcceptDecline("ä½ å‡†å¤‡å¥½äº†è¿æ¥æœ€åçš„æŒ‘æˆ˜å—ï¼Ÿ");
             else
-                cm.sendAcceptDecline("µ«ÊÇ£¬ÎÒ¿ÉÒÔÈÃÄã¸ü¼ÓÇ¿´ó¡£³ıÁËÄãµÄÊµÁ¦Ö®Íâ£¬ÎÒÃÇ»¹Òª¿¼¿¼ÄãµÄÖÇÉÌ¡£Äã×¼±¸ºÃÁËÓ­½ÓÌôÕ½Âğ£¿");
+                cm.sendAcceptDecline("ä½†æ˜¯ï¼Œæˆ‘å¯ä»¥è®©ä½ æ›´åŠ å¼ºå¤§ã€‚é™¤äº†ä½ çš„å®åŠ›ä¹‹å¤–ï¼Œæˆ‘ä»¬è¿˜è¦è€ƒè€ƒä½ çš„æ™ºå•†ã€‚ä½ å‡†å¤‡å¥½äº†è¿æ¥æŒ‘æˆ˜å—ï¼Ÿ");
         } else if (status == 2) {
             if (cm.haveItem(4031057, 1)) {
-                cm.sendOk("È¥ÕÒÉñÊ¥µÄÊ¯Í·°É£¬ËüÔÚÇ°Íù·Ï¿óÇøµÄÂ·ÉÏÄ³¸ö½ÇÂä£¡");
+                cm.sendOk("å»æ‰¾ç¥åœ£çš„çŸ³å¤´å§ï¼Œå®ƒåœ¨å‰å¾€åºŸçŸ¿åŒºçš„è·¯ä¸ŠæŸä¸ªè§’è½ï¼");
                 cm.dispose();
             }
         }

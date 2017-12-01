@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  Serryl (1091003)
  Location: The Nautilus
  */
@@ -14,8 +14,8 @@ function action(mode, type, selection) {
     else
         cm.dispose();
     if (status == 0 && mode == 1) {
-        var selStr = "Ê²Ã´£¿ÄãÏë×ö×Ô¼ºµÄÎäÆ÷ºÍÊÖÌ×£¿ÈÏÕæ£¿......Èç¹ûÄãÃ»ÓĞ¾­ÑéµÄ»°£¬ºÜÄÑ×Ô¼º×ö³öÀ´...½»¸øÎÒÕâ¸ö20ÄêµÄÀÏÊÖ°É£¬ÒòÎªÕâ¶ÔÎÒºÜÈİÒ×µÄ¡£";
-        var options = new Array("×öÖ¸»¢", "×ö»ğÇ¹", "×öº£µÁÊÖÌ×");
+        var selStr = "ä»€ä¹ˆï¼Ÿä½ æƒ³åšè‡ªå·±çš„æ­¦å™¨å’Œæ‰‹å¥—ï¼Ÿè®¤çœŸï¼Ÿ......å¦‚æœä½ æ²¡æœ‰ç»éªŒçš„è¯ï¼Œå¾ˆéš¾è‡ªå·±åšå‡ºæ¥...äº¤ç»™æˆ‘è¿™ä¸ª20å¹´çš„è€æ‰‹å§ï¼Œå› ä¸ºè¿™å¯¹æˆ‘å¾ˆå®¹æ˜“çš„ã€‚";
+        var options = new Array("åšæŒ‡è™", "åšç«æª", "åšæµ·ç›—æ‰‹å¥—");
         for (var i = 0; i < options.length; i++) {
             selStr += "\r\n#L" + i + "# " + options[i] + "#l";
         }
@@ -24,23 +24,23 @@ function action(mode, type, selection) {
     } else if (status == 1 && mode == 1) {
         selectedType = selection;
         if (selectedType == 0) { //Making a Knuckler
-            var selStr = "ËùÒÔÀÏĞÖÄãÏë×öÊ²Ã´ÄØ£¿£¿";
-            var knucklers = new Array("#t1482001# (µÈ¼¶ÏŞÖÆ: 15, º£µÁ)", "#t1482002# (µÈ¼¶ÏŞÖÆ: 20, º£µÁ)", "#t1482003# (µÈ¼¶ÏŞÖÆ: 25, º£µÁ)", "#t1482004# (µÈ¼¶ÏŞÖÆ: 30, º£µÁ)", "#t1482005# (µÈ¼¶ÏŞÖÆ: 35, º£µÁ)", "#t1482006# (µÈ¼¶ÏŞÖÆ: 40, º£µÁ)", "#t1482007# (µÈ¼¶ÏŞÖÆ: 50, º£µÁ)");
+            var selStr = "æ‰€ä»¥è€å…„ä½ æƒ³åšä»€ä¹ˆå‘¢ï¼Ÿï¼Ÿ";
+            var knucklers = new Array("#t1482001# (ç­‰çº§é™åˆ¶: 15, æµ·ç›—)", "#t1482002# (ç­‰çº§é™åˆ¶: 20, æµ·ç›—)", "#t1482003# (ç­‰çº§é™åˆ¶: 25, æµ·ç›—)", "#t1482004# (ç­‰çº§é™åˆ¶: 30, æµ·ç›—)", "#t1482005# (ç­‰çº§é™åˆ¶: 35, æµ·ç›—)", "#t1482006# (ç­‰çº§é™åˆ¶: 40, æµ·ç›—)", "#t1482007# (ç­‰çº§é™åˆ¶: 50, æµ·ç›—)");
             for (var i = 0; i < knucklers.length; i++) {
                 selStr += "\r\n#L" + i + "# " + knucklers[i] + "#l";
             }
             equip = true;
             cm.sendSimple(selStr);
         } else if (selectedType == 1) { //Making a Gun
-            var selStr = "ËùÒÔÀÏĞÖÄãÏë×öÊ²Ã´ÄØ£¿£¿";
-            var guns = new Array("#t1492001# (µÈ¼¶ÏŞÖÆ: 15, º£µÁ)", "#t1492002# (µÈ¼¶ÏŞÖÆ: 20, º£µÁ)", "#t1492003# (µÈ¼¶ÏŞÖÆ: 25, º£µÁ)", "#t1492004# (µÈ¼¶ÏŞÖÆ: 30, º£µÁ)", "#t1492005# (µÈ¼¶ÏŞÖÆ: 35, º£µÁ)", "#t1492006# (µÈ¼¶ÏŞÖÆ: 40, º£µÁ)", "#t1492007# (µÈ¼¶ÏŞÖÆ: 50, º£µÁ)");
+            var selStr = "æ‰€ä»¥è€å…„ä½ æƒ³åšä»€ä¹ˆå‘¢ï¼Ÿï¼Ÿ";
+            var guns = new Array("#t1492001# (ç­‰çº§é™åˆ¶: 15, æµ·ç›—)", "#t1492002# (ç­‰çº§é™åˆ¶: 20, æµ·ç›—)", "#t1492003# (ç­‰çº§é™åˆ¶: 25, æµ·ç›—)", "#t1492004# (ç­‰çº§é™åˆ¶: 30, æµ·ç›—)", "#t1492005# (ç­‰çº§é™åˆ¶: 35, æµ·ç›—)", "#t1492006# (ç­‰çº§é™åˆ¶: 40, æµ·ç›—)", "#t1492007# (ç­‰çº§é™åˆ¶: 50, æµ·ç›—)");
             for (var i = 0; i < guns.length; i++) {
                 selStr += "\r\n#L" + i + "# " + guns[i] + "#l";
             }
             equip = true;
             cm.sendSimple(selStr);
-        } else if (selectedType == 2) { //Making a pair of º£µÁ gloves
-            var selStr = "ËùÒÔÀÏĞÖÄãÏë×öÊ²Ã´ÄØ£¿£¿";
+        } else if (selectedType == 2) { //Making a pair of æµ·ç›— gloves
+            var selStr = "æ‰€ä»¥è€å…„ä½ æƒ³åšä»€ä¹ˆå‘¢ï¼Ÿï¼Ÿ";
             var gloves = new Array("#t1082180#", "#t1082183#", "#t1082186#", "#t1082189#", "#t1082192#", "#t1082195#", "#t1082198#", "#t1082201#");
             for (var i = 0; i < gloves.length; i++) {
                 selStr += "\r\n#L" + i + "# " + gloves[i] + "#l";
@@ -80,7 +80,7 @@ function action(mode, type, selection) {
             matQty = matQtySet[selectedItem];
             cost = costSet[selectedItem];
             levelLimit = levelLimitSet[selectedItem];
-        } else if (selectedType == 2) { //Making a pair of º£µÁ gloves
+        } else if (selectedType == 2) { //Making a pair of æµ·ç›— gloves
             var itemSet = new Array(1082180, 1082183, 1082186, 1082189, 1082192, 1082195, 1082198, 1082201);
             var matSet = new Array(new Array(4000021, 4021003), 4000021, new Array(4011000, 4000021), new Array(4021006, 4000021, 4003000), new Array(4011000, 4000021, 4003000), new Array(4000021, 4011000, 4011001, 4003000), new Array(4011000, 4000021, 4000030, 4003000), new Array(4011007, 4021008, 4021007, 4000030, 4003000));
             var matQtySet = new Array(new Array(15, 1), 35, new Array(2, 20), new Array(2, 50, 10), new Array(3, 60, 15), new Array(80, 3, 3, 25), new Array(3, 20, 40, 30), new Array(1, 1, 1, 50, 50));
@@ -93,7 +93,7 @@ function action(mode, type, selection) {
             levelLimit = levelLimitSet[selectedItem];
         }
 
-        prompt = "ÄãÏëÒª×öÒ»Ë« #t" + item + "#? ÔÚÕâÖÖÇé¿öÏÂ, ÎÒÎªÁËÒª×ö³ö×î°ôµÄĞ¬×Ó£¬ÎÒ½¨ÒéÄãÈ·±£×°±¸À¸¿Õ¼ä×ã¹»¡£#b";
+        prompt = "ä½ æƒ³è¦åšä¸€åŒ #t" + item + "#? åœ¨è¿™ç§æƒ…å†µä¸‹, æˆ‘ä¸ºäº†è¦åšå‡ºæœ€æ£’çš„é‹å­ï¼Œæˆ‘å»ºè®®ä½ ç¡®ä¿è£…å¤‡æ ç©ºé—´è¶³å¤Ÿã€‚#b";
 
         if (mats instanceof Array) {
             for (var i = 0; i < mats.length; i++) {
@@ -104,7 +104,7 @@ function action(mode, type, selection) {
         }
 
         if (cost > 0)
-            prompt += "\r\n#i4031138# " + cost * qty + " ·ã±Ò";
+            prompt += "\r\n#i4031138# " + cost * qty + " æ«å¸";
 
         cm.sendYesNo(prompt);
     } else if (status == 4 && mode == 1) {
@@ -112,7 +112,7 @@ function action(mode, type, selection) {
 
         if (cm.getMeso() < cost * qty)
         {
-            cm.sendOk("Ç®²»¹»Å¶±§Ç¸...")
+            cm.sendOk("é’±ä¸å¤Ÿå“¦æŠ±æ­‰...")
             cm.dispose();
             return;
         } else
@@ -134,7 +134,7 @@ function action(mode, type, selection) {
         }
 
         if (pass == false)
-            cm.sendOk("ºÜ±§Ç¸ÓÉÓÚÄãµÄ²ÄÁÏ²»×ã£¬ËùÒÔÎÒ²»Ïë°ïÄã×öÁË¡£");
+            cm.sendOk("å¾ˆæŠ±æ­‰ç”±äºä½ çš„ææ–™ä¸è¶³ï¼Œæ‰€ä»¥æˆ‘ä¸æƒ³å¸®ä½ åšäº†ã€‚");
         else {
             if (mats instanceof Array) {
                 for (var i = 0; i < mats.length; i++) {
@@ -150,7 +150,7 @@ function action(mode, type, selection) {
                 cm.gainItem(4003000, 15 * qty);
             else
                 cm.gainItem(item, qty);
-            cm.sendOk("ÖÆ×÷Íê±Ï¡£");
+            cm.sendOk("åˆ¶ä½œå®Œæ¯•ã€‚");
         }
         cm.dispose();
     }

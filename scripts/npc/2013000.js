@@ -1,4 +1,4 @@
-var status = -1;
+ï»¿var status = -1;
 var minLevel = 51; // 35
 var maxLevel = 200; // 65
 
@@ -16,7 +16,7 @@ function action(mode, type, selection) {
         status--;
     }
     if (cm.getMapId() == 920010000) { //inside orbis pq
-        cm.sendOk("ÇëÄã°ÑËùÓĞµÄÔÆ¶ä´òÁË£¬´ÕÆëµ½20¸öÔÆ¶äËéÆ¬·ÅÈëµØÍ¼Í¤×ÓµÄ¹âÇòÏÂ¡£");
+        cm.sendOk("è¯·ä½ æŠŠæ‰€æœ‰çš„äº‘æœµæ‰“äº†ï¼Œå‡‘é½åˆ°20ä¸ªäº‘æœµç¢ç‰‡æ”¾å…¥åœ°å›¾äº­å­çš„å…‰çƒä¸‹ã€‚");
         cm.dispose();
         return;
     }
@@ -25,9 +25,9 @@ function action(mode, type, selection) {
             cm.removeAll(i); //holy
         }
         if (cm.getParty() == null) { // No Party
-            cm.sendSimple("How about you and your party members collectively beating a quest? Here you'll find obstacles and problems where you won't be able to beat it unless with great teamwork. If you want to try it, please tell the #bleader of your party#k to talk to me.\r\n\r\n#rÒªÇó×îĞ¡ÈËÊı: " + minPartySize + " Party Members, ºÍ×îµÍµÈ¼¶ " + minLevel + " ºÍ×î¸ßµÈ¼¶ " + maxLevel + ".#b\r\n");
+            cm.sendSimple("How about you and your party members collectively beating a quest? Here you'll find obstacles and problems where you won't be able to beat it unless with great teamwork. If you want to try it, please tell the #bleader of your party#k to talk to me.\r\n\r\n#rè¦æ±‚æœ€å°äººæ•°: " + minPartySize + " Party Members, å’Œæœ€ä½ç­‰çº§ " + minLevel + " å’Œæœ€é«˜ç­‰çº§ " + maxLevel + ".#b\r\n");
         } else if (!cm.isLeader()) { // Not Party Leader
-            cm.sendSimple("If you want to try the quest, please tell the #bleader of your party#k to talk to me.#b\r\n#L0#ÎÒÏëÒªÓÃÅ®ÉñµÄÓğÃ«¶Ò»»#v1082322##z1082322##l\r\n#L1#ÎÒÏëÒªÓÃÅ®ÉñµÄÓğÃ«¶Ò»»#v1072534##z1072534##l");
+            cm.sendSimple("If you want to try the quest, please tell the #bleader of your party#k to talk to me.#b\r\n#L0#æˆ‘æƒ³è¦ç”¨å¥³ç¥çš„ç¾½æ¯›å…‘æ¢#v1082322##z1082322##l\r\n#L1#æˆ‘æƒ³è¦ç”¨å¥³ç¥çš„ç¾½æ¯›å…‘æ¢#v1072534##z1072534##l");
         } else {
             // Check if all party members are within PQ levels
             var party = cm.getParty().getMembers();
@@ -54,7 +54,7 @@ function action(mode, type, selection) {
             if (next) {
                 var em = cm.getEventManager("OrbisPQ");
                 if (em == null) {
-                    cm.sendSimple("The PQ has encountered an error. Please report this on the forums, with a screenshot.#b\r\n#L0#ÎÒÏëÒªÓÃÅ®ÉñµÄÓğÃ«¶Ò»»#v1082322##z1082322##l\r\n#L1#ÎÒÏëÒªÓÃÅ®ÉñµÄÓğÃ«¶Ò»»#v1072534##z1072534##l");
+                    cm.sendSimple("The PQ has encountered an error. Please report this on the forums, with a screenshot.#b\r\n#L0#æˆ‘æƒ³è¦ç”¨å¥³ç¥çš„ç¾½æ¯›å…‘æ¢#v1082322##z1082322##l\r\n#L1#æˆ‘æƒ³è¦ç”¨å¥³ç¥çš„ç¾½æ¯›å…‘æ¢#v1072534##z1072534##l");
                 } else {
                     var prop = em.getProperty("state");
                     if (prop.equals("0") || prop == null) {
@@ -66,7 +66,7 @@ function action(mode, type, selection) {
                     }
                 }
             } else {
-                cm.sendSimple("ÄãµÄ¶ÓÎé²»·ûºÏÒªÇó\r\n\r\n#r³ÉÔ±ÒªÇó: 3--6Ãû¶ÓÔ±, ËùÓĞÈËµÈ¼¶ " + minLevel + " ºÍ " + maxLevel + "Ö®¼ä#b\r\n#L0#ÎÒÏëÒªÓÃ#v4001158##z4001158#10¸ö¶Ò»»#v1082322##z1082322##l\r\n#L1#ÎÒÏëÒªÓÃ#v4001158##z4001158#10¸ö¶Ò»»#v1072534##z1072534##l");
+                cm.sendSimple("ä½ çš„é˜Ÿä¼ä¸ç¬¦åˆè¦æ±‚\r\n\r\n#ræˆå‘˜è¦æ±‚: 3--6åé˜Ÿå‘˜, æ‰€æœ‰äººç­‰çº§ " + minLevel + " å’Œ " + maxLevel + "ä¹‹é—´#b\r\n#L0#æˆ‘æƒ³è¦ç”¨#v4001158##z4001158#10ä¸ªå…‘æ¢#v1082322##z1082322##l\r\n#L1#æˆ‘æƒ³è¦ç”¨#v4001158##z4001158#10ä¸ªå…‘æ¢#v1072534##z1072534##l");
             }
         }
     } else { //broken glass
@@ -76,20 +76,20 @@ function action(mode, type, selection) {
             //} else 
 			if (cm.haveItem(1082232, 1)) {
                 if (!cm.canHold(1082322, 1)) {
-                    cm.sendOk("ÇëÇå³ıÄãµÄ±³°ü£¬ÒÑ¾­ÂúÁË£¡");
+                    cm.sendOk("è¯·æ¸…é™¤ä½ çš„èƒŒåŒ…ï¼Œå·²ç»æ»¡äº†ï¼");
                 } else if (cm.haveItem(4001158, 10)) {
                     cm.gainItem(1082322, 1);
                     cm.gainItem(4001158, -10);
                 } else {
-                    cm.sendOk("ÇëÄãÊÕ¼¯10¸ö #t4001158#.");
+                    cm.sendOk("è¯·ä½ æ”¶é›†10ä¸ª #t4001158#.");
                 }
             } else if (!cm.canHold(1082232, 1)) {
-                cm.sendOk("ÇëÇå³ıÄãµÄ±³°ü£¬ÒÑ¾­ÂúÁË£¡");
+                cm.sendOk("è¯·æ¸…é™¤ä½ çš„èƒŒåŒ…ï¼Œå·²ç»æ»¡äº†ï¼");
             } else if (cm.haveItem(4001158, 10)) {
                 cm.gainItem(1082232, 1);
                 cm.gainItem(4001158, -10);
             } else {
-                cm.sendOk("ÇëÄãÊÕ¼¯10¸ö #t4001158#.");
+                cm.sendOk("è¯·ä½ æ”¶é›†10ä¸ª #t4001158#.");
             }
         } else if (selection == 1) {
            // if (!cm.isGMS()) { //TODO Jump
@@ -97,12 +97,12 @@ function action(mode, type, selection) {
             //} else 
 			if (cm.haveItem(1072455, 1)) {
                 if (!cm.canHold(1072534, 1)) {
-                    cm.sendOk("ÇëÇå³ıÄãµÄ±³°ü£¬ÒÑ¾­ÂúÁË£¡.");
+                    cm.sendOk("è¯·æ¸…é™¤ä½ çš„èƒŒåŒ…ï¼Œå·²ç»æ»¡äº†ï¼.");
                 } else if (cm.haveItem(4001158, 10)) {
                     cm.gainItem(1072534, 1);
                     cm.gainItem(4001158, -10);
                 } else {
-                    cm.sendOk("ÇëÄãÊÕ¼¯10¸ö#t4001158#.");
+                    cm.sendOk("è¯·ä½ æ”¶é›†10ä¸ª#t4001158#.");
                 }
             } else if (!cm.canHold(1072455, 1)) {
                 cm.sendOk("Make room for this shoe.");

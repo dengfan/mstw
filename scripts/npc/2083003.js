@@ -1,4 +1,4 @@
-var status = -1;
+ï»¿var status = -1;
 
 function action(mode, type, selection) {
 	if (cm.getMapId() == 240050100) {
@@ -13,7 +13,7 @@ function action(mode, type, selection) {
              cm.warpParty(240050300);
 			 cm.dispose();
 	} else {
-             cm.sendOk("Çë½ĞÄãµÄ¶Ó³¤´ø×Å5ÖÖÃÔ¹¬ÊÒÔ¿³×À´ÕÒÎÒ");
+             cm.sendOk("è¯·å«ä½ çš„é˜Ÿé•¿å¸¦ç€5ç§è¿·å®«å®¤é’¥åŒ™æ¥æ‰¾æˆ‘");
 			 cm.dispose();
               }
         }

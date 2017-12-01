@@ -1,4 +1,4 @@
-var status = -1;
+ï»¿var status = -1;
 var s = 0;
 var t = 0;
 
@@ -9,11 +9,11 @@ function start() {
 function action(mode, type, selection) {
     var c = cm.getPlayer();
 	if(!c.isVip()){
-	cm.sendNext("»¶Ó­À´µ½Æ¨Æ¨¹Év113");
+	cm.sendNext("æ¬¢è¿æ¥åˆ°å±å±è‚¡v113");
 	cm.dispose();
 	return
 	}
-    var VipMedal = c.getVipMedal() ? "#rÏÔÊ¾" : "#bÎ´ÏÔÊ¾";
+    var VipMedal = c.getVipMedal() ? "#ræ˜¾ç¤º" : "#bæœªæ˜¾ç¤º";
     if (mode == -1) {
         cm.dispose();
     } else {
@@ -26,9 +26,9 @@ function action(mode, type, selection) {
         else
             status--;
         if (status == 0) {
-            cm.sendSimple("#b±¾NPCÌá¹©Ñ¡ÔñÄú½ÅÏÂÏÔÊ¾µÄ¶«Î÷\r\n#rPS: ±ğÈË¿´ÄúÒ²Èç´ËÏÔÊ¾\r\n" +
-                    "#g#L1#VIPÑ«ÕÂ	  : " + VipMedal + "\r\n" +
-					"#d#L4#Éè¶¨Íê³É");
+            cm.sendSimple("#bæœ¬NPCæä¾›é€‰æ‹©æ‚¨è„šä¸‹æ˜¾ç¤ºçš„ä¸œè¥¿\r\n#rPS: åˆ«äººçœ‹æ‚¨ä¹Ÿå¦‚æ­¤æ˜¾ç¤º\r\n" +
+                    "#g#L1#VIPå‹‹ç« 	  : " + VipMedal + "\r\n" +
+					"#d#L4#è®¾å®šå®Œæˆ");
         } else if (status == 1) {
             s = selection;
             if (s == 1) {

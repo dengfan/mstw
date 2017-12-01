@@ -1,9 +1,9 @@
-function act() {
+ï»¿function act() {
     try {
         rm.changeMusic("Bgm09/TimeAttack");
         rm.spawnMonster(9420513, -146, 225);
-        rm.mapMessage(5, "ÓÄÁé´¬³¤³öÏÖÁË¡£");
+        rm.mapMessage(5, "å¹½çµèˆ¹é•¿å‡ºç°äº†ã€‚");
     } catch(e) {
-        rm.mapMessage(5, "³öÏÖ´íÎó: " + e);
+        rm.mapMessage(5, "å‡ºç°é”™è¯¯: " + e);
     }
 }

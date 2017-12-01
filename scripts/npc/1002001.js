@@ -1,8 +1,8 @@
-/* 	Cody
+ï»¿/* 	Cody
 */
 
 function start() {
-    cm.sendOk("àË£¬ÎÒÊÇ#p1002001# ºÜ¸ßĞËÈÏÊ¶Äã=)");
+    cm.sendOk("å—¨ï¼Œæˆ‘æ˜¯#p1002001# å¾ˆé«˜å…´è®¤è¯†ä½ =)");
 }
 
 function action(mode, type, selection) {

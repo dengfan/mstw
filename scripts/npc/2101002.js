@@ -1,10 +1,10 @@
-/* 	Eleska
+ï»¿/* 	Eleska
 	Ariant	
 */
 
 
 function start() {
-    cm.sendOk("Ô¶ÀëÎÒ£¬Èç¹ûÄã²»ÏëÒªÈÎºÎÎ£ÏÕ.");
+    cm.sendOk("è¿œç¦»æˆ‘ï¼Œå¦‚æœä½ ä¸æƒ³è¦ä»»ä½•å±é™©.");
 }
 
 function action() {

@@ -1,6 +1,6 @@
-/*
-	Map : ÎäÁÖµÀ³¡
-	Npc : Ïô¹«
+ï»¿/*
+	Map : æ­¦æž—é“åœº
+	Npc : è§å…¬
         Desc : Training Center Start
  */
 
@@ -14,11 +14,11 @@ var belt_points = Array(2000, 5000, 8000, 10000, 15000, 8000);
 function start() {
     mapid = cm.getMapId();
     if (mapid == 925020001) {
-        cm.sendSimple("Ê¦¸¸ÊÇÕâÀïµÄµÚÒ»Ç¿Õß¡£ÏñÄãÕâÖÖ¼Ò»ïÒ²¸ÒÌôÕ½£¿Äã»áºó»ÚµÄ£¡ \r #b#L0# ¸öÈËÌôÕ½#l \n\r #L1# ÍÅ¶ÓÌôÕ½#l \n\r #L2# »»È¡ÐÞÁ¶µãÊý½±Àø#l \n\r #L3# Ïë³õÊ¼»¯ÐÞÁ·µãÊý#l \n\r #L5# ÎäÁêµÀ³¡ÊÇÊ²Ã´£¿#l");
+        cm.sendSimple("å¸ˆçˆ¶æ˜¯è¿™é‡Œçš„ç¬¬ä¸€å¼ºè€…ã€‚åƒä½ è¿™ç§å®¶ä¼™ä¹Ÿæ•¢æŒ‘æˆ˜ï¼Ÿä½ ä¼šåŽæ‚”çš„ï¼ \r #b#L0# ä¸ªäººæŒ‘æˆ˜#l \n\r #L1# å›¢é˜ŸæŒ‘æˆ˜#l \n\r #L2# æ¢å–ä¿®ç‚¼ç‚¹æ•°å¥–åŠ±#l \n\r #L3# æƒ³åˆå§‹åŒ–ä¿®ç»ƒç‚¹æ•°#l \n\r #L5# æ­¦é™µé“åœºæ˜¯ä»€ä¹ˆï¼Ÿ#l");
     } else if (isRestingSpot(mapid)) {
-        cm.sendSimple("ÎÒºÜ¾ªÑÈµØÖªµÀ£¬ÄãÒÑ¾­°²È«µØ´ïµ½Õâ¸öË®Æ½¡£ÎÒ¿ÉÒÔ±£Ö¤£¬µ«ÊÇ£¬Ëü²»»áµÃµ½ÈÎºÎ¸üÈÝÒ×¡£Äã¾õµÃÔõÃ´Ñù£¿ÄãÏë¼ÌÐø×ßÂð£¿#b \n\r #L0# ÊÇµÄ£¬ÎÒ½«¼ÌÐø×ßÏÂÈ¥¡£#l \n\r #L1# ÎÒÏë³öÀ´#l \n\r #L2# ÎÒÏë°ÑÎÒµÄ½ø²½¼ÇÂ¼ÔÚ°¸¡£#l");
+        cm.sendSimple("æˆ‘å¾ˆæƒŠè®¶åœ°çŸ¥é“ï¼Œä½ å·²ç»å®‰å…¨åœ°è¾¾åˆ°è¿™ä¸ªæ°´å¹³ã€‚æˆ‘å¯ä»¥ä¿è¯ï¼Œä½†æ˜¯ï¼Œå®ƒä¸ä¼šå¾—åˆ°ä»»ä½•æ›´å®¹æ˜“ã€‚ä½ è§‰å¾—æ€Žä¹ˆæ ·ï¼Ÿä½ æƒ³ç»§ç»­èµ°å—ï¼Ÿ#b \n\r #L0# æ˜¯çš„ï¼Œæˆ‘å°†ç»§ç»­èµ°ä¸‹åŽ»ã€‚#l \n\r #L1# æˆ‘æƒ³å‡ºæ¥#l \n\r #L2# æˆ‘æƒ³æŠŠæˆ‘çš„è¿›æ­¥è®°å½•åœ¨æ¡ˆã€‚#l");
     } else {
-        cm.sendYesNo("Ê²Ã´£¿ÄãÒÑ¾­×¼±¸ºÃ·ÅÆúÁËÂð£¿ÄãÖ»ÐèÒª¼ÌÐøÇ°½øµ½ÏÂÒ»¸öË®Æ½¡£ÄãÈ·¶¨ÒªÍË³öÂð£¿");
+        cm.sendYesNo("ä»€ä¹ˆï¼Ÿä½ å·²ç»å‡†å¤‡å¥½æ”¾å¼ƒäº†å—ï¼Ÿä½ åªéœ€è¦ç»§ç»­å‰è¿›åˆ°ä¸‹ä¸€ä¸ªæ°´å¹³ã€‚ä½ ç¡®å®šè¦é€€å‡ºå—ï¼Ÿ");
     }
 }
 
@@ -33,12 +33,12 @@ function action(mode, type, selection) {
         if (status == 0) {
             sel = selection;
             if (sel == 5) {
-                cm.sendNext("ÎÒµÄÊ¦¸¸ÔÚÎäÁêÊÇ×îÇ¿µÄÒ»Î»¡£Òò´ËÎäÁêÓ¡ÕÂÖ»ÓÐÔÚ´ËÕâ¸öµØ·½²ÅÄÜÖÆ×÷³öÀ´¡£ÎäÁê¾ßÓÐÔ¼38Â¥Ö®¸ßµÄ½¨Öþ¡£ÈôÂýÂýµÄÍùÉÏÍ¬Ê±Ò²»áÌáÉýÑµÁ·Ö¸Êý¡£µ±È»ÒÔÄãµÄÊµÁ¦È¥ÅÀÍêÊÇÓÐÐ©À§ÄÑ¡£");
+                cm.sendNext("æˆ‘çš„å¸ˆçˆ¶åœ¨æ­¦é™µæ˜¯æœ€å¼ºçš„ä¸€ä½ã€‚å› æ­¤æ­¦é™µå°ç« åªæœ‰åœ¨æ­¤è¿™ä¸ªåœ°æ–¹æ‰èƒ½åˆ¶ä½œå‡ºæ¥ã€‚æ­¦é™µå…·æœ‰çº¦38æ¥¼ä¹‹é«˜çš„å»ºç­‘ã€‚è‹¥æ…¢æ…¢çš„å¾€ä¸ŠåŒæ—¶ä¹Ÿä¼šæå‡è®­ç»ƒæŒ‡æ•°ã€‚å½“ç„¶ä»¥ä½ çš„å®žåŠ›åŽ»çˆ¬å®Œæ˜¯æœ‰äº›å›°éš¾ã€‚");
                 cm.dispose();
             } else if (sel == 3) {
-                cm.sendYesNo("ÑµÁ··ÖÊýÈô³õÊ¼»¯Ôò»á±äÎª0·Öà¸ ¡£ÏàÐÅÄãÒÑÓ¦¸ÃÃ÷°×£¿µ«ÊÇÎ´±Ø²»ºÃ¡£ ÑµÁ··ÖÊýÈô³õÊ¼»¯Ê± Ö®Ç°µÄ¼ÇÂ¼»áÉ¾³ý¡£µ«»¹»áÓµÓÐÑü´ø¡£ÇëÎÊ°ÑÑµÁ··ÖÊýÒª³õÊ¼»¯Âð£¿");
+                cm.sendYesNo("è®­ç»ƒåˆ†æ•°è‹¥åˆå§‹åŒ–åˆ™ä¼šå˜ä¸º0åˆ†å–” ã€‚ç›¸ä¿¡ä½ å·²åº”è¯¥æ˜Žç™½ï¼Ÿä½†æ˜¯æœªå¿…ä¸å¥½ã€‚ è®­ç»ƒåˆ†æ•°è‹¥åˆå§‹åŒ–æ—¶ ä¹‹å‰çš„è®°å½•ä¼šåˆ é™¤ã€‚ä½†è¿˜ä¼šæ‹¥æœ‰è…°å¸¦ã€‚è¯·é—®æŠŠè®­ç»ƒåˆ†æ•°è¦åˆå§‹åŒ–å—ï¼Ÿ");
             } else if (sel == 2) {
-                var selStr = "ÄãµÄÐÞÁ·µãÊýÎª #b" + cm.getDojoPoints() + "#k ¡£Ê¦¸¸Ï²»¶ÓÐ²ÅÄÜµÄÈË¡£µ±»ñµÃÒ»¶¨µÄÐÞÁ¶µãÊý¡£¾Í¿ÉÒÔ¸ù¾ÝÐÞÁ·µãÊýÀ´»ñµÃÑü´ø¡£\n\r"
+                var selStr = "ä½ çš„ä¿®ç»ƒç‚¹æ•°ä¸º #b" + cm.getDojoPoints() + "#k ã€‚å¸ˆçˆ¶å–œæ¬¢æœ‰æ‰èƒ½çš„äººã€‚å½“èŽ·å¾—ä¸€å®šçš„ä¿®ç‚¼ç‚¹æ•°ã€‚å°±å¯ä»¥æ ¹æ®ä¿®ç»ƒç‚¹æ•°æ¥èŽ·å¾—è…°å¸¦ã€‚\n\r"
                 for (var i = 0; i < belts.length; i++) {
                     selStr += "\r\n#L" + i + "##i" + belts[i] + ":# #t" + belts[i] + "#(" + belt_points[i] + ")#l";
                 }
@@ -46,14 +46,14 @@ function action(mode, type, selection) {
             } else if (sel == 1) {
                 if (cm.getParty() != null) {
                     if (cm.isLeader()) {
-                        cm.sendOk("ÄãÏëÒªÏÖÔÚ½øÈëÂð?");
+                        cm.sendOk("ä½ æƒ³è¦çŽ°åœ¨è¿›å…¥å—?");
                     } else {
-                        cm.sendOk("ÈÃÄãµÄ¶Ó³¤À´ÕÒÎÒ£¬Èç¹ûÄãÃÇÒª½øÈëµÄ»°£¡");
+                        cm.sendOk("è®©ä½ çš„é˜Ÿé•¿æ¥æ‰¾æˆ‘ï¼Œå¦‚æžœä½ ä»¬è¦è¿›å…¥çš„è¯ï¼");
                     }
                 }
             } else if (sel == 0) {
                 if (cm.getParty() != null) {
-                    cm.sendOk("ÇëÀë¿ªÄãµÄ×é¶Ó£¡");
+                    cm.sendOk("è¯·ç¦»å¼€ä½ çš„ç»„é˜Ÿï¼");
                     cm.dispose();
                 }
                 var record = cm.getQuestRecord(150000);
@@ -66,7 +66,7 @@ function action(mode, type, selection) {
                         cm.dojoAgent_NextMap(true, true);
                         record.setCustomData(null);
                     } else {
-                        cm.sendOk("ÇëÉÔºóÔÙ¼ÌÐø³¢ÊÔ");
+                        cm.sendOk("è¯·ç¨åŽå†ç»§ç»­å°è¯•");
                     }
                 } else {
                     cm.start_DojoAgent(true, false);
@@ -77,7 +77,7 @@ function action(mode, type, selection) {
         } else if (status == 1) {
             if (sel == 3) {
                 cm.setDojoRecord(true);
-                cm.sendOk("ÎÒÒÑ¾­°ïÄã°ÑÑµÁ·µãÖØÖÃÎª 0.");
+                cm.sendOk("æˆ‘å·²ç»å¸®ä½ æŠŠè®­ç»ƒç‚¹é‡ç½®ä¸º 0.");
                 cm.dispose();
             } else if (sel == 2) {
                 var belt = belts[selection];
@@ -90,13 +90,13 @@ function action(mode, type, selection) {
                             cm.gainItem(belt, 1);
                             cm.setDojoRecord(false);
                         } else {
-                            cm.sendOk("±³°ü¿Õ¼ä²»×ã.");
+                            cm.sendOk("èƒŒåŒ…ç©ºé—´ä¸è¶³.");
                         }
                     } else {
-                        cm.sendOk("#b#i" + belt + "# #t" + belt + "##kÊ± #b" + level + "#k and you need to have earned at least #b" + points + " training points#k.\r\n\r\nÈç¹ûÄãÏë»ñµÃÎïÆ·£¬ÄãÖÁÉÙÐèÒª #r" + (cm.getDojoPoints() - points) + "#k µãÊý¡£");
+                        cm.sendOk("#b#i" + belt + "# #t" + belt + "##kæ—¶ #b" + level + "#k and you need to have earned at least #b" + points + " training points#k.\r\n\r\nå¦‚æžœä½ æƒ³èŽ·å¾—ç‰©å“ï¼Œä½ è‡³å°‘éœ€è¦ #r" + (cm.getDojoPoints() - points) + "#k ç‚¹æ•°ã€‚");
                     }
                 } else {
-                    cm.sendOk("#b»»È¡#i" + belt + "# #t" + belt + "##kÊ±ÄãµÄ#bµÈ¼¶Ò»¶¨Òª" + level + "#kÒÔÉÏ.ÐèÒª#KÀÛ¼ÆÐÞÁ¶ #b" + points + " µãÊý¡£\r\n\r\nÄãÏëÒª»ñµÃÕâÑü´øµÄ»°»¹ÐèÒª¸ü¶à #r" + (cm.getDojoPoints() - points) + "#k ÐÞÁ·µãÊý¡£");
+                    cm.sendOk("#bæ¢å–#i" + belt + "# #t" + belt + "##kæ—¶ä½ çš„#bç­‰çº§ä¸€å®šè¦" + level + "#kä»¥ä¸Š.éœ€è¦#Kç´¯è®¡ä¿®ç‚¼ #b" + points + " ç‚¹æ•°ã€‚\r\n\r\nä½ æƒ³è¦èŽ·å¾—è¿™è…°å¸¦çš„è¯è¿˜éœ€è¦æ›´å¤š #r" + (cm.getDojoPoints() - points) + "#k ä¿®ç»ƒç‚¹æ•°ã€‚");
                 }
                 cm.dispose();
             } else if (sel == 1) {
@@ -117,12 +117,12 @@ function action(mode, type, selection) {
                 if (cm.getParty() == null || cm.isLeader()) {
                     cm.dojoAgent_NextMap(true, true);
                 } else {
-                    cm.sendOk("Ö»ÓÐ¶Ó³¤ÄÜ¹»½øÈë.");
+                    cm.sendOk("åªæœ‰é˜Ÿé•¿èƒ½å¤Ÿè¿›å…¥.");
                 }
                 //cm.getQuestRecord(150000).setCustomData(null);
                 cm.dispose();
             } else if (sel == 1) {
-                cm.askAcceptDecline("ÄãÏëÀë¿ªÂð£¿ÄãÈ·¶¨ÄãÒªÀë¿ª£¿");
+                cm.askAcceptDecline("ä½ æƒ³ç¦»å¼€å—ï¼Ÿä½ ç¡®å®šä½ è¦ç¦»å¼€ï¼Ÿ");
             } else if (sel == 2) {
                 if (cm.getParty() == null) {
                     var stage = get_stageId(cm.getMapId());

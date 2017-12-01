@@ -1,4 +1,4 @@
-/*
+ï»¿/*
 	NPC Name: 		Palakeen
 	Map(s): 		Zipangu - Mushroom Shrine
 	Description: 		Kaede Castle teleporter
@@ -12,7 +12,7 @@ function action(mode, type, selection) {
 	status++;
     } else {
 	if (status == 1 || status == 0 && mode == -1) {
-	    cm.sendNext("ĞèÒªµÄÊ±ºòÔÙÀ´ÕÒÎÒ°É¡£");
+	    cm.sendNext("éœ€è¦çš„æ—¶å€™å†æ¥æ‰¾æˆ‘å§ã€‚");
 	    cm.dispose();
 	    return;
 	}
@@ -21,11 +21,11 @@ function action(mode, type, selection) {
     switch (cm.getMapId()) {
 	case 800040000: {
 	    if (status == 0) {
-		cm.sendNext("ÊÇ·ñÒª»ØÈ¥¹Å´úÉñÉç£¿ Ò»´Î " + cost + "·ã±Ò¾ÍºÃÁË¡£");
+		cm.sendNext("æ˜¯å¦è¦å›å»å¤ä»£ç¥ç¤¾ï¼Ÿ ä¸€æ¬¡ " + cost + "æ«å¸å°±å¥½äº†ã€‚");
 		} else if (status == 1) {
-		cm.sendYesNo("ÄúÕæµÄÒª»ØÈ¥Âğ??");
+		cm.sendYesNo("æ‚¨çœŸçš„è¦å›å»å—??");
 	    } else if (status == 2) {
-		cm.sendNext("ÄÇÎÒ¾Í´øÄú»ØÈ¥†ª£¡");
+		cm.sendNext("é‚£æˆ‘å°±å¸¦æ‚¨å›å»å•°ï¼");
 	    } else if (status == 3) {
 		cm.gainMeso(-cost);
 		cm.warp(800000000, 0);
@@ -35,11 +35,11 @@ function action(mode, type, selection) {
 	}
 	default: {
 	    if (status == 0) {
-		cm.sendNext("ÊÇ·ñÒªÈ¥·ãÒ¶¹Å³Ç£¿ Ò»´Î " + cost + "·ã±Ò¾ÍºÃÁË¡£");
+		cm.sendNext("æ˜¯å¦è¦å»æ«å¶å¤åŸï¼Ÿ ä¸€æ¬¡ " + cost + "æ«å¸å°±å¥½äº†ã€‚");
 		} else if (status == 1) {
-		cm.sendYesNo("ÄúÕæµÄÒªÈ¥Âğ??");	
+		cm.sendYesNo("æ‚¨çœŸçš„è¦å»å—??");	
 	    } else if (status == 2) {
-		cm.sendNext("ÄÇÎÒ¾Í´øÄúÈ¥†ª£¡");
+		cm.sendNext("é‚£æˆ‘å°±å¸¦æ‚¨å»å•°ï¼");
 	    } else if (status == 3) {
 		cm.gainMeso(-cost);
 		cm.warp(800040000, 0);

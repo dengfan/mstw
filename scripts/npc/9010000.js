@@ -1,4 +1,4 @@
-function start() {
+ï»¿function start() {
     status = -1;
 
     action(1, 0, 0);
@@ -10,7 +10,7 @@ function action(mode, type, selection) {
     else {
         if (status >= 0 && mode == 0) {
 
-            cm.sendOk("¸ĞĞ»ÄãµÄ¹âÁÙ£¡");
+            cm.sendOk("æ„Ÿè°¢ä½ çš„å…‰ä¸´ï¼");
             cm.dispose();
             return;
         }
@@ -21,7 +21,7 @@ function action(mode, type, selection) {
             status--;
         }
         if (status == 0) {
-            var text = "#kÄúºÃ£¬·Ç³£»¶Ó­Äú¹âÁÙÃÈĞÂÃ°ÏÕµº£¡\r\nÏ£ÍûÄú¿ªĞÄÓÎÏ·£¬Óöµ½Ê²Ã´ÎÊÌâ¿ÉÒÔËæÊ±ÁªÏµÈºÖ÷£¡\r\nÎ¨Ò»QQÈº£º55580907#l\r\n";
+            var text = "#kæ‚¨å¥½ï¼Œéå¸¸æ¬¢è¿æ‚¨å…‰ä¸´èŒæ–°å†’é™©å²›ï¼\r\nå¸Œæœ›æ‚¨å¼€å¿ƒæ¸¸æˆï¼Œé‡åˆ°ä»€ä¹ˆé—®é¢˜å¯ä»¥éšæ—¶è”ç³»ç¾¤ä¸»ï¼\r\nå”¯ä¸€QQç¾¤ï¼š55580907#l\r\n";
             cm.sendSimple(text);
             cm.dispose();
         }

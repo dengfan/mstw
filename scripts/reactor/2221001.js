@@ -1,8 +1,8 @@
-/*
+ï»¿/*
 	KFT Reactor - Blue King Goblin
 */
 
 function act() {
     rm.spawnMonster(7130401);
-    rm.mapMessage(5, "À¶É«¹í¹Ö³öÏÖÁË¡£");
+    rm.mapMessage(5, "è“è‰²é¬¼æ€ªå‡ºç°äº†ã€‚");
 }

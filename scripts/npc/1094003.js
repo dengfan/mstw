@@ -1,4 +1,4 @@
-/* Author: Xterminator
+ï»¿/* Author: Xterminator
 	NPC Name: 		Bush
 	Map(s): 		Victoria Road : Nautilus Harbor (120000000)
 	Description: 		Quest
@@ -28,12 +28,12 @@ function action(mode, type, selection) {
 	    }
 	    cm.gainItem(item, 1);
 	    if (item == 4031853) {
-		cm.sendNext("ÎÒ·¢ÏÖÁËÑÛ¾µ£¡£¡");
+		cm.sendNext("æˆ‘å‘ç°äº†çœ¼é•œï¼ï¼");
 	    } else {
-		cm.sendOk("ÎÒ·¢ÏÖÁËÒ»¸±ÑÛ¾µµ«ËüËÆºõ²»ÊÇÕæÕıµÄÑÛ¾µ...");
+		cm.sendOk("æˆ‘å‘ç°äº†ä¸€å‰¯çœ¼é•œä½†å®ƒä¼¼ä¹ä¸æ˜¯çœŸæ­£çš„çœ¼é•œ...");
 	    }
 	} else {
-		cm.sendOk("Õâ²İ´Ô¿´ÆğÀ´ºÜ°­ÑÛ...");
+		cm.sendOk("è¿™è‰ä¸›çœ‹èµ·æ¥å¾ˆç¢çœ¼...");
 		cm.dispose();
 	}
 	cm.dispose();

@@ -1,6 +1,6 @@
-/*
+﻿/*
  *
- *  �˽ű���ð�յ��������
+ *  此脚本由冒险岛制作完成
  * 
  *
  */
@@ -28,7 +28,7 @@ function action(mode, type, selection)
 	}
 	else if (mode == 0)
 	{
-		cm.sendOk("�õ����Ҫ��ս#b��ɮ#k��ʱ������.");
+		cm.sendOk("好的如果要挑战#b妖僧#k随时来找我.");
 		cm.dispose();
 	} 
 	else 
@@ -40,14 +40,14 @@ function action(mode, type, selection)
 		
 	if (status == 0)
 	{	/*if (cm.getC().getChannel() != 2){
-			cm.sendOk("   ������ɮ����սֻ����#r2#kƵ������!");
+			cm.sendOk("   少林妖僧的挑战只能在#r2#k频道进行!");
 			cm.dispose();
 			}else{*/
 			if (cm.getPlayerCount(702060000) > 0){
-	            cm.sendOk("�Ѿ�������ս��ɮ���޷����룡");
+	            cm.sendOk("已经有人挑战妖僧你无法进入！");
                     cm.dispose();
 			}else{
-				cm.sendYesNo("���Ƿ�Ҫ��ս#b��ɮ#k��?");
+				cm.sendYesNo("你是否要挑战#b妖僧#k呢?");
 			}
 		//}
 	}
@@ -55,13 +55,13 @@ function action(mode, type, selection)
 	{ 	
 		var party = cm.getPlayer().getParty();		
 		if (party == null || party.getLeader().getId() != cm.getPlayer().getId()) {
-                    cm.sendOk("�㲻�Ƕӳ��������Ƕӳ���˵���ɣ�");
+                    cm.sendOk("你不是队长。请你们队长来说话吧！");
                     cm.dispose();
                 }else if(cm.getBossLog("shaoling") > 3) {
-	            cm.sendOk("����,ϵͳ�޶�ÿ��ֻ����ս����,���ǿ�н���,�ᱻϵͳ��������!");
+	            cm.sendOk("您好,系统限定每天只能挑战三次,如果强行进入,会被系统弹回来的!");
                     cm.dispose();
 		}else if(party.getMembers().size() < 1) {
-	            cm.sendOk("��Ҫ 2 �����ϵ���Ӳ��ܽ��룡!");
+	            cm.sendOk("需要 2 人以上的组队才能进入！!");
                     cm.dispose();
 		}else{
 if(cm.getMonsterCount(702060000) <= 0){

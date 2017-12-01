@@ -1,8 +1,8 @@
-/*
+ï»¿/*
 	KFT Reactor - Yellow King Goblin
 */
 
 function act() {
     rm.spawnMonster(7130400);
-    rm.mapMessage(5, "»ÆÉ«¹í¹Ö³öÏÖÁË¡£");
+    rm.mapMessage(5, "é»„è‰²é¬¼æ€ªå‡ºç°äº†ã€‚");
 }

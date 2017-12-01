@@ -1,4 +1,4 @@
-// EL Nath PQ
+ï»¿// EL Nath PQ
 
 function enter(pi) {
     if (pi.haveMonster(9300093)) { // Tylus
@@ -9,13 +9,13 @@ function enter(pi) {
             if (pt.getInstance("ProtectTylus").getTimeLeft() < 180000) { // 3 minutes left
                 pi.warp(921100301, 0);
             } else {
-                pi.playerMessage("Çë½â¾ÈÈËÖÊ£¡£¡");
+                pi.playerMessage("è¯·è§£æ•‘äººè´¨ï¼ï¼");
                 return false;
             }
         }
     } else {
         pi.warp(211000001, 0);
-        pi.playerMessage("Å¶²»£¡Ëû±»°ó¼ÜÁË£¡");
+        pi.playerMessage("å“¦ä¸ï¼ä»–è¢«ç»‘æž¶äº†ï¼");
     }
     return true;
 }

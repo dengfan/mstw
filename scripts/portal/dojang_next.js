@@ -1,6 +1,6 @@
-function enter(pi) {
+ï»¿function enter(pi) {
     if (!pi.haveMonster(9300216)) {
-        pi.playerMessage("»¹ÓÐÊ£ÏÂµÄ¹ÖÎï¡£");
+        pi.playerMessage("è¿˜æœ‰å‰©ä¸‹çš„æ€ªç‰©ã€‚");
     } else {
         pi.dojoAgent_NextMap(true, false);
     }

@@ -1,4 +1,4 @@
-/*
+ï»¿/*
 @	Name: GMS-like Gachapon
 	Ellinia
  */
@@ -13,9 +13,9 @@ function action(mode, type, selection) {
     }
     if (status == 0) {
 	if (cm.haveItem(5220000, 1)) {
-	    cm.sendYesNo("Äã³ÖÓĞ#b×ªµ°È¯#kÄãÒªÊÔÊÔÊÖÆøÂğ?");
+	    cm.sendYesNo("ä½ æŒæœ‰#bè½¬è›‹åˆ¸#kä½ è¦è¯•è¯•æ‰‹æ°”å—?");
 	} else {
-	    cm.sendOk("ÄãÃ»ÓĞ×ªµ°È¯£¬ÇëÊÕ¼¯Íê³ÉÔÙÀ´×ªµ°Å¶.");
+	    cm.sendOk("ä½ æ²¡æœ‰è½¬è›‹åˆ¸ï¼Œè¯·æ”¶é›†å®Œæˆå†æ¥è½¬è›‹å“¦.");
 	    cm.safeDispose();
 	}
     } else if (status == 1) {
@@ -30,9 +30,9 @@ function action(mode, type, selection) {
 	}
 	if (item != -1) {
 	    cm.gainItem(5220000, -1);
-	    cm.sendOk("ÄãµÃµ½ÁË #b#t" + item + "##k.");
+	    cm.sendOk("ä½ å¾—åˆ°äº† #b#t" + item + "##k.");
 	} else {
-	    cm.sendOk("ÇëÈ·ÈÏ±³°üÊÇ·ñÒÑ¾­ÂúÁËÒÔ¼°ÊÇ·ñÓĞ×ªµ°¾íà¡¡£");
+	    cm.sendOk("è¯·ç¡®è®¤èƒŒåŒ…æ˜¯å¦å·²ç»æ»¡äº†ä»¥åŠæ˜¯å¦æœ‰è½¬è›‹å·å”·ã€‚");
 	}
 	cm.safeDispose();
     }

@@ -1,6 +1,6 @@
-/* Author: Xterminator
-	NPC Name: 		Èğ¶÷
-	Map(s): 		Maple Road : ²Êºç´å (1010000)
+ï»¿/* Author: Xterminator
+	NPC Name: 		ç‘æ©
+	Map(s): 		Maple Road : å½©è™¹æ‘ (1010000)
 	Description: 		Talks about Amherst
 */
 var status = 0;

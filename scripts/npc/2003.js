@@ -1,4 +1,4 @@
-/* Author: Xterminator
+﻿/* Author: Xterminator
 	NPC Name: 		Robin
 	Map(s): 		Maple Road : Snail Hunting Ground I (40000)
 	Description: 		Beginner Helper
@@ -9,7 +9,7 @@ var sel;
 function start() {
     status = -1;
     sel = -1;
-    cm.sendSimple("�ҿ��Ը�����Щð���ߵļ����!!\r\n#L0##bҪ��ô�ƶ���#l\r\n#L1#��Ҫ��λ��˹��#l\r\n#L2#��Ҫ��ô������Ʒ��#l\r\n#L3#���������ᷢ��ʲô���飿#l\r\n#L4#�Һ�ʱ��ѡ��ְҵ��#l\r\n#L5#�������й�������죡#l\r\n#L6#��Ҫ��ô�����ܳ�Ϊսʿ��#l\r\n#L7#��Ҫ��ô�����ܳ�Ϊ�����֣�#l\r\n#L8#��Ҫ��ô�����ܳ�Ϊħ��ʦ��#l\r\n#L9#��Ҫ��ô�����ܳ�Ϊ������#l\r\n#L10#��ô��������ֵ��(S)#l\r\n#L11#��Ҫ��ôȷ���Ҽ���������Ʒ�أ�#l\r\n#L12#��Ҫ��ôװ����Ʒ��#l\r\n#L13#��Ҫ��ôȷ���������Ѿ�װ������Ʒ��#l\r\n#L14#ʲô�Ǽ��ܣ�(K)#l\r\n#L15#��Ҫ��ôǰ��ά�����ǵ���#l\r\n#L16#�����ʲô��#l#k");
+    cm.sendSimple("我可以告诉你些冒险者的技巧唷!!\r\n#L0##b要怎么移动？#l\r\n#L1#我要如何击退怪物？#l\r\n#L2#我要怎么捡起物品？#l\r\n#L3#当我死掉会发生什么事情？#l\r\n#L4#我何时能选择职业？#l\r\n#L5#告诉我有关这个岛屿！#l\r\n#L6#我要怎么做才能成为战士？#l\r\n#L7#我要怎么做才能成为弓箭手？#l\r\n#L8#我要怎么做才能成为魔法师？#l\r\n#L9#我要怎么做才能成为盗贼？#l\r\n#L10#怎么提升能力值？(S)#l\r\n#L11#我要怎么确认我捡起来的物品呢？#l\r\n#L12#我要怎么装备物品？#l\r\n#L13#我要怎么确认我身上已经装备的物品？#l\r\n#L14#什么是技能？(K)#l\r\n#L15#我要怎么前往维多利亚岛？#l\r\n#L16#枫币是什么？#l#k");
 }
 
 function action(mode, type, selection) {
@@ -26,19 +26,19 @@ function action(mode, type, selection) {
         if(sel == -1)
             sel = selection;
         if (sel == 0)
-            cm.sendNext("�ã�������������ƶ��� ʹ�� #�������#k ������ƽ̨���ƶ��ˣ����� #bAlt#k ���Խ�����Ծ�� ��ЩЬ������������ٶ��Լ���Ծ����");
+            cm.sendNext("好，我来教你如何移动。 使用 #方向左键#k 就能在平台上移动了，按下 #bAlt#k 可以进行跳跃。 有些鞋子能提升你的速度以及跳跃力。");
         else if (sel == 1)
-            cm.sendNext("�ã����˹���ܼ򵥣�ÿ���������Լ���Ѫ���������ʹ������������ɱ������Ȼ���������ȼ�Խ�ߣ���Խ�ѻ������ǡ�");
+            cm.sendNext("好，击退怪物很简单，每个怪物有自己的血条，你可以使用武器将他们杀死。当然，如果怪物等级越高，你越难击退它们。");
         else if (sel == 2)
-            cm.sendNext("��������������μ�ȡ��Ʒ��������˹���ʱ�����л�����䱦���Լ���ң�����������Ʒʱ������#bZ#k ���� ���ּ����ϵ� #b0 ����ȡ��Ʒ��");
+            cm.sendNext("接下来告诉你如何剪取物品，当你击退怪物时，会有机会掉落宝物以及枫币，当地上有物品时，按下#bZ#k 或是 数字键盘上的 #b0 来捡取物品。");
         else if (sel == 3)
-            cm.sendNext("�������ҳ��������ᷢ��ʲô�� �����HP����ʱ����������顣 �����ϻ����һ��Ĺ���������޷��ƶ��������㻹�ǿ������졣");
+            cm.sendNext("你好奇地找出当你死会发生什么吗？ 当你的HP归零时，你会变成幽灵。 而地上会出现一块墓碑，而你无法移动，但是你还是可以聊天。");
         else if (sel == 4)
-            cm.sendNext("ʲôʱ�������ѡ�����ְҵ��������������ţ��ҵ����Ѱ���ÿ��ְҵ���еȼ������ơ�ͨ����8�Ⱥ�10��֮�����С�");
+            cm.sendNext("什么时候你可以选择你的职业？哈哈哈，别紧张，我的朋友啊～每个职业都有等级的限制。通常在8等和10等之间会进行。");
         else if (sel == 5)
-            cm.sendNext("����Ҫ֪����������� �����Ƿ�֮�����������측������ϡ����ڸ�������ϣ�ǿ��Ĺ������޷�����������ǳ���ƽ���ǳ��ʺ����֡�");
+            cm.sendNext("你想要知道这个岛屿吗？ 这里是枫之岛，这座岛屿浮在天空上。由于浮在天空上，强大的怪物们无法靠近。这里非常和平，非常适合新手。");
         else if (sel == 6)
-            cm.sendNext("�����Ϊ#bսʿ#k�� ��...���ҽ����㵽ά�����Ǹۣ�Ѱ��һ������#r��ʿ֮��#k��սʿ��ׯ�Լ�ȥ��Ѱ#bDances with Balrog#k�� ���������γ�Ϊһ��սʿ�� ึ��ˣ��м�����Ҫ���£������ﵽ�ȼ�10���ܳ�Ϊսʿ��");
+            cm.sendNext("你想成为#b战士#k？ 摁...那我建议你到维多利亚港，寻找一个叫做#r勇士之村#k的战士村庄以及去找寻#bDances with Balrog#k。 他会教你如何成为一个战士。 喔对了，有件很重要的事，你必须达到等级10才能成为战士！");
         else if (sel == 7)
             cm.sendNext("You want to become a #bBowman#k? You'll need to go to Victoria Island to make the job advancement. Head over to a bowman-town called #rHenesys#k and talk to the beautiful #bAthena Pierce#k and learn the in's and out's of being a bowman. Ohh, and one VERY important thing: You'll need to be at least level 10 in order to become a bowman!!");
         else if (sel == 8)

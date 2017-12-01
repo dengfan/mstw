@@ -1,6 +1,6 @@
-function enter(pi) {
+ï»¿function enter(pi) {
     if (!pi.haveItem(4000381)) {
-        pi.playerMessage(5, "ÄãÃ»ÓĞ°×É«µÄ¾«»ª£¬²»ÄÜ½øÈ¥¡£");
+        pi.playerMessage(5, "ä½ æ²¡æœ‰ç™½è‰²çš„ç²¾åï¼Œä¸èƒ½è¿›å»ã€‚");
     } else {
         if (pi.getPlayerCount(541010100) <= 0) { // Capt. Lac Map
             var captMap = pi.getMap(541010100);
@@ -12,7 +12,7 @@ function enter(pi) {
                 pi.playPortalSE();
                 pi.warp(541010100, "sp");
             } else {
-                pi.playerMessage(5, "¶Ô¿¹BOSSÒÑ¾­¿ªÊ¼ÁË£¬Äã²»ÄÜ½øÈ¥¡£");
+                pi.playerMessage(5, "å¯¹æŠ—BOSSå·²ç»å¼€å§‹äº†ï¼Œä½ ä¸èƒ½è¿›å»ã€‚");
             }
         }
     }

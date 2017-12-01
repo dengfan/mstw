@@ -1,4 +1,4 @@
-/*
+ï»¿/*
 	Crystal of Roots - Leafre Cave of life
  */
 
@@ -12,9 +12,9 @@ function action(mode, type, selection) {
     }
     if (status == 0) {
         if (cm.getMapId() == 240050400) {
-            cm.sendYesNo("ÄãÏëÀë¿ªÕâÀïµ½ #m240040700# Âğ?");
+            cm.sendYesNo("ä½ æƒ³ç¦»å¼€è¿™é‡Œåˆ° #m240040700# å—?");
         } else {
-            cm.sendYesNo("ÄãÏëÀë¿ªÕâÀïµ½ #m240040700# Âğ?");
+            cm.sendYesNo("ä½ æƒ³ç¦»å¼€è¿™é‡Œåˆ° #m240040700# å—?");
         }
     } else if (status == 1) {
         if (cm.getMapId() == 240050400) {
@@ -22,7 +22,7 @@ function action(mode, type, selection) {
         } else {
             cm.warp(240040700, 0);
         }
-		cm.getPlayer().setbosslog(0);//BOSSÖØ·µ
+		cm.getPlayer().setbosslog(0);//BOSSé‡è¿”
         cm.dispose();
     }
 }

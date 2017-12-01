@@ -1,6 +1,6 @@
-function act() {
+ï»¿function act() {
     if (rm.getReactor().getState() >= 7) {
-        rm.mapMessage(6, "Ò»¸öÉÕ±­ÒÑ¾­Íê³É¡£");
+        rm.mapMessage(6, "ä¸€ä¸ªçƒ§æ¯å·²ç»å®Œæˆã€‚");
         var em = rm.getEventManager(rm.getMapId() == 926100100 ? "Romeo": "Juliet");
         if (em != null && rm.getReactor().getState() >= 7) {
             var react = rm.getMap().getReactorByName(rm.getMapId() == 926100100 ? "rnj2_door": "jnr2_door");

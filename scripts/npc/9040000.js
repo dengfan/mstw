@@ -1,4 +1,4 @@
-/* 
+ï»¿/* 
  * Shuang, Victoria Road: Excavation Site<Camp> (101030104)
  * Start of Guild Quest
  */
@@ -45,7 +45,7 @@ function action(mode, type, selection) {
                         }
                         em.startInstance(cm.getPlayer(), cm.getPlayer().getName());
                         em.setProperty("state", "0");
-                        cm.guildMessage("¹«»áÒÑ½øÈë¹«»áµÄÈÎÎñ¡£ÇëÔÚÍ¨µÀµÄÍÚ¾òÓªµØ±¨¸æ " + cm.getClient().getChannel() + ".");
+                        cm.guildMessage("å…¬ä¼šå·²è¿›å…¥å…¬ä¼šçš„ä»»åŠ¡ã€‚è¯·åœ¨é€šé“çš„æŒ–æ˜è¥åœ°æŠ¥å‘Š " + cm.getClient().getChannel() + ".");
                     } else {
                         cm.sendOk("Someone is already attempting on the guild quest.")
                     }

@@ -1,4 +1,4 @@
-function action(mode, type, selection) {
+ï»¿function action(mode, type, selection) {
     var em = cm.getEventManager("OrbisPQ");
     if (em == null) {
         cm.dispose();
@@ -21,10 +21,10 @@ function action(mode, type, selection) {
             cm.dispose();
             return;
         }
-if(cm.haveItem(4031326,1)){//ÓĞ²ÆÉñµÄĞÅ¼şµÄÍæ¼Ò£¬¿ÉÒÔ»ñµÃ¶·ÉñÖ¤Îï
+if(cm.haveItem(4031326,1)){//æœ‰è´¢ç¥çš„ä¿¡ä»¶çš„ç©å®¶ï¼Œå¯ä»¥è·å¾—æ–—ç¥è¯ç‰©
 	cm.gainItem(4310015,+1);}
-        cm.gainItem(4001158, 1);//Å®ÉñµÄÓğÃ«
-        cm.gainItem(4001322, 2);//À¶±¦Ê¯
+        cm.gainItem(4001158, 1);//å¥³ç¥çš„ç¾½æ¯›
+        cm.gainItem(4001322, 2);//è“å®çŸ³
         cm.getPlayer().endPartyQuest(1203); //might be a bad implentation.. incase they dc or something
         //cm.gainNX(100);
         cm.warp(200080101);

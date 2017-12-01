@@ -1,5 +1,5 @@
-function act() {
-    rm.mapMessage(6, "Ò»¸öÎ»ÖÃÒÑ¾­ÒÆ¶¯.");
+ï»¿function act() {
+    rm.mapMessage(6, "ä¸€ä¸ªä½ç½®å·²ç»ç§»åŠ¨.");
     var em = rm.getEventManager("OrbisPQ");
     if (em != null) {
         em.setProperty("stage", parseInt(em.getProperty("stage")) + 1);

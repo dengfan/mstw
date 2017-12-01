@@ -1,4 +1,4 @@
-/*
+ï»¿/*
 	This file is part of the odinms Maple Story Server
     Copyright (C) 2008 Patrick Huy <patrick.huy@frz.cc> 
                        Matthias Butz <matze@odinms.de>
@@ -43,9 +43,9 @@ function action(mode, type, selection) {
 	status++;
 	if (status == 0) {
 		if(cm.haveItem(4001019)) {
-			cm.sendYesNo("Ê¹ÓÃ #b#t4001019# Æô¶¯ #b#p2012015##k. Äã½«»á±»¿ìËÙµÄ´«ËÍµ½ #b#p2012014##k ÅÔ£¬ÊÇ·ñÊ¹ÓÃ£¿");
+			cm.sendYesNo("ä½¿ç”¨ #b#t4001019# å¯åŠ¨ #b#p2012015##k. ä½ å°†ä¼šè¢«å¿«é€Ÿçš„ä¼ é€åˆ° #b#p2012014##k æ—ï¼Œæ˜¯å¦ä½¿ç”¨ï¼Ÿ");
 		} else {
-			cm.sendOk("ÓµÓĞÉñÆøÁ¦Á¿µÄ #b#p2012015##k »á½«Äã¿ìËÙµÄ´«ËÍµ½ #b#p2012014##k ÅÔ£¬µ«ÊÇÃ»ÓĞ¾íÖáÄ¿Ç°ÎŞ·¨Æô¶¯Ä§·¨Ê¯¡£");
+			cm.sendOk("æ‹¥æœ‰ç¥æ°”åŠ›é‡çš„ #b#p2012015##k ä¼šå°†ä½ å¿«é€Ÿçš„ä¼ é€åˆ° #b#p2012014##k æ—ï¼Œä½†æ˜¯æ²¡æœ‰å·è½´ç›®å‰æ— æ³•å¯åŠ¨é­”æ³•çŸ³ã€‚");
 			cm.dispose();
 		}
 	}

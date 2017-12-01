@@ -1,4 +1,4 @@
-var status = -1;
+ï»¿var status = -1;
 
 function action(mode, type, selection) {
     var em = cm.getEventManager("ZChaosPQ3");
@@ -16,10 +16,10 @@ function action(mode, type, selection) {
             if (em.getProperty("stage1").equals("0")) {
                 em.setProperty("stage1", "1");
                 cm.getMap().setReactorState();
-		cm.mapMessage(6, "ÊµÑéÊÒÈë¿ÚÒÑ¿ªÆô!");
+		cm.mapMessage(6, "å®žéªŒå®¤å…¥å£å·²å¼€å¯!");
             }
         } else if (java.lang.Math.random() > 0.1) {
-                cm.sendOk("ÊéÖÐºÃÏñÃ»ÓÐÌáµ½#bÊµÑéÊÒÈë¿Ú#kµÄµØµã!Çë¼ÌÐøµã»÷²éÔÄ!");
+                cm.sendOk("ä¹¦ä¸­å¥½åƒæ²¡æœ‰æåˆ°#bå®žéªŒå®¤å…¥å£#kçš„åœ°ç‚¹!è¯·ç»§ç»­ç‚¹å‡»æŸ¥é˜…!");
         	cm.dispose();
         }
     }

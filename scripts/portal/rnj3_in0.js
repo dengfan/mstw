@@ -1,7 +1,7 @@
-function enter(pi) {
+ï»¿function enter(pi) {
     if (pi.getMap().getReactorByName("rnj3_out1").getState() > 0) {
         pi.warp(926100201, 0);
     } else {
-        pi.playerMessage(5, "´«ËÍÃÅÉĞÎ´´ò¿ª¡£");
+        pi.playerMessage(5, "ä¼ é€é—¨å°šæœªæ‰“å¼€ã€‚");
     }
 }

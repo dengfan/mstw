@@ -1,4 +1,4 @@
-function start() {
+ï»¿function start() {
     status = -1;
 
     action(1, 0, 0);
@@ -10,7 +10,7 @@ function action(mode, type, selection) {
     else {
         if (status >= 0 && mode == 0) {
 
-            cm.sendOk("¸ĞĞ»ÄãµÄ¹âÁÙ£¡");
+            cm.sendOk("æ„Ÿè°¢ä½ çš„å…‰ä¸´ï¼");
             cm.dispose();
             return;
         }
@@ -26,82 +26,82 @@ function action(mode, type, selection) {
             for (i = 0; i < 10; i++) {
                 text += "";
             }
-			text += "\t\t\t»¶Ó­À´µ½#bÃÈĞÂÃ°ÏÕµº #k!#n\r\n"
-            text += "#L1##rLv120-200ÌôÕ½°µºÚÁúÍõ\r\n\r\n"//3
-            text += "#L2##dÎÒµã´íÁË\r\n\r\n"//3
-            //text += "#L5##dLv100-200.¶¾Îï×é¶Ó¸±±¾#l#L6##dLv55-200.º£µÁ×é¶Ó¸±±¾#l\r\n\r\n"//3
-            //text += "#L7##dLv90ÒÔÉÏ.ÂŞÃÜÅ·ÓëÖìÀöÒ¶×é¶Ó¸±±¾#l\r\n\r\n"//3
-            //text += "#L9##dLv10¼¶ÒÔÉÏ.Ó¢ÓïÑ§Ôº¸±±¾#l\r\n\r\n"//3
-            //text += "#L10##dLv30-200.¹ÖÎï¼ÎÄê»ª(×é¶Ó¶Ô¿¹¸±±¾.×îµÍ2V2)#l\r\n\r\n"//3
-            //text += "#L8##dÒÅÖ·¹«»á¶Ô¿¹Õ½(¼Ò×å¸±±¾)#l\r\n\r\n"//3
-            //text += "#L11##dLv120.Ç§ÄêÊ÷¾«ÍõÒÅ¼£¢ò#l\r\n\r\n"//3
-            //text += "#L12##dLv130.ÈËÅ¼Ê¦BOSSÌôÕ½#l\r\n\r\n"//3
-            //text += "#L13##dLv120.ç³ºì¸±±¾ÌôÕ½#l\r\n\r\n"//3
-            //text += "#L14##dLv140.Óù½ã¸±±¾ÌôÕ½#l\r\n\r\n"//3
+			text += "\t\t\tæ¬¢è¿æ¥åˆ°#bèŒæ–°å†’é™©å²› #k!#n\r\n"
+            text += "#L1##rLv120-200æŒ‘æˆ˜æš—é»‘é¾™ç‹\r\n\r\n"//3
+            text += "#L2##dæˆ‘ç‚¹é”™äº†\r\n\r\n"//3
+            //text += "#L5##dLv100-200.æ¯’ç‰©ç»„é˜Ÿå‰¯æœ¬#l#L6##dLv55-200.æµ·ç›—ç»„é˜Ÿå‰¯æœ¬#l\r\n\r\n"//3
+            //text += "#L7##dLv90ä»¥ä¸Š.ç½—å¯†æ¬§ä¸æœ±ä¸½å¶ç»„é˜Ÿå‰¯æœ¬#l\r\n\r\n"//3
+            //text += "#L9##dLv10çº§ä»¥ä¸Š.è‹±è¯­å­¦é™¢å‰¯æœ¬#l\r\n\r\n"//3
+            //text += "#L10##dLv30-200.æ€ªç‰©å˜‰å¹´å(ç»„é˜Ÿå¯¹æŠ—å‰¯æœ¬.æœ€ä½2V2)#l\r\n\r\n"//3
+            //text += "#L8##dé—å€å…¬ä¼šå¯¹æŠ—æˆ˜(å®¶æ—å‰¯æœ¬)#l\r\n\r\n"//3
+            //text += "#L11##dLv120.åƒå¹´æ ‘ç²¾ç‹é—è¿¹â…¡#l\r\n\r\n"//3
+            //text += "#L12##dLv130.äººå¶å¸ˆBOSSæŒ‘æˆ˜#l\r\n\r\n"//3
+            //text += "#L13##dLv120.ç»¯çº¢å‰¯æœ¬æŒ‘æˆ˜#l\r\n\r\n"//3
+            //text += "#L14##dLv140.å¾¡å§å‰¯æœ¬æŒ‘æˆ˜#l\r\n\r\n"//3
             cm.sendSimple(text);
-        } else if (selection == 1) { //ÔÂÃî×é¶Ó¸±±¾
+        } else if (selection == 1) { //æœˆå¦™ç»„é˜Ÿå‰¯æœ¬
             if (cm.getLevel() < 120 ) {  
-            cm.sendOk("±¾µØÍ¼ÏŞÖÆµÈ¼¶120¼¶¡£ÄúµÄÄÜÁ¦Ã»ÓĞ×Ê¸ñÌôÕ½°µºÚÁúÍõ");
+            cm.sendOk("æœ¬åœ°å›¾é™åˆ¶ç­‰çº§120çº§ã€‚æ‚¨çš„èƒ½åŠ›æ²¡æœ‰èµ„æ ¼æŒ‘æˆ˜æš—é»‘é¾™ç‹");
                 cm.dispose();
        } else if (cm.itemQuantity(5220006) < 1) {
-       cm.sendOk("Ã»ÓĞ#v5220006#ÎŞ·¨ÌôÕ½ºÚÁú£¬Çëµ½ÉÌ³Ç¹ºÂò°É");
+       cm.sendOk("æ²¡æœ‰#v5220006#æ— æ³•æŒ‘æˆ˜é»‘é¾™ï¼Œè¯·åˆ°å•†åŸè´­ä¹°å§");
                 cm.dispose();
               }else{
                         cm.gainItem(5220006,-1);
 			cm.warp(240060200);
-			cm.getPlayer().setbosslog(3);//BOSSÖØ·µ  
-cm.worldMessage(12, "[" + cm.getPlayer().getName() + "]³É¹¦½øÈë°µºÚÁúÍõ¶´Ñ¨£¬¿ªÊ¼ÌôÕ½°µºÚÁúÍõ£¡£¡");
+			cm.getPlayer().setbosslog(3);//BOSSé‡è¿”  
+cm.worldMessage(12, "[" + cm.getPlayer().getName() + "]æˆåŠŸè¿›å…¥æš—é»‘é¾™ç‹æ´ç©´ï¼Œå¼€å§‹æŒ‘æˆ˜æš—é»‘é¾™ç‹ï¼ï¼");
 				cm.dispose();
                 return;
 	      } 
-        } else if (selection == 2) {  //·ÏÆú×é¶Ó¸±±¾
-            cm.sendOk("µÈÄã×¼±¸ºÃÁË£¬ÔÙÀ´ÕÒÎÒ°É£¡");
+        } else if (selection == 2) {  //åºŸå¼ƒç»„é˜Ÿå‰¯æœ¬
+            cm.sendOk("ç­‰ä½ å‡†å¤‡å¥½äº†ï¼Œå†æ¥æ‰¾æˆ‘å§ï¼");
                 cm.dispose();
-        } else if (selection == 3) { //Íæ¾ß×é¶Ó¸±±¾
+        } else if (selection == 3) { //ç©å…·ç»„é˜Ÿå‰¯æœ¬
             cm.openNpc(2040034, 0);
-        } else if (selection == 4) {//Ìì¿Õ×é¶Ó¸±±¾
+        } else if (selection == 4) {//å¤©ç©ºç»„é˜Ÿå‰¯æœ¬
             cm.openNpc(2013000, 0);
-        } else if (selection == 5) {//¶¾Îï×é¶Ó¸±±¾
+        } else if (selection == 5) {//æ¯’ç‰©ç»„é˜Ÿå‰¯æœ¬
             cm.openNpc(2133000, 0);
-        } else if (selection == 6) {//º£µÁ×é¶Ó¸±±¾
+        } else if (selection == 6) {//æµ·ç›—ç»„é˜Ÿå‰¯æœ¬
             cm.openNpc(2094000, 0);
-        } else if (selection == 7) {//ÂŞÃÜÅ·ÓëÖìÀöÒ¶×é¶Ó¸±±¾
+        } else if (selection == 7) {//ç½—å¯†æ¬§ä¸æœ±ä¸½å¶ç»„é˜Ÿå‰¯æœ¬
 			cm.warp(261000011);
             cm.dispose();
-        } else if (selection == 8) {//ÒÅÖ·¹«»á¶Ô¿¹Õ½
+        } else if (selection == 8) {//é—å€å…¬ä¼šå¯¹æŠ—æˆ˜
 			cm.warp(101030104);
             cm.dispose();
-        } else if (selection == 9) {//Ó¢ÓïÑ§Ôº¸±±¾
+        } else if (selection == 9) {//è‹±è¯­å­¦é™¢å‰¯æœ¬
             cm.warp(702090400);
             cm.dispose();
             //cm.openNpc(9310057, 0);
-        } else if (selection == 11) {//Ç§ÄêÊ÷¾«ÍõÒÅ¼£
+        } else if (selection == 11) {//åƒå¹´æ ‘ç²¾ç‹é—è¿¹
             cm.warp(541020700);
             cm.dispose();
             //cm.openNpc(9310057, 0);
-        } else if (selection == 12) {//ÈËÅ¼Ê¦BOSSÌôÕ½
+        } else if (selection == 12) {//äººå¶å¸ˆBOSSæŒ‘æˆ˜
             cm.warp(910510001);
             cm.dispose();
             //cm.openNpc(9310057, 0);
-        } else if (selection == 13) {//ç³ºì
+        } else if (selection == 13) {//ç»¯çº¢
             if (cm.getLevel() < 120 ) {  
-            cm.sendOk("±¾µØÍ¼ÏŞÖÆµÈ¼¶120¼¶¡£ÄúµÄÄÜÁ¦Ã»ÓĞ×Ê¸ñÌôÕ½ç³ºì¸±±¾");
+            cm.sendOk("æœ¬åœ°å›¾é™åˆ¶ç­‰çº§120çº§ã€‚æ‚¨çš„èƒ½åŠ›æ²¡æœ‰èµ„æ ¼æŒ‘æˆ˜ç»¯çº¢å‰¯æœ¬");
                 cm.dispose();
               }else{
 			cm.warp(803001200);  
 				cm.dispose();
                 return;
 	      } 
-        } else if (selection == 14) {//Óù½ã
+        } else if (selection == 14) {//å¾¡å§
             if (cm.getLevel() < 140 ) {  
-            cm.sendOk("±¾µØÍ¼ÏŞÖÆµÈ¼¶140¼¶¡£ÄúµÄÄÜÁ¦Ã»ÓĞ×Ê¸ñÌôÕ½Óù½ã¸±±¾");
+            cm.sendOk("æœ¬åœ°å›¾é™åˆ¶ç­‰çº§140çº§ã€‚æ‚¨çš„èƒ½åŠ›æ²¡æœ‰èµ„æ ¼æŒ‘æˆ˜å¾¡å§å‰¯æœ¬");
                 cm.dispose();
               }else{
 			cm.warp(803000505);  
                 cm.dispose();
                 return;
 	      } 
-        } else if (selection == 10) {//.¹ÖÎï¼ÎÄê»ª
+        } else if (selection == 10) {//.æ€ªç‰©å˜‰å¹´å
             cm.warp(980000000);
             cm.dispose();
             //cm.openNpc(9310057, 0);

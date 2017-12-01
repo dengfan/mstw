@@ -1,4 +1,4 @@
-var status = -1;
+ï»¿var status = -1;
 
 function action(mode, type, selection) {
     if (mode == 1) {
@@ -9,9 +9,9 @@ function action(mode, type, selection) {
     }
     if (status == 0) {
         if (cm.getPlayer().getLevel() < 255) {
-            cm.sendYesNo("ÄãÈ·¶¨ÄãÒª½øÈ¥Âð£¿£¿");
+            cm.sendYesNo("ä½ ç¡®å®šä½ è¦è¿›åŽ»å—ï¼Ÿï¼Ÿ");
         } else {
-            cm.sendOk("ÄãÏëÒª½øÈ¥Íê³ÉÖ°ÒµÍ·µÄÈÎÎñ°¡£¿£¿£¿.");
+            cm.sendOk("ä½ æƒ³è¦è¿›åŽ»å®ŒæˆèŒä¸šå¤´çš„ä»»åŠ¡å•Šï¼Ÿï¼Ÿï¼Ÿ.");
             cm.dispose();
         }
     } else {

@@ -1,13 +1,13 @@
-function enter(pi) {
+ï»¿function enter(pi) {
     if (pi.getMap().getAllMonstersThreadsafe().size() == 0) {
 	if(pi.isLeader()){
 		pi.givePartyExp(50000);
 		pi.warpParty(926100100);
 	}else{
-        pi.playerMessage(5, "¶Ó³¤½øÈë£¡");
+        pi.playerMessage(5, "é˜Ÿé•¿è¿›å…¥ï¼");
 	}
        // pi.warp(926100100, 0);
     } else {
-        pi.playerMessage(5, "´«ËÍÃÅÉĞÎ´´ò¿ª¡£");
+        pi.playerMessage(5, "ä¼ é€é—¨å°šæœªæ‰“å¼€ã€‚");
     }
 }

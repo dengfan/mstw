@@ -1,10 +1,10 @@
-/* 
+ï»¿/* 
  * NPC   : Dev Doll
  * Map   : GMMAP
  */
  
  function start() {
-	cm.sendNext("´Ë¹¦ÄÜÒÑ¹Ø±Õ¡£");
+	cm.sendNext("æ­¤åŠŸèƒ½å·²å…³é—­ã€‚");
 	cm.dispose();
 }
 /*
@@ -28,7 +28,7 @@ function action(mode, type, selection) {
 	status++;
 	if (status == 1) {
 		var bbb = false;
-		var selStr = "Çë²»ÒªÄÃÀ´½»»»·ã±ÒÖ®ÀàµÄ ±ÜÃâ·¢ÉúÕùÖ´\r\nÄãÒª¶ªÄÄ¸öµã×° ¶ª³öÀ´»á¶ªÔÚµØÉÏ ¶ª³èÎïµÄ»°»áÖ±½ÓÏûÊ§\r\nÇë²»ÒªÄÃÀ´½»»»·ã±ÒÖ®ÀàµÄ ±ÜÃâ·¢ÉúÕùÖ´\r\n\r\n#b";
+		var selStr = "è¯·ä¸è¦æ‹¿æ¥äº¤æ¢æ«å¸ä¹‹ç±»çš„ é¿å…å‘ç”Ÿäº‰æ‰§\r\nä½ è¦ä¸¢å“ªä¸ªç‚¹è£… ä¸¢å‡ºæ¥ä¼šä¸¢åœ¨åœ°ä¸Š ä¸¢å® ç‰©çš„è¯ä¼šç›´æ¥æ¶ˆå¤±\r\nè¯·ä¸è¦æ‹¿æ¥äº¤æ¢æ«å¸ä¹‹ç±»çš„ é¿å…å‘ç”Ÿäº‰æ‰§\r\n\r\n#b";
 		for (var x = 0; x < invs.length; x++) {
 			var inv = cm.getInventory(invs[x]);
 			for (var i = 0; i <= inv.getSlotLimit(); i++) {
@@ -50,7 +50,7 @@ function action(mode, type, selection) {
 			}
 		}
 		if (!bbb) {
-			cm.sendOk("ÄãÃ»ÓĞÈÎºÎµÄµã×°.");
+			cm.sendOk("ä½ æ²¡æœ‰ä»»ä½•çš„ç‚¹è£….");
 			cm.dispose();
 			return;
 		}
@@ -65,14 +65,14 @@ function action(mode, type, selection) {
 			statsSel = inzz.getItem(slot_2[selected]);
 		}
 		if (statsSel == null) {
-			cm.sendOk("´íÎó, ÇëÔÙ³¢ÊÔÒ»´Î.");
+			cm.sendOk("é”™è¯¯, è¯·å†å°è¯•ä¸€æ¬¡.");
 			cm.dispose();
 			return;
 		}
-		cm.sendGetNumber("ÄãÏëÒª¶ªµô #v" + statsSel.getItemId() + "##t" + statsSel.getItemId() + "#Âğ?\r\nÇëÊäÈëÊıÁ¿", 1, 1, statsSel.getQuantity());
+		cm.sendGetNumber("ä½ æƒ³è¦ä¸¢æ‰ #v" + statsSel.getItemId() + "##t" + statsSel.getItemId() + "#å—?\r\nè¯·è¾“å…¥æ•°é‡", 1, 1, statsSel.getQuantity());
 	} else if (status == 3) {
 		if (!cm.dropItem(selected, invv, selection)) {
-			cm.sendOk("´íÎó, ÇëÔÙ³¢ÊÔÒ»´Î.");
+			cm.sendOk("é”™è¯¯, è¯·å†å°è¯•ä¸€æ¬¡.");
 			cm.dispose();
 		} else {
 			status = 0;

@@ -1,10 +1,10 @@
-function enter(pi) {
+ï»¿function enter(pi) {
     //pi.openNpc(2081005);
     if (pi.haveItem(5220006)) {
         pi.gainItem(5220006, -1);
         pi.warp(240050400);
     } else {
         pi.warp(240040700)
-        pi.mapMessage(6, "ÄãÃ»ÓĞºÚÁúÈë³¡¾í£¬²»ÄÜÈÃÄã½øÈ¥!Çëµ½ÉÌ³Ç¹ºÂò!")
+        pi.mapMessage(6, "ä½ æ²¡æœ‰é»‘é¾™å…¥åœºå·ï¼Œä¸èƒ½è®©ä½ è¿›å»!è¯·åˆ°å•†åŸè´­ä¹°!")
     }
 }

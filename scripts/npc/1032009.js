@@ -1,4 +1,4 @@
-/*
+ï»¿/*
 	Purin - Before Takeoff To Orbis(101000301)
 */
 
@@ -10,7 +10,7 @@ function start() {
 function action(mode, type, selection) {
     status++;
     if(mode == 0) {
-	cm.sendOk("ÄãÏëÏÂ´¬Âğ£¿Àë¿ª·É´¬ºó»á»Øµ½Ô­À´µÄµØ·½£¡");
+	cm.sendOk("ä½ æƒ³ä¸‹èˆ¹å—ï¼Ÿç¦»å¼€é£èˆ¹åä¼šå›åˆ°åŸæ¥çš„åœ°æ–¹ï¼");
 	cm.dispose();
 	return;
     }

@@ -1,4 +1,4 @@
-var status = 0;
+ï»¿var status = 0;
 var section = 0;
 
 importPackage(java.lang);
@@ -27,7 +27,7 @@ function action(mode, type, selection) {
             cm.sendYesNo("Would you like to exit this place?");
             status = 99;
         } else {
-            cm.sendSimple("ÎÒÊÇÁÖÁĞ³µ³¤¡£\r\n\r\n#b#L0#ñöÌı¿àÄÕ¡£#l\r\n\r\n#e#L1#Ç°Íù»ıÂú»Ò³¾µÄÆ½Ì¨¡£#l#n\r\n#L2#Ç°Íù999´ÎÁĞ³µ¡£#l\r\n\r\n#L3#ÁìÈ¡<ÈÙÓş³ËÎñÔ±>Ñ«ÕÂ¡£#l");
+            cm.sendSimple("æˆ‘æ˜¯æ—åˆ—è½¦é•¿ã€‚\r\n\r\n#b#L0#è†å¬è‹¦æ¼ã€‚#l\r\n\r\n#e#L1#å‰å¾€ç§¯æ»¡ç°å°˜çš„å¹³å°ã€‚#l#n\r\n#L2#å‰å¾€999æ¬¡åˆ—è½¦ã€‚#l\r\n\r\n#L3#é¢†å–<è£èª‰ä¹˜åŠ¡å‘˜>å‹‹ç« ã€‚#l");
         }
     } else if (status == 2) {
         section = selection;

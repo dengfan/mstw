@@ -1,9 +1,9 @@
-/*
-	Ç×Ç××ìÃ°ÏÕ×¨ÓÃ½Å±¾
+ï»¿/*
+	äº²äº²å˜´å†’é™©ä¸“ç”¨è„šæœ¬
 
-	ÉÙÁÖÑıÉ® -- ³ö¿ÚNPC
+	å°‘æ—å¦–åƒ§ -- å‡ºå£NPC
 	
-	by-- Ğ¾ËéÍõ×Ó
+	by-- èŠ¯ç¢ç‹å­
 		
 	QQ:7851103
 
@@ -26,7 +26,7 @@ function action(mode, type, selection)
 	}
 	else if (mode == 0)
 	{
-		cm.sendOk("ºÃµÄÈç¹ûÒª³öÈ¥ËæÊ±À´ÕÒÎÒ.");
+		cm.sendOk("å¥½çš„å¦‚æœè¦å‡ºå»éšæ—¶æ¥æ‰¾æˆ‘.");
 		cm.dispose();
 	}else 
 	{
@@ -36,7 +36,7 @@ function action(mode, type, selection)
 			status--;		
 	if (status == 0)
 	{		
-		cm.sendYesNo("ÄúÊÇ·ñÒª³öÈ¥ÄØ?" );	
+		cm.sendYesNo("æ‚¨æ˜¯å¦è¦å‡ºå»å‘¢?" );	
 	}
 	else if (status == 1) 
         {

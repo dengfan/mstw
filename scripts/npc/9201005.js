@@ -1,4 +1,4 @@
-var status = -1;
+ï»¿var status = -1;
 
 function action(mode, type, selection) {
     if (mode == 1) {
@@ -11,9 +11,9 @@ function action(mode, type, selection) {
     }
     if (status == 0) {
 	if (cm.getPlayer().getMapId() == 680000000) {
-	    cm.sendYesNo("ÄãÒªÈ¥½á»éÀñÌÃÂğ?");
+	    cm.sendYesNo("ä½ è¦å»ç»“å©šç¤¼å ‚å—?");
 	} else {
-	    cm.sendYesNo("ÄãÒª»ØÈ¥½á»éĞ¡ÕòÂğ?");
+	    cm.sendYesNo("ä½ è¦å›å»ç»“å©šå°é•‡å—?");
 	}
     } else if (status == 1) {
 	var WeddingMap = cm.getMap(680000400);

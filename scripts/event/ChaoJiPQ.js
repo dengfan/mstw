@@ -1,6 +1,6 @@
-var mapId = 910510000;
-var item = Array(2340000,2000005,4006001,4006000,4004000,4004001,4004002,4004004,4004003); //Ï¡ÓĞµã×°
-var yp = Array(1,2,3,4,4,3,4,5,4,1); //ÕıÒå±Ò
+ï»¿var mapId = 910510000;
+var item = Array(2340000,2000005,4006001,4006000,4004000,4004001,4004002,4004004,4004003); //ç¨€æœ‰ç‚¹è£…
+var yp = Array(1,2,3,4,4,3,4,5,4,1); //æ­£ä¹‰å¸
 
 function init() {
     em.setProperty("state", "0");
@@ -17,7 +17,7 @@ function setup(eim, leaderid) {
     var map = eim.setInstanceMap(mapId);
     map.resetFully();
 
-    var mob = em.getMonster(9300285);//ÎÏÅ£Íõ
+    var mob = em.getMonster(9300285);//èœ—ç‰›ç‹
     var overrideStats = Packages.server.life.OverrideMonsterStats();
     //var hprand = 100000000;
 	overrideStats.setOHp(250000000);
@@ -26,10 +26,10 @@ function setup(eim, leaderid) {
     mob.setOverrideStats(overrideStats);
 	mob.setHp(250000000);
     eim.registerMonster(mob);
-    map.spawnMonsterOnGroundBelow(mob, new java.awt.Point(668,-10)); //Ë¢³öÕâ¸ö¹ÖÎï
+    map.spawnMonsterOnGroundBelow(mob, new java.awt.Point(668,-10)); //åˆ·å‡ºè¿™ä¸ªæ€ªç‰©
 	
 	for(var i = 0; i < 2; i++){
-    var mobA = em.getMonster(9300355);//ÎÏÅ£Íõ
+    var mobA = em.getMonster(9300355);//èœ—ç‰›ç‹
     var overrideStatsA = Packages.server.life.OverrideMonsterStats();
     //var hprandA = 100000000;
 	overrideStatsA.setOHp(150000000);
@@ -38,7 +38,7 @@ function setup(eim, leaderid) {
     mobA.setOverrideStats(overrideStatsA);
 	mobA.setHp(150000000);
     eim.registerMonster(mobA);
-    map.spawnMonsterOnGroundBelow(mobA, new java.awt.Point(668,-10)); //Ë¢³öÕâ¸ö¹ÖÎï
+    map.spawnMonsterOnGroundBelow(mobA, new java.awt.Point(668,-10)); //åˆ·å‡ºè¿™ä¸ªæ€ªç‰©
 		
 	}
 
@@ -123,7 +123,7 @@ function allMonstersDead(eim) {
                 //toDrop = new Packages.client.inventory.Item(item[randitem], 0, 1);
                 //map.spawnItemDrop(winner, winner, toDrop, winner.getPosition(), true, false);
 		map.spawnAutoDrop(item[randitem],chr.getPosition());
-                map.broadcastMessage(Packages.tools.MaplePacketCreator.serverNotice(5, "¹§Ï²£¬¸ÉµôÈËÅ¼Ê¦£¬»ñµÃÁËÒ»Ğ©½±Àø"));
+                map.broadcastMessage(Packages.tools.MaplePacketCreator.serverNotice(5, "æ­å–œï¼Œå¹²æ‰äººå¶å¸ˆï¼Œè·å¾—äº†ä¸€äº›å¥–åŠ±"));
             }
         }
     }

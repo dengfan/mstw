@@ -1,4 +1,4 @@
-function start() {
+ï»¿function start() {
     /*if (cm.getPlayer().getClient().getChannel() == 3) {
         cm.dispose();
         cm.openNpc(2083004, 2);
@@ -6,7 +6,7 @@ function start() {
         cm.dispose();
         cm.openNpc(2083004, 1);
    /* } else {
-        cm.sendOk("Ö»ÓĞÔÚ2-4ÆµµÀ²Å¿ÉÒÔ²Î¼ÓºÚÁúÔ¶Õ÷¶Ó\r\n3ÆµµÀÎª½ø½×ºÚÁúÍõ£¬2ºÍ4ÆµµÀÎªÆÕÍ¨ºÚÁúÍõ.");
+        cm.sendOk("åªæœ‰åœ¨2-4é¢‘é“æ‰å¯ä»¥å‚åŠ é»‘é¾™è¿œå¾é˜Ÿ\r\n3é¢‘é“ä¸ºè¿›é˜¶é»‘é¾™ç‹ï¼Œ2å’Œ4é¢‘é“ä¸ºæ™®é€šé»‘é¾™ç‹.");
         cm.dispose();
     }*/
 }

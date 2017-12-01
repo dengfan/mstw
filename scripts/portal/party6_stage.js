@@ -1,4 +1,4 @@
-function enter(pi) {
+锘縡unction enter(pi) {
     switch (pi.getMapId()) {
     case 930000000:
         pi.warp(930000100, 0);
@@ -7,7 +7,7 @@ function enter(pi) {
         if (pi.getMap().getAllMonstersThreadsafe().size() == 0) {
             pi.warp(930000200, 0);
         } else {
-            pi.playerMessage(5, "请清除此地图的所有怪物，才能通关.");
+            pi.playerMessage(5, "璇锋竻闄ゆ鍦板浘鐨勬墍鏈夋�墿锛屾墠鑳介�氬叧.");
         }
         break;
     case 930000200:

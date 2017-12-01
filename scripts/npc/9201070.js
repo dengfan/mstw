@@ -1,4 +1,4 @@
-/* Nerbit
+ï»¿/* Nerbit
 	NLC Random Eye Change.
 */
 var status = -1;
@@ -18,9 +18,9 @@ function action(mode, type, selection) {
     }
 
     if (status == 0) {
-	cm.sendNext("àË£¬ÎÒÊÇ#p9201070# Èç¹ûÄúÓĞ #b#t5152033##k ÎÒ¿ÉÒÔ°ïÖúÄúµÄÔ¸Íû~");
+	cm.sendNext("å—¨ï¼Œæˆ‘æ˜¯#p9201070# å¦‚æœæ‚¨æœ‰ #b#t5152033##k æˆ‘å¯ä»¥å¸®åŠ©æ‚¨çš„æ„¿æœ›~");
     } else if (status == 1) {
-	cm.sendYesNo("ÊÇ·ñÒªÊ¹ÓÃ #b#t5152033##k£¿£¿");
+	cm.sendYesNo("æ˜¯å¦è¦ä½¿ç”¨ #b#t5152033##kï¼Ÿï¼Ÿ");
     } else if (status == 2){
 	var face = cm.getPlayerStat("FACE");
 
@@ -34,9 +34,9 @@ function action(mode, type, selection) {
 	}
 	
 	if (cm.setRandomAvatar(5152033, facetype) == 1) {
-	    cm.sendOk("ÏíÊÜ£¡£¡");
+	    cm.sendOk("äº«å—ï¼ï¼");
 	} else {
-	    cm.sendOk("¯z...Ã²ËÆÃ»ÓĞ#b#t5152033##k");
+	    cm.sendOk("ç—¾...è²Œä¼¼æ²¡æœ‰#b#t5152033##k");
 	}
 	cm.dispose();
     }
