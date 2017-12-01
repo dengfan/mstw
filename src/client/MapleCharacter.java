@@ -181,6 +181,8 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
     public boolean DebugMessage = false;
     public int ariantScore = 0;
     public long lastGainHM;
+    public long LastDamageTimestamp = 0;
+    public int FastAttackTickCount = 0;
 
     public boolean IsDropNone = false;
     private int _tiredPoints = 0;

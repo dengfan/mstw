@@ -39,6 +39,19 @@ public class DamageParse {
 
     // 应用物理攻击
     public static void applyAttack(final AttackInfo attack, final ISkill theSkill, final MapleCharacter player, int attackCount, final double maxDamagePerMonster, final MapleStatEffect effect, final AttackType attack_type) {
+        long now = System.currentTimeMillis();
+        if (now - player.LastDamageTimestamp < 100) {
+            player.FastAttackTickCount++;
+        } else {
+            player.LastDamageTimestamp = now;
+            player.FastAttackTickCount = 0;
+        }
+        
+        if (player.FastAttackTickCount > 10) {
+            //player.dropMessage("攻击速度过快");
+            return;
+        }
+        
         if (!player.isAlive()) {
             player.getCheatTracker().registerOffense(CheatingOffense.人物死亡攻击);
             return;
@@ -473,6 +486,10 @@ public class DamageParse {
 
     // 应用魔法攻击
     public static final void applyAttackMagic(final AttackInfo attack, final ISkill theSkill, final MapleCharacter player, final MapleStatEffect effect) {
+        if (true) {
+            return;
+        }
+        
         if (!player.isAlive()) {
             player.getCheatTracker().registerOffense(CheatingOffense.人物死亡攻击);
             return;
