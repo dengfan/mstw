@@ -36,7 +36,7 @@ import tools.data.input.LittleEndianAccessor;
 public class DamageParse {
 
     private final static int[] charges = {1211005, 1211006};
-    
+
     private static Boolean CheckAttackSpeed(final MapleCharacter player) {
         long nowTimestamp = System.currentTimeMillis();
         if (nowTimestamp - player.LastDamageTimestamp < 100) {
@@ -45,15 +45,14 @@ public class DamageParse {
             player.LastDamageTimestamp = nowTimestamp;
             player.FastAttackTickCount = 0;
         }
-        
+
         if (player.FastAttackTickCount > 8) {
-            if (player.isGM()) {
-                player.dropMessage("你的攻击速度过快。");
-            }
-            player.FastAttackTickCount = 0;
+            player.dropTopMsg("你的攻击速度过快。");
+            FileoutputUtil.logToFile("log\\高速攻击输出记录\\" + player.getId() + ".log", FileoutputUtil.NowTime() + " 玩家[" + player.getName() + "][" + player.getId() + "] 在地图[" + player.getMap().getMapName() + "][" + player.getMapId() + "] 上攻击速度过快。\r\n");
+            //player.FastAttackTickCount = 0;
             return true;
         }
-        
+
         return false;
     }
 
@@ -62,7 +61,7 @@ public class DamageParse {
         if (CheckAttackSpeed(player)) {
             return;
         }
-        
+
         if (!player.isAlive()) {
             player.getCheatTracker().registerOffense(CheatingOffense.人物死亡攻击);
             return;
@@ -315,7 +314,7 @@ public class DamageParse {
                     switch (attack.skill) {
                         case 4101005: //drain
                         case 5111004:  // Energy Drain
-                        case 14101006:{
+                        case 14101006: {
                             stats.setHp((stats.getHp() + ((int) Math.min(monster.getMobMaxHp(), Math.min(((int) ((double) totDamage * (double) theSkill.getEffect(player.getSkillLevel(theSkill)).getX() / 100.0)), stats.getMaxHp() / 2)))), true);
                             break;
                         }
@@ -384,7 +383,7 @@ public class DamageParse {
                                     if (venomEffect.makeChanceResult()) {
                                         if (monster.getVenomMulti() < 3) {
                                             monster.setVenomMulti((byte) (monster.getVenomMulti() + 1));
-                                            monsterStatusEffect = new MonsterStatusEffect(MonsterStatus.POISON, 1,14110004, null, false);
+                                            monsterStatusEffect = new MonsterStatusEffect(MonsterStatus.POISON, 1, 14110004, null, false);
                                             monster.applyStatus(player, monsterStatusEffect, false, venomEffect.getDuration(), true);
                                         }
                                     }
@@ -500,7 +499,7 @@ public class DamageParse {
         if (CheckAttackSpeed(player)) {
             return;
         }
-        
+
         if (!player.isAlive()) {
             player.getCheatTracker().registerOffense(CheatingOffense.人物死亡攻击);
             return;
@@ -1398,6 +1397,7 @@ public class DamageParse {
         } catch (Exception e) {
         }
     }
+
     /*
      * public static final int Damage_NoSkillPD(MapleCharacter c, int damage) {
      * if (c.getJob() == 1000 || c.getJob() == 0 || c.getJob() == 2000) { if

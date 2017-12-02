@@ -379,7 +379,7 @@ public class MaplePacketCreator {
         mplew.writeInt(summon.getPosition().y);
         mplew.write(0);
         mplew.write(summon.getMovementType().getValue());
-        System.out.print(summon.getSummonType());
+        System.out.println(summon.getSkill() + "|" + summon.getSummonType() + "|");
         mplew.write(summon.getSummonType());
         mplew.write(animated ? 0 : 1);
         return mplew.getPacket();
