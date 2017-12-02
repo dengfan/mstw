@@ -50,6 +50,7 @@ public class DamageParse {
             if (player.isGM()) {
                 player.dropMessage("你的攻击速度过快。");
             }
+            player.FastAttackTickCount = 0;
             return true;
         }
         
