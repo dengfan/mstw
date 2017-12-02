@@ -36,19 +36,29 @@ import tools.data.input.LittleEndianAccessor;
 public class DamageParse {
 
     private final static int[] charges = {1211005, 1211006};
-
-    // 应用物理攻击
-    public static void applyAttack(final AttackInfo attack, final ISkill theSkill, final MapleCharacter player, int attackCount, final double maxDamagePerMonster, final MapleStatEffect effect, final AttackType attack_type) {
-        long now = System.currentTimeMillis();
-        if (now - player.LastDamageTimestamp < 100) {
+    
+    private static Boolean CheckAttackSpeed(final MapleCharacter player) {
+        long nowTimestamp = System.currentTimeMillis();
+        if (nowTimestamp - player.LastDamageTimestamp < 100) {
             player.FastAttackTickCount++;
         } else {
-            player.LastDamageTimestamp = now;
+            player.LastDamageTimestamp = nowTimestamp;
             player.FastAttackTickCount = 0;
         }
         
-        if (player.FastAttackTickCount > 10) {
-            //player.dropMessage("攻击速度过快");
+        if (player.FastAttackTickCount > 8) {
+            if (player.isGM()) {
+                player.dropMessage("你的攻击速度过快。");
+            }
+            return true;
+        }
+        
+        return false;
+    }
+
+    // 应用物理攻击
+    public static void applyAttack(final AttackInfo attack, final ISkill theSkill, final MapleCharacter player, int attackCount, final double maxDamagePerMonster, final MapleStatEffect effect, final AttackType attack_type) {
+        if (CheckAttackSpeed(player)) {
             return;
         }
         
@@ -486,7 +496,7 @@ public class DamageParse {
 
     // 应用魔法攻击
     public static final void applyAttackMagic(final AttackInfo attack, final ISkill theSkill, final MapleCharacter player, final MapleStatEffect effect) {
-        if (true) {
+        if (CheckAttackSpeed(player)) {
             return;
         }
         
