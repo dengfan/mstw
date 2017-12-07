@@ -36,6 +36,7 @@ import server.Timer.WorldTimer;
 import server.maps.MapleMap;
 import server.maps.MapleMapItem;
 import tools.CollectionUtil;
+import tools.FileoutputUtil;
 import tools.MaplePacketCreator;
 import tools.packet.PetPacket;
 
@@ -1337,6 +1338,7 @@ public class World {
         }
     }
 
+    // 用于定时刷怪、清怪、清地板
     public static class Respawn implements Runnable { //is putting it here a good idea?
 
         private int numTimes = 0;
@@ -1374,8 +1376,18 @@ public class World {
                 handleCooldowns(chr, numTimes, hurt);
             }
         }
-        if (numTimes % 10 == 0 && (map.getId() == 220080001 && map.playerCount() == 0)) {
-            ChannelServer.getInstance(map.getChannel()).getMapFactory().getMap(220080000).resetReactors();
+        
+        if (map.playerCount() == 0) {
+            // 定时清怪，以释放服务器压力
+            if (numTimes % 360 == 0 && map.getMobsSize() > 0) {
+                FileoutputUtil.logToFile("log\\定时清怪记录\\" + map.getMapName() + ".log", FileoutputUtil.NowTime() + " 地图[" + map.getMapName() + "][" + map.getId() + "]清理[" + map.getMobsSize() + "]了个怪物。\r\n");
+                map.killAllMonsters(false);
+            }
+            
+            // 时间塔的本源
+            if (numTimes % 10 == 0 && map.getId() == 220080001) {
+                ChannelServer.getInstance(map.getChannel()).getMapFactory().getMap(220080000).resetReactors();
+            }
         }
     }
 

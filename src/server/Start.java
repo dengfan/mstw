@@ -117,7 +117,8 @@ public class Start {
 
         Runtime.getRuntime().addShutdownHook(new Thread(new Shutdown()));
 
-        WorldTimer.getInstance().register(new World.Respawn(), 9000); // 定时刷怪
+        // 每10秒处理一次刷怪、清怪、清地板
+        WorldTimer.getInstance().register(new World.Respawn(), 10000);
 
         WorldTimer.getInstance().register(DatabaseConnection.CloseSQLConnections, 18 * 60 * 1000);
 
