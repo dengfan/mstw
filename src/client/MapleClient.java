@@ -82,6 +82,7 @@ public class MapleClient implements Serializable {
     private transient IoSession session;
     private MapleCharacter player;
     private int channel = 1, accId = 1, world, birthday;
+    private String qq;
     private int charslots = DEFAULT_CHARSLOT;
     private boolean loggedIn = false, serverTransition = false;
     private transient Calendar tempban = null;
@@ -486,7 +487,7 @@ public class MapleClient implements Serializable {
         int loginok = 5;
         try {
             Connection con = DatabaseConnection.getConnection();
-            PreparedStatement ps = con.prepareStatement("SELECT * FROM accounts WHERE facebook_id = ?");
+            PreparedStatement ps = con.prepareStatement("SELECT * FROM accounts WHERE qq = ?");
             ps.setString(1, login);
             ResultSet rs = ps.executeQuery();
 
@@ -497,6 +498,7 @@ public class MapleClient implements Serializable {
                 final String password_otp = rs.getString("password_otp");
 
                 accId = rs.getInt("id");
+                qq = rs.getString("qq");
                 secondPassword = rs.getString("2ndpassword");
                 salt2 = rs.getString("salt2");
                 gm = rs.getInt("gm") > 0;
@@ -578,6 +580,7 @@ public class MapleClient implements Serializable {
                 final String salt = rs.getString("salt");
 
                 accId = rs.getInt("id");
+                qq = rs.getString("qq");
                 secondPassword = rs.getString("2ndpassword");
                 salt2 = rs.getString("salt2");
                 gm = rs.getInt("gm") > 0;
@@ -760,6 +763,11 @@ public class MapleClient implements Serializable {
 
     public int getAccID() {
         return this.accId;
+    }
+    
+    public String getQQ()
+    {
+        return this.qq;
     }
 
     public void updateLoginState(int newstate) {

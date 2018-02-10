@@ -3393,8 +3393,10 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
 
         int total = gain + Class_Bonus_EXP + Equipment_Bonus_EXP + Premium_Bonus_EXP + wedding_EXP;
 
+        Boolean hasPerKilledRewardExp = _questPoints > 0 && fame > 40 && level - mobLv < 30;
+        
         // 任务成就经验奖励
-        if (_questPoints > 0 && fame > 20) {
+        if (hasPerKilledRewardExp) {
             total += getPerKilledRewardExp();
         }
 
@@ -3456,7 +3458,7 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
                 client.getSession().write(MaplePacketCreator.GainEXP_Monster(gain, white, wedding_EXP, partyinc, Class_Bonus_EXP, Equipment_Bonus_EXP, Premium_Bonus_EXP));
 
                 // 任务奖励经验
-                if (_questPoints > 0 && fame > 20) {
+                if (hasPerKilledRewardExp) {
                     client.getSession().write(MaplePacketCreator.GainEXP_Others(getPerKilledRewardExp(), false, white));
                 }
             }

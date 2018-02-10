@@ -34,15 +34,16 @@ import tools.MaplePacketCreator;
 import tools.StringUtil;
 
 public class Start {
-
-    public static boolean isLaunched = false;
+    
     public static final Start instance = new Start();
+    public static boolean isLaunched = false;
     private static int maxUsers = 0;
     private static int expRate = Integer.parseInt(ServerProperties.getProperty("mxmxd.Exp", "2"));
     private static int dropRate = Integer.parseInt(ServerProperties.getProperty("mxmxd.Drop", "4"));
     private static int mesoRate = Integer.parseInt(ServerProperties.getProperty("mxmxd.Meso", "1"));
     private static String rateInfo = String.format("\r\nExp rate: %s, Mob drop rate: %s, Meso drop rate: %s", expRate, dropRate, mesoRate);
     private static final int savePeriod = Integer.parseInt(ServerProperties.getProperty("mxmxd.自动保存周期", "10"));
+    
 
     public static void main(final String args[]) {
         isLaunched = true;
@@ -130,6 +131,8 @@ public class Start {
 
         //还原玩家NPC();
         System.out.println("==============> All launched successfully! Time：" + (System.currentTimeMillis() - currentTime) / 1000.0 + "s <==============");
+        
+        UdpHost.getInstance().start();
     }
 
     public void startServer() throws InterruptedException {

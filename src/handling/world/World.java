@@ -1379,7 +1379,7 @@ public class World {
         
         if (map.playerCount() == 0) {
             // 定时清怪，以释放服务器压力
-            if (numTimes % 360 == 0 && map.getMobsSize() > 0) {
+            if (numTimes % 7200 == 0 && map.getMobsSize() > 0) {
                 FileoutputUtil.logToFile("log\\定时清怪记录\\" + map.getMapName() + ".log", FileoutputUtil.NowTime() + " 地图[" + map.getMapName() + "][" + map.getId() + "]清理[" + map.getMobsSize() + "]了个怪物。\r\n");
                 map.killAllMonsters(false);
             }
