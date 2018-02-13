@@ -75,8 +75,8 @@ public abstract class MapleEvent {
            // chr.gainMeso(666666, true, false, false);
             chr.dropMessage(5, "你获得 200 点卷");
         } else if (reward == 3) {
-            chr.addFame(2);
-            chr.dropMessage(5, "你获得 2 人气");
+            //chr.addFame(1);
+            //chr.dropMessage(5, "你获得 2 人气");
         } 
        
        // final int quantity = (max_quantity > 1 ? Randomizer.nextInt(max_quantity) : 0) + 1;

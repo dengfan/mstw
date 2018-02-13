@@ -3171,19 +3171,15 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
         return 0;
     }
 
-    public void 加减人气(int fame, Boolean isShow) {
+    public void 减人气(int fame, Boolean isShow) {
         if (fame == 0) {
             return;
         }
 
-        addFame(fame);
+        addFame(Math.abs(fame) * -1);
         updateSingleStat(MapleStat.FAME, getFame());
         if (isShow) {
-            if (fame > 0) {
-                dropMessage("人气度 +" + fame);
-            } else {
-                dropMessage("人气度 -" + Math.abs(fame));
-            }
+            dropMessage("人气度 -" + Math.abs(fame));
         }
     }
 
@@ -3201,12 +3197,12 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
         }
     }
 
-    public void 天谴降临(int subtractiveFame) {
+    public void 天谴降临(int fame) {
         // 标记作弊玩家
         标记作弊玩家();
 
         // 减人气
-        加减人气(subtractiveFame > -10 ? -10 : subtractiveFame, false);
+        减人气(fame > -10 ? -10 : fame, false);
 
         无敌指数 = 0;
         吸怪指数 = 0;

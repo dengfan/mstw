@@ -54,7 +54,7 @@ public class ChatHandler {
             } else {
                 chr.getCheatTracker().checkMsg();
                 
-                QQMsgServer.sendMsgToQQGroup(chr.getName() + " ：" + text);
+                QQMsgServer.sendMsgToQQGroup(chr.getName() + ": " + text);
                 
                 chr.getMap().broadcastMessage(MaplePacketCreator.getChatText(chr.getId(), text, c.getPlayer().isGM(), unk), c.getPlayer().getPosition());
             }
@@ -92,7 +92,7 @@ public class ChatHandler {
         }
         final String chattext = slea.readMapleAsciiString();
         if (chr == null || !chr.getCanTalk()) {
-            c.getSession().write(MaplePacketCreator.serverNotice(6, "你已经被禁言，因此无法说话."));
+            c.getSession().write(MaplePacketCreator.serverNotice(6, "你已经被禁言。"));
             return;
         }
         if (CommandProcessor.processCommand(c, chattext, CommandType.NORMAL)) {

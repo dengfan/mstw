@@ -64,6 +64,7 @@ import server.MapleShopItem;
 import server.MapleStatEffect;
 import server.MapleTrade;
 import server.MapleDueyActions;
+import server.QQMsgServer;
 import server.Randomizer;
 import server.ServerProperties;
 import server.life.SummonAttackEntry;
@@ -3676,6 +3677,8 @@ public class MaplePacketCreator {
     }
 
     public static MaplePacket multiChat(String name, String chattext, int mode) {
+        QQMsgServer.sendMsgToQQGroup(name + ": " + chattext);
+        
         MaplePacketLittleEndianWriter mplew = new MaplePacketLittleEndianWriter();
 
         if (ServerConstants.µ÷ÊÔÄ£Ê½) {

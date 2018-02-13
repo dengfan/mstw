@@ -1642,10 +1642,6 @@ public class NPCConversationManager extends AbstractPlayerInteraction {
         return count;
     }
 
-    public void 增加人气(int fame) {
-        c.getPlayer().加减人气(fame, true);
-    }
-
     public void 交出物品(int itemId, int quantity) {
         quantity = Math.abs(quantity);
         final MapleInventoryType t = GameConstants.getInventoryType(itemId);
