@@ -1999,7 +1999,7 @@ public class GameConstants {
     }
 
     public static int getFishingTime(boolean vip, boolean gm) {
-        int a = 10;
+        int a = 15;
         int b = 2;
 
         if (vip) { // 高级鱼竿10秒/次，普通鱼竿20秒/次
