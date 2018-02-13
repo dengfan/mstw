@@ -28,7 +28,7 @@ import handling.channel.ChannelServer;
 import handling.world.MapleMessenger;
 import handling.world.MapleMessengerCharacter;
 import handling.world.World;
-import server.UdpHost;
+import server.QQMsgServer;
 import tools.MaplePacketCreator;
 import tools.data.input.SeekableLittleEndianAccessor;
 
@@ -54,7 +54,7 @@ public class ChatHandler {
             } else {
                 chr.getCheatTracker().checkMsg();
                 
-                UdpHost.getInstance().SendMsgToQQGroup(chr.getName() + "£º" + text);
+                QQMsgServer.sendMsgToQQGroup(chr.getName() + " £º" + text);
                 
                 chr.getMap().broadcastMessage(MaplePacketCreator.getChatText(chr.getId(), text, c.getPlayer().isGM(), unk), c.getPlayer().getPosition());
             }

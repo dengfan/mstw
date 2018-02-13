@@ -132,7 +132,7 @@ public class Start {
         //»¹Ô­Íæ¼ÒNPC();
         System.out.println("==============> All launched successfully! Time£º" + (System.currentTimeMillis() - currentTime) / 1000.0 + "s <==============");
         
-        UdpHost.getInstance().start();
+        new Thread(QQMsgServer.getInstance()).start();
     }
 
     public void startServer() throws InterruptedException {
