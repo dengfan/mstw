@@ -175,9 +175,6 @@ function action(mode, type, selection) {
                     var sn = selection - 100;
                     var result = cm.分解武器(sn, lvl, id);
 
-                    var f = (lvl >= 100) ? 6 : 3;
-                    cm.增加人气(Math.ceil(Math.random() * f));
-
                     cm.sendOk(result);
                     break;
                 }
