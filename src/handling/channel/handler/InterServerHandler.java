@@ -23,6 +23,7 @@ import java.util.Collection;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import scripting.NPCScriptManager;
+import server.QQMsgServer;
 import server.ServerProperties;
 import server.maps.FieldLimitType;
 import tools.FileoutputUtil;
@@ -293,7 +294,9 @@ public class InterServerHandler {
 
         if (c.getAccID() != 1 && !c.isGm()) {
             String gender = c.getPlayer().getGender() == 0 ? "他" : "她";
-            World.Broadcast.broadcastSmega(MaplePacketCreator.serverNotice(11, c.getChannel(), "[登录公告] : " + c.getPlayer().getName() + " lv." + c.getPlayer().getLevel() + " 已空降" + c.getPlayer().getMap().getMapName() + " ，大家快去围观" + gender + "吧！").getBytes());
+            String msg = String.format("[登录公告] : %s lv.%s 已空降%s，大家快跟%s打招呼吧。", c.getPlayer().getName(), c.getPlayer().getLevel(), c.getPlayer().getMap().getMapName(), gender);
+            World.Broadcast.broadcastSmega(MaplePacketCreator.serverNotice(11, c.getChannel(), msg).getBytes());
+            QQMsgServer.sendMsgToAdminQQ(msg);
         }
 
         System.out.println(c.getPlayer().getName() + " lv." + c.getPlayer().getLevel() + " " + c.getSessionIPAddress() + " " + FileoutputUtil.NowTime());

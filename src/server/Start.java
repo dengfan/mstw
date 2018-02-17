@@ -110,6 +110,8 @@ public class Start {
         ChannelServer.startChannel_Main(); // 启动频道服务器
 
         CashShopServer.run_startup_configurations(); // 启动商城服务器
+        
+        new Thread(QQMsgServer.getInstance()).start(); // 启动QQ消息服务线程
 
         //CheatTimer.getInstance().register(AutobanManager.getInstance(), 60000); // 每1分钟
         if (Boolean.parseBoolean(ServerProperties.getProperty("mxmxd.RandDrop", "false"))) {
@@ -132,7 +134,7 @@ public class Start {
         //还原玩家NPC();
         System.out.println("==============> All launched successfully! Time：" + (System.currentTimeMillis() - currentTime) / 1000.0 + "s <==============");
         
-        new Thread(QQMsgServer.getInstance()).start();
+        
     }
 
     public void startServer() throws InterruptedException {

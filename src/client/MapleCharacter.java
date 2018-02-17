@@ -197,7 +197,7 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
         _maxKillCountInCurrentMap = Integer.parseInt(ServerProperties.getProperty("mxmxd.杀怪数量限制", "1000"));
         _tiredMinutes = Integer.parseInt(ServerProperties.getProperty("mxmxd.疲劳度最大值", "600"));
         _isCheckKillAction = Boolean.parseBoolean(ServerProperties.getProperty("mxmxd.检查杀怪异常", "false"));
-        
+
         setStance(0);
         setPosition(new Point(0, 0));
 
@@ -299,12 +299,12 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
 
     public final static MapleCharacter ReconstructChr(final CharacterTransfer ct, final MapleClient client, final boolean isChannel) {
         final MapleCharacter ret = new MapleCharacter(true); // Always true, it's change channel
-        
+
         ret._fame2 = ct.Fame2;
         ret._fame3 = ct.Fame3;
         ret._questPoints = ct.QuestPoints;
         ret._mxmxdMapKilledCountMap = ct.MxmxdMapKilledCountMap;
-        
+
         ret.client = client;
         if (!isChannel) {
             ret.client.setChannel(ct.channel);
@@ -1031,10 +1031,10 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
             }
         }
     }
-    
+
     public int LoadNewFameData() throws SQLException {
         Connection con = DatabaseConnection.getConnection();
-        
+
         // 读取原始人气值 fame
         try {
             PreparedStatement ps = con.prepareStatement("select fame from characters where id = ?");
@@ -1048,10 +1048,10 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
         } catch (SQLException ex) {
             System.err.println("查询原始人气值出错。" + ex);
         }
-        
+
         // 根据收集的怪物卡数据来得到附加的人气值 _fame2
         _fame2 = (short) MonsterBook.getMonsterCategories(id);
-        
+
         // 根据地图杀怪的数据来得到附加的人气值 _fame3
         _fame3 = 0;
         try {
@@ -1066,14 +1066,14 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
         } catch (SQLException ex) {
             System.err.println("查询附加人气值fame3出错。" + ex);
         }
-        
+
         // 写入日志
         FileoutputUtil.logToFile("log\\人气值操作记录\\" + id + ".log", FileoutputUtil.NowTime() + " 玩家[" + name + "][" + id + "]读取角色数据时，人气值[" + this.fame + "] + [" + _fame2 + "] + [" + _fame3 + "] = [" + (fame + _fame2 + _fame3) + "]\r\n");
-        
+
         // 为角色临时增加人气值
         addFame(_fame2 + _fame3);
         updateSingleStat(MapleStat.FAME, getFame());
-        
+
         return _fame2 + _fame3;
     }
 
@@ -2320,11 +2320,11 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
     public final short getFame() {
         return fame;
     }
-    
+
     public final short getFame2() {
         return _fame2;
     }
-    
+
     public final short getFame3() {
         return _fame3;
     }
@@ -3129,20 +3129,19 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
     public int getQuestExp(final int questPoints) {
         return questPoints * 10 + 20;
     }
-    
+
     public int getPerKilledRewardExp() {
         return getQuestExp(_questPoints) + fame;
     }
-    
-    public int getQuestPoints()
-    {
+
+    public int getQuestPoints() {
         return _questPoints;
     }
 
     // 此集合在每次角色存档时会被清空
     private List<MxmxdGainExpMonsterLog> _mxmxdGainExpMonsterLogs = new ArrayList<>();
     private Map<Integer, Integer> _mxmxdMapKilledCountMap = new HashMap<>();
-    
+
     public Map<Integer, Integer> GetMxmxdMapKilledCountMap() {
         return _mxmxdMapKilledCountMap;
     }
@@ -3354,12 +3353,27 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
                 IsDropNone = false;
             }
 
+            // 等级差越高，经验收益越少 - 开始
+            int levelDiff = level - mobLv;
+            if (levelDiff > 30) {
+                gain /= 3;
+            } else if (levelDiff > 20) {
+                gain /= 2.5;
+            } else if (levelDiff > 10) {
+                gain /= 2;
+            } else if (levelDiff > 5) {
+                gain /= 1.5;
+            } else if (levelDiff <= 0) {
+                gain *= 1.2;
+            }
+            // 等级差越高，经验收益越少 - 结束
+
             if (IsDropNone) {
                 int r_1_9 = new Random().nextInt(9);
-                if (r_1_9 == 1 || r_1_9 == 9) {
-                    dropTopMsg("这里真是毫无挑战，你的收益已锐减，重新上线再去别的地方吧。");
-                } else if (r_1_9 == 2) {
-                    dropMessage("[系统提示] : 持强凌弱不算勇士，去做点有意义的事情，挑战更高级的怪物吧。");
+                if (r_1_9 < 4) {
+                    String msg = "你的收益已减少，请重新上线，去挑战更厉害的怪物！！！";
+                    dropTopMsg(msg);
+                    QQMsgServer.sendMsgToQQGroup(String.format("%s，%s持强凌弱不算勇士，去做点有意义的事情吧。", name, msg));
                 }
             }
 
@@ -3389,8 +3403,8 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
 
         int total = gain + Class_Bonus_EXP + Equipment_Bonus_EXP + Premium_Bonus_EXP + wedding_EXP;
 
-        Boolean hasPerKilledRewardExp = _questPoints > 0 && fame > 40 && level - mobLv < 30;
-        
+        Boolean hasPerKilledRewardExp = _questPoints > 0 && fame > 40 && level - mobLv < 20;
+
         // 任务成就经验奖励
         if (hasPerKilledRewardExp) {
             total += getPerKilledRewardExp();
