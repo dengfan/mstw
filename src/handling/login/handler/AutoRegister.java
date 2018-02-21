@@ -18,13 +18,14 @@ public class AutoRegister {
         boolean accountExists = false;
         Connection con = DatabaseConnection.getConnection();
         try {
-            PreparedStatement ps = con.prepareStatement("SELECT name FROM accounts WHERE name = ?");
+            PreparedStatement ps = con.prepareStatement("SELECT id FROM accounts WHERE name = ? OR qq = ?");
             ps.setString(1, login);
+            ps.setString(2, login);
             ResultSet rs = ps.executeQuery();
             if (rs.first()) {
                 accountExists = true;
             }
-            rs.close();;
+            rs.close();
             ps.close();
         } catch (SQLException ex) {
             System.out.println(ex);

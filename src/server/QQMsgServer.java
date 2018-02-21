@@ -46,7 +46,7 @@ public class QQMsgServer implements Runnable {
         try {
             String data = "A_" + msg;
             byte[] buf = data.getBytes();
-            System.out.println("[send mxmxd msg to admin qq] : " + new String(buf));
+            System.out.println("[->admin qq] : " + new String(buf));
             DatagramPacket echo = new DatagramPacket(buf, buf.length, InetAddress.getLoopbackAddress(), PeerPort);
             socket.send(echo);
         } catch (IOException e) {
@@ -59,7 +59,7 @@ public class QQMsgServer implements Runnable {
         try {
             String data = "G_" + msg;
             byte[] buf = data.getBytes();
-            System.out.println("[send mxmxd msg to qq group] : " + new String(buf));
+            System.out.println("[->qq group] : " + new String(buf));
             DatagramPacket echo = new DatagramPacket(buf, buf.length, InetAddress.getLoopbackAddress(), PeerPort);
             socket.send(echo);
         } catch (IOException e) {

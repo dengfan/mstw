@@ -53,8 +53,8 @@ public class Start {
             System.out.println("[!!! Admin Only Mode Active !!!]");
         }
 
-        if (Boolean.parseBoolean(ServerProperties.getProperty("mxmxd.AutoRegister", "true"))) {
-            ServerConstants.×Ô¶¯×¢²á = Boolean.parseBoolean(ServerProperties.getProperty("mxmxd.AutoRegister", "true"));
+        if (Boolean.parseBoolean(ServerProperties.getProperty("mxmxd.AutoRegister", "false"))) {
+            ServerConstants.×Ô¶¯×¢²á = Boolean.parseBoolean(ServerProperties.getProperty("mxmxd.AutoRegister", "false"));
         }
         
         ÖØÖÃµÇÂ¼×´Ì¬();

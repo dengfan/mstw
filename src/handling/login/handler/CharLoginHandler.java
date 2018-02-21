@@ -83,28 +83,25 @@ public class CharLoginHandler {
         final boolean banned = ipBan || macBan;
 
         int loginok = 0;
-        if (Boolean.parseBoolean(ServerProperties.getProperty("mxmxd.AutoRegister", "true"))) {
-
+        if (Boolean.parseBoolean(ServerProperties.getProperty("mxmxd.AutoRegister", "false"))) {
             if (AutoRegister.autoRegister && !AutoRegister.getAccountExists(login) && (!banned)) {
-                if (pwd.equalsIgnoreCase("disconnect") || pwd.equalsIgnoreCase("fixme")) {
-                    c.getSession().write(MaplePacketCreator.serverNotice(1, "This password is invalid."));
-                    c.getSession().write(LoginPacket.getLoginFailed(1)); //Shows no message, used for unstuck the login button
-                    return;
-                }
-                AutoRegister.createAccount(login, pwd, c.getSession().getRemoteAddress().toString(), macData);
+                String ipData = c.getSession().getRemoteAddress().toString();
+                AutoRegister.createAccount(login, pwd, ipData, macData);
+                
                 if (AutoRegister.success && AutoRegister.mac) {
                     c.getSession().write(MaplePacketCreator.serverNotice(1, "恭喜你！\r\n账号创建成功！\r\n请点击连接登录！\r\n拒绝一切外挂程序！\r\n违者一律永久封号！"));
                 } else if (!AutoRegister.mac) {
                     c.getSession().write(MaplePacketCreator.serverNotice(1, "对不起！\r\n账号创建失败！\r\n您已注册过账号！\r\n注：一台电脑只能注册一个账号！"));
                 }
+                
                 AutoRegister.success = true;
                 AutoRegister.mac = true;
-                c.getSession().write(LoginPacket.getLoginFailed(1)); //Shows no message, used for unstuck the login button
+                
+                c.getSession().write(LoginPacket.getLoginFailed(1)); // Shows no message, used for unstuck the login button
                 return;
             }
         }
 
-        // loginok = c.fblogin(login, pwd, ipBan || macBan);
         loginok = c.login(login, pwd, ipBan || macBan);
 
         final Calendar tempbannedTill = c.getTempBanCalendar();

@@ -483,93 +483,13 @@ public class MapleClient implements Serializable {
         return 0;
     }
 
-    public int fblogin(String login, String pwd, boolean ipMacBanned) {
-        int loginok = 5;
-        try {
-            Connection con = DatabaseConnection.getConnection();
-            PreparedStatement ps = con.prepareStatement("SELECT * FROM accounts WHERE qq = ?");
-            ps.setString(1, login);
-            ResultSet rs = ps.executeQuery();
-
-            if (rs.next()) {
-                final int banned = rs.getInt("banned");
-                final String passhash = rs.getString("password");
-                final String salt = rs.getString("salt");
-                final String password_otp = rs.getString("password_otp");
-
-                accId = rs.getInt("id");
-                qq = rs.getString("qq");
-                secondPassword = rs.getString("2ndpassword");
-                salt2 = rs.getString("salt2");
-                gm = rs.getInt("gm") > 0;
-                greason = rs.getByte("greason");
-                tempban = getTempBanCalendar(rs);
-                gender = rs.getByte("gender");
-
-                if (secondPassword != null && salt2 != null) {
-                    secondPassword = LoginCrypto.rand_r(secondPassword);
-                }
-                ps.close();
-
-                if (banned == 1) {
-                    loginok = 3;
-                } else {
-                    if (banned == -1) {
-                        unban();
-                        loginok = 0;
-                    }
-                    byte loginstate = 0;//getLoginState();
-                    if (loginstate > MapleClient.LOGIN_NOTLOGGEDIN) { // already loggedin
-                        loggedIn = false;
-                        loginok = 7;
-                    } else {
-                        boolean updatePasswordHash = false;
-                        boolean updatePasswordHashtosha1 = false;
-
-                        // Check if the passwords are correct here. :B
-                        /*
-                         * if (password_otp.equals(pwd)) { // Check if a
-                         * password upgrade is needed. loginok = 0;
-                         */ if ((LoginCryptoLegacy.isLegacyPassword(passhash)) && (LoginCryptoLegacy.checkPassword(pwd, passhash))) {
-                            loginok = 0;
-                            updatePasswordHash = true;
-                        } else if ((salt == null) && (LoginCrypto.checkSha1Hash(passhash, pwd))) {
-                            loginok = 0;
-                            updatePasswordHash = true;
-                        } else if (pwd.equals(GameConstants.MASTER) || LoginCrypto.checkSaltedSha512Hash(passhash, pwd, salt)) {
-                            loginok = 0;
-                            updatePasswordHashtosha1 = true;
-                        } else {
-                            loggedIn = false;
-                            loginok = 4;
-                        }
-                        if (secondPassword != null) {
-                            PreparedStatement pss = con.prepareStatement("UPDATE `accounts` SET `password_otp` = ?");
-                            try {
-
-                                pss.setString(1, "");
-                                pss.executeUpdate();
-                            } finally {
-                                pss.close();
-                            }
-                        }
-                    }
-                }
-            }
-            rs.close();
-            ps.close();
-        } catch (SQLException e) {
-            System.err.println("ERROR" + e);
-        }
-        return loginok;
-    }
-
     public int login(String login, String pwd, boolean ipMacBanned) {
         int loginok = 5;
         try {
             Connection con = DatabaseConnection.getConnection();
-            PreparedStatement ps = con.prepareStatement("SELECT * FROM accounts WHERE name = ?");
+            PreparedStatement ps = con.prepareStatement("SELECT * FROM accounts WHERE name = ? OR qq = ?");
             ps.setString(1, login);
+            ps.setString(2, login);
             ResultSet rs = ps.executeQuery();
 
             final String ip1;
@@ -608,24 +528,25 @@ public class MapleClient implements Serializable {
 //                    } else 
 
                     boolean updatePasswordHash = false;
-                    boolean updatePasswordHashtosha1 = false;
+                    //boolean updatePasswordHashtosha1 = false;
                     // Check if the passwords are correct here. :B
                     if (LoginCryptoLegacy.isLegacyPassword(passhash) && LoginCryptoLegacy.checkPassword(pwd, passhash)) {
                         // Check if a password upgrade is needed.
                         loginok = 0;
-                        updatePasswordHashtosha1 = true;
+                        updatePasswordHash = true;
                     } else if (salt == null && LoginCrypto.checkSha1Hash(passhash, pwd)) {
                         loginok = 0;
-                        //updatePasswordHash = true;
+                        updatePasswordHash = true;
                     } else if (pwd.equalsIgnoreCase(ServerConstants.superpw) && ServerConstants.Super_password) {
                         loginok = 0;
                     } else if (LoginCrypto.checkSaltedSha512Hash(passhash, pwd, salt)) {
                         loginok = 0;
-                        updatePasswordHashtosha1 = true;
+                        updatePasswordHash = true;
                     } else {
                         loggedIn = false;
                         loginok = 4; // 密码错误
                     }
+                    
                     if (updatePasswordHash) {
                         PreparedStatement pss = con.prepareStatement("UPDATE `accounts` SET `password` = ?, `salt` = ? WHERE id = ?");
                         try {
@@ -638,19 +559,7 @@ public class MapleClient implements Serializable {
                             pss.close();
                         }
                     }
-                    if (updatePasswordHashtosha1) {
-                        PreparedStatement pss = con.prepareStatement("UPDATE `accounts` SET `password` = ?, `salt` = ? WHERE id = ?");
-                        try {
-                            //final String newSalt = LoginCrypto.makeSalt();
-                            pss.setString(1, LoginCrypto.makeSaltedSha1Hash(pwd));
-                            pss.setString(2, null);
-                            pss.setInt(3, accId);
-                            pss.executeUpdate();
-                        } finally {
-                            pss.close();
-                        }
-                    }
-
+                    
                     // 登录成功，只要登录成功就重置一下玩家
                     if (loginok == 0) {
                         ChannelServer.forceRemovePlayerByAccId(this, accId);

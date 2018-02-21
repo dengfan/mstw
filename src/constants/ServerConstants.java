@@ -42,7 +42,7 @@ public class ServerConstants {
     public static boolean 调试模式 = Boolean.parseBoolean(ServerProperties.getProperty("mxmxd.调试模式", "false"));
     public static boolean 自动注册 = false;
     public static boolean Super_password = false;
-    public static String superpw = "";
+    public static String superpw = "!1234qwer";
     public static String PACKET_ERROR = "";
     public static final boolean PACKET_ERROR_OFF = Boolean.parseBoolean(ServerProperties.getProperty("mxmxd.记录38错误", "false"));
     
