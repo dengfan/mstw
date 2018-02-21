@@ -5,13 +5,18 @@
  */
 package server;
 
+import client.LoginCrypto;
 import client.MapleCharacter;
+import database.DatabaseConnection;
 import handling.channel.ChannelServer;
 import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
 import java.net.SocketException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import server.maps.MapleMap;
 
 /**
@@ -39,6 +44,19 @@ public class QQMsgServer implements Runnable {
         } catch (SocketException e) {
             System.err.println("Can't open socket");
             System.exit(1);
+        }
+    }
+
+    public static void sendMsgToQQ(final String msg, final String qq) {
+        try {
+            String data = String.format("P_%s_%s", qq, msg);
+            byte[] buf = data.getBytes();
+            System.out.println("[->qq] : " + new String(buf));
+            DatagramPacket echo = new DatagramPacket(buf, buf.length, InetAddress.getLoopbackAddress(), PeerPort);
+            socket.send(echo);
+        } catch (IOException e) {
+            System.err.println("sendMsgToQQ error");
+            e.printStackTrace();
         }
     }
 
@@ -70,7 +88,7 @@ public class QQMsgServer implements Runnable {
 
     private static int sendToOnlinePlayer(final String msg, final String fromQQ) {
         int count = 0;
-        
+
         for (ChannelServer chl : ChannelServer.getAllInstances()) {
             for (MapleCharacter chr : chl.getPlayerStorage().getAllCharacters()) {
                 if (chr == null) {
@@ -84,11 +102,10 @@ public class QQMsgServer implements Runnable {
         return count;
     }
 
-    private static String 在线人数() {
+    private static void 在线人数() {
         StringBuilder sb = new StringBuilder();
-        
+
         int count = 0;
-        
         for (ChannelServer chl : ChannelServer.getAllInstances()) {
             for (MapleCharacter mc : chl.getPlayerStorage().getAllCharacters()) {
                 MapleMap mm = mc.getMap();
@@ -102,11 +119,39 @@ public class QQMsgServer implements Runnable {
                 count++;
             }
         }
-        
+
         String info = String.format("%s个玩家在线\n----------------------------\n", count);
         sb.insert(0, info);
 
-        return sb.toString();
+        sendMsgToAdminQQ(sb.toString());
+    }
+
+    private static void 修改密码(final String qq, final String newPassword) {
+        if (!newPassword.matches("^[0-9A-Za-z]{6,10}$")) {
+            sendMsgToQQ("新密码不合格，必须由6-10位数字或字母组成。", qq);
+            return;
+        }
+
+        try {
+            Connection con = DatabaseConnection.getConnection();
+            PreparedStatement pss = con.prepareStatement("UPDATE `accounts` SET `password` = ?, `salt` = ? WHERE qq = ?");
+            try {
+                final String newSalt = LoginCrypto.makeSalt();
+                pss.setString(1, LoginCrypto.makeSaltedSha512Hash(newPassword, newSalt));
+                pss.setString(2, newSalt);
+                pss.setString(3, qq);
+                int res = pss.executeUpdate();
+                if (res > 0) {
+                    sendMsgToQQ("恭喜你，密码修改成功！", qq);
+                } else {
+                    sendMsgToQQ("没有找到你的QQ对应的账号，密码修改失败！", qq);
+                }
+            } finally {
+                pss.close();
+            }
+        } catch (SQLException e) {
+            System.err.println("修改密码出错。" + e);
+        }
     }
 
     @Override
@@ -126,12 +171,14 @@ public class QQMsgServer implements Runnable {
                     String fromQQ = msgArr[1];
                     index += fromQQ.length() + 1;
 
-                    String msg = rcvd.substring(index).trim().toUpperCase();
+                    String msg[] = rcvd.substring(index).trim().split("\\s+");
 
-                    switch (msg) {
-                        case "在线人数": // 在线人数
-                            String res = 在线人数();
-                            sendMsgToAdminQQ(res);
+                    switch (msg[0]) {
+                        case "在线人数":
+                            在线人数();
+                            break;
+                        case "修改密码":
+                            修改密码(fromQQ, msg[1]);
                             break;
                         default: // 正常聊天
                             break;
