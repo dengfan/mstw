@@ -3825,7 +3825,7 @@ public class AdminCommand {
                         String mapName = mm.getMapName();
                         int mapId = mm.getId();
                         int lv = mc.getLevel();
-                        c.getPlayer().dropMessage(5, String.format("%s<%s/%s> : %s<%s>", name, id, lv, mapName, mapId));
+                        c.getPlayer().dropMessage(5, String.format("%s<%s> lv.%s : %s<%s>", name, id, lv, mapName, mapId));
                     }
                 }
                 chr.dropMessage(5, "在线人数: " + count);
