@@ -66,7 +66,7 @@ function action(mode, type, selection) {
                 var num2 = 700;
                 if (cm.haveItem(4001126, num1)) {
                     cm.交出物品(4001126, num1);
-                    
+
                     if (Math.ceil(Math.random() * 2) == 1) {
                         cm.gainDY(num2);
                         cm.sendOk("成功兑换，抵用券+" + num2);
@@ -82,7 +82,7 @@ function action(mode, type, selection) {
                 var num2 = 1200;
                 if (cm.haveItem(4001126, num1)) {
                     cm.交出物品(4001126, num1);
-                    
+
                     if (Math.ceil(Math.random() * 2) == 1) {
                         cm.gainDY(num2);
                         cm.sendOk("成功兑换，抵用券+" + num2);
