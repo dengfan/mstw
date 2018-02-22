@@ -3356,15 +3356,15 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
             // 等级差越高，经验收益越少 - 开始
             int levelDiff = level - mobLv;
             if (levelDiff > 30) {
-                gain /= 3;
+                gain = 1;
             } else if (levelDiff > 20) {
-                gain /= 2.5;
+                gain /= 3;
             } else if (levelDiff > 10) {
                 gain /= 2;
             } else if (levelDiff > 5) {
                 gain /= 1.5;
             } else if (levelDiff <= 0) {
-                gain *= 1.2;
+                gain *= 1.1;
             }
             // 等级差越高，经验收益越少 - 结束
 
