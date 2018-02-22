@@ -9,6 +9,7 @@ import client.LoginCrypto;
 import client.MapleCharacter;
 import database.DatabaseConnection;
 import handling.channel.ChannelServer;
+import handling.login.handler.AutoRegister;
 import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
@@ -86,7 +87,7 @@ public class QQMsgServer implements Runnable {
         }
     }
 
-    private static int sendToOnlinePlayer(final String msg, final String fromQQ) {
+    private static int sendToOnlinePlayer(final String fromQQ, final String msg) {
         int count = 0;
 
         for (ChannelServer chl : ChannelServer.getAllInstances()) {
@@ -154,6 +155,42 @@ public class QQMsgServer implements Runnable {
         }
     }
 
+    private static void 注册账号(final String qq) {
+        // 先判断QQ账号是否已经注册
+        Boolean isExists = AutoRegister.getAccountExists(qq);
+        if (isExists) {
+            sendMsgToQQGroup(String.format("你的QQ %s 已经注册过了。", qq));
+            return;
+        }
+
+        try {
+            Connection con = DatabaseConnection.getConnection();
+            PreparedStatement ps = con.prepareStatement("INSERT INTO accounts (name, password, email, birthday, qq) VALUES (?, ?, ?, ?, ?)");
+            
+            try {
+                ps.setString(1, qq);
+                ps.setString(2, LoginCrypto.hexSha1(qq));
+                ps.setString(3, String.format("%s@qq.com", qq));
+                ps.setString(4, "2016-11-16");
+                ps.setString(5, qq);
+                ps.executeUpdate();
+            } finally {
+                ps.close();
+            }
+
+            sendMsgToQQGroup(String.format("恭喜你，QQ %s 注册成功！请使用“修改密码”命令更新密码。", qq));
+            sendMsgToAdminQQ(String.format("QQ %s 注册成功。", qq));
+        } catch (SQLException ex) {
+            System.out.println(ex);
+
+            sendMsgToQQGroup(String.format("对不起，QQ %s 注册失败！", qq));
+            sendMsgToAdminQQ(String.format("QQ %s 注册失败。\n异常：%s", qq, ex.getMessage()));
+        }
+    }
+
+    private static void 创建角色() {
+    }
+
     @Override
     public void run() {
         try {
@@ -190,11 +227,14 @@ public class QQMsgServer implements Runnable {
                     String fromQQ = msgArr[2];
                     index += fromQQ.length() + 1;
 
-                    String msg = rcvd.substring(index).trim().toUpperCase();
+                    String msg[] = rcvd.substring(index).trim().split("\\s+");
 
-                    switch (msg) {
+                    switch (msg[0]) {
+                        case "注册账号":
+                            注册账号(fromQQ);
+                            break;
                         default: // 正常聊天
-                            sendToOnlinePlayer(msg, fromQQ);
+                            sendToOnlinePlayer(fromQQ, msg[1]);
                             break;
                     }
                 }
