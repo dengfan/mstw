@@ -227,14 +227,14 @@ public class QQMsgServer implements Runnable {
                     String fromQQ = msgArr[2];
                     index += fromQQ.length() + 1;
 
-                    String msg[] = rcvd.substring(index).trim().split("\\s+");
+                    String msg = rcvd.substring(index).trim();
 
-                    switch (msg[0]) {
+                    switch (msg) {
                         case "×¢²áÕËºÅ":
                             ×¢²áÕËºÅ(fromQQ);
                             break;
                         default: // Õý³£ÁÄÌì
-                            sendToOnlinePlayer(fromQQ, msg[1]);
+                            sendToOnlinePlayer(fromQQ, msg);
                             break;
                     }
                 }
