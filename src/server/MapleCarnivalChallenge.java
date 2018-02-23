@@ -241,7 +241,7 @@ public class MapleCarnivalChallenge {
             case 2000:
             case 2001:
             case 3000:
-                return "初心者";
+                return "新手";
 
             case 2100:
             case 2110:
@@ -261,7 +261,7 @@ public class MapleCarnivalChallenge {
             case 130:
             case 131:
             case 132:
-                return "劍士";
+                return "战士";
 
             case 2200:
             case 2210:
@@ -291,7 +291,7 @@ public class MapleCarnivalChallenge {
             case 230:
             case 231:
             case 232:
-                return "法師";
+                return "魔法师";
 
             case 3300:
             case 3310:
@@ -326,7 +326,7 @@ public class MapleCarnivalChallenge {
             case 432:
             case 433:
             case 434:
-                return "盜賊";
+                return "飞侠";
 
             case 3500:
             case 3510:
@@ -343,10 +343,10 @@ public class MapleCarnivalChallenge {
             case 520:
             case 521:
             case 522:
-                return "海盜";
+                return "海盗";
 
             default:
-                return "Unknown Job";
+                return "未知";
         }
     }
 }
