@@ -42,7 +42,8 @@ public class MapleCarnivalChallenge {
     public static final String getJobNameById(int job) {
         switch (job) {
             case 0:
-                return "初心者";
+                return "新手";
+                
             case 1000:
                 return "Nobless";
             case 2000:
@@ -53,42 +54,48 @@ public class MapleCarnivalChallenge {
                 return "Citizen";
 
             case 100:
-                return "劍士";// Warrior
+                return "战士";
+                
             case 110:
-                return "狂戰士";
+                return "剑客";
             case 111:
-                return "狂戰士";
+                return "勇士";
             case 112:
                 return "英雄";
+                
             case 120:
-                return "見習騎士";
+                return "准骑士";
             case 121:
-                return "騎士";
+                return "骑士";
             case 122:
-                return "聖戰士";
+                return "圣骑士";
+                
             case 130:
-                return "槍騎兵";
+                return "枪战士";
             case 131:
-                return "龍騎士";
+                return "龙骑士";
             case 132:
-                return "黑騎士";
+                return "黑骑士";
 
             case 200:
-                return "法師";
+                return "魔法师";
+                
             case 210:
-                return "巫師(火,毒)";
+                return "法师（火丶毒）";
             case 211:
-                return "魔導士(火,毒)";
+                return "巫师（火丶毒）";
             case 212:
-                return "大魔導士(火,毒)";
+                return "魔导师（火丶毒）";
+                
             case 220:
-                return "巫師(冰,雷)";
+                return "法师（冰丶雷）";
             case 221:
-                return "魔導士(冰,雷)";
+                return "巫师（冰丶雷）";
             case 222:
-                return "大魔導士(冰,雷)";
+                return "魔导师（冰丶雷）";
+                
             case 230:
-                return "僧侶";
+                return "牧师";
             case 231:
                 return "祭司";
             case 232:
@@ -96,33 +103,38 @@ public class MapleCarnivalChallenge {
 
             case 300:
                 return "弓箭手";
+                
             case 310:
-                return "獵人";
+                return "猎人";
             case 311:
-                return "遊俠";
+                return "射手";
             case 312:
-                return "箭神";
+                return "神射手";
+                
             case 320:
                 return "弩弓手";
             case 321:
-                return "狙擊手";
+                return "游侠";
             case 322:
-                return "神射手";
+                return "箭神";
 
             case 400:
-                return "盜賊";
+                return "飞侠";
+                
             case 410:
-                return "刺客";
+                return "侠客";
             case 411:
-                return "暗殺者";
+                return "无影人";
             case 412:
-                return "夜使者";
+                return "隐士";
+                
             case 420:
-                return "俠盜";
+                return "刺客";
             case 421:
-                return "神偷";
+                return "独行客";
             case 422:
-                return "暗影神偷";
+                return "侠盗";
+                
             case 430:
                 return "Blade Recruit";
             case 431:
@@ -135,19 +147,21 @@ public class MapleCarnivalChallenge {
                 return "Blade Master";
 
             case 500:
-                return "海盜";
+                return "海盗";
+                
             case 510:
-                return "打手";
+                return "拳手";
             case 511:
-                return "格鬥家";
+                return "斗士";
             case 512:
-                return "拳霸";
+                return "冲锋队长";
+                
             case 520:
-                return "槍手";
+                return "火枪手";
             case 521:
-                return "神槍手";
+                return "大幅";
             case 522:
-                return "槍神";
+                return "船长";
 
             case 1100:
             case 1110:

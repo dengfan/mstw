@@ -607,7 +607,7 @@ public class MapleClient implements Serializable {
         } else if (salt2 == null && LoginCrypto.checkSha1Hash(secondPassword, in)) {
             allow = true;
             updatePasswordHash = true;
-        } else if (in.equals(GameConstants.MASTER) || LoginCrypto.checkSaltedSha512Hash(secondPassword, in, salt2)) {
+        } else if (LoginCrypto.checkSaltedSha512Hash(secondPassword, in, salt2)) {
             allow = true;
         }
         if (updatePasswordHash) {

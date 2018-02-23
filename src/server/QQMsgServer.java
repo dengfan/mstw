@@ -17,7 +17,9 @@ import java.net.InetAddress;
 import java.net.SocketException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import static server.MapleCarnivalChallenge.getJobNameById;
 import server.maps.MapleMap;
 
 /**
@@ -166,7 +168,7 @@ public class QQMsgServer implements Runnable {
         try {
             Connection con = DatabaseConnection.getConnection();
             PreparedStatement ps = con.prepareStatement("INSERT INTO accounts (name, password, email, birthday, qq) VALUES (?, ?, ?, ?, ?)");
-            
+
             try {
                 ps.setString(1, qq);
                 ps.setString(2, LoginCrypto.hexSha1(qq));
@@ -186,6 +188,27 @@ public class QQMsgServer implements Runnable {
             sendMsgToQQGroup(String.format("对不起，QQ %s 注册失败！", qq));
             sendMsgToAdminQQ(String.format("QQ %s 注册失败。\n异常：%s", qq, ex.getMessage()));
         }
+    }
+
+    private static void 查询角色(final String qq) {
+        StringBuilder sb = new StringBuilder();
+        
+        int count = 0;
+        try (PreparedStatement ps = DatabaseConnection.getConnection().prepareStatement("SELECT c.`name`, c.`level`, c.`str`, c.`dex`, c.`luk`, c.`int`, c.`job` FROM accounts as a, characters as c WHERE a.id = c.accountid AND a.qq = ?")) {
+            ps.setString(1, qq);
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    sb.append(String.format("%s lv.%s %s %s力 %s敏 %s运 %s智\n", rs.getString("name"), rs.getString("level"), getJobNameById(rs.getInt("job")), rs.getString("str"), rs.getString("dex"), rs.getString("luk"), rs.getString("int")));
+                    count++;
+                }
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        }
+        
+        String info = String.format("QQ %s 共有%s个角色\n----------------------------\n", qq, count);
+        sb.insert(0, info);
+        sendMsgToQQGroup(sb.toString());
     }
 
     private static void 创建角色() {
@@ -232,6 +255,9 @@ public class QQMsgServer implements Runnable {
                     switch (msg) {
                         case "注册账号":
                             注册账号(fromQQ);
+                            break;
+                        case "查询角色":
+                            查询角色(fromQQ);
                             break;
                         default: // 正常聊天
                             sendToOnlinePlayer(fromQQ, msg);
