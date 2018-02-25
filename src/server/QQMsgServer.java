@@ -192,7 +192,7 @@ public class QQMsgServer implements Runnable {
 
     private static void 查询角色(final String qq) {
         StringBuilder sb = new StringBuilder();
-        
+
         int count = 0;
         try (PreparedStatement ps = DatabaseConnection.getConnection().prepareStatement("SELECT c.`name`, c.`level`, c.`str`, c.`dex`, c.`luk`, c.`int`, c.`job` FROM accounts as a, characters as c WHERE a.id = c.accountid AND a.qq = ?")) {
             ps.setString(1, qq);
@@ -205,7 +205,7 @@ public class QQMsgServer implements Runnable {
         } catch (SQLException ex) {
             System.out.println(ex);
         }
-        
+
         String info = String.format("QQ %s 共有%s个角色\n----------------------------\n", qq, count);
         sb.insert(0, info);
         sendMsgToQQGroup(sb.toString());
@@ -238,7 +238,11 @@ public class QQMsgServer implements Runnable {
                             在线人数();
                             break;
                         case "修改密码":
-                            修改密码(fromQQ, msg[1]);
+                            if (msg.length > 1) {
+                                修改密码(fromQQ, msg[1]);
+                            } else {
+                                sendMsgToQQ("你没有提供新密码，无法更新密码。", fromQQ);
+                            }
                             break;
                         default: // 正常聊天
                             break;
