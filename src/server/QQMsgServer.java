@@ -268,10 +268,6 @@ public class QQMsgServer implements Runnable {
                             break;
                     }
                 }
-
-                // 将数据包发送给QQ机器人
-                //String echoString = String.format("%s players recieved.", count);
-                //SendMsgToQQ(echoString);
             }
         } catch (SocketException e) {
             System.err.println("Can't open socket");
