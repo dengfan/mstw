@@ -68,8 +68,8 @@ function action(mode, type, selection) {
 		//for (var i = 0; i < 21; i++) {
 		//    text += 爱心;
 		//}
-		text += "#L100001#萌新攻略#l #L100002#排行榜单#l #L100003#枫叶兑换#l #L100004#领取成就奖励#l\r\n";
-		text += "#L100005#快捷传送#l #L100006#快捷仓库#l #L100007#快捷商店#l\r\n";
+		text += "#L100001#萌新攻略#l #L100002#排行榜单#l #L100003#枫叶兑换#l #L100004#任务成就奖励#l\r\n";
+		text += "#L100005#快捷传送#l #L100006#快捷仓库#l #L100007#快捷商店#l #L100008#物品换取奖励#l\r\n";
 		var v1 = cm.getPlayer().getTiredProgress();
 		var v2 = cm.getPlayer().getQuestProgress();
 		text += "\r\n   #k#B" + v1 + "# 今日疲劳值(" + v1 + "%)";
@@ -79,18 +79,18 @@ function action(mode, type, selection) {
 		//text += "#L5##b删除物品#l\r\n";
 		//text += "\r\n\r\n#L15##b充值礼包#l#L201##b升级奖励#l#L202##b带人奖励#l\r\n\r\n#L28##b血衣制作#l\r\n\r\n#L29##b各职业武器制作#l#L22##b材料兑换宝石#l\r\n\r\n\r\n"//3
 
-		if (cm.getPlayer().isGM()) {
-			text += "\r\n"
-			text += "#d#L100008#物品换经验值#l"
-			//text += "#L8##b精灵吊坠#l#l\r\n\r\n"//3
-			//text += "#L10##b免费点装#l#l#L18##b排行榜单#l#l#L12##b豆豆兑换#l\r\n\r\n"//3
-			//text += "#L13##b勋章领取#l#l#L14##b本服介绍#l#l#L15##b充值介绍#l\r\n\r\n"//3
-			//text += "#L17##b装备制造#l#l#L19##r 限时装备购买#l#l\r\n\r\n"//3
-			//text += "#L20##b黄金枫叶武器制造#l#l\r\n\r\n"//3
-			//text += "#L11##e#r兑换充值礼包#l#L15##e#r兑换新手礼包#l#L14##e#r纪念币交易所#l\r\n"//3
-			//text += "#L4##e#r角色快捷转职#l#L2##e#d坐骑任务补给#l#L13##e#r同步点装商城#l\r\n"//3
-			//text += "#L8##e#r枫叶换抵用卷#l#L9##e#d在线时间奖励#l#L16##e#d删除指定道具#l\r\n\r\n"//3
-		}
+		// if (cm.getPlayer().isGM()) {
+			// text += "\r\n"
+			// text += "#d#L100008#物品换经验值#l"
+			// //text += "#L8##b精灵吊坠#l#l\r\n\r\n"//3
+			// //text += "#L10##b免费点装#l#l#L18##b排行榜单#l#l#L12##b豆豆兑换#l\r\n\r\n"//3
+			// //text += "#L13##b勋章领取#l#l#L14##b本服介绍#l#l#L15##b充值介绍#l\r\n\r\n"//3
+			// //text += "#L17##b装备制造#l#l#L19##r 限时装备购买#l#l\r\n\r\n"//3
+			// //text += "#L20##b黄金枫叶武器制造#l#l\r\n\r\n"//3
+			// //text += "#L11##e#r兑换充值礼包#l#L15##e#r兑换新手礼包#l#L14##e#r纪念币交易所#l\r\n"//3
+			// //text += "#L4##e#r角色快捷转职#l#L2##e#d坐骑任务补给#l#L13##e#r同步点装商城#l\r\n"//3
+			// //text += "#L8##e#r枫叶换抵用卷#l#L9##e#d在线时间奖励#l#L16##e#d删除指定道具#l\r\n\r\n"//3
+		// }
 
 		cm.sendSimple(text);
 
@@ -152,7 +152,7 @@ function action(mode, type, selection) {
         cm.openNpc(2000, 1);
     } else if (selection == 100003) {//枫叶兑换
         cm.openNpc(9900004, 5);
-    } else if (selection == 100004) {//成就奖励
+    } else if (selection == 100004) {//任务成就奖励
         cm.openNpc(9900004, 9);
     } else if (selection == 100005) {//快捷传送
         cm.openNpc(9900004, 1);
@@ -161,7 +161,7 @@ function action(mode, type, selection) {
     } else if (selection == 100007) { //快捷商店
         cm.openShop(30);
         cm.dispose();
-    } else if (selection == 100008) {//物品换经验值
+    } else if (selection == 100008) {//物品换经奖励
         cm.openNpc(9900004, 4);
     }
 }

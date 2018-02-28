@@ -173,7 +173,7 @@ public class QQMsgServer implements Runnable {
                 ps.setString(1, qq);
                 ps.setString(2, LoginCrypto.hexSha1(qq));
                 ps.setString(3, String.format("%s@qq.com", qq));
-                ps.setString(4, "2016-11-16");
+                ps.setString(4, "2016-11-11");
                 ps.setString(5, qq);
                 ps.executeUpdate();
             } finally {
@@ -258,9 +258,11 @@ public class QQMsgServer implements Runnable {
 
                     switch (msg) {
                         case "注册账号":
+                        case "注册帐号":
                             注册账号(fromQQ);
                             break;
                         case "查询角色":
+                        case "查看角色":
                             查询角色(fromQQ);
                             break;
                         default: // 正常聊天

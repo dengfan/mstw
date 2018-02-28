@@ -86,7 +86,7 @@ function action(mode, type, selection) {
         } else if (selection == 5) {
             var txt2 = "#d";
             var inv = cm.getInventory(1);
-            for (var i = 0; i < 96; i++) {
+            for (var i = 1; i <= 96; i++) {
                 var eqItem = inv.getItem(i);
                 if (eqItem != null) {
                     var id = eqItem.getItemId();
