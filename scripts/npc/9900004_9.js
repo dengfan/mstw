@@ -173,6 +173,7 @@ function 奖励(n) {
 			text += "\r\n#fUI/UIWindow.img/QuestIcon/4/0#\r\n\r\n#v" + id + "# #t" + id + "# x " + qty;
 			var wmsg = "[任务成就奖励] 恭喜" + cm.getName() + "已领取“完成" + n + "个任务”的随机奖励！" + name + " x " + qty;
 
+			cm.记录日志之任务成就奖励(n, name, qty);
 			cm.gainItem(id, qty);
 			cm.getPlayer().设置任务成就奖励进度();
 			cm.sendOk(text);

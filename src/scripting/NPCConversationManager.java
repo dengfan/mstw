@@ -52,6 +52,7 @@ import server.maps.SpeedRunType;
 import server.Timer.CloneTimer;
 import server.life.*;
 import server.maps.*;
+import tools.FileoutputUtil;
 import tools.StringUtil;
 
 public class NPCConversationManager extends AbstractPlayerInteraction {
@@ -1870,7 +1871,7 @@ public class NPCConversationManager extends AbstractPlayerInteraction {
         }
         c.getPlayer().dropMessage(6, "创建家具成功，如果需要删除，请在数据库《pnpc》中删除，重启生效");
     }
-    
+
     public void 道具奖励() {
         // itemId baseQty maxRandomQty chance
         int count = 0;
@@ -1903,7 +1904,7 @@ public class NPCConversationManager extends AbstractPlayerInteraction {
                 while (rs.next()) {
                     int randomQty = new Random().nextInt(rs.getInt("maxRandomQty"));
                     for (int i = 0; i <= rs.getInt("chance") - 1; i++) {
-                        data[j] = new int[]{ rs.getInt("itemId"), rs.getInt("baseQty") + randomQty };
+                        data[j] = new int[]{rs.getInt("itemId"), rs.getInt("baseQty") + randomQty};
                         j++;
                     }
                 }
@@ -1916,7 +1917,7 @@ public class NPCConversationManager extends AbstractPlayerInteraction {
         List<int[]> result = new ArrayList<>();
         for (int i = 0; i <= count - 1; i++) {
             int r = new Random().nextInt(arrLength - 1);
-            
+
             int itemId = data[r][0];
             int existsCount = 0;
             for (int[] is : result) {
@@ -1927,16 +1928,49 @@ public class NPCConversationManager extends AbstractPlayerInteraction {
             if (existsCount > 0) {
                 continue;
             }
-            
+
             result.add(data[r]);
         }
-        
+
         if (result.size() > 0) {
             for (int[] is : result) {
                 int itemId = is[0];
-                short qty = (short)is[1];
+                short qty = (short) is[1];
                 gainItem(itemId, qty);
             }
+        }
+    }
+
+    public void 记录日志之物品兑换奖励(int itemId, int itemQty, String rewardKey, int rewardVal) {
+        try {
+            Connection con = DatabaseConnection.getConnection();
+            try (PreparedStatement ps = con.prepareStatement("INSERT INTO mxmxd_item_exchange_reward (chrId, itemId, itemQty, rewardKey, rewardVal, exchangedTime) VALUES (?, ?, ?, ?, ?, ?)")) {
+                ps.setInt(1, c.getPlayer().getId());
+                ps.setInt(2, itemId);
+                ps.setInt(3, itemQty);
+                ps.setString(4, rewardKey);
+                ps.setInt(5, rewardVal);
+                ps.setString(6, FileoutputUtil.NowTime());
+                ps.executeUpdate();
+            }
+        } catch (SQLException e) {
+            System.err.println("记录日志之物品兑换奖励" + e.getMessage());
+        }
+    }
+
+    public void 记录日志之任务成就奖励(int questCount, String rewardItemName, int rewardItemQty) {
+        try {
+            Connection con = DatabaseConnection.getConnection();
+            try (PreparedStatement ps = con.prepareStatement("INSERT INTO mxmxd_maple_exchange_reward (chrId, questCount, rewardItemName, rewardItemQty, exchangedTime) VALUES (?, ?, ?, ?, ?)")) {
+                ps.setInt(1, c.getPlayer().getId());
+                ps.setInt(2, questCount);
+                ps.setString(3, rewardItemName);
+                ps.setInt(4, rewardItemQty);
+                ps.setString(5, FileoutputUtil.NowTime());
+                ps.executeUpdate();
+            }
+        } catch (SQLException e) {
+            System.err.println("记录日志之任务成就奖励" + e.getMessage());
         }
     }
 }
