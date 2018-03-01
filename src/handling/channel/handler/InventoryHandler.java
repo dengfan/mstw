@@ -2484,8 +2484,24 @@ public class InventoryHandler {
         }
 
         final MapleMapItem mapitem = (MapleMapItem) ob;
-        //  final Lock lock = mapitem.getLock();
-        //  lock.lock();
+        
+        // 判断宠物与角色是否在同一位置，是则捡，否则不捡
+        int chrX = chr.getPosition().x;
+        int chrY = chr.getPosition().y;
+        int petX = pet.getPos().x;
+        int petY = pet.getPos().y;
+        Boolean isPetUnderChr = Math.abs(chrY - petY) < 80 && Math.abs(chrX - petX) < 80;
+        
+        // 宠物不允许捡装备和枫叶，必须玩家手动捡
+        int itemId = mapitem.getItemId();
+        if (GameConstants.isEquip(itemId) || itemId == 4001126 || itemId == 4000313) {
+            if (!isPetUnderChr) {
+                return;
+            }
+        }
+        
+        final Lock lock = mapitem.getLock();
+        lock.lock();
         try {
             // chr.dropMessage(5, "OW: " + mapitem.getOwner() + " CH:" + chr.getId() + " Type: " + mapitem.getDropType() + " PD: " + mapitem.isPlayerDrop());
             if (mapitem.isPickedUp()) {
@@ -2552,7 +2568,7 @@ public class InventoryHandler {
                 }
             }
         } finally {
-            //   lock.unlock();
+            lock.unlock();
         }
     }
 

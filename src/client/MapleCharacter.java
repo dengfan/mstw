@@ -1068,7 +1068,9 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
         }
 
         // 写入日志
-        FileoutputUtil.logToFile("log\\人气值操作记录\\" + id + ".log", FileoutputUtil.NowTime() + " 玩家[" + name + "][" + id + "]读取角色数据时，人气值[" + this.fame + "] + [" + _fame2 + "] + [" + _fame3 + "] = [" + (fame + _fame2 + _fame3) + "]\r\n");
+        String fameLog = "%s %s lv.%s <%s> 读取角色数据时，人气值 [%s] + [%s] + [%s] = [%s]\r\n";
+        fameLog = String.format(fameLog, FileoutputUtil.NowTime(), name, level, id, fame, _fame2, _fame3, fame + _fame2 + _fame3);
+        FileoutputUtil.logToFile(String.format("log\\人气值操作记录\\%s.log", id), fameLog);
 
         // 为角色临时增加人气值
         addFame(_fame2 + _fame3);
@@ -1177,7 +1179,10 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
 
             // 保存时减去奖励人气值
             short actualFame = (short) (fame - _fame2 - _fame3);
-            FileoutputUtil.logToFile("log\\人气值操作记录\\" + id + ".log", FileoutputUtil.NowTime() + " 玩家[" + name + "][" + id + "]保存角色数据时，人气值[" + fame + "] - [" + _fame2 + "] - [" + _fame3 + "] = [" + actualFame + "]\r\n");
+            String fameLog = "%s %s lv.%s <%s> 保存角色数据时，人气值 [%s] - [%s] - [%s] = [%s]\r\n";
+            fameLog = String.format(fameLog, FileoutputUtil.NowTime(), name, level, id, fame, _fame2, _fame3, actualFame);
+            FileoutputUtil.logToFile(String.format("log\\人气值操作记录\\%s.log", id), fameLog);
+            
             ps.setShort(2, actualFame);
             //ps.setShort(2, fame);
             ps.setShort(3, stats.getStr());
