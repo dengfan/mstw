@@ -24,7 +24,7 @@ import server.maps.MapleMap;
 
 /**
  *
- * @author appxking
+ * @author 时代先锋
  */
 public class QQMsgServer implements Runnable {
 
@@ -50,9 +50,9 @@ public class QQMsgServer implements Runnable {
         }
     }
 
-    public static void sendMsgToQQ(final String msg, final String qq) {
+    public static void sendMsg(final String msg, final String token) {
         try {
-            String data = String.format("P_%s_%s", qq, msg);
+            String data = String.format("P_%s_%s", token, msg);
             byte[] buf = data.getBytes();
             System.out.println("[->qq] : " + new String(buf));
             DatagramPacket echo = new DatagramPacket(buf, buf.length, InetAddress.getLoopbackAddress(), PeerPort);
@@ -129,9 +129,9 @@ public class QQMsgServer implements Runnable {
         sendMsgToAdminQQ(sb.toString());
     }
 
-    private static void 修改密码(final String qq, final String newPassword) {
+    private static void 修改密码(final String qq, final String newPassword, final String token) {
         if (!newPassword.matches("^[0-9A-Za-z]{6,10}$")) {
-            sendMsgToQQ("新密码不合格，必须由6-10位数字或字母组成。", qq);
+            sendMsg("新密码不合格，必须由6-10位数字或字母组成。", token);
             return;
         }
 
@@ -145,9 +145,9 @@ public class QQMsgServer implements Runnable {
                 pss.setString(3, qq);
                 int res = pss.executeUpdate();
                 if (res > 0) {
-                    sendMsgToQQ("恭喜你，密码修改成功！", qq);
+                    sendMsg("恭喜你，密码修改成功！", token);
                 } else {
-                    sendMsgToQQ("没有找到你的QQ对应的账号，密码修改失败！", qq);
+                    sendMsg("没有找到你的QQ对应的账号，密码修改失败！", token);
                 }
             } finally {
                 pss.close();
@@ -211,9 +211,6 @@ public class QQMsgServer implements Runnable {
         sendMsgToQQGroup(sb.toString());
     }
 
-    private static void 创建角色() {
-    }
-
     @Override
     public void run() {
         try {
@@ -230,6 +227,8 @@ public class QQMsgServer implements Runnable {
                     int index = msgType.length() + 1;
                     String fromQQ = msgArr[1];
                     index += fromQQ.length() + 1;
+                    String token = msgArr[2];
+                    index += token.length() + 1;
 
                     String msg[] = rcvd.substring(index).trim().split("\\s+");
 
@@ -239,9 +238,9 @@ public class QQMsgServer implements Runnable {
                             break;
                         case "修改密码":
                             if (msg.length > 1) {
-                                修改密码(fromQQ, msg[1]);
+                                修改密码(fromQQ, msg[1], token);
                             } else {
-                                sendMsgToQQ("你没有提供新密码，无法更新密码。", fromQQ);
+                                sendMsg("你没有提供新密码，无法更新密码。", token);
                             }
                             break;
                         default: // 正常聊天

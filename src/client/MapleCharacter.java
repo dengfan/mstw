@@ -3321,7 +3321,7 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
                 _mxmxdGainExpMonsterLogs.add(log);
                 return;
             }
-
+            
             // 高效杀怪判断
             if (spend >= 0 && spend < 12) {
                 天谴降临(level * -2);
@@ -3348,16 +3348,13 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
                     gain = level * 4;
                 }
                 IsDropNone = false;
-            } else if (spend >= 260 && spend < 320) {
+            } else if (spend >= 200 && spend < 320) {
                 gain = (int) Math.floor(gain * 2);
-                if (level - mobLv == -1) {
-                    gain = (int) Math.floor(gain * 2);
-                }
                 IsDropNone = false;
             } else {
                 IsDropNone = false;
             }
-
+            
             // 等级差越高，经验收益越少 - 开始
             if (level >= 30) {
                 int levelDiff = level - mobLv;
@@ -3370,10 +3367,11 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
                 } else if (levelDiff > 5) {
                     gain /= 1.5;
                 } else if (levelDiff <= 0) {
-                    gain *= 1.1;
+                    gain *= 1.2;
                 }
             }
             // 等级差越高，经验收益越少 - 结束
+            
             
             if (IsDropNone) {
                 int r_1_9 = new Random().nextInt(9);

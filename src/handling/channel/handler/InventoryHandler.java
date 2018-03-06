@@ -2490,7 +2490,7 @@ public class InventoryHandler {
         int chrY = chr.getPosition().y;
         int petX = pet.getPos().x;
         int petY = pet.getPos().y;
-        Boolean isPetUnderChr = Math.abs(chrY - petY) < 80 && Math.abs(chrX - petX) < 80;
+        Boolean isPetUnderChr = Math.abs(chrY - petY) < 100 && Math.abs(chrX - petX) < 100;
         
         // 宠物不允许捡装备和枫叶，必须玩家手动捡
         int itemId = mapitem.getItemId();

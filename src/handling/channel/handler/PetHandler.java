@@ -203,6 +203,7 @@ public class PetHandler {
         c.getSession().write(MaplePacketCreator.enableActions());
     }
 
+    // 宠物移动捡物
     public static final void MovePet(final SeekableLittleEndianAccessor slea, final MapleCharacter chr) {
         final int petId = slea.readInt();
         slea.skip(8);
@@ -213,17 +214,34 @@ public class PetHandler {
             if (slot == -1) {
                 return;
             }
-            chr.getPet(slot).updatePosition(res);
+            MaplePet pet = chr.getPet(slot);
+            pet.updatePosition(res);
             chr.getMap().broadcastMessage(chr, PetPacket.movePet(chr.getId(), petId, slot, res), false);
             if (chr.getPlayerShop() != null || chr.getConversation() > 0 || chr.getTrade() != null) { //hack
                 return;
             }
             if (chr.getStat().hasVac && (chr.getStat().hasMeso || chr.getStat().hasItem)) {
                 List<MapleMapItem> objects = chr.getMap().getAllItems();
+                
+                // 判断宠物与角色是否在同一位置，是则捡，否则不捡
+                int chrX = chr.getPosition().x;
+                int chrY = chr.getPosition().y;
+                int petX = pet.getPos().x;
+                int petY = pet.getPos().y;
+                Boolean isPetUnderChr = Math.abs(chrY - petY) < 100 && Math.abs(chrX - petX) < 100;
+                
                 for (MapleMapItem mapitem : objects) {
                     final Lock lock = mapitem.getLock();
                     lock.lock();
                     try {
+                        // 宠物不允许捡装备和枫叶，必须玩家手动捡
+                        int itemId = mapitem.getItemId();
+                        if (GameConstants.isEquip(itemId) || itemId == 4001126 || itemId == 4000313) {
+                            if (!isPetUnderChr) {
+                                return;
+                            }
+                        }
+        
                         if (mapitem.isPickedUp()) {
                             continue;
                         }
