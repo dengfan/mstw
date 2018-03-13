@@ -116,6 +116,7 @@ public class LoginServer {
     public static final void closeConn(String ip){
         int count = 0;
         for (IoSession ss : acceptor.getManagedSessions().values()) {
+            if (ss.getRemoteAddress() == null) continue;
             if (ss.getRemoteAddress().toString().split(":")[0].equals(ip)) {
                 ss.close(false);
                 return;
