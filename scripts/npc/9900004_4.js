@@ -81,7 +81,7 @@ function action(mode, type, selection) {
 								cm.记录日志之物品兑换奖励(id, 200, "经验值", rewardVal);
 								cm.gainExp(rewardVal);
 							} else {
-								var rewardVal = Math.ceil(Math.random() * 1000000);
+								var rewardVal = Math.ceil(Math.random() * 6000000);
 								cm.记录日志之物品兑换奖励(id, 200, "金币", rewardVal);
 								cm.gainMeso(rewardVal);
 							}
@@ -103,7 +103,7 @@ function action(mode, type, selection) {
 								cm.记录日志之物品兑换奖励(id, 200, "黄金枫叶", rewardVal);
 								cm.gainItem(4000313, rewardVal);
 							} else if (r == 5) {
-								var rewardVal = Math.ceil(Math.random() * 500000);
+								var rewardVal = Math.ceil(Math.random() * 3000000);
 								cm.记录日志之物品兑换奖励(id, 200, "金币", rewardVal);
 								cm.gainMeso(rewardVal);
 							} else {
