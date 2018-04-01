@@ -33,7 +33,10 @@ import java.util.regex.Matcher;
 
 public class MapleCharacterUtil {
 
+    // 角色名正则
     private static final Pattern namePattern = Pattern.compile("([0-9\\u4e00-\\u9fa5]){2,5}");
+    
+    // 宠物名正则
     private static final Pattern petPattern = Pattern.compile("([0-9\\u4e00-\\u9fa5]){2,5}");
 
     /**
