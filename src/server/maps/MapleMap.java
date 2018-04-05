@@ -1886,6 +1886,7 @@ public final class MapleMap {
         startMapEffect(msg, itemId, true);
     }
 
+    // 玩家进地图
     public final void addPlayer(final MapleCharacter chr) {
         mapobjectlocks.get(MapleMapObjectType.PLAYER).writeLock().lock();
         try {
@@ -2902,15 +2903,16 @@ public final class MapleMap {
         }, 1000 * 60 * 60);
     }
 
-    public void AutoNx(int dy) {
-        for (MapleCharacter chr : characters) {
-            chr.gainExp(chr.getLevel() * 15, true, false, true);
-            int cashdy = 1 + Randomizer.nextInt(dy);
-            chr.modifyCSPoints(2, cashdy);
-            chr.getClient().getSession().write(MaplePacketCreator.serverNotice(5, "[系统奖励] 挂机获得[" + dy + "] 抵用卷!"));
-            chr.getClient().getSession().write(MaplePacketCreator.serverNotice(5, "[系统奖励] 挂机获得[" + chr.getLevel() * 15 + "] 经验!"));
-        }
-    }
+    // 挂机奖励
+//    public void AutoNx(int dy) {
+//        for (MapleCharacter chr : characters) {
+//            chr.gainExp(chr.getLevel() * 15, true, false, true);
+//            int cashdy = 1 + Randomizer.nextInt(dy);
+//            chr.modifyCSPoints(2, cashdy);
+//            chr.getClient().getSession().write(MaplePacketCreator.serverNotice(5, "[系统奖励] 挂机获得[" + dy + "] 抵用卷!"));
+//            chr.getClient().getSession().write(MaplePacketCreator.serverNotice(5, "[系统奖励] 挂机获得[" + chr.getLevel() * 15 + "] 经验!"));
+//        }
+//    }
 
     private class ActivateItemReactor implements Runnable {
 
