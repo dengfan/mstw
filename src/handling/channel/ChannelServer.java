@@ -636,9 +636,10 @@ public class ChannelServer implements Serializable {
         System.out.println("[自动存档] 已经将频道 " + this.channel + " 的 " + ppl + " 个玩家保存到数据中。");
     }
 
-    public void AutoNx(int dy) {
-        mapFactory.getMap(701000210).AutoNx(dy);
-    }
+    // 冒险大擂台入口挂机
+//    public void AutoNx(int dy) {
+//        mapFactory.getMap(701000210).AutoNx(dy);
+//    }
 
     public int getInstanceId() {
         return instanceId;

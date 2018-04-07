@@ -138,7 +138,7 @@ public class MapleMapItem extends AbstractMapleMapObject {
 
     @Override
     public void sendSpawnData(final MapleClient client) {
-        if (client.getPlayer().IsDropNone) {
+        if (client.getPlayer().IsDropNothing) {
             return;
         }
         if (questid <= 0 || client.getPlayer().getQuestStatus(questid) == 1) {

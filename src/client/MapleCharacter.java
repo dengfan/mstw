@@ -184,7 +184,7 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
     public long LastDamageTimestamp = 0;
     public int FastAttackTickCount = 0;
 
-    public boolean IsDropNone = false;
+    public boolean IsDropNothing = false;
     private int _tiredPoints = 0;
     private int _isCheatingPlayer = 0;
     private int _questPoints = 0;
@@ -1182,7 +1182,7 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
             String fameLog = "%s %s lv.%s <%s> 保存角色数据时，人气值 [%s] - [%s] - [%s] = [%s]\r\n";
             fameLog = String.format(fameLog, FileoutputUtil.NowTime(), name, level, id, fame, _fame2, _fame3, actualFame);
             FileoutputUtil.logToFile(String.format("log\\人气值操作记录\\%s.log", id), fameLog);
-            
+
             ps.setShort(2, actualFame);
             //ps.setShort(2, fame);
             ps.setShort(3, stats.getStr());
@@ -3163,6 +3163,24 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
     int posX = 0; // 杀怪时的位置
     int 吸怪指数 = 0;
 
+    // 击杀坐标Y集合，每次换地图后就会被清空
+    // 表示地图复杂度，每在一个不同的Y上杀死一个怪，则计数一次，值越大代表地图越复杂。
+    private List<Integer> _posYList = new ArrayList<>();
+    private int _lastPosY = 0;
+
+    // 每次换地图后就重置击杀坐标Y集合
+    public void clearPosYList() {
+        _posYList.clear();
+    }
+    
+    private boolean isValidPosY(int posY){
+        if (!_posYList.stream().noneMatch((y) -> (Math.abs(y - posY) < 50))) {
+            return false;
+        }
+        
+        return true;
+    }
+
     public int getMaxKillCountInCurrentMap() {
         return _maxKillCountInCurrentMap + (fame * 20);
     }
@@ -3231,6 +3249,8 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
 
     // 杀怪得经验
     public void gainExpMonster(int gain, final boolean show, final boolean white, final byte pty, int wedding_EXP, int Class_Bonus_EXP, int Equipment_Bonus_EXP, int Premium_Bonus_EXP, int skillId, int mobId, int mobLv, long mobHp) {
+        if (isTired()) return;
+        
         Point pos = getPosition();
         int mapId = map.getId();
         int hp = stats.getHp();
@@ -3296,13 +3316,13 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
                 _mxmxdMapKilledCountMap.put(mapId, count + 1);
 
                 if (count > getMaxKillCountInCurrentMap()) {
-                    IsDropNone = true;
+                    IsDropNothing = true;
                     if (new Random().nextInt(5) == 1) {
                         dropTopMsg("你在此地图上的击杀量已超过当日限制，请去别的地方吧。");
                     }
                     return;
                 } else {
-                    IsDropNone = false;
+                    IsDropNothing = false;
                 }
             }
 
@@ -3322,40 +3342,40 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
                 _mxmxdGainExpMonsterLogs.add(log);
                 return;
             }
-            
+
             // 高效杀怪判断
             if (spend >= 0 && spend < 12) {
                 天谴降临(level * -2);
-                IsDropNone = true;
+                IsDropNothing = true;
                 return;
             } else if (spend >= 12 && spend < 16) {
-                IsDropNone = true;
+                IsDropNothing = true;
                 return;
             } else if (spend >= 16 && spend < 100) {
                 gain = (int) Math.floor(gain * 0.1);
                 if (gain > level) {
                     gain = level;
                 }
-                IsDropNone = true;
+                IsDropNothing = true;
             } else if (spend >= 100 && spend < 130) {
                 gain = (int) Math.floor(gain * 0.4);
                 if (gain > level * 4) {
                     gain = level * 2;
                 }
-                IsDropNone = true;
+                IsDropNothing = true;
             } else if (spend >= 130 && spend < 160) {
                 gain = (int) Math.floor(gain * 0.8);
                 if (gain > level * 8) {
                     gain = level * 4;
                 }
-                IsDropNone = false;
+                IsDropNothing = false;
             } else if (spend >= 200 && spend < 320) {
                 gain = (int) Math.floor(gain * 2);
-                IsDropNone = false;
+                IsDropNothing = false;
             } else {
-                IsDropNone = false;
+                IsDropNothing = false;
             }
-            
+
             // 等级差越高，经验收益越少 - 开始
             if (level >= 30) {
                 int levelDiff = level - mobLv;
@@ -3372,14 +3392,13 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
                 }
             }
             // 等级差越高，经验收益越少 - 结束
-            
-            
-            if (IsDropNone) {
+
+            if (IsDropNothing) {
                 int r_1_9 = new Random().nextInt(9);
                 if (r_1_9 < 4) {
                     String msg = "你的收益已减少，请重新上线，去挑战更厉害的怪物！！！";
                     dropTopMsg(msg);
-                    QQMsgServer.sendMsgToQQGroup(String.format("%s，%s持强凌弱不算勇士，去做点有意义的事情吧。", name, msg));
+                    //QQMsgServer.sendMsgToQQGroup(String.format("%s，%s持强凌弱不算勇士，去做点有意义的事情吧。", name, msg));
                 }
             }
 
@@ -3401,20 +3420,53 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
 
                 t = System.currentTimeMillis();
                 e = 0;
+                
+                int posYSize = _posYList.size();
+                
+                if (isGM()) {
+                    dropMessage(5, String.format("当前地图复杂指数为: %s", posYSize));
+                }
+                
+                // 赠送任务成就及人气额外奖励的经验值
+                int extraExp = getPerKilledRewardExp() * 40;
+                gainExp(extraExp, true, true, true);
+                dropMessage(5, String.format("获得角色额外奖励经验值 +%s", extraExp));
+                QQMsgServer.sendMsgToQQGroup(String.format("恭喜%s获得角色额外奖励经验值 +%s", name, extraExp));
+                
+                // 赠送地图复杂度额外奖励的经验值
+                if (posYSize > 6) {
+                    int extraExp2 = gain * (posYSize - 6) * 15;
+                    gainExp(extraExp2, true, true, true);
+                    dropMessage(5, String.format("获得地图额外奖励经验值 +%s", extraExp2));
+                    QQMsgServer.sendMsgToQQGroup(String.format("恭喜%s获得地图额外奖励经验值 +%s", name, extraExp2));
+                }
+                
+                clearPosYList();
 
                 return;
             }
+
+            // 记录每次杀怪时，玩家的Y坐标，以判断地图的复杂程度（玩家在当前地图的难易程序）
+            if (!_posYList.contains(pos.y) && isValidPosY(pos.y)) {
+                _lastPosY = pos.y;
+                _posYList.add(_lastPosY);
+                
+                if (isGM()) {
+                    dropMessage(5, String.format("POSY: %s", _lastPosY));
+                }
+            }
+
             // 检查杀怪效率结束 ----------
         }
 
         int total = gain + Class_Bonus_EXP + Equipment_Bonus_EXP + Premium_Bonus_EXP + wedding_EXP;
 
-        Boolean hasPerKilledRewardExp = _questPoints > 0 && fame > 40 && level - mobLv < 20;
+//        Boolean hasPerKilledRewardExp = _questPoints > 0 && fame > 40 && level - mobLv < 20;
 
         // 任务成就经验奖励
-        if (hasPerKilledRewardExp) {
-            total += getPerKilledRewardExp();
-        }
+//        if (hasPerKilledRewardExp) {
+//            total += getPerKilledRewardExp();
+//        }
 
         int partyinc = 0;
         int prevexp = getExp();
@@ -3463,21 +3515,20 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
                 }
             }
 
-            if (!isTired()) {
-                updateSingleStat(MapleStat.EXP, getExp());
-            } else {
-                client.getSession().write(MaplePacketCreator.GainEXP_Monster(0, white, 0, 0, 0, 0, 0));
-            }
+            // 更新玩家经验值
+            updateSingleStat(MapleStat.EXP, exp);
 
-            if (show && !isTired()) {
+            // 更新客户端经验槽
+            if (show) {
                 // 打怪经验
                 client.getSession().write(MaplePacketCreator.GainEXP_Monster(gain, white, wedding_EXP, partyinc, Class_Bonus_EXP, Equipment_Bonus_EXP, Premium_Bonus_EXP));
 
                 // 任务奖励经验
-                if (hasPerKilledRewardExp) {
-                    client.getSession().write(MaplePacketCreator.GainEXP_Others(getPerKilledRewardExp(), false, white));
-                }
+//                if (hasPerKilledRewardExp) {
+//                    client.getSession().write(MaplePacketCreator.GainEXP_Others(getPerKilledRewardExp(), false, white));
+//                }
             }
+            
             //stats.checkEquipLevels(this, total);
         }
     }
