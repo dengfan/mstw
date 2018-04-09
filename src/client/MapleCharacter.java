@@ -3166,18 +3166,27 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
     // 击杀坐标Y集合，每次换地图后就会被清空
     // 表示地图复杂度，每在一个不同的Y上杀死一个怪，则计数一次，值越大代表地图越复杂。
     private List<Integer> _posYList = new ArrayList<>();
-    private int _lastPosY = 0;
+    private List<Integer> _posXList = new ArrayList<>();
 
     // 每次换地图后就重置击杀坐标Y集合
-    public void clearPosYList() {
+    public void clearPosList() {
         _posYList.clear();
+        _posXList.clear();
     }
-    
-    private boolean isValidPosY(int posY){
-        if (!_posYList.stream().noneMatch((y) -> (Math.abs(y - posY) < 50))) {
+
+    private boolean isValidPosX(final int posX) {
+        if (!_posXList.stream().noneMatch((x) -> (Math.abs(x - posX) < 100))) {
             return false;
         }
-        
+
+        return true;
+    }
+    
+    private boolean isValidPosY(final int posY) {
+        if (!_posYList.stream().noneMatch((y) -> (Math.abs(y - posY) < 100))) {
+            return false;
+        }
+
         return true;
     }
 
@@ -3249,8 +3258,10 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
 
     // 杀怪得经验
     public void gainExpMonster(int gain, final boolean show, final boolean white, final byte pty, int wedding_EXP, int Class_Bonus_EXP, int Equipment_Bonus_EXP, int Premium_Bonus_EXP, int skillId, int mobId, int mobLv, long mobHp) {
-        if (isTired()) return;
-        
+        if (isTired()) {
+            return;
+        }
+
         Point pos = getPosition();
         int mapId = map.getId();
         int hp = stats.getHp();
@@ -3420,39 +3431,51 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
 
                 t = System.currentTimeMillis();
                 e = 0;
-                
-                int posYSize = _posYList.size();
-                
-                if (isGM()) {
-                    dropMessage(5, String.format("当前地图复杂指数为: %s", posYSize));
-                }
-                
-                // 赠送任务成就及人气额外奖励的经验值
-                int extraExp = getPerKilledRewardExp() * 40;
-                gainExp(extraExp, true, true, true);
-                dropMessage(5, String.format("获得角色额外奖励经验值 +%s", extraExp));
-                QQMsgServer.sendMsgToQQGroup(String.format("恭喜%s获得角色额外奖励经验值 +%s", name, extraExp));
-                
-                // 赠送地图复杂度额外奖励的经验值
-                if (posYSize > 6) {
-                    int extraExp2 = gain * (posYSize - 6) * 15;
-                    gainExp(extraExp2, true, true, true);
-                    dropMessage(5, String.format("获得地图额外奖励经验值 +%s", extraExp2));
-                    QQMsgServer.sendMsgToQQGroup(String.format("恭喜%s获得地图额外奖励经验值 +%s", name, extraExp2));
-                }
-                
-                clearPosYList();
 
                 return;
             }
 
-            // 记录每次杀怪时，玩家的Y坐标，以判断地图的复杂程度（玩家在当前地图的难易程序）
-            if (!_posYList.contains(pos.y) && isValidPosY(pos.y)) {
-                _lastPosY = pos.y;
-                _posYList.add(_lastPosY);
-                
+            if (c >= 15 && c % 15 == 0) {
+                int posXSize = _posXList.size();
+                int posYSize = _posYList.size();
+
                 if (isGM()) {
-                    dropMessage(5, String.format("POSY: %s", _lastPosY));
+                    dropMessage(5, String.format("当前地图复杂指数为: %s,%s", posXSize, posYSize));
+                }
+
+                // 赠送任务成就及人气额外奖励的经验值
+                int extraExp = getPerKilledRewardExp() * 15;
+                gainExp(extraExp, true, true, true);
+                dropMessage(5, String.format("获得角色额外奖励经验值 +%s", extraExp));
+
+                // 赠送地图复杂度额外奖励的经验值
+                if (posXSize > 4 && posYSize > 2) {
+                    int extraExp2 = gain * posYSize * 12;
+                    gainExp(extraExp2, true, true, true);
+                    dropMessage(5, String.format("获得地图额外奖励经验值 +%s", extraExp2));
+                    extraExp += extraExp2;
+                }
+
+//                if (extraExp > 0) {
+//                    QQMsgServer.sendMsgToQQGroup(String.format("恭喜%s获得额外奖励经验值 +%s", name, extraExp));
+//                }
+                
+                clearPosList();
+            }
+
+            // 记录每次杀怪时，玩家的坐标，以判断地图的复杂程度（玩家在当前地图的难易程序）
+            if (!_posXList.contains(pos.x) && isValidPosX(pos.x)) {
+                _posXList.add(pos.x);
+
+                if (isGM()) {
+                    dropMessage(5, String.format("POSX: %s", pos.x));
+                }
+            }
+            if (!_posYList.contains(pos.y) && isValidPosY(pos.y)) {
+                _posYList.add(pos.y);
+
+                if (isGM()) {
+                    dropMessage(5, String.format("POSY: %s", pos.y));
                 }
             }
 
@@ -3462,12 +3485,10 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
         int total = gain + Class_Bonus_EXP + Equipment_Bonus_EXP + Premium_Bonus_EXP + wedding_EXP;
 
 //        Boolean hasPerKilledRewardExp = _questPoints > 0 && fame > 40 && level - mobLv < 20;
-
         // 任务成就经验奖励
 //        if (hasPerKilledRewardExp) {
 //            total += getPerKilledRewardExp();
 //        }
-
         int partyinc = 0;
         int prevexp = getExp();
         if (canCheckPeriod()) {
@@ -3528,7 +3549,7 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
 //                    client.getSession().write(MaplePacketCreator.GainEXP_Others(getPerKilledRewardExp(), false, white));
 //                }
             }
-            
+
             //stats.checkEquipLevels(this, total);
         }
     }

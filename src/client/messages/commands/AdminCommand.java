@@ -522,8 +522,8 @@ public class AdminCommand {
                 return 0;
             }
             if (victim != null && player.allowedToTarget(victim)) {
-                victim.addFame(fame);
-                victim.updateSingleStat(MapleStat.FAME, victim.getFame());
+                //victim.addFame(fame);
+                //victim.updateSingleStat(MapleStat.FAME, victim.getFame());
             } else {
                 c.getPlayer().dropMessage(6, "[fame] ½ÇÉ«²»´æÔÚ");
             }

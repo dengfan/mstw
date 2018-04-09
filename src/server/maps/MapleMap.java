@@ -2086,7 +2086,7 @@ public final class MapleMap {
             }
         }
         
-        chr.clearPosYList();
+        chr.clearPosList();
     }
 
     public int getNumItems() {
