@@ -189,6 +189,9 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
     private int _isCheatingPlayer = 0;
     private int _questPoints = 0;
 
+    // 身上装备附魔数据
+    private Map<Integer, List<Integer>> _equippedFuMoMap = new HashMap<>();
+
     private static int _maxKillCountInCurrentMap = 0;
     private static int _tiredMinutes = 0;
     private static Boolean _isCheckKillAction = false;
@@ -458,6 +461,7 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
         return ret;
     }
 
+    // 读取角色数据
     public static MapleCharacter loadCharFromDB(int charid, MapleClient client, boolean channelserver) throws SQLException {
         final MapleCharacter ret = new MapleCharacter(channelserver);
 
@@ -838,6 +842,33 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
                 }
                 ps.close();
                 rs.close();
+
+                // 加载身上装备的附魔数据
+//                ret._equippedFuMoMap.clear();
+//                ps = con.prepareStatement("SELECT inventoryequipmentid, fumoid FROM mxmxd_equipped_dakong_fumo WHERE inventoryequipmentid in (SELECT b.inventoryequipmentid FROM inventoryitems a, inventoryequipment b WHERE a.inventoryitemid = b.inventoryitemid AND a.characterid = ? AND a.inventorytype = -1) AND fumoid > 0");
+//                ps.setInt(1, charid);
+//                rs = ps.executeQuery();
+//                if (rs.next()) {
+//                    int inventoryequipmentid = rs.getInt("inventoryequipmentid");
+//                    int fumoid = rs.getInt("fumoid");
+//                    if (ret._equippedFuMoMap.containsKey(inventoryequipmentid)) {
+//                        List<Integer> fumoList = ret._equippedFuMoMap.get(inventoryequipmentid);
+//                        if (fumoList == null) {
+//                            fumoList = new ArrayList<>();
+//                        }
+//                        if (!fumoList.contains(fumoid)) {
+//                            fumoList.add(fumoid);
+//                        }
+//                    } else {
+//                        List<Integer> fumoList = new ArrayList<>();
+//                        if (!fumoList.contains(fumoid)) {
+//                            fumoList.add(fumoid);
+//                        }
+//                        ret._equippedFuMoMap.put(inventoryequipmentid, fumoList);
+//                    }
+//                }
+//                ps.close();
+//                rs.close();
 
                 ret.stats.recalcLocalStats(true);
             } else { // Not channel server
@@ -3175,15 +3206,15 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
     }
 
     private boolean isValidPosX(final int posX) {
-        if (!_posXList.stream().noneMatch((x) -> (Math.abs(x - posX) < 100))) {
+        if (!_posXList.stream().noneMatch((x) -> (Math.abs(x - posX) < 120))) {
             return false;
         }
 
         return true;
     }
-    
+
     private boolean isValidPosY(final int posY) {
-        if (!_posYList.stream().noneMatch((y) -> (Math.abs(y - posY) < 100))) {
+        if (!_posYList.stream().noneMatch((y) -> (Math.abs(y - posY) < 120))) {
             return false;
         }
 
@@ -3357,30 +3388,22 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
             // 高效杀怪判断
             if (spend >= 0 && spend < 12) {
                 天谴降临(level * -2);
+                gain = 0;
                 IsDropNothing = true;
                 return;
             } else if (spend >= 12 && spend < 16) {
+                gain = 0;
                 IsDropNothing = true;
                 return;
-            } else if (spend >= 16 && spend < 100) {
+            } else if (spend >= 16 && spend < 50) {
                 gain = (int) Math.floor(gain * 0.1);
                 if (gain > level) {
                     gain = level;
                 }
                 IsDropNothing = true;
-            } else if (spend >= 100 && spend < 130) {
-                gain = (int) Math.floor(gain * 0.4);
-                if (gain > level * 4) {
-                    gain = level * 2;
-                }
-                IsDropNothing = true;
-            } else if (spend >= 130 && spend < 160) {
-                gain = (int) Math.floor(gain * 0.8);
-                if (gain > level * 8) {
-                    gain = level * 4;
-                }
+            } else if (spend >= 50 && spend < 150) {
                 IsDropNothing = false;
-            } else if (spend >= 200 && spend < 320) {
+            } else if (spend >= 150 && spend < 240) {
                 gain = (int) Math.floor(gain * 2);
                 IsDropNothing = false;
             } else {
@@ -3403,13 +3426,15 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
                 }
             }
             // 等级差越高，经验收益越少 - 结束
+            
+            if (spend < 130) {
+                QQMsgServer.sendMsgToAdminQQ(String.format("%s<%s> lv.%s，在地图%s中，击杀50个怪用时%s秒。", name, id, level, mapId, spend));
+            }
 
             if (IsDropNothing) {
                 int r_1_9 = new Random().nextInt(9);
                 if (r_1_9 < 4) {
-                    String msg = "你的收益已减少，请重新上线，去挑战更厉害的怪物！！！";
-                    dropTopMsg(msg);
-                    //QQMsgServer.sendMsgToQQGroup(String.format("%s，%s持强凌弱不算勇士，去做点有意义的事情吧。", name, msg));
+                    dropTopMsg("你的收益已减少，请重新上线，去挑战更厉害的怪物吧！");
                 }
             }
 
@@ -3449,8 +3474,8 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
                 dropMessage(5, String.format("获得角色额外奖励经验值 +%s", extraExp));
 
                 // 赠送地图复杂度额外奖励的经验值
-                if (posXSize > 4 && posYSize > 2) {
-                    int extraExp2 = gain * posYSize * 12;
+                if (level > 10 && posXSize > 4 && posYSize > 2) {
+                    int extraExp2 = gain * posYSize * (level / 10);
                     gainExp(extraExp2, true, true, true);
                     dropMessage(5, String.format("获得地图额外奖励经验值 +%s", extraExp2));
                     extraExp += extraExp2;
@@ -3459,7 +3484,6 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
 //                if (extraExp > 0) {
 //                    QQMsgServer.sendMsgToQQGroup(String.format("恭喜%s获得额外奖励经验值 +%s", name, extraExp));
 //                }
-                
                 clearPosList();
             }
 

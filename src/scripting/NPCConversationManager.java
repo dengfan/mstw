@@ -1973,4 +1973,62 @@ public class NPCConversationManager extends AbstractPlayerInteraction {
             System.err.println("记录日志之任务成就奖励" + e.getMessage());
         }
     }
+    
+    public int 打孔(final int equipmentPosition) {
+        if (equipmentPosition >= 0) return 0;
+        
+        Connection con = DatabaseConnection.getConnection();
+        
+        // 先查询装备的 inventoryequipmentid
+        int inventoryequipmentid = 0;
+        String sqlQuery1 = "SELECT b.inventoryequipmentid FROM inventoryitems a, inventoryequipment b WHERE a.inventoryitemid = b.inventoryitemid AND a.characterid = ? AND a.inventorytype = -1 AND a.position = ?";
+        try {
+            PreparedStatement ps = con.prepareStatement(sqlQuery1);
+            ps.setInt(1, c.getPlayer().getId());
+            ps.setInt(2, equipmentPosition);
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    inventoryequipmentid = rs.getInt("inventoryequipmentid");
+                }
+            }
+            ps.close();
+        } catch (SQLException ex) {
+            System.err.println("打孔：查询装备的ID出错：" + ex.getMessage());
+            return 0;
+        }
+        
+        // 再查询该装备已打孔数量
+        int dakongCount = 0;
+        String sqlQuery2 = "SELECT COUNT(*) as dakongCount FROM mxmxd_equipped_dakong_fumo WHERE inventoryequipmentid = ?";
+        try {
+            PreparedStatement ps = con.prepareStatement(sqlQuery2);
+            ps.setInt(1, inventoryequipmentid);
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    dakongCount = rs.getInt("dakongCount");
+                }
+            }
+            ps.close();
+        } catch (SQLException ex) {
+            System.err.println("打孔：查询该装备已打孔数量出错：" + ex.getMessage());
+            return 0;
+        }
+        
+        if (dakongCount >= 3) return -1;
+        
+        String sqlQuery3 = "INSERT INTO mxmxd_equipped_dakong_fumo(inventoryequipmentid, dakongid, dakongtime) VALUES(?,?,?)";
+        try {
+            PreparedStatement ps = con.prepareStatement(sqlQuery3);
+            ps.setInt(1, inventoryequipmentid);
+            ps.setInt(2, dakongCount + 1);
+            ps.setString(3, FileoutputUtil.NowTime());
+            ps.executeUpdate();
+            ps.close();
+        } catch (SQLException ex) {
+            System.err.println("打孔：写入打孔数据出错：" + ex.getMessage());
+            return 0;
+        }
+        
+        return 1;
+    }
 }

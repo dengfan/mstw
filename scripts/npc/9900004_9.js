@@ -141,7 +141,8 @@ function 奖励(n) {
 				text += "#k你当前共完成 " + q + " 个任务，紧接着还可以领取" + count + "次奖励。\r\n";
 			}
 
-			var rewardExp = n * 1000;
+			var lv = cm.getPlayer().getLevel();
+			var rewardExp = n * lv * 10;
 			text += "\r\n#fUI/UIWindow.img/QuestIcon/4/0#\r\n\r\n#v" + id + "# #t" + id + "# x " + qty + "\r\n\r\n#fUI/UIWindow.img/QuestIcon/8/0# +" + rewardExp;
 			var wmsg = "[任务成就奖励] 恭喜" + cm.getName() + "已领取“完成" + n + "个任务”的随机奖励！" + name + " x " + qty + "，经验值 +" + rewardExp;
 
@@ -172,7 +173,8 @@ function 奖励(n) {
 				text += "#k你当前共完成 " + q + " 个任务，紧接着还可以领取" + count + "次奖励。\r\n";
 			}
 
-			var rewardExp = n * 1000;
+			var lv = cm.getPlayer().getLevel();
+			var rewardExp = n * lv * 10;
 			text += "\r\n#fUI/UIWindow.img/QuestIcon/4/0#\r\n\r\n#v" + id + "# #t" + id + "# x " + qty + "\r\n\r\n#fUI/UIWindow.img/QuestIcon/8/0# +" + rewardExp;
 			var wmsg = "[任务成就奖励] 恭喜" + cm.getName() + "已领取“完成" + n + "个任务”的随机奖励！" + name + " x " + qty + "，经验值 +" + rewardExp;
 

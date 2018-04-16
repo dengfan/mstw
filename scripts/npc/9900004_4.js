@@ -35,7 +35,7 @@ function action(mode, type, selection) {
 					var qty = otherItem.getQuantity();
                     if (qty == 200) {
                         var j = i + 100;
-                        txt2 += "\r\n#L" + j + "# #i" + id + "# #t" + id + "##l";
+                        txt2 += "\r\n#L" + j + "# #i" + id + "# #t" + id + "# x 200#l";
                         slot1.push([j, id]);
                     }
                 }
@@ -44,7 +44,7 @@ function action(mode, type, selection) {
 			if (slot1.length == 0) {
 				txt1 = '我喜欢收集怪物身上的东西,因为它们带有一种灵性,等等...你好像没有可以交换的物品哦.';
 			} else {
-				txt1 = '以下是你可以交换的物品,请选择你要交换的物品吧,可以随机兑换到经验值、金币、(黄金)枫叶、点卷和抵用卷哦!';
+				txt1 = '以下是你可以交换的物品,请选择你要交换的一组物品吧,可以随机兑换到经验值、金币、(黄金)枫叶、点卷和抵用卷哦!';
 			}
 
             cm.sendSimple(txt1 + txt2);
