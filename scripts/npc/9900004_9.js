@@ -126,7 +126,7 @@ function 奖励(n) {
         return;
     }
 
-	if (n > 750)
+	if (n > 750) // 超过预置任务奖励，则只奖励枫叶
 	{
 		id = 4001126;
 		qty = Math.ceil(Math.random() * 1000);
@@ -141,10 +141,12 @@ function 奖励(n) {
 				text += "#k你当前共完成 " + q + " 个任务，紧接着还可以领取" + count + "次奖励。\r\n";
 			}
 
-			text += "\r\n#fUI/UIWindow.img/QuestIcon/4/0#\r\n\r\n#v" + id + "# #t" + id + "# x " + qty;
-			var wmsg = "[任务成就奖励] 恭喜" + cm.getName() + "已领取“完成" + n + "个任务”的随机奖励！" + name + " x " + qty;
+			var rewardExp = n * 1000;
+			text += "\r\n#fUI/UIWindow.img/QuestIcon/4/0#\r\n\r\n#v" + id + "# #t" + id + "# x " + qty + "\r\n\r\n#fUI/UIWindow.img/QuestIcon/8/0# +" + rewardExp;
+			var wmsg = "[任务成就奖励] 恭喜" + cm.getName() + "已领取“完成" + n + "个任务”的随机奖励！" + name + " x " + qty + "，经验值 +" + rewardExp;
 
 			cm.gainItem(id, qty);
+			cm.gainExp(rewardExp);
 			cm.getPlayer().设置任务成就奖励进度();
 			cm.sendOk(text);
 			cm.worldMessage(6, wmsg);
@@ -170,11 +172,13 @@ function 奖励(n) {
 				text += "#k你当前共完成 " + q + " 个任务，紧接着还可以领取" + count + "次奖励。\r\n";
 			}
 
-			text += "\r\n#fUI/UIWindow.img/QuestIcon/4/0#\r\n\r\n#v" + id + "# #t" + id + "# x " + qty;
-			var wmsg = "[任务成就奖励] 恭喜" + cm.getName() + "已领取“完成" + n + "个任务”的随机奖励！" + name + " x " + qty;
+			var rewardExp = n * 1000;
+			text += "\r\n#fUI/UIWindow.img/QuestIcon/4/0#\r\n\r\n#v" + id + "# #t" + id + "# x " + qty + "\r\n\r\n#fUI/UIWindow.img/QuestIcon/8/0# +" + rewardExp;
+			var wmsg = "[任务成就奖励] 恭喜" + cm.getName() + "已领取“完成" + n + "个任务”的随机奖励！" + name + " x " + qty + "，经验值 +" + rewardExp;
 
 			cm.记录日志之任务成就奖励(n, name, qty);
 			cm.gainItem(id, qty);
+			cm.gainExp(rewardExp);
 			cm.getPlayer().设置任务成就奖励进度();
 			cm.sendOk(text);
 			cm.worldMessage(6, wmsg);
