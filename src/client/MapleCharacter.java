@@ -3305,7 +3305,7 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
             posX = pos.x;
         }
 
-        if (pos.x >= posX - 30 && pos.x <= posX + 30) {
+        if (pos.x >= posX - 100 && pos.x <= posX + 100) {
             吸怪指数++;
         } else {
             吸怪指数 = 0;
@@ -3411,8 +3411,8 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
             }
 
             // 等级差越高，经验收益越少 - 开始
+            int levelDiff = level - mobLv;
             if (level >= 30) {
-                int levelDiff = level - mobLv;
                 if (levelDiff > 30) {
                     gain = 1;
                 } else if (levelDiff > 20) {
@@ -3427,10 +3427,6 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
             }
             // 等级差越高，经验收益越少 - 结束
             
-            if (spend < 130) {
-                QQMsgServer.sendMsgToAdminQQ(String.format("%s<%s> lv.%s，在地图%s中，击杀50个怪用时%s秒。", name, id, level, mapId, spend));
-            }
-
             if (IsDropNothing) {
                 int r_1_9 = new Random().nextInt(9);
                 if (r_1_9 < 4) {
@@ -3453,6 +3449,10 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
                 spend = (System.currentTimeMillis() - t) / 1000;
                 MxmxdGainExpMonsterLog log = new MxmxdGainExpMonsterLog(hp, hpMax, mp, mpMax, mapId, skillId, mobId, c, e, spend, sdf.format(dt));
                 _mxmxdGainExpMonsterLogs.add(log);
+                
+                if (spend > 0 && spend < 130) {
+                    QQMsgServer.sendMsgToAdminQQ(String.format("[告警] : %s<%s> lv.%s hp.%s/%s mp.%s/%s，在地图<%s>中，使用技能<%s>击杀50个怪<%s> lv.%s hp.%s 用时%s秒。\r\n玩家等级大怪: %s级\r\n无敌指数: %s\r\n吸怪指数: %s", name, id, level, hp, hpMax, mp, mpMax, mapId, skillId, mobId, mobLv, mobHp, spend, levelDiff, 无敌指数, 吸怪指数));
+                }
 
                 t = System.currentTimeMillis();
                 e = 0;
