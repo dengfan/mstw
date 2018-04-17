@@ -3395,13 +3395,13 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
                 gain = 0;
                 IsDropNothing = true;
                 return;
-            } else if (spend >= 16 && spend < 50) {
+            } else if (spend >= 16 && spend < 60) {
                 gain = (int) Math.floor(gain * 0.1);
                 if (gain > level) {
                     gain = level;
                 }
                 IsDropNothing = true;
-            } else if (spend >= 50 && spend < 150) {
+            } else if (spend >= 60 && spend < 150) {
                 IsDropNothing = false;
             } else if (spend >= 150 && spend < 240) {
                 gain = (int) Math.floor(gain * 2);
