@@ -191,6 +191,11 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
 
     // 身上装备附魔数据
     private Map<Integer, List<Integer>> _equippedFuMoMap = new HashMap<>();
+    
+    public Map<Integer, List<Integer>> getEquippedFuMoMap()
+    {
+        return _equippedFuMoMap;
+    }
 
     private static int _maxKillCountInCurrentMap = 0;
     private static int _tiredMinutes = 0;
@@ -461,7 +466,7 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
         return ret;
     }
 
-    // 读取角色数据
+    // 登录时，读取角色数据
     public static MapleCharacter loadCharFromDB(int charid, MapleClient client, boolean channelserver) throws SQLException {
         final MapleCharacter ret = new MapleCharacter(channelserver);
 
@@ -3360,7 +3365,9 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
                 if (count > getMaxKillCountInCurrentMap()) {
                     IsDropNothing = true;
                     if (new Random().nextInt(5) == 1) {
+                        // 需要玩家打开拍卖菜单激活人气奖励
                         dropTopMsg("你在此地图上的击杀量已超过当日限制，请去别的地方吧。");
+                        dropMessage("[系统提示] : 如果持续提示“击杀量已超过当日限制”，请打开拍卖菜单激活人气奖励，并核实当前地图的击杀量是否已用完。");
                     }
                     return;
                 } else {

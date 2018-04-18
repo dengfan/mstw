@@ -292,6 +292,10 @@ public class InterServerHandler {
         player.spawnSavedPets();
         c.getSession().write(MaplePacketCreator.showCharCash(c.getPlayer()));
 
+        if (player.getLevel() > 12) {
+            player.dropMessage("[系统提示] : 请打开1次拍卖菜单以激活你的人气奖励。");
+        }
+        
         if (c.getAccID() != 1 && !c.isGm()) {
             String gender = c.getPlayer().getGender() == 0 ? "他" : "她";
             String msg = String.format("[登录公告] : %s lv.%s 已空降%s，大家快跟%s打招呼吧。", c.getPlayer().getName(), c.getPlayer().getLevel(), c.getPlayer().getMap().getMapName(), gender);
