@@ -1974,6 +1974,11 @@ public class NPCConversationManager extends AbstractPlayerInteraction {
         }
     }
     
+    public void 发消息到QQ群(String msg)
+    {
+        QQMsgServer.sendMsgToQQGroup(msg);
+    }
+    
     public int 打孔(final int equipmentPosition) {
         if (equipmentPosition >= 0) return 0;
         

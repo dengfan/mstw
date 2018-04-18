@@ -3291,6 +3291,18 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
             return lvBalance * 20 * 2;
         }
     }
+    
+    public void 补尝击杀数量(int addCount)
+    {
+        int mapId = map.getId();
+        if (_mxmxdMapKilledCountMap.containsKey(mapId)) {
+            int count = _mxmxdMapKilledCountMap.get(mapId);
+            int result = count - addCount;
+            if (result < 0) result = 0;
+            _mxmxdMapKilledCountMap.put(mapId, result);
+            dropMessage(String.format("[击杀奖励] : 恭喜你获得当前地图的击杀数量奖励 +%s杀", addCount));
+        }
+    }
 
     // 杀怪得经验
     public void gainExpMonster(int gain, final boolean show, final boolean white, final byte pty, int wedding_EXP, int Class_Bonus_EXP, int Equipment_Bonus_EXP, int Premium_Bonus_EXP, int skillId, int mobId, int mobLv, long mobHp) {
