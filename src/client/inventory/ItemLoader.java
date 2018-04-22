@@ -216,6 +216,7 @@ public enum ItemLoader {
                     equip.setMpR(rs.getShort("mpR"));
                     equip.setGiftFrom(rs.getString("sender"));
                     equip.setEquipLevel(rs.getByte("itemlevel"));
+                    equip.setDaKongFuMo(rs.getString("mxmxd_dakong_fumo"));
                     if (equip.getUniqueId() > -1) {
                         if (GameConstants.isEffectRing(rs.getInt("itemid"))) {
                             MapleRing ring = MapleRing.loadFromDb(equip.getUniqueId(), mit.equals(MapleInventoryType.EQUIPPED));
@@ -320,7 +321,7 @@ public enum ItemLoader {
         query_2.append(")");
         ps = con.prepareStatement(query_2.toString(), Statement.RETURN_GENERATED_KEYS);
         try {
-            PreparedStatement pse = con.prepareStatement("INSERT INTO " + table_equip + " VALUES (DEFAULT, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+            PreparedStatement pse = con.prepareStatement("INSERT INTO " + table_equip + " VALUES (DEFAULT, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
             final Iterator<Pair<IItem, MapleInventoryType>> iter = items.iterator();
             Pair<IItem, MapleInventoryType> pair;
 
@@ -388,6 +389,7 @@ public enum ItemLoader {
                     pse.setInt(26, equip.getHpR());
                     pse.setInt(27, equip.getMpR());
                     pse.setByte(28, equip.getEquipLevel());
+                    pse.setString(29, equip.getDaKongFuMo());
                     pse.executeUpdate();
                 }
             }

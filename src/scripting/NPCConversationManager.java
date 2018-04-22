@@ -1973,67 +1973,107 @@ public class NPCConversationManager extends AbstractPlayerInteraction {
             System.err.println("记录日志之任务成就奖励" + e.getMessage());
         }
     }
-    
-    public void 发消息到QQ群(String msg)
-    {
+
+    public void 发消息到QQ群(String msg) {
         QQMsgServer.sendMsgToQQGroup(msg);
     }
-    
-    public int 打孔(final int equipmentPosition) {
-        if (equipmentPosition >= 0) return 0;
-        
+
+    public int 打孔(final short equipmentPosition) {
+        if (equipmentPosition >= 0) {
+            return 0;
+        }
+
         Connection con = DatabaseConnection.getConnection();
-        
-        // 先查询装备的 inventoryequipmentid
-        int inventoryequipmentid = 0;
-        String sqlQuery1 = "SELECT b.inventoryequipmentid FROM inventoryitems a, inventoryequipment b WHERE a.inventoryitemid = b.inventoryitemid AND a.characterid = ? AND a.inventorytype = -1 AND a.position = ?";
+
+        // 先查询装备的打孔数据
+        String mxmxdDaKongFuMo = null;
+        String sqlQuery1 = "SELECT b.mxmxd_dakong_fumo FROM inventoryitems a, inventoryequipment b WHERE a.inventoryitemid = b.inventoryitemid AND a.characterid = ? AND a.inventorytype = -1 AND a.position = ?";
         try {
             PreparedStatement ps = con.prepareStatement(sqlQuery1);
             ps.setInt(1, c.getPlayer().getId());
             ps.setInt(2, equipmentPosition);
             try (ResultSet rs = ps.executeQuery()) {
                 while (rs.next()) {
-                    inventoryequipmentid = rs.getInt("inventoryequipmentid");
+                    mxmxdDaKongFuMo = rs.getString("mxmxd_dakong_fumo");
                 }
             }
             ps.close();
         } catch (SQLException ex) {
-            System.err.println("打孔：查询装备的ID出错：" + ex.getMessage());
+            System.err.println("打孔：查询查询装备的打孔数据出错：" + ex.getMessage());
             return 0;
         }
-        
-        // 再查询该装备已打孔数量
+
+        if (mxmxdDaKongFuMo == null) {
+            mxmxdDaKongFuMo = "";
+        }
+
+        // 再计算该装备已打孔数量
         int dakongCount = 0;
-        String sqlQuery2 = "SELECT COUNT(*) as dakongCount FROM mxmxd_equipped_dakong_fumo WHERE inventoryequipmentid = ?";
+        if (mxmxdDaKongFuMo.length() > 0) {
+            dakongCount = mxmxdDaKongFuMo.split(",").length;
+        }
+
+        if (dakongCount >= 3) {
+            return 0;
+        }
+
+        c.getPlayer().getInventory(MapleInventoryType.EQUIPPED).getItem(equipmentPosition).setDaKongFuMo(mxmxdDaKongFuMo + "0:0,");
+
+        return 1;
+    }
+
+    /**
+     * Replaces the first subsequence of the <tt>source</tt> string that matches
+     * the literal target string with the specified literal replacement string.
+     *
+     * @param source source string on which the replacement is made
+     * @param target the string to be replaced
+     * @param replacement the replacement string
+     * @return the resulting string
+     */
+    private static String replaceFirst2(String source, String target, String replacement) {
+        int index = source.indexOf(target);
+        if (index == -1) {
+            return source;
+        }
+
+        return source.substring(0, index)
+                .concat(replacement)
+                .concat(source.substring(index + target.length()));
+    }
+
+    public int 附魔(final short equipmentPosition, final int fuMoType, final int fuMoValue) {
+        if (equipmentPosition >= 0) {
+            return 0;
+        }
+
+        Connection con = DatabaseConnection.getConnection();
+
+        // 先查询装备的打孔附魔数据
+        String mxmxdDaKongFuMo = null;
+        String sqlQuery1 = "SELECT b.mxmxd_dakong_fumo FROM inventoryitems a, inventoryequipment b WHERE a.inventoryitemid = b.inventoryitemid AND a.characterid = ? AND a.inventorytype = -1 AND a.position = ?";
         try {
-            PreparedStatement ps = con.prepareStatement(sqlQuery2);
-            ps.setInt(1, inventoryequipmentid);
+            PreparedStatement ps = con.prepareStatement(sqlQuery1);
+            ps.setInt(1, c.getPlayer().getId());
+            ps.setInt(2, equipmentPosition);
             try (ResultSet rs = ps.executeQuery()) {
                 while (rs.next()) {
-                    dakongCount = rs.getInt("dakongCount");
+                    mxmxdDaKongFuMo = rs.getString("mxmxd_dakong_fumo");
                 }
             }
             ps.close();
         } catch (SQLException ex) {
-            System.err.println("打孔：查询该装备已打孔数量出错：" + ex.getMessage());
+            System.err.println("附魔：查询装备的打孔附魔数据出错：" + ex.getMessage());
             return 0;
         }
-        
-        if (dakongCount >= 3) return -1;
-        
-        String sqlQuery3 = "INSERT INTO mxmxd_equipped_dakong_fumo(inventoryequipmentid, dakongid, dakongtime) VALUES(?,?,?)";
-        try {
-            PreparedStatement ps = con.prepareStatement(sqlQuery3);
-            ps.setInt(1, inventoryequipmentid);
-            ps.setInt(2, dakongCount + 1);
-            ps.setString(3, FileoutputUtil.NowTime());
-            ps.executeUpdate();
-            ps.close();
-        } catch (SQLException ex) {
-            System.err.println("打孔：写入打孔数据出错：" + ex.getMessage());
+
+        if (mxmxdDaKongFuMo == null || mxmxdDaKongFuMo.length() == 0) {
             return 0;
         }
-        
+
+        mxmxdDaKongFuMo = replaceFirst2(mxmxdDaKongFuMo, "0:0,", String.format("%s:%s,", fuMoType, fuMoValue));
+        c.getPlayer().getInventory(MapleInventoryType.EQUIPPED).getItem(equipmentPosition).setDaKongFuMo(mxmxdDaKongFuMo);
+
         return 1;
     }
 }

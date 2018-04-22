@@ -82,6 +82,7 @@ public class Equip extends Item implements IEquip, Serializable {
         ret.setOwner(getOwner());
         ret.setQuantity(getQuantity());
         ret.setExpiration(getExpiration());
+        ret.setDaKongFuMo(getDaKongFuMo());
         return ret;
     }
 
@@ -552,4 +553,6 @@ public class Equip extends Item implements IEquip, Serializable {
     public byte getEquipLevel() {
         return itemLevel;
     }
+    
+    
 }

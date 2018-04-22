@@ -37,6 +37,7 @@ public class Item implements IItem, Serializable {
     private String giftFrom = "";
     protected MapleRing ring = null;
     private byte itemLevel;
+    private String mxmxdDaKongFuMo = "";
 
     public Item(final int id, final short position, final short quantity, final byte flag, final int uniqueid) {
         super();
@@ -230,5 +231,18 @@ public class Item implements IItem, Serializable {
 
     public void setRing(MapleRing ring) {
         this.ring = ring;
+    }
+    
+    
+    @Override
+    public String getDaKongFuMo()
+    {
+        return mxmxdDaKongFuMo;
+    }
+    
+    @Override
+    public void setDaKongFuMo(final String mxmxdDaKongFuMo)
+    {
+        this.mxmxdDaKongFuMo = mxmxdDaKongFuMo;
     }
 }

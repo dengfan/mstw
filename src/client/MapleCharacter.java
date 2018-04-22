@@ -190,12 +190,12 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
     private int _questPoints = 0;
 
     // 身上装备附魔数据
-    private Map<Integer, List<Integer>> _equippedFuMoMap = new HashMap<>();
-    
-    public Map<Integer, List<Integer>> getEquippedFuMoMap()
-    {
-        return _equippedFuMoMap;
-    }
+//    private Map<Integer, List<Integer>> _equippedFuMoMap = new HashMap<>();
+//    
+//    public Map<Integer, List<Integer>> getEquippedFuMoMap()
+//    {
+//        return _equippedFuMoMap;
+//    }
 
     private static int _maxKillCountInCurrentMap = 0;
     private static int _tiredMinutes = 0;
