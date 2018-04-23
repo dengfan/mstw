@@ -62,22 +62,26 @@ function action(mode, type, selection) {
 						var r = Math.ceil(Math.random() * 6);
 						if (lv > 50) {
 							if (r == 6) {
-								var rewardVal = Math.ceil(Math.random() * 150);
+								//var rewardVal = Math.ceil(Math.random() * 150);
+								var rewardVal = 80;
 								cm.记录日志之物品兑换奖励(id, 200, "点券", rewardVal);
 								cm.gainNX(rewardVal);
 								info1 = '点券 +' + rewardVal;
 							} else if (r == 5) {
-								var rewardVal = Math.ceil(Math.random() * 150);
+								//var rewardVal = Math.ceil(Math.random() * 150);
+								var rewardVal = 80;
 								cm.记录日志之物品兑换奖励(id, 200, "抵用券", rewardVal);
 								cm.gainDY(rewardVal);
 								info1 = '抵用券 +' + rewardVal;
 							} else if (r == 4) {
-								var rewardVal = Math.ceil(Math.random() * 150);
+								//var rewardVal = Math.ceil(Math.random() * 150);
+								var rewardVal = 80;
 								cm.记录日志之物品兑换奖励(id, 200, "枫叶", rewardVal);
 								cm.gainItem(4001126, rewardVal);
 								info1 = '枫叶 x ' + rewardVal;
 							} else if (r == 3) {
-								var rewardVal = Math.ceil(Math.random() * 150);
+								//var rewardVal = Math.ceil(Math.random() * 150);
+								var rewardVal = 80;
 								cm.记录日志之物品兑换奖励(id, 200, "黄金枫叶", rewardVal);
 								cm.gainItem(4000313, rewardVal);
 								info1 = '黄金枫叶 x ' + rewardVal;
@@ -94,22 +98,26 @@ function action(mode, type, selection) {
 							}
 						} else if (lv > 12) {
 							if (r == 6) {
-								var rewardVal = Math.ceil(Math.random() * 150);
+								//var rewardVal = Math.ceil(Math.random() * 150);
+								var rewardVal = 80;
 								cm.记录日志之物品兑换奖励(id, 200, "点券", rewardVal);
 								cm.gainNX(rewardVal);
 								info1 = '点券 +' + rewardVal;
 							} else if (r == 5) {
-								var rewardVal = Math.ceil(Math.random() * 150);
+								//var rewardVal = Math.ceil(Math.random() * 150);
+								var rewardVal = 80;
 								cm.记录日志之物品兑换奖励(id, 200, "抵用券", rewardVal);
 								cm.gainDY(rewardVal);
 								info1 = '抵用券 +' + rewardVal;
 							} else if (r == 4) {
-								var rewardVal = Math.ceil(Math.random() * 150);
+								//var rewardVal = Math.ceil(Math.random() * 150);
+								var rewardVal = 80;
 								cm.记录日志之物品兑换奖励(id, 200, "枫叶", rewardVal);
 								cm.gainItem(4001126, rewardVal);
 								info1 = '枫叶 x ' + rewardVal;
 							} else if (r == 3) {
-								var rewardVal = Math.ceil(Math.random() * 150);
+								//var rewardVal = Math.ceil(Math.random() * 150);
+								var rewardVal = 80;
 								cm.记录日志之物品兑换奖励(id, 200, "黄金枫叶", rewardVal);
 								cm.gainItem(4000313, rewardVal);
 								info1 = '黄金枫叶 x ' + rewardVal;
