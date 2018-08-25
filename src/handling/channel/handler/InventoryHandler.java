@@ -86,6 +86,33 @@ import tools.packet.PlayerShopPacket;
 
 public class InventoryHandler {
 
+    public static void 输出装备打孔附魔信息(final String mxmxdDaKongFuMo, final MapleCharacter player)
+    {
+        if (mxmxdDaKongFuMo != null && mxmxdDaKongFuMo.length() > 0) {
+            return;
+        }
+        
+        String arr1[] = mxmxdDaKongFuMo.split(",");
+        for (int i = 0; i < arr1.length; i++) {
+            String pair = arr1[i];
+            if (pair.indexOf(":") != -1) {
+                String kongInfo = "孔" + (i + 1) + ": ";
+                String arr2[] = pair.split(":");
+                int fumoType = Integer.parseInt(arr2[0]);
+                int fumoVal = Integer.parseInt(arr2[1]);
+                if (fumoType > 0 && Start.FuMoInfoMap.containsKey(fumoType)) {
+                    String infoArr[] = Start.FuMoInfoMap.get(fumoType);
+                    String fumoName = infoArr[0];
+                    String fumoInfo = infoArr[1];
+                    kongInfo += fumoName + " - " + String.format(fumoInfo, fumoVal);
+                } else {
+                    kongInfo += "空";
+                }
+                player.dropMessage(kongInfo);
+            }
+        }
+    }
+    
     public static final void ItemMove(final SeekableLittleEndianAccessor slea, final MapleClient c) {
         if (c.getPlayer().getPlayerShop() != null || c.getPlayer().getConversation() > 0 || c.getPlayer().getTrade() != null) { //hack
             return;
@@ -107,9 +134,15 @@ public class InventoryHandler {
         } else if (dst == 0) {
             MapleInventoryManipulator.drop(c, type, src, quantity);
         } else {
+            IItem item = c.getPlayer().getInventory(type).getItem(src);
+            String mxmxdDaKongFuMo = item.getDaKongFuMo();
+            if (mxmxdDaKongFuMo != null && mxmxdDaKongFuMo.length() > 0) {
+                输出装备打孔附魔信息(mxmxdDaKongFuMo, c.getPlayer());
+            }
+            
             if (c.getPlayer().getGMLevel() > 0) {
-                int itemided = c.getPlayer().getInventory(type).getItem(src).getItemId();
-                c.getPlayer().dropMessage("此物品的ID是:" + itemided);
+                int itemided = item.getItemId();
+                c.getPlayer().dropMessage("物品ID : " + itemided);
             }
             MapleInventoryManipulator.move(c, type, src, dst);
         }

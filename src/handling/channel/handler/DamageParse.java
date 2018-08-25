@@ -130,6 +130,8 @@ public class DamageParse {
         }
         int totDamage = 0;
         final MapleMap map = player.getMap();
+        
+        //Map<Integer, List<Integer>> _fumoData = player.getEquippedFuMoMap();
 
         if (attack.skill == 4211006) { // meso explosion
             for (AttackPair oned : attack.allDamage) {
@@ -244,9 +246,12 @@ public class DamageParse {
                             }
                         }
                     }
-                    if (player == null) { // o_O
-                        return;
-                    }
+                    
+                    // 记录在当前等级下对每个怪物的最高输出
+                    //String log = " pid:%s,plv:%s,skill:%s,d:%s,mid:%s,mlv:%s,mhp:%s";
+                    //log = String.format(log, player.getId(), player.getLevel(), attack.skill, eachd, monster.getId(), monster.getStats().getLevel(), monster.getStats().getHp());
+                    //FileoutputUtil.logToFile_chr(player, FileoutputUtil.fixdam_ph, log);
+                    
                     totDamageToOneMonster += eachd;
                     //force the miss even if they dont miss. popular wz edit
                     if (monster.getId() == 9300021 && player.getPyramidSubway() != null) { //miss

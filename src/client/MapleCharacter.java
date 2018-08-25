@@ -189,14 +189,6 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
     private int _isCheatingPlayer = 0;
     private int _questPoints = 0;
 
-    // 身上装备附魔数据
-//    private Map<Integer, List<Integer>> _equippedFuMoMap = new HashMap<>();
-//    
-//    public Map<Integer, List<Integer>> getEquippedFuMoMap()
-//    {
-//        return _equippedFuMoMap;
-//    }
-
     private static int _maxKillCountInCurrentMap = 0;
     private static int _tiredMinutes = 0;
     private static Boolean _isCheckKillAction = false;
@@ -7082,4 +7074,57 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
     public void blockPortal(String scriptName) {
         getClient().getSession().write(MaplePacketCreator.blockedPortal());
     }
+    
+    
+    // 身上装备附魔汇总数据
+    private Map<Integer, Integer> _equippedFuMoMap = new HashMap<>();
+    
+    public Map<Integer, Integer> getEquippedFuMoMap()
+    {
+        return _equippedFuMoMap;
+    }
+    
+    public void 刷新身上装备附魔汇总数据()
+    {
+        Connection con = DatabaseConnection.getConnection();
+
+        String sqlQuery1 = "select b.mxmxd_dakong_fumo from inventoryitems a, inventoryequipment b where a.inventoryitemid = b.inventoryitemid and a.characterid = ? and a.inventorytype = -1 and b.mxmxd_dakong_fumo != '' and b.mxmxd_dakong_fumo is not NULL";
+        try {
+            PreparedStatement ps = con.prepareStatement(sqlQuery1);
+            ps.setInt(1, id);
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    String mxmxdDaKongFuMo = rs.getString("mxmxd_dakong_fumo");
+                    if (mxmxdDaKongFuMo != null && mxmxdDaKongFuMo.length() > 0) {
+                        String arr[] = mxmxdDaKongFuMo.split(",");
+                        for (String pair : arr) {
+                            if (pair.length() == 0) continue;
+                            String arr2[] = pair.split(":");
+                            int fumoType = Integer.parseInt(arr2[0]);
+                            int fumoVal = Integer.parseInt(arr2[1]);
+                            if (_equippedFuMoMap.containsKey(fumoType)) {
+                                _equippedFuMoMap.put(fumoType, _equippedFuMoMap.get(fumoType) + fumoVal);
+                            } else {
+                                _equippedFuMoMap.put(fumoType, fumoVal);
+                            }
+                        }
+                    }
+                }
+            }
+            ps.close();
+        } catch (SQLException ex) {
+            System.err.println("刷新身上装备附魔汇总数据出错：" + ex.getMessage());
+        }
+    }
+    
+    public int 获取附魔汇总值(int fumoType) {
+        int val = 0;
+        if (_equippedFuMoMap.containsKey(fumoType)) {
+            return _equippedFuMoMap.get(fumoType);
+        }
+        
+        return 0;
+    }
+    
+    
 }

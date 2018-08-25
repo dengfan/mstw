@@ -246,7 +246,7 @@ public class Start {
     public static Map<String, Integer> ConfigValuesMap = new HashMap<>();
 
     public static void GetConfigValues() {
-
+        ConfigValuesMap.clear();
         //重载//
         Connection con = DatabaseConnection.getConnection();
         try {
@@ -261,6 +261,28 @@ public class Start {
             ps.close();
         } catch (SQLException ex) {
             System.err.println("GetConfigValues出错：" + ex.getMessage());
+        }
+    }
+    
+    public static Map<Integer, String[]> FuMoInfoMap = new HashMap<>();
+    
+    public static void GetFuMoInfo() {
+        FuMoInfoMap.clear();
+        //重载//
+        Connection con = DatabaseConnection.getConnection();
+        try {
+            PreparedStatement ps = con.prepareStatement("SELECT fumoType, fumoName, fumoInfo FROM mxmxd_fumo_info");
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    int fumoType = rs.getInt("fumoType");
+                    String fumoName = rs.getString("fumoName");
+                    String fumoInfo = rs.getString("fumoInfo");
+                    FuMoInfoMap.put(fumoType, new String[] { fumoName, fumoInfo });
+                }
+            }
+            ps.close();
+        } catch (SQLException ex) {
+            System.err.println("FuMoInfoMap出错：" + ex.getMessage());
         }
     }
 
