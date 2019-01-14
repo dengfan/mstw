@@ -112,6 +112,7 @@ public class Start {
         CashShopServer.run_startup_configurations(); // 启动商城服务器
         
         new Thread(QQMsgServer.getInstance()).start(); // 启动QQ消息服务线程
+        //new ZevmsLauncherServer(60000).start();
 
         //CheatTimer.getInstance().register(AutobanManager.getInstance(), 60000); // 每1分钟
         if (Boolean.parseBoolean(ServerProperties.getProperty("mxmxd.RandDrop", "false"))) {

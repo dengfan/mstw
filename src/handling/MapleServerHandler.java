@@ -61,6 +61,7 @@ import tools.Pair;
 
 import server.MTSStorage;
 import server.ServerProperties;
+import server.ZevmsLauncherServer;
 import tools.FileoutputUtil;
 
 public class MapleServerHandler extends IoHandlerAdapter implements MapleServerHandlerMBean {
@@ -251,6 +252,12 @@ public class MapleServerHandler extends IoHandlerAdapter implements MapleServerH
         }
         tracker.put(address, new Pair<Long, Byte>(System.currentTimeMillis(), count));
         String IP = address.substring(address.indexOf('/') + 1, address.length());
+        
+//        if (!ZevmsLauncherServer.isAllowClient(IP)) {
+//            System.out.println("自动断开连接F：未使用登录器的连接");
+//            session.close(false);
+//            return;
+//        }
         // End of IP checking.
 
         if (channel > -1) {

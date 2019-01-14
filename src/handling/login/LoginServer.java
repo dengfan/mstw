@@ -193,4 +193,9 @@ public class LoginServer {
     public static final void setOn() {
         finishedShutdown = false;
     }
+    
+    public static Map<Long, IoSession> getSessions()
+    {
+        return acceptor.getManagedSessions();
+    }
 }

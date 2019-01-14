@@ -184,7 +184,7 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
     public long LastDamageTimestamp = 0;
     public int FastAttackTickCount = 0;
 
-    public boolean IsDropNothing = false;
+    public boolean IsNoDrop = false;
     private int _tiredPoints = 0;
     private int _isCheatingPlayer = 0;
     private int _questPoints = 0;
@@ -304,6 +304,7 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
         ret._fame3 = ct.Fame3;
         ret._questPoints = ct.QuestPoints;
         ret._mxmxdMapKilledCountMap = ct.MxmxdMapKilledCountMap;
+        ret.mxmxdDaKongQianNeng = ct.mxmxdDaKongQianNeng;
 
         ret.client = client;
         if (!isChannel) {
@@ -535,6 +536,7 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
             ret.day = rs.getInt("day");
             ret.prefix = rs.getInt("prefix");
             ret._questPoints = rs.getInt("df_quest_point");
+            ret.mxmxdDaKongQianNeng = rs.getString("mxmxd_dakong_qianneng") == null ? "" : rs.getString("mxmxd_dakong_qianneng");
 
             if (channelserver) {
                 MapleMapFactory mapFactory = ChannelServer.getInstance(client.getChannel()).getMapFactory();
@@ -866,7 +868,6 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
 //                }
 //                ps.close();
 //                rs.close();
-
                 ret.stats.recalcLocalStats(true);
             } else { // Not channel server
                 for (Pair<IItem, MapleInventoryType> mit : ItemLoader.INVENTORY.loadItems(true, charid).values()) {
@@ -3283,14 +3284,15 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
             return lvBalance * 20 * 2;
         }
     }
-    
-    public void 补尝击杀数量(int addCount)
-    {
+
+    public void 补尝击杀数量(int addCount) {
         int mapId = map.getId();
         if (_mxmxdMapKilledCountMap.containsKey(mapId)) {
             int count = _mxmxdMapKilledCountMap.get(mapId);
             int result = count - addCount;
-            if (result < 0) result = 0;
+            if (result < 0) {
+                result = 0;
+            }
             _mxmxdMapKilledCountMap.put(mapId, result);
             dropMessage(String.format("[击杀奖励] : 恭喜你获得当前地图的击杀数量奖励 +%s杀", addCount));
         }
@@ -3367,7 +3369,7 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
                 _mxmxdMapKilledCountMap.put(mapId, count + 1);
 
                 if (count > getMaxKillCountInCurrentMap()) {
-                    IsDropNothing = true;
+                    IsNoDrop = true;
                     if (new Random().nextInt(5) == 1) {
                         // 需要玩家打开拍卖菜单激活人气奖励
                         dropTopMsg("你在此地图上的击杀量已超过当日限制，请去别的地方吧。");
@@ -3375,7 +3377,7 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
                     }
                     return;
                 } else {
-                    IsDropNothing = false;
+                    IsNoDrop = false;
                 }
             }
 
@@ -3400,25 +3402,25 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
             if (spend >= 0 && spend < 12) {
                 天谴降临(level * -2);
                 gain = 0;
-                IsDropNothing = true;
+                IsNoDrop = true;
                 return;
             } else if (spend >= 12 && spend < 16) {
                 gain = 0;
-                IsDropNothing = true;
+                IsNoDrop = true;
                 return;
             } else if (spend >= 16 && spend < 60) {
                 gain = (int) Math.floor(gain * 0.1);
                 if (gain > level) {
                     gain = level;
                 }
-                IsDropNothing = true;
+                IsNoDrop = true;
             } else if (spend >= 60 && spend < 150) {
-                IsDropNothing = false;
+                IsNoDrop = false;
             } else if (spend >= 150 && spend < 240) {
                 gain = (int) Math.floor(gain * 2);
-                IsDropNothing = false;
+                IsNoDrop = false;
             } else {
-                IsDropNothing = false;
+                IsNoDrop = false;
             }
 
             // 等级差越高，经验收益越少 - 开始
@@ -3437,8 +3439,8 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
                 }
             }
             // 等级差越高，经验收益越少 - 结束
-            
-            if (IsDropNothing) {
+
+            if (IsNoDrop) {
                 int r_1_9 = new Random().nextInt(9);
                 if (r_1_9 < 4) {
                     dropTopMsg("你的收益已减少，请重新上线，去挑战更厉害的怪物吧！");
@@ -3460,7 +3462,7 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
                 spend = (System.currentTimeMillis() - t) / 1000;
                 MxmxdGainExpMonsterLog log = new MxmxdGainExpMonsterLog(hp, hpMax, mp, mpMax, mapId, skillId, mobId, c, e, spend, sdf.format(dt));
                 _mxmxdGainExpMonsterLogs.add(log);
-                
+
                 if (spend > 0 && spend < 130) {
                     QQMsgServer.sendMsgToAdminQQ(String.format("[告警] : %s<%s> lv.%s hp.%s/%s mp.%s/%s，在地图<%s>中，使用技能<%s>击杀50个怪<%s> lv.%s hp.%s 用时%s秒。\r\n玩家等级大怪: %s级\r\n无敌指数: %s\r\n吸怪指数: %s", name, id, level, hp, hpMax, mp, mpMax, mapId, skillId, mobId, mobLv, mobHp, spend, levelDiff, 无敌指数, 吸怪指数));
                 }
@@ -7074,18 +7076,15 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
     public void blockPortal(String scriptName) {
         getClient().getSession().write(MaplePacketCreator.blockedPortal());
     }
-    
-    
-    // 身上装备附魔汇总数据
+
+    // 装备附魔
     private Map<Integer, Integer> _equippedFuMoMap = new HashMap<>();
-    
-    public Map<Integer, Integer> getEquippedFuMoMap()
-    {
+
+    public Map<Integer, Integer> getEquippedFuMoMap() {
         return _equippedFuMoMap;
     }
-    
-    public void 刷新身上装备附魔汇总数据()
-    {
+
+    public void 刷新身上装备附魔汇总数据() {
         Connection con = DatabaseConnection.getConnection();
 
         String sqlQuery1 = "select b.mxmxd_dakong_fumo from inventoryitems a, inventoryequipment b where a.inventoryitemid = b.inventoryitemid and a.characterid = ? and a.inventorytype = -1 and b.mxmxd_dakong_fumo != '' and b.mxmxd_dakong_fumo is not NULL";
@@ -7098,7 +7097,9 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
                     if (mxmxdDaKongFuMo != null && mxmxdDaKongFuMo.length() > 0) {
                         String arr[] = mxmxdDaKongFuMo.split(",");
                         for (String pair : arr) {
-                            if (pair.length() == 0) continue;
+                            if (pair.length() == 0) {
+                                continue;
+                            }
                             String arr2[] = pair.split(":");
                             int fumoType = Integer.parseInt(arr2[0]);
                             int fumoVal = Integer.parseInt(arr2[1]);
@@ -7113,18 +7114,157 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
             }
             ps.close();
         } catch (SQLException ex) {
-            System.err.println("刷新身上装备附魔汇总数据出错：" + ex.getMessage());
+            System.err.println("刷新身上装备附魔汇总数据 出错：" + ex.getMessage());
         }
     }
-    
+
     public int 获取附魔汇总值(int fumoType) {
-        int val = 0;
         if (_equippedFuMoMap.containsKey(fumoType)) {
             return _equippedFuMoMap.get(fumoType);
         }
-        
+
         return 0;
     }
+
+    /**
+     * Replaces the first subsequence of the <tt>source</tt> string that matches
+     * the literal target string with the specified literal replacement string.
+     *
+     * @param source source string on which the replacement is made
+     * @param target the string to be replaced
+     * @param replacement the replacement string
+     * @return the resulting string
+     */
+    private static String replaceFirst2(String source, String target, String replacement) {
+        int index = source.indexOf(target);
+        if (index == -1) {
+            return source;
+        }
+
+        return source.substring(0, index)
+                .concat(replacement)
+                .concat(source.substring(index + target.length()));
+    }
+
+    // 角色潜能
+    private String mxmxdDaKongQianNeng = "";
+
+    public String getMxmxdDaKongQianNeng() {
+        return mxmxdDaKongQianNeng;
+    }
+
+    public void 潜能打孔() {
+        mxmxdDaKongQianNeng += "0:0,";
+        保存潜能并刷新汇总();
+    }
+
+    public void 增加潜能(final int qianNengType, final int qianNengVal) {
+        if (!mxmxdDaKongQianNeng.contains("0:0,")) {
+            return;
+        }
+        
+        if (qianNengType < 1 || qianNengVal < 1) {
+            return;
+        }
+
+        mxmxdDaKongQianNeng = replaceFirst2(mxmxdDaKongQianNeng, "0:0,", String.format("%s:%s,", qianNengType, qianNengVal));
+        保存潜能并刷新汇总();
+    }
+
+    public void 清洗指定潜能(final int index) {
+        if (index < 1) {
+            return;
+        }
+
+        if (!mxmxdDaKongQianNeng.contains(",")) {
+            return;
+        }
+
+        String arr[] = mxmxdDaKongQianNeng.split(",");
+        for (int i = 0; i < arr.length; i++) {
+            if (index - 1 == i) {
+                arr[i] = "0:0";
+                break;
+            }
+        }
+
+        StringBuilder sb = new StringBuilder();
+        for (String str : arr) {
+            sb.append(str).append(",");
+        }
+
+        mxmxdDaKongQianNeng = sb.toString();
+        保存潜能并刷新汇总();
+    }
     
-    
+    public void 清洗所有潜能() {
+        if (!mxmxdDaKongQianNeng.contains(",")) {
+            return;
+        }
+
+        String arr[] = mxmxdDaKongQianNeng.split(",");
+        for (int i = 0; i < arr.length; i++) {
+            arr[i] = "0:0";
+        }
+
+        StringBuilder sb = new StringBuilder();
+        for (String str : arr) {
+            sb.append(str).append(",");
+        }
+
+        mxmxdDaKongQianNeng = sb.toString();
+        保存潜能并刷新汇总();
+    }
+
+    public void 保存潜能并刷新汇总() {
+        Connection con = DatabaseConnection.getConnection();
+
+        String sqlQuery = "UPDATE characters SET mxmxd_dakong_qianneng = ? WHERE id = ?";
+        try {
+            try (PreparedStatement ps = con.prepareStatement(sqlQuery)) {
+                ps.setString(1, mxmxdDaKongQianNeng);
+                ps.setInt(2, id);
+                ps.executeUpdate();
+            }
+        } catch (SQLException ex) {
+            System.err.println("保存潜能 出错：" + ex.getMessage());
+        }
+        
+        System.out.println("mxmxd_dakong_qianneng: " + mxmxdDaKongQianNeng);
+        System.out.println("保存潜能完成");
+        
+        if (mxmxdDaKongQianNeng.length() < 3) {
+            return;
+        }
+
+        String arr[] = mxmxdDaKongQianNeng.split(",");
+        for (String pair : arr) {
+            if (pair.length() == 0) {
+                continue;
+            }
+            String arr2[] = pair.split(":");
+            int qianNengType = Integer.parseInt(arr2[0]);
+            int qianNengVal = Integer.parseInt(arr2[1]);
+            if (_mxmxdDaKongQianNengMap.containsKey(qianNengType)) {
+                _mxmxdDaKongQianNengMap.put(qianNengType, _mxmxdDaKongQianNengMap.get(qianNengType) + qianNengVal);
+            } else {
+                _mxmxdDaKongQianNengMap.put(qianNengType, qianNengVal);
+            }
+        }
+        System.out.println("刷新潜能汇总");
+    }
+
+    private Map<Integer, Integer> _mxmxdDaKongQianNengMap = new HashMap<>();
+
+    public Map<Integer, Integer> getMxmxdDaKongQianNengMap() {
+        return _mxmxdDaKongQianNengMap;
+    }
+
+    public int 获取角色潜能汇总值(int qianNengType) {
+        if (_mxmxdDaKongQianNengMap.containsKey(qianNengType)) {
+            return _mxmxdDaKongQianNengMap.get(qianNengType);
+        }
+
+        return 0;
+    }
 }

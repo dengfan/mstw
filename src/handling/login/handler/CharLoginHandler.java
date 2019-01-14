@@ -77,6 +77,7 @@ public class CharLoginHandler {
         macData = macData.substring(0, macData.length() - 1);
 
         c.setMac(macData);
+        String ip = c.getSession().getRemoteAddress().toString();
 
         final boolean ipBan = c.hasBannedIP();
         final boolean macBan = c.isBannedMac(macData);

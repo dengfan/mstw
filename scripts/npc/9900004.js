@@ -74,6 +74,9 @@ function action(mode, type, selection) {
 		var v2 = cm.getPlayer().getQuestProgress();
 		text += "\r\n   #k#B" + v1 + "# 今日疲劳值(" + v1 + "%)";
 		text += "\r\n   #k#B" + v2 + "# 当前任务成就之进度(" + v2 + "%)";
+		if (cm.getPlayer().isGM()) {
+			text += "\r\n#L100010#功能测试#l ";
+		}
 		//text += "#L4##b枫叶兑换#l #L2##b在线奖励#l\r\n";
 		//text += "#L4##b枫叶兑换#l #L22##b材料兑换#l #L998##b副本兑换#l\r\n";
 		//text += "#L5##b删除物品#l\r\n";
@@ -158,10 +161,12 @@ function action(mode, type, selection) {
         cm.openNpc(9900004, 1);
     } else if (selection == 100006) {//快捷仓库
         cm.openNpc(1012009, 0);
-    } else if (selection == 100007) { //快捷商店
+    } else if (selection == 100007) {//快捷商店
         cm.openShop(30);
         cm.dispose();
     } else if (selection == 100008) {//物品换经奖励
         cm.openNpc(9900004, 4);
+    } else if (selection == 100010) {//测试
+        cm.openNpc(9900004, 10);
     }
 }

@@ -26,11 +26,13 @@ import handling.channel.PlayerStorage;
 import handling.login.LoginServer;
 import handling.mina.MapleCodecFactory;
 import java.net.InetSocketAddress;
+import java.util.Map;
 import org.apache.mina.core.buffer.IoBuffer;
 import org.apache.mina.core.buffer.SimpleBufferAllocator;
 import org.apache.mina.core.filterchain.IoFilter;
 
 import org.apache.mina.core.service.IoAcceptor;
+import org.apache.mina.core.session.IoSession;
 
 
 import org.apache.mina.filter.codec.ProtocolCodecFilter;
@@ -99,5 +101,10 @@ public class CashShopServer {
 
     public static boolean isShutdown() {
         return finishedShutdown;
+    }
+    
+    public static Map<Long, IoSession> getSessions()
+    {
+        return acceptor.getManagedSessions();
     }
 }
