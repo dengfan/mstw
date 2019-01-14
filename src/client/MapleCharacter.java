@@ -537,6 +537,7 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
             ret.prefix = rs.getInt("prefix");
             ret._questPoints = rs.getInt("df_quest_point");
             ret.mxmxdDaKongQianNeng = rs.getString("mxmxd_dakong_qianneng") == null ? "" : rs.getString("mxmxd_dakong_qianneng");
+            ret.刷新角色潜能汇总数据();
 
             if (channelserver) {
                 MapleMapFactory mapFactory = ChannelServer.getInstance(client.getChannel()).getMapFactory();
@@ -7145,6 +7146,23 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
                 .concat(replacement)
                 .concat(source.substring(index + target.length()));
     }
+    
+    /**
+     * 查找子字符串在母字符串中出现的次数
+     *
+     * @param srcText
+     * @param findText
+     * @return
+     */
+    public static int appearNumber(String srcText, String findText) {
+        int count = 0;
+        int index = 0;
+        while ((index = srcText.indexOf(findText, index)) != -1) {
+            index = index + findText.length();
+            count++;
+        }
+        return count;
+    }
 
     // 角色潜能
     private String mxmxdDaKongQianNeng = "";
@@ -7233,10 +7251,27 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
         System.out.println("mxmxd_dakong_qianneng: " + mxmxdDaKongQianNeng);
         System.out.println("保存潜能完成");
         
+        刷新角色潜能汇总数据();
+    }
+    
+    public int 获取角色潜能孔数()
+    {
+        return appearNumber(mxmxdDaKongQianNeng, ",");
+    }
+
+    private Map<Integer, Integer> _mxmxdDaKongQianNengMap = new HashMap<>();
+
+    public Map<Integer, Integer> getMxmxdDaKongQianNengMap() {
+        return _mxmxdDaKongQianNengMap;
+    }
+    
+    private void 刷新角色潜能汇总数据()
+    {
         if (mxmxdDaKongQianNeng.length() < 3) {
             return;
         }
-
+        
+        _mxmxdDaKongQianNengMap.clear();
         String arr[] = mxmxdDaKongQianNeng.split(",");
         for (String pair : arr) {
             if (pair.length() == 0) {
@@ -7252,12 +7287,6 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
             }
         }
         System.out.println("刷新潜能汇总");
-    }
-
-    private Map<Integer, Integer> _mxmxdDaKongQianNengMap = new HashMap<>();
-
-    public Map<Integer, Integer> getMxmxdDaKongQianNengMap() {
-        return _mxmxdDaKongQianNengMap;
     }
 
     public int 获取角色潜能汇总值(int qianNengType) {

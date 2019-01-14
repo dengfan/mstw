@@ -3033,4 +3033,25 @@ public class NPCConversationManager extends AbstractPlayerInteraction {
         c.getPlayer().getInventory(MapleInventoryType.EQUIPPED).getItem(equipmentPosition).setDaKongFuMo(sb.toString());
         return 1;
     }
+    
+    public int 清洗身上装备附魔(final short equipmentPosition, final int index) {
+        if (equipmentPosition >= 0) {
+            return 0;
+        }
+        
+        if (index < 1) {
+            return 0;
+        }
+
+        int dakongCount = 查询身上装备已打孔数(equipmentPosition);
+        StringBuilder sb = new StringBuilder();
+        for (int i = 1; i <= dakongCount; i++) {
+            if (i == index) {
+                sb.append("0:0,");
+            }
+        }
+
+        c.getPlayer().getInventory(MapleInventoryType.EQUIPPED).getItem(equipmentPosition).setDaKongFuMo(sb.toString());
+        return 1;
+    }
 }
