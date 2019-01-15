@@ -21,13 +21,13 @@
 package tools.packet;
 
 import constants.ServerConstants;
-import handling.MaplePacket;
+
 import handling.SendPacketOpcode;
-import tools.data.output.MaplePacketLittleEndianWriter;
+import tools.data.MaplePacketLittleEndianWriter;
 
 public class MonsterBookPacket {
 
-    public static MaplePacket addCard(boolean full, int cardid, int level) {
+    public static byte[] addCard(boolean full, int cardid, int level) {
         MaplePacketLittleEndianWriter mplew = new MaplePacketLittleEndianWriter();
 
         if (ServerConstants.调试模式) {
@@ -46,7 +46,7 @@ public class MonsterBookPacket {
         return mplew.getPacket();
     }
 
-    public static MaplePacket showGainCard(final int itemid) {
+    public static byte[] showGainCard(final int itemid) {
         MaplePacketLittleEndianWriter mplew = new MaplePacketLittleEndianWriter();
 
         if (ServerConstants.调试模式) {
@@ -58,7 +58,7 @@ public class MonsterBookPacket {
         return mplew.getPacket();
     }
 
-    public static MaplePacket showForeginCardEffect(int id) {
+    public static byte[] showForeginCardEffect(int id) {
         MaplePacketLittleEndianWriter mplew = new MaplePacketLittleEndianWriter();
 
         if (ServerConstants.调试模式) {
@@ -71,7 +71,7 @@ public class MonsterBookPacket {
         return mplew.getPacket();
     }
 
-    public static MaplePacket changeCover(int cardid) {
+    public static byte[] changeCover(int cardid) {
         MaplePacketLittleEndianWriter mplew = new MaplePacketLittleEndianWriter();
 
         if (ServerConstants.调试模式) {

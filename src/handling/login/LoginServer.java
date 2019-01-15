@@ -24,20 +24,17 @@ import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.util.HashMap;
 import java.util.Map;
-
 import handling.MapleServerHandler;
-import handling.mina.MapleCodecFactory;
+import handling.netty.ServerConnection;
 import java.util.HashSet;
-import org.apache.mina.core.buffer.IoBuffer;
-import org.apache.mina.core.buffer.SimpleBufferAllocator;
-import org.apache.mina.core.filterchain.IoFilter;
-import org.apache.mina.core.service.IoAcceptor;
-import org.apache.mina.core.session.IoSession;
-
-
-import org.apache.mina.filter.codec.ProtocolCodecFilter;
-import org.apache.mina.transport.socket.SocketSessionConfig;
-import org.apache.mina.transport.socket.nio.NioSocketAcceptor;
+//import org.apache.mina.core.buffer.IoBuffer;
+//import org.apache.mina.core.buffer.SimpleBufferAllocator;
+//import org.apache.mina.core.filterchain.IoFilter;
+//import org.apache.mina.core.service.IoAcceptor;
+//import org.apache.mina.core.session.IoSession;
+//import org.apache.mina.filter.codec.ProtocolCodecFilter;
+//import org.apache.mina.transport.socket.SocketSessionConfig;
+//import org.apache.mina.transport.socket.nio.NioSocketAcceptor;
 import server.ServerProperties;
 import tools.Triple;
 
@@ -45,7 +42,7 @@ public class LoginServer {
 
     public static int PORT = 8484;
     private static InetSocketAddress InetSocketadd;
-    private static IoAcceptor acceptor;
+    private static ServerConnection acceptor;
     private static Map<Integer, Integer> load = new HashMap<>();
     private static String serverName, eventMessage;
     private static byte flag;
@@ -96,45 +93,50 @@ public class LoginServer {
         PORT = Integer.parseInt(ServerProperties.getProperty("mxmxd.LPort", "8484"));
         adminOnly = Boolean.parseBoolean(ServerProperties.getProperty("mxmxd.Admin", "false"));
 
-        IoBuffer.setUseDirectBuffer(false);
-        IoBuffer.setAllocator(new SimpleBufferAllocator());
-        acceptor = new NioSocketAcceptor();
-        acceptor.getFilterChain().addLast("codec", (IoFilter) new ProtocolCodecFilter(new MapleCodecFactory()));
-
-        acceptor.setHandler(new MapleServerHandler(-1, false));
-        //acceptor.getSessionConfig().setIdleTime(IdleStatus.BOTH_IDLE, 30);
-        ((SocketSessionConfig) acceptor.getSessionConfig()).setTcpNoDelay(true);
-
-        try {
-            acceptor.bind(new InetSocketAddress(PORT));
-            System.out.println("Launch login server completed - Port: " + PORT);
-        } catch (IOException e) {
-            System.err.println("Binding to port " + PORT + " failed." + e);
-        }
+//        IoBuffer.setUseDirectBuffer(false);
+//        IoBuffer.setAllocator(new SimpleBufferAllocator());
+//        acceptor = new NioSocketAcceptor();
+//        acceptor.getFilterChain().addLast("codec", (IoFilter) new ProtocolCodecFilter(new MapleCodecFactory()));
+//
+//        acceptor.setHandler(new MapleServerHandler(-1, false));
+//        //acceptor.getSessionConfig().setIdleTime(IdleStatus.BOTH_IDLE, 30);
+//        ((SocketSessionConfig) acceptor.getSessionConfig()).setTcpNoDelay(true);
+//
+//        try {
+//            acceptor.bind(new InetSocketAddress(PORT));
+//            System.out.println("Launch login server completed - Port: " + PORT);
+//        } catch (IOException e) {
+//            System.err.println("Binding to port " + PORT + " failed." + e);
+//        }
+        
+        acceptor = new ServerConnection(PORT);
+        acceptor.run();
+        System.out.println("Launch login server completed - Port: " + PORT);
     }
     
-    public static final void closeConn(String ip){
-        int count = 0;
-        for (IoSession ss : acceptor.getManagedSessions().values()) {
-            if (ss.getRemoteAddress() == null) continue;
-            if (ss.getRemoteAddress().toString().split(":")[0].equals(ip)) {
-                ss.close(false);
-                return;
-            }
-        }
-    }
+//    public static final void closeConn(String ip){
+//        int count = 0;
+//        for (IoSession ss : acceptor.getManagedSessions().values()) {
+//            if (ss.remoteAddress() == null) continue;
+//            if (ss.remoteAddress().toString().split(":")[0].equals(ip)) {
+//                ss.close(false);
+//                return;
+//            }
+//        }
+//    }
 
     public static final void shutdown() {
         if (finishedShutdown) {
             return;
         }
         System.out.println("正在关闭服务器。");
-        acceptor.setCloseOnDeactivation(true);
-        for (IoSession ss : acceptor.getManagedSessions().values()) {
-            ss.close(true);
-        }
-        acceptor.unbind();
-        finishedShutdown = true; //nothing. lol
+//        acceptor.setCloseOnDeactivation(true);
+//        for (IoSession ss : acceptor.getManagedSessions().values()) {
+//            ss.close(true);
+//        }
+//        acceptor.unbind();
+        acceptor.close();
+        finishedShutdown = true;
     }
 
     public static final String getServerName() {
@@ -178,9 +180,9 @@ public class LoginServer {
         userLimit = newLimit;
     }
 
-    public static final int getNumberOfSessions() {
-        return acceptor.getManagedSessions().size();
-    }
+//    public static final int getNumberOfSessions() {
+//        return acceptor.getManagedSessions().size();
+//    }
 
     public static final boolean isAdminOnly() {
         return adminOnly;
@@ -194,8 +196,8 @@ public class LoginServer {
         finishedShutdown = false;
     }
     
-    public static Map<Long, IoSession> getSessions()
-    {
-        return acceptor.getManagedSessions();
-    }
+//    public static Map<Long, IoSession> getSessions()
+//    {
+//        return acceptor.getManagedSessions();
+//    }
 }

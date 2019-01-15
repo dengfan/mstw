@@ -497,7 +497,7 @@ public class Equip extends Item implements IEquip, Serializable {
             // gainItemLevel();
             gainItemLevel(c, timeless);
             //gainLevel();
-            c.getSession().write(MaplePacketCreator.showItemLevelup());
+            c.sendPacket(MaplePacketCreator.showItemLevelup());
         }
     }
 
@@ -535,9 +535,9 @@ public class Equip extends Item implements IEquip, Serializable {
             }
         }
         this.itemLevel++;
-        c.getPlayer().getClient().getSession().write(MaplePacketCreator.showEquipmentLevelUp());
-        c.getPlayer().getClient().getSession().write(MaplePacketCreator.updateSpecialItemUse(this, getType()));
-        c.getPlayer().getClient().getSession().write(MaplePacketCreator.getCharInfo(c.getPlayer()));
+        c.getPlayer().getClient().sendPacket(MaplePacketCreator.showEquipmentLevelUp());
+        c.getPlayer().getClient().sendPacket(MaplePacketCreator.updateSpecialItemUse(this, getType()));
+        c.getPlayer().getClient().sendPacket(MaplePacketCreator.getCharInfo(c.getPlayer()));
         /*  c.getPlayer().getMap().removePlayer(c.getPlayer());
          c.getPlayer().getMap().addPlayer(c.getPlayer());*/
         //c.getPlayer().getMap().broadcastMessage(c.getPlayer(), MaplePacketCreator.showForeignEffect(c.getPlayer().getId(), 17));

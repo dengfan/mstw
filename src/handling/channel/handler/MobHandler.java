@@ -43,11 +43,11 @@ import tools.FileoutputUtil;
 import tools.MaplePacketCreator;
 import tools.Pair;
 import tools.packet.MobPacket;
-import tools.data.input.SeekableLittleEndianAccessor;
+import tools.data.MaplePacketLittleEndianAccessor;
 
 public class MobHandler {
 
-    public static final void MoveMonster(final SeekableLittleEndianAccessor slea, final MapleClient c, final MapleCharacter chr) {
+    public static final void MoveMonster(final MaplePacketLittleEndianAccessor slea, final MapleClient c, final MapleCharacter chr) {
         if (chr == null || chr.getMap() == null) {
             return; //?
         }
@@ -103,7 +103,7 @@ public class MobHandler {
         final Point startPos = slea.readPos();
         final List<LifeMovementFragment> res = MovementParse.parseMovement(slea, 2);
 
-        c.getSession().write(MobPacket.moveMonsterResponse(monster.getObjectId(), moveid, monster.getMp(), monster.isControllerHasAggro(), realskill, level));
+        c.sendPacket(MobPacket.moveMonsterResponse(monster.getObjectId(), moveid, monster.getMp(), monster.isControllerHasAggro(), realskill, level));
 
         if (res != null && chr != null) {
             final MapleMap map = chr.getMap();
@@ -143,7 +143,7 @@ public class MobHandler {
                     chr.addMobVac(1);
                     if (c.getPlayer().getMobVac(1) % 50 == 0) {
                         c.getPlayer().getCheatTracker().registerOffense(CheatingOffense.吸怪, "(地图: " + chr.getMapId() + " 怪物数量:" + chr.getMobVac(1) + ")");
-                        //World.Broadcast.broadcastGMMessage(MaplePacketCreator.serverNotice(6, "[GM信息] " + chr.getName() + "怪物数量(" + chr.getMobVac(1) + ")! 地图:" + chr.getMapId() + "(" + chr.getMap().getMapName() + ")").getBytes());
+                        //World.Broadcast.broadcastGMMessage(MaplePacketCreator.serverNotice(6, "[GM信息] " + chr.getName() + "怪物数量(" + chr.getMobVac(1) + ")! 地图:" + chr.getMapId() + "(" + chr.getMap().getMapName() + ")"));
                         FileoutputUtil.logToFile_chr(c.getPlayer(), FileoutputUtil.MobVac_log, " 怪物: " + monster.getId() + " 起始坐标 " + startPos.x + "," + startPos.y + " 结束坐标 " + endPos.x + "," + endPos.y + " 相差x:" + reduce_x + "相差y" + reduce_y);
                         if (chr.hasGmLevel(1)) {
                             c.getPlayer().dropMessage("触发吸怪");
@@ -156,7 +156,7 @@ public class MobHandler {
         }
     }
 
-    public static final void FriendlyDamage(final SeekableLittleEndianAccessor slea, final MapleCharacter chr) {
+    public static final void FriendlyDamage(final MaplePacketLittleEndianAccessor slea, final MapleCharacter chr) {
         final MapleMap map = chr.getMap();
         if (map == null) {
             return;
@@ -227,7 +227,7 @@ public class MobHandler {
         }
     }
 
-    public static final void HypnotizeDmg(final SeekableLittleEndianAccessor slea, final MapleCharacter chr) {
+    public static final void HypnotizeDmg(final MaplePacketLittleEndianAccessor slea, final MapleCharacter chr) {
         final MapleMonster mob_from = chr.getMap().getMonsterByOid(slea.readInt()); // From
         slea.skip(4); // Player ID
         final int to = slea.readInt(); // mobto
@@ -247,14 +247,14 @@ public class MobHandler {
         }
     }
 
-    public static final void DisplayNode(final SeekableLittleEndianAccessor slea, final MapleCharacter chr) {
+    public static final void DisplayNode(final MaplePacketLittleEndianAccessor slea, final MapleCharacter chr) {
         final MapleMonster mob_from = chr.getMap().getMonsterByOid(slea.readInt()); // From
         if (mob_from != null) {
-            //    chr.getClient().getSession().write(MaplePacketCreator.getNodeProperties(mob_from, chr.getMap()));
+            //    chr.getClient().sendPacket(MaplePacketCreator.getNodeProperties(mob_from, chr.getMap()));
         }
     }
 
-    public static final void MobNode(final SeekableLittleEndianAccessor slea, final MapleCharacter chr) {
+    public static final void MobNode(final MaplePacketLittleEndianAccessor slea, final MapleCharacter chr) {
         final MapleMonster mob_from = chr.getMap().getMonsterByOid(slea.readInt()); // From
         final int newNode = slea.readInt();
         final int nodeSize = chr.getMap().getNodes().size();

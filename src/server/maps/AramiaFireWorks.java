@@ -60,7 +60,7 @@ public class AramiaFireWorks {
     }
 
     private final void broadcastServer(final MapleCharacter c, final int itemid) {
-        World.Broadcast.broadcastMessage(MaplePacketCreator.serverNotice(6, itemid, "<频道 " + c.getClient().getChannel() + "> " + "弓箭手村邱比特公園即將開始發射煙火!"/*c.getMap().getMapName() + " : The amount of {" + MapleItemInformationProvider.getInstance().getName(itemid) + "} has reached the limit!"*/).getBytes());
+        World.Broadcast.broadcastMessage(MaplePacketCreator.serverNotice(6, itemid, "<频道 " + c.getClient().getChannel() + "> " + "弓箭手村邱比特公園即將開始發射煙火!"/*c.getMap().getMapName() + " : The amount of {" + MapleItemInformationProvider.getInstance().getName(itemid) + "} has reached the limit!"*/));
     }
 
     public final short getKegsPercentage() {

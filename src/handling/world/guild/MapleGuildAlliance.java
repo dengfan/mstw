@@ -22,7 +22,7 @@
 package handling.world.guild;
 
 import database.DatabaseConnection;
-import handling.MaplePacket;
+
 import handling.world.World;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -170,15 +170,15 @@ public class MapleGuildAlliance implements java.io.Serializable {
         return true;
     }
 
-    public final void broadcast(final MaplePacket packet) {
+    public final void broadcast(final byte[] packet) {
         broadcast(packet, -1, GAOp.NONE, false);
     }
 
-    public final void broadcast(final MaplePacket packet, final int exception) {
+    public final void broadcast(final byte[] packet, final int exception) {
         broadcast(packet, exception, GAOp.NONE, false);
     }
 
-    public final void broadcast(final MaplePacket packet, final int exceptionId, final GAOp op, final boolean expelled) {
+    public final void broadcast(final byte[] packet, final int exceptionId, final GAOp op, final boolean expelled) {
         if (op == GAOp.DISBAND) {
             World.Alliance.setOldAlliance(exceptionId, expelled, allianceid); //-1 = alliance gone, exceptionId = guild left/expelled
         } else if (op == GAOp.NEWGUILD) {

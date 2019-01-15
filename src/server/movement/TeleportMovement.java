@@ -22,7 +22,7 @@ package server.movement;
 
 import java.awt.Point;
 
-import tools.data.output.LittleEndianWriter;
+import tools.data.MaplePacketLittleEndianWriter;
 
 public class TeleportMovement extends AbsoluteLifeMovement {
 
@@ -35,7 +35,7 @@ public class TeleportMovement extends AbsoluteLifeMovement {
     }
 
     @Override
-    public void serialize(LittleEndianWriter lew) {
+    public void serialize(MaplePacketLittleEndianWriter lew) {
         lew.write(getType());
         lew.writeShort(getPosition().x);
         lew.writeShort(getPosition().y);

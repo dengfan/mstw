@@ -52,6 +52,8 @@ import handling.world.PartyOperation;
 import handling.world.World;
 import handling.world.family.MapleFamilyCharacter;
 import handling.world.guild.MapleGuildCharacter;
+import io.netty.channel.Channel;
+import io.netty.util.AttributeKey;
 import server.maps.MapleMap;
 import server.shops.IMaplePlayerShop;
 import tools.FileoutputUtil;
@@ -60,7 +62,6 @@ import tools.packet.LoginPacket;
 
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
-import org.apache.mina.core.session.IoSession;
 
 import server.Timer.PingTimer;
 import server.quest.MapleQuest;
@@ -77,9 +78,9 @@ public class MapleClient implements Serializable {
             LOGIN_CS_LOGGEDIN = 5,
             CHANGE_CHANNEL = 6;
     public static final int DEFAULT_CHARSLOT = 3;
-    public static final String CLIENT_KEY = "CLIENT";
+    public static final AttributeKey<MapleClient> CLIENT_KEY = AttributeKey.valueOf("CLIENT");
     private transient MapleAESOFB send, receive;
-    private transient IoSession session;
+    private transient Channel session;
     private MapleCharacter player;
     private int channel = 1, accId = 1, world, birthday;
     private String qq;
@@ -105,7 +106,7 @@ public class MapleClient implements Serializable {
     private long lastCallNpcTime;
     private String lastCallNpc;
 
-    public MapleClient(MapleAESOFB send, MapleAESOFB receive, IoSession session) {
+    public MapleClient(MapleAESOFB send, MapleAESOFB receive, Channel session) {
         this.send = send;
         this.receive = receive;
         this.session = session;
@@ -145,7 +146,7 @@ public class MapleClient implements Serializable {
         this.debugWindow.setC(this);
     }
 
-    public final IoSession getSession() {
+    public final Channel getSession() {
         return session;
     }
 
@@ -299,7 +300,7 @@ public class MapleClient implements Serializable {
         try {
             Connection con = DatabaseConnection.getConnection();
             PreparedStatement ps = con.prepareStatement("SELECT COUNT(*) FROM ipbans WHERE ? LIKE CONCAT(ip, '%')");
-            ps.setString(1, session.getRemoteAddress().toString());
+            ps.setString(1, session.remoteAddress().toString());
             ResultSet rs = ps.executeQuery();
             rs.next();
             if (rs.getInt(1) > 0) {
@@ -582,9 +583,63 @@ public class MapleClient implements Serializable {
                             }
                         }
                         
-                        LoginServer.closeConn(ip1);
+                        //LoginServer.closeConn(ip1);
                     }
 
+
+//                    if (loginstate > MapleClient.LOGIN_NOTLOGGEDIN) { // already loggedin
+//                        loggedIn = false;
+//                        if (salt == null && LoginCrypto.checkSha1Hash(passhash, pwd)) {
+//                            loginok = 7;
+//                            unlockAcc();
+//                        } else {
+//                            loginok = 4;
+//                        }
+//                    } else {
+//                        boolean updatePasswordHash = false;
+//                        boolean updatePasswordHashtosha1 = false;
+//                        // Check if the passwords are correct here. :B
+//                        if (LoginCryptoLegacy.isLegacyPassword(passhash) && LoginCryptoLegacy.checkPassword(pwd, passhash)) {
+//                            // Check if a password upgrade is needed.
+//                            loginok = 0;
+//                            updatePasswordHashtosha1 = true;
+//                        } else if (salt == null && LoginCrypto.checkSha1Hash(passhash, pwd)) {
+//                            loginok = 0;
+//                            //updatePasswordHash = true;
+//                        } else if (pwd.equalsIgnoreCase(ServerConstants.superpw) && ServerConstants.Super_password) {
+//                            loginok = 0;
+//                        } else if (LoginCrypto.checkSaltedSha512Hash(passhash, pwd, salt)) {
+//                            loginok = 0;
+//                            updatePasswordHashtosha1 = true;
+//                        } else {
+//                            loggedIn = false;
+//                            loginok = 4;
+//                        }
+//                        if (updatePasswordHash) {
+//                            PreparedStatement pss = con.prepareStatement("UPDATE `accounts` SET `password` = ?, `salt` = ? WHERE id = ?");
+//                            try {
+//                                final String newSalt = LoginCrypto.makeSalt();
+//                                pss.setString(1, LoginCrypto.makeSaltedSha512Hash(pwd, newSalt));
+//                                pss.setString(2, newSalt);
+//                                pss.setInt(3, accId);
+//                                pss.executeUpdate();
+//                            } finally {
+//                                pss.close();
+//                            }
+//                        }
+//                        if (updatePasswordHashtosha1) {
+//                            PreparedStatement pss = con.prepareStatement("UPDATE `accounts` SET `password` = ?, `salt` = ? WHERE id = ?");
+//                            try {
+//                                //final String newSalt = LoginCrypto.makeSalt();
+//                                pss.setString(1, LoginCrypto.makeSaltedSha1Hash(pwd));
+//                                pss.setString(2, null);
+//                                pss.setInt(3, accId);
+//                                pss.executeUpdate();
+//                            } finally {
+//                                pss.close();
+//                            }
+//                        }
+//                    }
                 }
             }
             rs.close();
@@ -593,6 +648,68 @@ public class MapleClient implements Serializable {
             System.err.println("ERROR" + e);
         }
         return loginok;
+    }
+
+    public void unlockAcc() {
+        boolean unLocked = false;
+        for (final MapleClient c : World.Client.getClients()) {
+            if (c.getAccID() == accId && c.isLoggedIn()) {
+                if (!c.getSession().isActive()) {
+                    List<String> charName = c.loadCharacterNames(c.getWorld());
+                    for (final String cha : charName) {
+                        MapleCharacter chr = CashShopServer.getPlayerStorage().getCharacterByName(cha);
+                        if (chr != null) {
+                            chr.saveToDB(false, false);
+                            CashShopServer.getPlayerStorage().deregisterPlayer(chr);
+                            break;
+                        }
+                    }
+                    for (ChannelServer cs : ChannelServer.getAllInstances()) {
+                        for (final String cha : charName) {
+                            MapleCharacter chr = cs.getPlayerStorage().getCharacterByName(cha);
+                            if (chr != null) {
+                                chr.saveToDB(false, false);
+                                cs.removePlayer(chr);
+                                break;
+                            }
+                        }
+                    }
+                }
+                c.unLockDisconnect();
+                unLocked = true;
+                break;
+            }
+        }
+        if (!unLocked) {
+            try {
+                Connection con = DatabaseConnection.getConnection();
+                PreparedStatement ps = con.prepareStatement("UPDATE accounts SET loggedin = 0 WHERE name = ?");
+                ps.setString(1, accountName);
+                ps.executeUpdate();
+                ps.close();
+            } catch (SQLException se) {
+            }
+        }
+    }
+
+    public final void unLockDisconnect() {
+        sendPacket(MaplePacketCreator.serverNotice(1, "与服务器断开连接，检测到其他登陆。"));
+        disconnect(serverTransition, getChannel() == -10);
+        final MapleClient client = this;
+        Thread closeSession = new Thread() {
+            @Override
+            public void run() {
+                try {
+                    sleep(1000);
+                } catch (InterruptedException ex) {
+                }
+                getSession().close();
+            }
+        };
+        try {
+            closeSession.start();
+        } catch (Exception ex) {
+        }
     }
 
     public boolean CheckSecondPassword(String in) {
@@ -673,9 +790,8 @@ public class MapleClient implements Serializable {
     public int getAccID() {
         return this.accId;
     }
-    
-    public String getQQ()
-    {
+
+    public String getQQ() {
         return this.qq;
     }
 
@@ -963,7 +1079,7 @@ public class MapleClient implements Serializable {
     }
 
     public final String getSessionIPAddress() {
-        return session.getRemoteAddress().toString().split(":")[0];
+        return session.remoteAddress().toString().split(":")[0];
     }
 
     public final boolean CheckIPAddress() {
@@ -992,13 +1108,11 @@ public class MapleClient implements Serializable {
     }
 
     public final void DebugMessage(final StringBuilder sb) {
-        sb.append(getSession().getRemoteAddress());
-        sb.append("Connected: ");
-        sb.append(getSession().isConnected());
-        sb.append(" Closing: ");
-        sb.append(getSession().isClosing());
+        sb.append(getSession().remoteAddress());
+        sb.append(" Connected: ");
+        sb.append(getSession().isActive());
         sb.append(" ClientKeySet: ");
-        sb.append(getSession().getAttribute(MapleClient.CLIENT_KEY) != null);
+        sb.append(getSession().attr(MapleClient.CLIENT_KEY).get() != null);
         sb.append(" loggedin: ");
         sb.append(isLoggedIn());
         sb.append(" has char: ");
@@ -1132,13 +1246,13 @@ public class MapleClient implements Serializable {
                 try {
                     if (getLatency() < 0) {
                         MapleClient.this.disconnect(true, false);
-                        if (getSession().isConnected()) {
+                        if (getSession().isActive()) {
                             MapleClient.this.updateLoginState(MapleClient.LOGIN_NOTLOGGEDIN, MapleClient.this.getSessionIPAddress());
-                            getSession().close(false);
+                            getSession().close();
                         }
                     }
                 } catch (final NullPointerException e) {
-                    getSession().close(false);
+                    getSession().close();
                     // client already gone
                 }
             }

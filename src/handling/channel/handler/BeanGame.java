@@ -5,11 +5,11 @@ import java.util.List;
 import client.MapleCharacter;
 import client.MapleClient;
 import tools.MaplePacketCreator;
-import tools.data.input.SeekableLittleEndianAccessor;
+import tools.data.MaplePacketLittleEndianAccessor;
 
 public class BeanGame {
 
-    public static void BeanGame1(SeekableLittleEndianAccessor slea, MapleClient c) {
+    public static void BeanGame1(MaplePacketLittleEndianAccessor slea, MapleClient c) {
         //System.out.println("豆???出??????" +slea.toString());
         MapleCharacter chr = c.getPlayer();
         List<Beans> beansInfo = new ArrayList<Beans>();
@@ -22,7 +22,7 @@ public class BeanGame {
             力度 = slea.readShort();
             chr.setBeansRange(力度);
             //System.out.println("????????????度1??"+???度);
-            c.getSession().write(MaplePacketCreator.enableActions());
+            c.sendPacket(MaplePacketCreator.enableActions());
         } else if (type == 0) { //没???在?????????
             力度 = slea.readShort();
             豆豆序號 = slea.readInt() + 1;
@@ -64,7 +64,7 @@ public class BeanGame {
            // for (int i = 0; i < 5; i++) {
                 // beansInfo.add(new Beans(chr.getBeansRange() + rand(-100, 100), getBeanType(), chr.getBeansNum() + i));
            // }
-            c.getSession().write(MaplePacketCreator.showBeans(力度,size, Pos, Type));
+            c.sendPacket(MaplePacketCreator.showBeans(力度,size, Pos, Type));
         } else {
                 System.out.println("未處理的類型【" + type + "】\n包" + slea.toString());
         }
@@ -117,8 +117,8 @@ public class BeanGame {
         }
     }
 
-    public static final void BeanGame2(SeekableLittleEndianAccessor slea, MapleClient c) {
-        c.getSession().write(MaplePacketCreator.updateBeans(c.getPlayer().getId(), c.getPlayer().getBeans()));
-        c.getSession().write(MaplePacketCreator.enableActions());
+    public static final void BeanGame2(MaplePacketLittleEndianAccessor slea, MapleClient c) {
+        c.sendPacket(MaplePacketCreator.updateBeans(c.getPlayer().getId(), c.getPlayer().getBeans()));
+        c.sendPacket(MaplePacketCreator.enableActions());
     }
 }

@@ -12,12 +12,11 @@ import java.util.Map;
 
 import client.MapleCharacter;
 import client.MapleClient;
-import handling.ByteArrayMaplePacket;
-import handling.MaplePacket;
+
 import handling.MapleServerHandler;
 import handling.cashshop.CashShopServer;
 import handling.login.LoginServer;
-import handling.mina.MapleCodecFactory;
+import handling.netty.ServerConnection;
 import handling.world.CheaterData;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 import scripting.EventScriptManager;
@@ -27,18 +26,10 @@ import server.maps.MapleMapFactory;
 import server.shops.HiredMerchant;
 import tools.MaplePacketCreator;
 import server.life.PlayerNPC;
-import org.apache.mina.filter.codec.ProtocolCodecFilter;
 import java.io.Serializable;
 import java.util.EnumMap;
 import java.util.HashSet;
 import java.util.Set;
-import org.apache.mina.core.buffer.IoBuffer;
-import org.apache.mina.core.buffer.SimpleBufferAllocator;
-import org.apache.mina.core.filterchain.IoFilter;
-import org.apache.mina.core.service.IoAcceptor;
-import org.apache.mina.core.session.IoSession;
-import org.apache.mina.transport.socket.SocketSessionConfig;
-import org.apache.mina.transport.socket.nio.NioSocketAcceptor;
 import server.ServerProperties;
 import server.events.MapleCoconut;
 import server.events.MapleEvent;
@@ -65,7 +56,7 @@ public class ChannelServer implements Serializable {
     private boolean shutdown = false, finishedShutdown = false, MegaphoneMuteState = false, adminOnly = false;
     private PlayerStorage players;
     private MapleServerHandler serverHandler;
-    private IoAcceptor acceptor;
+    private ServerConnection acceptor;
     private final MapleMapFactory mapFactory;
     private EventScriptManager eventSM;
     private static final Map<Integer, ChannelServer> instances = new HashMap<Integer, ChannelServer>();
@@ -109,6 +100,81 @@ public class ChannelServer implements Serializable {
         events.put(MapleEventType.快速0X猜题, new MapleOxQuiz(channel, MapleEventType.快速0X猜题.mapids));
         events.put(MapleEventType.雪球赛, new MapleSnowball(channel, MapleEventType.雪球赛.mapids));
     }
+    
+//    public final void loadMerchant() {
+//
+//        try {
+//
+//            Connection con = DatabaseConnection.getConnection();
+//            PreparedStatement ps = con.prepareStatement("SELECT * FROM hiredmerchantshop WHERE channelid = ?");
+//            ps.setInt(1, channel);
+//            try (ResultSet rs = ps.executeQuery()) {
+//                while (rs.next()) {
+//                    int channelid = rs.getInt("channelid");
+//                    int mapid = rs.getInt("mapid");
+//                    int charid = rs.getInt("charid");
+//                    int itemid = rs.getInt("itemid");
+//                    String desc = rs.getString("desc");
+//                    int x = rs.getInt("x");
+//                    int y = rs.getInt("y");
+//                    int id = rs.getInt("id");
+//                    int accid = rs.getInt("accid");
+//                    Timestamp createdate = rs.getTimestamp("createdate");
+//
+//                    //只有是当初玩家创建的频道才自动建立，否则等其他频道调用时才加载。
+//                    if (channel == channelid) { //通过地图ID兑换成地图对象
+//                        MapleMap map = this.getMapFactory().getMap(mapid); //通过角色ID读取角色名称
+//                        String charname = "";
+//                        try (PreparedStatement psW = con.prepareStatement("SELECT * FROM characters WHERE id = ?")) {
+//                            psW.setInt(1, charid);
+//
+//                            try (ResultSet rsW = psW.executeQuery()) {
+//                                if (rsW.next()) {
+//                                    charname = rsW.getString("name");
+//                                }
+//                            }
+//                        }
+//
+//                        HiredMerchant shop = new HiredMerchant(charname, charid, map, x, y, itemid, desc, channel, accid);
+//                        List<IItem> itemsW = new ArrayList<>();
+//                        Map<Integer, Pair<IItem, MapleInventoryType>> items = ItemLoader.HIRED_MERCHANTWWWWWWWWWWWWWW.loadHiredItems(false, id);
+//                        if (items != null) {
+//                            List<IItem> iters = new ArrayList<>();
+//                            for (Pair<IItem, MapleInventoryType> z : items.values()) {//992916233
+//                                iters.add(z.left);
+//                            }
+//                            for (IItem entry : iters) {
+//                                shop.addItem(new MaplePlayerShopItem(entry, (short) 1, entry.getPrice(), (byte) 0));
+//                            }
+//                        }
+//                        //HiredMerchantHandler.deletePackage(shop.getOwnerAccId(), id, shop.getOwnerId());
+//                        //删除雇佣信息
+//                        map.addMapObject(shop);
+//                        if (shop.getShopType() == 1) {
+//                            HiredMerchant merchant = (HiredMerchant) shop;
+//                            merchant.setAvailable(true);
+//                            merchant.setOpen(true);
+//                            addMerchant(merchant);
+//                            map.broadcastMessage(PlayerShopPacket.spawnHiredMerchant(merchant));
+//                        }
+//
+//                    }
+//                }
+//
+//            }
+//
+////            try (Connection con = DBConPool.getInstance().getDataSource().getConnection()) {
+////               PreparedStatement ps = con.prepareStatement("DELETE FROM hiredmerchantshop");
+////               ps.executeUpdate();
+////               ps.close();
+////            }
+//        } catch (SQLException se) {
+//            int aaa = 0;
+//
+//        }
+//
+//    }
+
 
     public final void run_startup_configurations() {
         setChannel(this.channel); //instances.put
@@ -130,23 +196,27 @@ public class ChannelServer implements Serializable {
         }
 
         ip = ServerProperties.getProperty("mxmxd.IP") + ":" + port;
-
-        IoBuffer.setUseDirectBuffer(false);
-        IoBuffer.setAllocator(new SimpleBufferAllocator());
-        acceptor = new NioSocketAcceptor();
-        acceptor.getFilterChain().addLast("codec", (IoFilter) new ProtocolCodecFilter(new MapleCodecFactory()));
         players = new PlayerStorage(channel);
         loadEvents();
-        try {
-            acceptor.setHandler(new MapleServerHandler(channel, false));
-            acceptor.bind(new InetSocketAddress(port));
-            ((SocketSessionConfig) acceptor.getSessionConfig()).setTcpNoDelay(true);
-
-            System.out.println("Launch chanel server " + this.channel + " completed - Port: " + port);
-            eventSM.init();
-        } catch (IOException e) {
-            System.out.println("Binding to port " + port + " failed (ch: " + getChannel() + ")" + e);
-        }
+        //loadMerchant();
+        acceptor = new ServerConnection(port, 0, channel);
+        acceptor.run();
+        
+//        try {
+//            IoBuffer.setUseDirectBuffer(false);
+//            IoBuffer.setAllocator(new SimpleBufferAllocator());
+//            acceptor = new NioSocketAcceptor();
+//            acceptor.getFilterChain().addLast("codec", (IoFilter) new ProtocolCodecFilter(new MapleCodecFactory()));
+//        
+//            acceptor.setHandler(new MapleServerHandler(channel, false));
+//            acceptor.bind(new InetSocketAddress(port));
+//            ((SocketSessionConfig) acceptor.getSessionConfig()).setTcpNoDelay(true);
+//        } catch (IOException e) {
+//            System.out.println("Binding to port " + port + " failed (ch: " + getChannel() + ")" + e);
+//        }
+        
+        System.out.println("Launch chanel server " + this.channel + " completed - Port: " + port);
+        eventSM.init();
     }
 
     public final void shutdown(Object threadToNotify) {
@@ -197,7 +267,7 @@ public class ChannelServer implements Serializable {
 
     public final void addPlayer(final MapleCharacter chr) {
         getPlayerStorage().registerPlayer(chr);
-        chr.getClient().getSession().write(MaplePacketCreator.serverMessage(serverMessage));
+        chr.getClient().sendPacket(MaplePacketCreator.serverMessage(serverMessage));
     }
 
     public final PlayerStorage getPlayerStorage() {
@@ -226,15 +296,15 @@ public class ChannelServer implements Serializable {
         broadcastPacket(MaplePacketCreator.serverMessage(serverMessage));
     }
 
-    public final void broadcastPacket(final MaplePacket data) {
+    public final void broadcastPacket(final byte[] data) {
         getPlayerStorage().broadcastPacket(data);
     }
 
-    public final void broadcastSmegaPacket(final MaplePacket data) {
+    public final void broadcastSmegaPacket(final byte[] data) {
         getPlayerStorage().broadcastSmegaPacket(data);
     }
 
-    public final void broadcastGMPacket(final MaplePacket data) {
+    public final void broadcastGMPacket(final byte[] data) {
         getPlayerStorage().broadcastGMPacket(data);
     }
 
@@ -611,19 +681,15 @@ public class ChannelServer implements Serializable {
     }
 
     public void broadcastMessage(byte[] message) {
-        broadcastPacket(new ByteArrayMaplePacket(message));
-    }
-
-    public void broadcastMessage(MaplePacket message) {
         broadcastPacket(message);
     }
 
     public void broadcastSmega(byte[] message) {
-        broadcastSmegaPacket(new ByteArrayMaplePacket(message));
+        broadcastSmegaPacket(message);
     }
 
     public void broadcastGMMessage(byte[] message) {
-        broadcastGMPacket(new ByteArrayMaplePacket(message));
+        broadcastGMPacket(message);
     }
 
     public void saveAll() {
@@ -663,7 +729,9 @@ public class ChannelServer implements Serializable {
 
         // getPlayerStorage().disconnectAll();
         
-        acceptor.unbind(new InetSocketAddress(port));
+        //acceptor.unbind(new InetSocketAddress(port));
+        acceptor.close();
+        acceptor = null;
         
         instances.remove(Integer.valueOf(this.channel));
         System.out.println("频道 " + this.channel + " 已关闭");
@@ -681,7 +749,7 @@ public class ChannelServer implements Serializable {
                         }
                         if (c.getClient() != null) {
                             c.getClient().disconnect(true, false, false);
-                            c.getClient().getSession().close(false);
+                            c.getClient().getSession().close();
                         }
                         
                     } catch (Exception ex) {
@@ -764,8 +832,8 @@ public class ChannelServer implements Serializable {
         }
     }
     
-    public Map<Long, IoSession> getSessions()
-    {
-        return acceptor.getManagedSessions();
-    }
+//    public Map<Long, IoSession> getSessions()
+//    {
+//        return acceptor.getManagedSessions();
+//    }
 }

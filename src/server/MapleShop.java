@@ -104,7 +104,7 @@ public class MapleShop {
             }
         }
         c.getPlayer().setShop(this);
-        c.getSession().write(MaplePacketCreator.getNPCShop(c, getNpcId(), items));
+        c.sendPacket(MaplePacketCreator.getNPCShop(c, getNpcId(), items));
     }
 
     public void buy(MapleClient c, int itemId, short quantity) {
@@ -114,7 +114,7 @@ public class MapleShop {
         }
         if (!GameConstants.isMountItemAvailable(itemId, c.getPlayer().getJob())) {
             c.getPlayer().dropMessage(1, "You may not buy this item.");
-            c.getSession().write(MaplePacketCreator.enableActions());
+            c.sendPacket(MaplePacketCreator.enableActions());
             return;
         }
         MapleShopItem item = findById(itemId);
@@ -137,7 +137,7 @@ public class MapleShop {
                 } else {
                     c.getPlayer().dropMessage(1, "Your Inventory is full");
                 }
-                c.getSession().write(MaplePacketCreator.confirmShopTransaction((byte) 0));
+                c.sendPacket(MaplePacketCreator.confirmShopTransaction((byte) 0));
             }
         } /*
          * else if (item != null && quantity == 1 &&
@@ -155,7 +155,7 @@ public class MapleShop {
          * ii.getSlotMax(c, item.getItemId()); }
          * MapleInventoryManipulator.addById(c, itemId, quantity); } } else {
          * c.getPlayer().dropMessage(1, "Your Inventory is full"); }
-         * c.getSession().write(MaplePacketCreator.confirmShopTransaction((byte)
+         * c.sendPacket(MaplePacketCreator.confirmShopTransaction((byte)
          * 0)); }
          */
     }
@@ -196,7 +196,7 @@ public class MapleShop {
             if (price != -1.0 && recvMesos > 0) {
                 c.getPlayer().gainMeso(recvMesos, false);
             }
-            c.getSession().write(MaplePacketCreator.confirmShopTransaction((byte) 0x8));
+            c.sendPacket(MaplePacketCreator.confirmShopTransaction((byte) 0x8));
         }
     }
 
@@ -217,9 +217,9 @@ public class MapleShop {
             final int price = (int) Math.round(ii.getPrice(item.getItemId()) * (slotMax - item.getQuantity()));
             if (c.getPlayer().getMeso() >= price) {
                 item.setQuantity(slotMax);
-                c.getSession().write(MaplePacketCreator.updateInventorySlot(MapleInventoryType.USE, (Item) item, false));
+                c.sendPacket(MaplePacketCreator.updateInventorySlot(MapleInventoryType.USE, (Item) item, false));
                 c.getPlayer().gainMeso(-price, false, true, false);
-                c.getSession().write(MaplePacketCreator.confirmShopTransaction((byte) 0x8));
+                c.sendPacket(MaplePacketCreator.confirmShopTransaction((byte) 0x8));
             }
         }
     }

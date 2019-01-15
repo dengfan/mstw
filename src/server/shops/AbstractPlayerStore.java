@@ -36,7 +36,7 @@ import client.MapleCharacter;
 import client.MapleClient;
 import client.inventory.MapleInventoryType;
 import database.DatabaseConnection;
-import handling.MaplePacket;
+
 import handling.channel.ChannelServer;
 import java.sql.*;
 import java.util.ArrayList;
@@ -89,29 +89,29 @@ public abstract class AbstractPlayerStore extends AbstractMapleMapObject impleme
     }
 
     @Override
-    public void broadcastToVisitors(MaplePacket packet) {
+    public void broadcastToVisitors(byte[] packet) {
         broadcastToVisitors(packet, true);
     }
 
-    public void broadcastToVisitors(MaplePacket packet, boolean owner) {
+    public void broadcastToVisitors(byte[] packet, boolean owner) {
         for (WeakReference<MapleCharacter> chr : chrs) {
             if (chr != null && chr.get() != null) {
-                chr.get().getClient().getSession().write(packet);
+                chr.get().getClient().sendPacket(packet);
             }
         }
         if (getShopType() != IMaplePlayerShop.HIRED_MERCHANT && owner && getMCOwner() != null) {
-            getMCOwner().getClient().getSession().write(packet);
+            getMCOwner().getClient().sendPacket(packet);
         }
     }
 
-    public void broadcastToVisitors(MaplePacket packet, int exception) {
+    public void broadcastToVisitors(byte[] packet, int exception) {
         for (WeakReference<MapleCharacter> chr : chrs) {
             if (chr != null && chr.get() != null && getVisitorSlot(chr.get()) != exception) {
-                chr.get().getClient().getSession().write(packet);
+                chr.get().getClient().sendPacket(packet);
             }
         }
         if (getShopType() != IMaplePlayerShop.HIRED_MERCHANT && getMCOwner() != null && exception != ownerId) {
-            getMCOwner().getClient().getSession().write(packet);
+            getMCOwner().getClient().sendPacket(packet);
         }
     }
 
@@ -257,7 +257,7 @@ public abstract class AbstractPlayerStore extends AbstractMapleMapObject impleme
             MapleCharacter visitor = getVisitor(i);
             if (visitor != null) {
                 if (type != -1) {
-                    visitor.getClient().getSession().write(PlayerShopPacket.shopErrorMessage(error, type));
+                    visitor.getClient().sendPacket(PlayerShopPacket.shopErrorMessage(error, type));
                 }
                 broadcastToVisitors(PlayerShopPacket.shopVisitorLeave(getVisitorSlot(visitor)), getVisitorSlot(visitor));
                 visitor.setPlayerShop(null);

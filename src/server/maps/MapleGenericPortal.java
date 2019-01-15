@@ -119,29 +119,29 @@ public class MapleGenericPortal implements MaplePortal {
                 if (!c.getPlayer().isGM()) {
                     if (to == null) {
                         c.getPlayer().dropMessage(5, "本地图目前尚未开放.");
-                        c.getSession().write(MaplePacketCreator.enableActions());
+                        c.sendPacket(MaplePacketCreator.enableActions());
                         return;
                     }
                     if (to.getLevelLimit() > 0 && to.getLevelLimit() > c.getPlayer().getLevel()) {
                         c.getPlayer().dropMessage(5, "You are too low of a level to enter this place.");
-                        c.getSession().write(MaplePacketCreator.enableActions());
+                        c.sendPacket(MaplePacketCreator.enableActions());
                         return;
                     }
                     //if (to.getForceMove() > 0 && to.getForceMove() < c.getPlayer().getLevel()) {
                     //    c.getPlayer().dropMessage(5, "You are too high of a level to enter this place.");
-                    //    c.getSession().write(MaplePacketCreator.enableActions());
+                    //    c.sendPacket(MaplePacketCreator.enableActions());
                     //    return;
                     //}
                 } else if (to == null) {
                     c.getPlayer().dropMessage(5, "本地图目前尚未开放.");
-                    c.getSession().write(MaplePacketCreator.enableActions());
+                    c.sendPacket(MaplePacketCreator.enableActions());
                     return;
                 }
                 c.getPlayer().changeMapPortal(to, to.getPortal(getTarget()) == null ? to.getPortal(0) : to.getPortal(getTarget())); //late resolving makes this harder but prevents us from loading the whole world at once
             }
         }
         if (c != null && c.getPlayer() != null && c.getPlayer().getMap() == currentmap) { // Character is still on the same map.
-            c.getSession().write(MaplePacketCreator.enableActions());
+            c.sendPacket(MaplePacketCreator.enableActions());
         }
     }
 

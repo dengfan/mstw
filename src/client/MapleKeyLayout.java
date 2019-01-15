@@ -28,7 +28,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.io.Serializable;
 
-import tools.data.output.MaplePacketLittleEndianWriter;
+import tools.data.MaplePacketLittleEndianWriter;
 
 import database.DatabaseConnection;
 import tools.Pair;

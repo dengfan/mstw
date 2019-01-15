@@ -24,20 +24,9 @@ import handling.MapleServerHandler;
 import handling.channel.ChannelServer;
 import handling.channel.PlayerStorage;
 import handling.login.LoginServer;
-import handling.mina.MapleCodecFactory;
 import java.net.InetSocketAddress;
 import java.util.Map;
-import org.apache.mina.core.buffer.IoBuffer;
-import org.apache.mina.core.buffer.SimpleBufferAllocator;
-import org.apache.mina.core.filterchain.IoFilter;
-
-import org.apache.mina.core.service.IoAcceptor;
-import org.apache.mina.core.session.IoSession;
-
-
-import org.apache.mina.filter.codec.ProtocolCodecFilter;
-import org.apache.mina.transport.socket.SocketSessionConfig;
-import org.apache.mina.transport.socket.nio.NioSocketAcceptor;
+import handling.netty.ServerConnection;
 
 
 import server.ServerProperties;
@@ -47,25 +36,27 @@ public class CashShopServer {
     private static String ip;
     private static InetSocketAddress InetSocketadd;
     private final static int PORT = LoginServer.PORT + ChannelServer.getChannelCount() + 1;
-    private static IoAcceptor acceptor;
+    private static ServerConnection acceptor;
     private static PlayerStorage players, playersMTS;
     private static boolean finishedShutdown = false;
 
     public static void run_startup_configurations() {
         ip = ServerProperties.getProperty("mxmxd.IP") + ":" + PORT;
-
-        IoBuffer.setUseDirectBuffer(false);
-        IoBuffer.setAllocator(new SimpleBufferAllocator());
-        acceptor = new NioSocketAcceptor();
-        acceptor.getFilterChain().addLast("codec", (IoFilter) new ProtocolCodecFilter(new MapleCodecFactory()));
-
-        ((SocketSessionConfig) acceptor.getSessionConfig()).setTcpNoDelay(true);
         players = new PlayerStorage(-10);
         playersMTS = new PlayerStorage(-20);
 
         try {
-            acceptor.setHandler(new MapleServerHandler(-1, true));
-            acceptor.bind(new InetSocketAddress(PORT));
+//            IoBuffer.setUseDirectBuffer(false);
+//            IoBuffer.setAllocator(new SimpleBufferAllocator());
+//            acceptor = new NioSocketAcceptor();
+//            acceptor.getFilterChain().addLast("codec", (IoFilter) new ProtocolCodecFilter(new MapleCodecFactory()));
+//            ((SocketSessionConfig) acceptor.getSessionConfig()).setTcpNoDelay(true);
+//            
+//            acceptor.setHandler(new MapleServerHandler(-1, true));
+//            acceptor.bind(new InetSocketAddress(PORT));
+            
+            acceptor = new ServerConnection(PORT, 0, -10);
+            acceptor.run();
             System.out.println("Launch cash shop server completed - Port: " + PORT);
         } catch (final Exception e) {
             System.err.println("Binding to port " + PORT + " failed");
@@ -103,8 +94,8 @@ public class CashShopServer {
         return finishedShutdown;
     }
     
-    public static Map<Long, IoSession> getSessions()
-    {
-        return acceptor.getManagedSessions();
-    }
+//    public static Map<Long, IoSession> getSessions()
+//    {
+//        return acceptor.getManagedSessions();
+//    }
 }

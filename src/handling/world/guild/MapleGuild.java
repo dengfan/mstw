@@ -34,7 +34,7 @@ import client.MapleCharacter;
 import client.MapleCharacterUtil;
 import client.MapleClient;
 import database.DatabaseConnection;
-import handling.MaplePacket;
+
 import handling.world.World;
 import handling.world.guild.MapleBBSThread.MapleBBSReply;
 import java.sql.Statement;
@@ -46,7 +46,7 @@ import java.util.LinkedList;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 import tools.MaplePacketCreator;
 import tools.StringUtil;
-import tools.data.output.MaplePacketLittleEndianWriter;
+import tools.data.MaplePacketLittleEndianWriter;
 import tools.packet.UIPacket;
 
 public class MapleGuild implements java.io.Serializable {
@@ -366,16 +366,16 @@ public class MapleGuild implements java.io.Serializable {
         return signature;
     }
 
-    public final void broadcast(final MaplePacket packet) {
+    public final void broadcast(final byte[] packet) {
         broadcast(packet, -1, BCOp.NONE);
     }
 
-    public final void broadcast(final MaplePacket packet, final int exception) {
+    public final void broadcast(final byte[] packet, final int exception) {
         broadcast(packet, exception, BCOp.NONE);
     }
 
     // multi-purpose function that reaches every member of guild (except the character with exceptionId) in all channels with as little access to rmi as possible
-    public final void broadcast(final MaplePacket packet, final int exceptionId, final BCOp bcop) {
+    public final void broadcast(final byte[] packet, final int exceptionId, final BCOp bcop) {
         wL.lock();
         try {
             buildNotifications();
@@ -805,7 +805,7 @@ public class MapleGuild implements java.io.Serializable {
         if (mc.getGuildId() > 0) {
             return MapleGuildResponse.ALREADY_IN_GUILD;
         }
-        mc.getClient().getSession().write(MaplePacketCreator.guildInvite(c.getPlayer().getGuildId(), c.getPlayer().getName(), c.getPlayer().getLevel(), c.getPlayer().getJob()));
+        mc.getClient().sendPacket(MaplePacketCreator.guildInvite(c.getPlayer().getGuildId(), c.getPlayer().getName(), c.getPlayer().getLevel(), c.getPlayer().getJob()));
         return null;
     }
 
@@ -890,7 +890,7 @@ public class MapleGuild implements java.io.Serializable {
             ResultSet rs;
             try {
                 rs = ps.executeQuery();
-                c.getSession().write(MaplePacketCreator.showCustomRanks(npcid, rs));
+                c.sendPacket(MaplePacketCreator.showCustomRanks(npcid, rs));
             } catch (Throwable localThrowable1) {
                 localThrowable2 = localThrowable1;
                 throw localThrowable1;
@@ -922,7 +922,7 @@ public class MapleGuild implements java.io.Serializable {
             ResultSet rs;
             try {
                 rs = ps.executeQuery();
-                c.getSession().write(MaplePacketCreator.showCustomRanks(npcid, rs));
+                c.sendPacket(MaplePacketCreator.showCustomRanks(npcid, rs));
             } catch (Throwable localThrowable1) {
                 localThrowable2 = localThrowable1;
                 throw localThrowable1;
@@ -954,7 +954,7 @@ public class MapleGuild implements java.io.Serializable {
             ResultSet rs;
             try {
                 rs = ps.executeQuery();
-                c.getSession().write(MaplePacketCreator.showCustomRanks(npcid, rs));
+                c.sendPacket(MaplePacketCreator.showCustomRanks(npcid, rs));
             } catch (Throwable localThrowable1) {
                 localThrowable2 = localThrowable1;
                 throw localThrowable1;

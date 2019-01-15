@@ -967,7 +967,7 @@ public class MXMXD079 extends javax.swing.JFrame {
                             ts.cancel(false);
                             return;
                         }
-                        World.Broadcast.broadcastMessage(MaplePacketCreator.serverNotice(0, "服务器将在 " + minutesLeft + "分钟后关闭，请尽快关闭雇佣商人以安全下线！！！").getBytes());;
+                        World.Broadcast.broadcastMessage(MaplePacketCreator.serverNotice(0, "服务器将在 " + minutesLeft + "分钟后关闭，请尽快关闭雇佣商人以安全下线！！！"));
                         System.out.println("服务器将在 " + minutesLeft + "分钟后关闭。");
                         minutesLeft--;
                     }
@@ -1259,7 +1259,7 @@ public class MXMXD079 extends javax.swing.JFrame {
                         } else {
                             MapleInventoryManipulator.removeById(mch.getClient(), GameConstants.getInventoryType(物品ID), 物品ID, -数量, true, false);
                         }
-                        mch.getClient().getSession().write(MaplePacketCreator.getShowItemGain(物品ID, (short) 数量, true));
+                        mch.getClient().sendPacket(MaplePacketCreator.getShowItemGain(物品ID, (short) 数量, true));
                         输出A = "[刷物品]:" + 输出;
                     }
                 }
@@ -1331,7 +1331,7 @@ public class MXMXD079 extends javax.swing.JFrame {
                         try {
                             ChannelServer.forceRemovePlayerByCharName(str);
                             if (chr.getName().equals(str) && chr.getMapId() != 0) {
-                                chr.getClient().getSession().close(false);
+                                chr.getClient().getSession().close();
                                 chr.getClient().disconnect(true, false);
                                 输出 = "[解卡系统] 成功断开" + str + "玩家！";
                             } else {

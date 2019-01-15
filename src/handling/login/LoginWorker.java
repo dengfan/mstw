@@ -35,8 +35,8 @@ public class LoginWorker {
 
     public static void registerClient(final MapleClient c) {
         if (LoginServer.isAdminOnly() && !c.isGm()) {
-            c.getSession().write(MaplePacketCreator.serverNotice(1, "服务器正在维护中"));
-            c.getSession().write(LoginPacket.getLoginFailed(7));
+            c.sendPacket(MaplePacketCreator.serverNotice(1, "服务器正在维护中"));
+            c.sendPacket(LoginPacket.getLoginFailed(7));
             return;
         }
 
@@ -47,7 +47,7 @@ public class LoginWorker {
 
             if (load == null || load.size() <= 0) { // In an unfortunate event that client logged in before load
                 lastUpdate = 0;
-                c.getSession().write(LoginPacket.getLoginFailed(7));
+                c.sendPacket(LoginPacket.getLoginFailed(7));
 
                 return;
             }
@@ -66,11 +66,11 @@ public class LoginWorker {
 
         if (c.finishLogin() == 0) {
             if (c.getGender() == 10) {
-                c.getSession().write(LoginPacket.getGenderNeeded(c));
+                c.sendPacket(LoginPacket.getGenderNeeded(c));
             } else {
-                c.getSession().write(LoginPacket.getAuthSuccessRequest(c));
-                c.getSession().write(LoginPacket.getServerList(0, LoginServer.getServerName(), LoginServer.getLoad()));
-                c.getSession().write(LoginPacket.getEndOfServerList());
+                c.sendPacket(LoginPacket.getAuthSuccessRequest(c));
+                c.sendPacket(LoginPacket.getServerList(0, LoginServer.getServerName(), LoginServer.getLoad()));
+                c.sendPacket(LoginPacket.getEndOfServerList());
 
             }
             c.setIdleTask(PingTimer.getInstance().schedule(new Runnable() {
@@ -81,15 +81,15 @@ public class LoginWorker {
             }, 10 * 60 * 10000));
         } else {
             if (c.getGender() == 10) {
-                c.getSession().write(LoginPacket.getGenderNeeded(c));
+                c.sendPacket(LoginPacket.getGenderNeeded(c));
 
             } else {
-                c.getSession().write(LoginPacket.getAuthSuccessRequest(c));
-                c.getSession().write(LoginPacket.getServerList(0, LoginServer.getServerName(), LoginServer.getLoad()));
-                c.getSession().write(LoginPacket.getEndOfServerList());
+                c.sendPacket(LoginPacket.getAuthSuccessRequest(c));
+                c.sendPacket(LoginPacket.getServerList(0, LoginServer.getServerName(), LoginServer.getLoad()));
+                c.sendPacket(LoginPacket.getEndOfServerList());
 
             }
-           /* c.getSession().write(LoginPacket.getLoginFailed(7));
+           /* c.sendPacket(LoginPacket.getLoginFailed(7));
 
             System.out.println("登录Z");
             return;*/

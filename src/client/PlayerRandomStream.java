@@ -21,7 +21,7 @@
 package client;
 
 import server.Randomizer;
-import tools.data.output.MaplePacketLittleEndianWriter;
+import tools.data.MaplePacketLittleEndianWriter;
 
 public class PlayerRandomStream {
 

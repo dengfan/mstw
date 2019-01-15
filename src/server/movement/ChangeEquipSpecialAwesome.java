@@ -21,7 +21,7 @@
 package server.movement;
 
 import java.awt.Point;
-import tools.data.output.LittleEndianWriter;
+import tools.data.MaplePacketLittleEndianWriter;
 
 public class ChangeEquipSpecialAwesome implements LifeMovementFragment {
 
@@ -33,7 +33,7 @@ public class ChangeEquipSpecialAwesome implements LifeMovementFragment {
     }
 
     @Override
-    public void serialize(LittleEndianWriter lew) {
+    public void serialize(MaplePacketLittleEndianWriter lew) {
         lew.write(type);
         lew.write(wui);
     }

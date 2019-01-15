@@ -27,16 +27,16 @@ import handling.world.MaplePartyCharacter;
 import handling.world.PartyOperation;
 import handling.world.World;
 import tools.MaplePacketCreator;
-import tools.data.input.SeekableLittleEndianAccessor;
+import tools.data.MaplePacketLittleEndianAccessor;
 
 public class PartyHandler {
 
-    public static final void DenyPartyRequest(final SeekableLittleEndianAccessor slea, final MapleClient c) {
+    public static final void DenyPartyRequest(final MaplePacketLittleEndianAccessor slea, final MapleClient c) {
         final int action = slea.readByte();
         final int partyid = slea.readInt();
         //    MapleCharacter cfrom = c.getChannelServer().getPlayerStorage().getCharacterByName(slea.readMapleAsciiString());
         //      if (cfrom != null) {
-        //        cfrom.getClient().getSession().write(MaplePacketCreator.partyStatusMessage(23, c.getPlayer().getName()));
+        //        cfrom.getClient().sendPacket(MaplePacketCreator.partyStatusMessage(23, c.getPlayer().getName()));
         //    }
         if (c.getPlayer().getParty() == null) {
             MapleParty party = World.Party.getParty(partyid);
@@ -47,12 +47,12 @@ public class PartyHandler {
                         c.getPlayer().receivePartyMemberHP();
                         c.getPlayer().updatePartyMemberHP();
                     } else {
-                        c.getSession().write(MaplePacketCreator.partyStatusMessage(17));
+                        c.sendPacket(MaplePacketCreator.partyStatusMessage(17));
                     }
                 } else if (action != 0x16) {
                     final MapleCharacter cfrom = c.getChannelServer().getPlayerStorage().getCharacterById(party.getLeader().getId());
                     if (cfrom != null) {
-                        cfrom.getClient().getSession().write(MaplePacketCreator.partyStatusMessage(23, c.getPlayer().getName()));
+                        cfrom.getClient().sendPacket(MaplePacketCreator.partyStatusMessage(23, c.getPlayer().getName()));
                     }
                 }
             } else {
@@ -64,7 +64,7 @@ public class PartyHandler {
 
     }
 
-    public static final void PartyOperatopn(final SeekableLittleEndianAccessor slea, final MapleClient c) {
+    public static final void PartyOperatopn(final MaplePacketLittleEndianAccessor slea, final MapleClient c) {
         final int operation = slea.readByte();
         MapleParty party = c.getPlayer().getParty();
         MaplePartyCharacter partyplayer = new MaplePartyCharacter(c.getPlayer());
@@ -74,11 +74,11 @@ public class PartyHandler {
                 if (c.getPlayer().getParty() == null) {
                     party = World.Party.createParty(partyplayer);
                     c.getPlayer().setParty(party);
-                    c.getSession().write(MaplePacketCreator.partyCreated(party.getId()));
+                    c.sendPacket(MaplePacketCreator.partyCreated(party.getId()));
 
                 } else {
                     if (partyplayer.equals(party.getLeader()) && party.getMembers().size() == 1) { //only one, reupdate
-                        c.getSession().write(MaplePacketCreator.partyCreated(party.getId()));
+                        c.sendPacket(MaplePacketCreator.partyCreated(party.getId()));
                     } else {
                         c.getPlayer().dropMessage(5, "你不能创建一个组队,因为你已经存在一个队伍中");
                     }
@@ -116,7 +116,7 @@ public class PartyHandler {
                             c.getPlayer().receivePartyMemberHP();
                             c.getPlayer().updatePartyMemberHP();
                         } else {
-                            c.getSession().write(MaplePacketCreator.partyStatusMessage(17));
+                            c.sendPacket(MaplePacketCreator.partyStatusMessage(17));
                         }
                     } else {
                         c.getPlayer().dropMessage(5, "要加入的队伍不存在");
@@ -131,17 +131,17 @@ public class PartyHandler {
                 if (invited != null) {
                     if (invited.getParty() == null && party != null) {
                         if (party.getMembers().size() < 6) {
-                            //  c.getSession().write(MaplePacketCreator.partyStatusMessage(23, invited.getName()));
-                            invited.getClient().getSession().write(MaplePacketCreator.partyInvite(c.getPlayer()));
+                            //  c.sendPacket(MaplePacketCreator.partyStatusMessage(23, invited.getName()));
+                            invited.getClient().sendPacket(MaplePacketCreator.partyInvite(c.getPlayer()));
                         } else {
                             break;
-                            // c.getSession().write(MaplePacketCreator.partyStatusMessage(16));
+                            // c.sendPacket(MaplePacketCreator.partyStatusMessage(16));
                         }
                     } else {
-                        c.getSession().write(MaplePacketCreator.partyStatusMessage(16));
+                        c.sendPacket(MaplePacketCreator.partyStatusMessage(16));
                     }
                 } else {
-                    c.getSession().write(MaplePacketCreator.partyStatusMessage(18));
+                    c.sendPacket(MaplePacketCreator.partyStatusMessage(18));
                 }
                 break;
             case 5: // expel
@@ -176,7 +176,7 @@ public class PartyHandler {
                     if (newleader != null && partyplayer.equals(party.getLeader())) {
                         World.Party.updateParty(party.getId(), PartyOperation.CHANGE_LEADER, newleader);
                     }
-                    c.getSession().write(MaplePacketCreator.enableActions());
+                    c.sendPacket(MaplePacketCreator.enableActions());
                 }
                 break;
             default:

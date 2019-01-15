@@ -55,7 +55,7 @@ public class MapleTrade {
        // FileoutputUtil.packetLog("log\\交易记录\\"+(chr.get()).getName()+".log", Trade);
         exchangeMeso = 0;
 
-        chr.get().getClient().getSession().write(MaplePacketCreator.TradeMessage(tradingslot, (byte) 0x08));
+        chr.get().getClient().sendPacket(MaplePacketCreator.TradeMessage(tradingslot, (byte) 0x08));
     }
 
     public final void cancel(final MapleClient c) {
@@ -74,7 +74,7 @@ public class MapleTrade {
         }
         meso = 0;
 
-        c.getSession().write(MaplePacketCreator.getTradeCancel(tradingslot, unsuccessful));
+        c.sendPacket(MaplePacketCreator.getTradeCancel(tradingslot, unsuccessful));
     }
 
     public final boolean isLocked() {
@@ -88,9 +88,9 @@ public class MapleTrade {
         if (chr.get().getMeso() >= meso) {
             chr.get().gainMeso(-meso, false, true, false);
             this.meso += meso;
-            chr.get().getClient().getSession().write(MaplePacketCreator.getTradeMesoSet((byte) 0, this.meso));
+            chr.get().getClient().sendPacket(MaplePacketCreator.getTradeMesoSet((byte) 0, this.meso));
             if (partner != null) {
-                partner.getChr().getClient().getSession().write(MaplePacketCreator.getTradeMesoSet((byte) 1, this.meso));
+                partner.getChr().getClient().sendPacket(MaplePacketCreator.getTradeMesoSet((byte) 1, this.meso));
             }
         }
     }
@@ -100,9 +100,9 @@ public class MapleTrade {
             return;
         }
         items.add(item);
-        chr.get().getClient().getSession().write(MaplePacketCreator.getTradeItemAdd((byte) 0, item));
+        chr.get().getClient().sendPacket(MaplePacketCreator.getTradeItemAdd((byte) 0, item));
         if (partner != null) {
-            partner.getChr().getClient().getSession().write(MaplePacketCreator.getTradeItemAdd((byte) 1, item));
+            partner.getChr().getClient().sendPacket(MaplePacketCreator.getTradeItemAdd((byte) 1, item));
         }
     }
 
@@ -110,7 +110,7 @@ public class MapleTrade {
       //  if (!CommandProcessor.processCommand(chr.get().getClient(), message, CommandType.TRADE)) {
             chr.get().dropMessage(-2, chr.get().getName() + " : " + message);
             if (partner != null) {
-                partner.getChr().getClient().getSession().write(PlayerShopPacket.shopChat(chr.get().getName() + " : " + message, 1));
+                partner.getChr().getClient().sendPacket(PlayerShopPacket.shopChat(chr.get().getName() + " : " + message, 1));
             }
       //  }
     }
@@ -151,12 +151,12 @@ public class MapleTrade {
         }
         final byte flag = item.getFlag();
         if (ItemFlag.UNTRADEABLE.check(flag) || ItemFlag.LOCK.check(flag)) {
-            c.getSession().write(MaplePacketCreator.enableActions());
+            c.sendPacket(MaplePacketCreator.enableActions());
             return false;
         }
         if (ii.isDropRestricted(item.getItemId()) || ii.isAccountShared(item.getItemId())) {
             if (!(ItemFlag.KARMA_EQ.check(flag) || ItemFlag.KARMA_USE.check(flag))) {
-                c.getSession().write(MaplePacketCreator.enableActions());
+                c.sendPacket(MaplePacketCreator.enableActions());
                 return false;
             }
         }  
@@ -225,7 +225,7 @@ public class MapleTrade {
             return;
         }
         local.locked = true; // Locking the trade
-        partner.getChr().getClient().getSession().write(MaplePacketCreator.getTradeConfirmation());
+        partner.getChr().getClient().sendPacket(MaplePacketCreator.getTradeConfirmation());
 
         partner.exchangeItems = local.items; // Copy this to partner's trade since it's alreadt accepted
         partner.exchangeMeso = local.meso; // Copy this to partner's trade since it's alreadt accepted
@@ -265,17 +265,17 @@ public class MapleTrade {
     public static final void startTrade(final MapleCharacter c) {
         if (c.getTrade() == null) {
             c.setTrade(new MapleTrade((byte) 0, c));
-            c.getClient().getSession().write(MaplePacketCreator.getTradeStart(c.getClient(), c.getTrade(), (byte) 0, false));
+            c.getClient().sendPacket(MaplePacketCreator.getTradeStart(c.getClient(), c.getTrade(), (byte) 0, false));
         } else {
-            c.getClient().getSession().write(MaplePacketCreator.serverNotice(5, "不能同时做多件事情。"));
+            c.getClient().sendPacket(MaplePacketCreator.serverNotice(5, "不能同时做多件事情。"));
         }
     }
     public static final void start现金交易(final MapleCharacter c) {
         if (c.getTrade() == null) {
             c.setTrade(new MapleTrade((byte) 0, c));
-            c.getClient().getSession().write(MaplePacketCreator.getTradeStart(c.getClient(), c.getTrade(), (byte) 0, true));
+            c.getClient().sendPacket(MaplePacketCreator.getTradeStart(c.getClient(), c.getTrade(), (byte) 0, true));
         } else {
-            c.getClient().getSession().write(MaplePacketCreator.serverNotice(5, "不能同时做多件事情。"));
+            c.getClient().sendPacket(MaplePacketCreator.serverNotice(5, "不能同时做多件事情。"));
         }
     }
     public static final void inviteTrade(final MapleCharacter c1, final MapleCharacter c2) {
@@ -286,9 +286,9 @@ public class MapleTrade {
             c2.setTrade(new MapleTrade((byte) 1, c2));
             c2.getTrade().setPartner(c1.getTrade());
             c1.getTrade().setPartner(c2.getTrade());
-            c2.getClient().getSession().write(MaplePacketCreator.getTradeInvite(c1, false));
+            c2.getClient().sendPacket(MaplePacketCreator.getTradeInvite(c1, false));
         } else {
-            c1.getClient().getSession().write(MaplePacketCreator.serverNotice(5, "对方正在和其他玩家进行交易中。"));
+            c1.getClient().sendPacket(MaplePacketCreator.serverNotice(5, "对方正在和其他玩家进行交易中。"));
             cancelTrade(c1.getTrade(), c1.getClient());
         }
     }
@@ -301,33 +301,33 @@ public class MapleTrade {
             c2.setTrade(new MapleTrade((byte) 1, c2));
             c2.getTrade().setPartner(c1.getTrade());
             c1.getTrade().setPartner(c2.getTrade());
-            c2.getClient().getSession().write(MaplePacketCreator.getTradeInvite(c1, true));
+            c2.getClient().sendPacket(MaplePacketCreator.getTradeInvite(c1, true));
         } else {
-            c1.getClient().getSession().write(MaplePacketCreator.serverNotice(5, "对方正在和其他玩家进行交易中。"));
+            c1.getClient().sendPacket(MaplePacketCreator.serverNotice(5, "对方正在和其他玩家进行交易中。"));
             cancelTrade(c1.getTrade(), c1.getClient());
         }
     }
     public static final void visit现金交易(final MapleCharacter c1, final MapleCharacter c2) {
         if (c1.getTrade() != null && c1.getTrade().getPartner() == c2.getTrade() && c2.getTrade() != null && c2.getTrade().getPartner() == c1.getTrade()) {
             // We don't need to check for map here as the user is found via MapleMap.getCharacterById()
-            c2.getClient().getSession().write(MaplePacketCreator.getTradePartnerAdd(c1));
-            c1.getClient().getSession().write(MaplePacketCreator.getTradeStart(c1.getClient(), c1.getTrade(), (byte) 1, true));
+            c2.getClient().sendPacket(MaplePacketCreator.getTradePartnerAdd(c1));
+            c1.getClient().sendPacket(MaplePacketCreator.getTradeStart(c1.getClient(), c1.getTrade(), (byte) 1, true));
 //            c1.dropMessage(-2, "System : Use @tradehelp to see the list of trading commands");
 //            c2.dropMessage(-2, "System : Use @tradehelp to see the list of trading commands");
         } else {
-            c1.getClient().getSession().write(MaplePacketCreator.serverNotice(5, "对方已经取消了交易。"));
+            c1.getClient().sendPacket(MaplePacketCreator.serverNotice(5, "对方已经取消了交易。"));
         }
     }
 
     public static final void visitTrade(final MapleCharacter c1, final MapleCharacter c2) {
         if (c1.getTrade() != null && c1.getTrade().getPartner() == c2.getTrade() && c2.getTrade() != null && c2.getTrade().getPartner() == c1.getTrade()) {
             // We don't need to check for map here as the user is found via MapleMap.getCharacterById()
-            c2.getClient().getSession().write(MaplePacketCreator.getTradePartnerAdd(c1));
-            c1.getClient().getSession().write(MaplePacketCreator.getTradeStart(c1.getClient(), c1.getTrade(), (byte) 1, false));
+            c2.getClient().sendPacket(MaplePacketCreator.getTradePartnerAdd(c1));
+            c1.getClient().sendPacket(MaplePacketCreator.getTradeStart(c1.getClient(), c1.getTrade(), (byte) 1, false));
 //            c1.dropMessage(-2, "System : Use @tradehelp to see the list of trading commands");
 //            c2.dropMessage(-2, "System : Use @tradehelp to see the list of trading commands");
         } else {
-            c1.getClient().getSession().write(MaplePacketCreator.serverNotice(5, "对方已经取消了交易。"));
+            c1.getClient().sendPacket(MaplePacketCreator.serverNotice(5, "对方已经取消了交易。"));
         }
     }
     public static final void declineTrade(final MapleCharacter c) {

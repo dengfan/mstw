@@ -17,7 +17,7 @@ import org.slf4j.LoggerFactory;
 import tools.FileoutputUtil;
 import tools.HexTool;
 import tools.data.ByteArrayByteStream;
-import tools.data.LittleEndianAccessor;
+import tools.data.MaplePacketLittleEndianAccessor;
 
 public class MaplePacketEncoder extends MessageToByteEncoder<Object> {
 
@@ -101,6 +101,6 @@ public class MaplePacketEncoder extends MessageToByteEncoder<Object> {
     }
 
     private int readFirstShort(byte[] arr) {
-        return new LittleEndianAccessor(new ByteArrayByteStream(arr)).readShort();
+        return new MaplePacketLittleEndianAccessor(new ByteArrayByteStream(arr)).readShort();
     }
 }

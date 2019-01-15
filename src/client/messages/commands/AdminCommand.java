@@ -83,7 +83,7 @@ import java.util.LinkedHashSet;
 import server.CashItemFactory;
 import server.events.MapleOxQuizFactory;
 import tools.*;
-import tools.data.output.MaplePacketLittleEndianWriter;
+import tools.data.MaplePacketLittleEndianWriter;
 
 /**
  *
@@ -315,8 +315,8 @@ public class AdminCommand {
                         message.append("[公告] 服务器将在");
                         message.append(minutesLeft);
                         message.append("分钟后关闭，请尽快关闭精灵商人安全下线！");
-                        World.Broadcast.broadcastMessage(MaplePacketCreator.serverNotice(6, message.toString()).getBytes());
-                        World.Broadcast.broadcastMessage(MaplePacketCreator.serverMessage(message.toString()).getBytes());
+                        World.Broadcast.broadcastMessage(MaplePacketCreator.serverNotice(6, message.toString()));
+                        World.Broadcast.broadcastMessage(MaplePacketCreator.serverMessage(message.toString()));
                         for (ChannelServer cs : ChannelServer.getAllInstances()) {
                             cs.setServerMessage("服务器将于" + minutesLeft + "分钟后开启。");
                         }
@@ -697,8 +697,8 @@ public class AdminCommand {
                                 }
                             }
                         }
-                        World.Broadcast.broadcastMessage(MaplePacketCreator.serverNotice(6, "关键时刻已经开始了!!!").getBytes());
-                        World.Broadcast.broadcastMessage(MaplePacketCreator.serverMessage("关键时刻已经开始了!!!").getBytes());
+                        World.Broadcast.broadcastMessage(MaplePacketCreator.serverNotice(6, "关键时刻已经开始了!!!"));
+                        World.Broadcast.broadcastMessage(MaplePacketCreator.serverMessage("关键时刻已经开始了!!!"));
                         ts.cancel(false);
                         ts = null;
                     }
@@ -771,7 +771,7 @@ public class AdminCommand {
             }
             player.modifyCSPoints(2, amount, true);
             String msg = "[GM 密语] GM " + c.getPlayer().getName() + " 给了 " + player.getName() + " 枫叶点数 " + amount + "点";
-            World.Broadcast.broadcastGMMessage(MaplePacketCreator.serverNotice(6, msg).getBytes());
+            World.Broadcast.broadcastGMMessage(MaplePacketCreator.serverNotice(6, msg));
             return 1;
         }
 
@@ -1063,7 +1063,7 @@ public class AdminCommand {
                 for (ChannelServer ch : ChannelServer.getAllInstances()) {
                     ch.setServerMessage(sb.toString());
                 }
-                World.Broadcast.broadcastMessage(MaplePacketCreator.serverMessage(sb.toString()).getBytes());
+                World.Broadcast.broadcastMessage(MaplePacketCreator.serverMessage(sb.toString()));
             } else {
                 return 0;
             }
@@ -1084,7 +1084,7 @@ public class AdminCommand {
                 sb.append(c.getPlayer().getName());
                 sb.append("] ");
                 sb.append(StringUtil.joinStringFrom(splitted, 1));
-                World.Broadcast.broadcastMessage(MaplePacketCreator.serverNotice(6, sb.toString()).getBytes());
+                World.Broadcast.broadcastMessage(MaplePacketCreator.serverNotice(6, sb.toString()));
             } else {
                 return 0;
             }
@@ -1287,7 +1287,7 @@ public class AdminCommand {
             if (c.getChannelServer().getEvent() == c.getPlayer().getMapId()) {
                 MapleEvent.setEvent(c.getChannelServer(), false);
                 c.getPlayer().dropMessage(5, "已经关闭活动入口，可以使用 !活动开始 来开启。");
-                World.Broadcast.broadcastMessage(MaplePacketCreator.serverNotice(6, "频道：" + c.getChannel() + "活动目前已经关闭大门口。").getBytes());
+                World.Broadcast.broadcastMessage(MaplePacketCreator.serverNotice(6, "频道：" + c.getChannel() + "活动目前已经关闭大门口。"));
                 c.getPlayer().getMap().broadcastMessage(MaplePacketCreator.getClock(60));
                 ts = EventTimer.getInstance().register(new Runnable() {
 
@@ -1320,7 +1320,7 @@ public class AdminCommand {
             if (c.getChannelServer().getEvent() == c.getPlayer().getMapId()) {
                 MapleEvent.setEvent(c.getChannelServer(), false);
                 c.getPlayer().dropMessage(5, "已经关闭活动入口，可以使用 !活动开始 来开启。");
-                World.Broadcast.broadcastMessage(MaplePacketCreator.serverNotice(6, "频道：" + c.getChannel() + "活动目前已经关闭大门口。").getBytes());
+                World.Broadcast.broadcastMessage(MaplePacketCreator.serverNotice(6, "频道：" + c.getChannel() + "活动目前已经关闭大门口。"));
                 c.getPlayer().getMap().broadcastMessage(MaplePacketCreator.getClock(60));
                 EventTimer.getInstance().register(new Runnable() {
 
@@ -1483,7 +1483,7 @@ public class AdminCommand {
                 victim = c.getChannelServer().getPlayerStorage().getCharacterByName(splitted[1]);
             }
             try {
-                World.Broadcast.broadcastSmega(MaplePacketCreator.serverNotice(3, victim == null ? c.getChannel() : victim.getClient().getChannel(), victim == null ? splitted[1] : victim.getName() + " : " + StringUtil.joinStringFrom(splitted, 2), true).getBytes());
+                World.Broadcast.broadcastSmega(MaplePacketCreator.serverNotice(3, victim == null ? c.getChannel() : victim.getClient().getChannel(), victim == null ? splitted[1] : victim.getName() + " : " + StringUtil.joinStringFrom(splitted, 2), true));
             } catch (Exception e) {
                 return 0;
             }
@@ -1685,7 +1685,7 @@ public class AdminCommand {
             } else {
                 victim.gainMeso(gain, true);
                 String msg = "[GM 密语] GM " + c.getPlayer().getName() + " 给了 " + victim.getName() + " 金币 " + gain + "点";
-                World.Broadcast.broadcastGMMessage(MaplePacketCreator.serverNotice(6, msg).getBytes());
+                World.Broadcast.broadcastGMMessage(MaplePacketCreator.serverNotice(6, msg));
             }
             return 1;
         }
@@ -2400,7 +2400,7 @@ public class AdminCommand {
                     break;
             }
             String msg = "[GM 密语] GM " + c.getPlayer().getName() + "  DC 了 " + show + "玩家";
-            World.Broadcast.broadcastGMMessage(MaplePacketCreator.serverNotice(6, msg).getBytes());
+            World.Broadcast.broadcastGMMessage(MaplePacketCreator.serverNotice(6, msg));
             return 1;
         }
 
@@ -3617,9 +3617,9 @@ public class AdminCommand {
              * mplew.write(0x64);
              */
             mplew.writeZeroBytes(20);
-            c.getSession().write(mplew.getPacket());
+            c.sendPacket(mplew.getPacket());
 
-            c.getPlayer().dropMessage(packetheader + "已传送封包[" + mplew.getPacket().getBytes().length + "] : " + mplew.toString());
+            c.getPlayer().dropMessage(packetheader + "已传送封包[" + mplew.getPacket().length + "] : " + mplew.toString());
             return 1;
         }
     }
@@ -3763,7 +3763,7 @@ public class AdminCommand {
             try {
                 int npcId = Integer.parseInt(splitted[1]);
                 NPCScriptManager.getInstance().dispose(c);
-                c.getSession().write(MaplePacketCreator.enableActions());
+                c.sendPacket(MaplePacketCreator.enableActions());
                 NPCScriptManager npc = NPCScriptManager.getInstance();
                 npc.start(c, npcId);
             } catch (NumberFormatException e) {
@@ -3782,7 +3782,7 @@ public class AdminCommand {
         public int execute(MapleClient c, String[] splitted) {
             MapleCharacter chr = c.getPlayer();
             NPCScriptManager.getInstance().dispose(c);
-            c.getSession().write(MaplePacketCreator.enableActions());
+            c.sendPacket(MaplePacketCreator.enableActions());
             NPCScriptManager npc = NPCScriptManager.getInstance();
             npc.start(c, 2000);
             return 1;

@@ -49,11 +49,11 @@ import server.maps.MapleMapObjectType;
 import server.maps.SummonMovementType;
 import tools.MaplePacketCreator;
 import tools.packet.MobPacket;
-import tools.data.input.SeekableLittleEndianAccessor;
+import tools.data.MaplePacketLittleEndianAccessor;
 
 public class SummonHandler {
 
-    public static final void MoveDragon(final SeekableLittleEndianAccessor slea, final MapleCharacter chr) {
+    public static final void MoveDragon(final MaplePacketLittleEndianAccessor slea, final MapleCharacter chr) {
         slea.skip(8); //POS
         final List<LifeMovementFragment> res = MovementParse.parseMovement(slea, 5);
         if (chr != null && chr.getDragon() != null) {
@@ -67,7 +67,7 @@ public class SummonHandler {
         }
     }
 
-    public static final void MoveSummon(final SeekableLittleEndianAccessor slea, final MapleCharacter chr) {
+    public static final void MoveSummon(final MaplePacketLittleEndianAccessor slea, final MapleCharacter chr) {
         final int oid = slea.readInt();
         Point startPos = new Point(slea.readShort(), slea.readShort());
         List<LifeMovementFragment> res = MovementParse.parseMovement(slea, 4);
@@ -88,7 +88,7 @@ public class SummonHandler {
         }
     }
 
-    public static final void DamageSummon(final SeekableLittleEndianAccessor slea, final MapleCharacter chr) {
+    public static final void DamageSummon(final MaplePacketLittleEndianAccessor slea, final MapleCharacter chr) {
       
         int skillid = slea.readInt();
          int unkByte = slea.readByte();
@@ -114,7 +114,7 @@ public class SummonHandler {
         }
     }
 
-    public static void SummonAttack(final SeekableLittleEndianAccessor slea, final MapleClient c, final MapleCharacter chr) {
+    public static void SummonAttack(final MaplePacketLittleEndianAccessor slea, final MapleClient c, final MapleCharacter chr) {
         if (chr == null || !chr.isAlive()) {
             return;
         }
@@ -185,7 +185,7 @@ public class SummonHandler {
                 mob.damage(chr, toDamage, true);
                 chr.checkMonsterAggro(mob);
                 if (!mob.isAlive()) {
-                    chr.getClient().getSession().write(MobPacket.killMonster(mob.getObjectId(), 1));
+                    chr.getClient().sendPacket(MobPacket.killMonster(mob.getObjectId(), 1));
                 }
             } else {
             //    AutobanManager.getInstance().autoban(c, "High Summon Damage (" + toDamage + " to " + attackEntry.getMonster().getId() + ")");

@@ -152,14 +152,14 @@ public class Event_DojoAgent {
                             final int point = (points * 3);
                          //   chr.modifyCSPoints(1, point * 4, true);
                             chr.setDojo(chr.getDojo() + point);
-                            chr.getClient().getSession().write(MaplePacketCreator.Mulung_Pts(point, chr.getDojo()));
+                            chr.getClient().sendPacket(MaplePacketCreator.Mulung_Pts(point, chr.getDojo()));
                         }
                     }
                 } else {
                     final int point = ((points + 1) * 3);
                    // c.modifyCSPoints(1, point * 4, true);
                     c.setDojo(c.getDojo() + point);
-                    c.getClient().getSession().write(MaplePacketCreator.Mulung_Pts(point, c.getDojo()));
+                    c.getClient().sendPacket(MaplePacketCreator.Mulung_Pts(point, c.getDojo()));
                 }
 
             }

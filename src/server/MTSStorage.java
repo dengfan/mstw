@@ -27,7 +27,7 @@ import client.inventory.ItemLoader;
 import client.inventory.MapleInventoryType;
 import java.sql.Connection;
 import database.DatabaseConnection;
-import handling.MaplePacket;
+
 import constants.ServerConstants;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -283,7 +283,7 @@ public class MTSStorage {
         return ret;
     }
 
-    public final MaplePacket getCurrentMTS(final MTSCart cart) {
+    public final byte[] getCurrentMTS(final MTSCart cart) {
         mutex.readLock().lock();
         try {
             if (cart.getTab() == 1) { //buyNow
@@ -298,7 +298,7 @@ public class MTSStorage {
         }
     }
 
-    public final MaplePacket getCurrentNotYetSold(final MTSCart cart) {
+    public final byte[] getCurrentNotYetSold(final MTSCart cart) {
         mutex.readLock().lock();
         try {
             final List<MTSItemInfo> nys = new ArrayList<MTSItemInfo>();
@@ -318,7 +318,7 @@ public class MTSStorage {
         }
     }
 
-    public final MaplePacket getCurrentTransfer(final MTSCart cart, final boolean changed) {
+    public final byte[] getCurrentTransfer(final MTSCart cart, final boolean changed) {
         return MTSCSPacket.getTransferInventory(cart.getInventory(), changed);
     }
 

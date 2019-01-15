@@ -25,7 +25,7 @@ public class PlayerCommand {
         @Override
         public int execute(MapleClient c, String[] splitted) {
             NPCScriptManager.getInstance().dispose(c);
-            c.getSession().write(MaplePacketCreator.enableActions());
+            c.sendPacket(MaplePacketCreator.enableActions());
             c.getPlayer().dropMessage(1, "已解除假死状态。");
             c.getPlayer().dropMessage(6, "当前时间：" + FileoutputUtil.CurrentReadable_Time() + " | 经验值倍率 " + (Math.round(c.getPlayer().getEXPMod()) * 100) * Math.round(c.getPlayer().getStat().expBuff / 100.0) + "%，怪物爆率 " + (Math.round(c.getPlayer().getDropMod()) * 100) * Math.round(c.getPlayer().getStat().dropBuff / 100.0) + "%，金币倍率 " + Math.round(c.getPlayer().getStat().mesoBuff / 100.0) * 100 + "%");
             c.getPlayer().dropMessage(6, "当前延迟：" + c.getPlayer().getClient().getLatency() + " 毫秒");
@@ -74,7 +74,7 @@ public class PlayerCommand {
             }
 
             if (!c.getPlayer().getCheatTracker().GMSpam(100000, 1)) { // 5 minutes.
-                World.Broadcast.broadcastGMMessage(MaplePacketCreator.serverNotice(6, "频道 " + c.getPlayer().getClient().getChannel() + " 玩家 [" + c.getPlayer().getName() + "] : " + StringUtil.joinStringFrom(splitted, 1)).getBytes());
+                World.Broadcast.broadcastGMMessage(MaplePacketCreator.serverNotice(6, "频道 " + c.getPlayer().getClient().getChannel() + " 玩家 [" + c.getPlayer().getName() + "] : " + StringUtil.joinStringFrom(splitted, 1)));
                 c.getPlayer().dropMessage(6, "消息已经发给GM。");
             } else {
                 c.getPlayer().dropMessage(6, "每分钟只允许发送一次。");

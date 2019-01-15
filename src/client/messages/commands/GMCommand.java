@@ -19,7 +19,7 @@ import client.inventory.MapleRing;
 import client.messages.CommandProcessorUtil;
 import constants.GameConstants;
 import database.DatabaseConnection;
-import handling.MaplePacket;
+
 import handling.MapleServerHandler;
 import handling.RecvPacketOpcode;
 import handling.SendPacketOpcode;

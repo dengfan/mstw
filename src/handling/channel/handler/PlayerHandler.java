@@ -65,7 +65,7 @@ import tools.FileoutputUtil;
 import tools.MaplePacketCreator;
 import tools.packet.MobPacket;
 import tools.packet.MTSCSPacket;
-import tools.data.input.SeekableLittleEndianAccessor;
+import tools.data.MaplePacketLittleEndianAccessor;
 import tools.packet.UIPacket;
 
 public class PlayerHandler {
@@ -90,7 +90,7 @@ public class PlayerHandler {
         }
     }
 
-    public static void ChangeSkillMacro(final SeekableLittleEndianAccessor slea, final MapleCharacter chr) {
+    public static void ChangeSkillMacro(final MaplePacketLittleEndianAccessor slea, final MapleCharacter chr) {
         final int num = slea.readByte();
         String name;
         int shout, skill1, skill2, skill3;
@@ -108,7 +108,7 @@ public class PlayerHandler {
         }
     }
 
-    public static final void ChangeKeymap(final SeekableLittleEndianAccessor slea, final MapleCharacter chr) {
+    public static final void ChangeKeymap(final MaplePacketLittleEndianAccessor slea, final MapleCharacter chr) {
 
         if (slea.available() > 8 && chr != null) { // else = pet auto pot
             chr.updateTick(slea.readInt());
@@ -172,7 +172,7 @@ public class PlayerHandler {
         }
         chr.setChair(itemId);
         chr.getMap().broadcastMessage(chr, MaplePacketCreator.showChair(chr.getId(), itemId), false);
-        c.getSession().write(MaplePacketCreator.enableActions());
+        c.sendPacket(MaplePacketCreator.enableActions());
     }
 
     public static final void CancelChair(final short id, final MapleClient c, final MapleCharacter chr) {
@@ -181,15 +181,15 @@ public class PlayerHandler {
                 chr.cancelFishingTask();
             }
             chr.setChair(0);
-            c.getSession().write(MaplePacketCreator.cancelChair(-1));
+            c.sendPacket(MaplePacketCreator.cancelChair(-1));
             chr.getMap().broadcastMessage(chr, MaplePacketCreator.showChair(chr.getId(), 0), false);
         } else { // Use In-Map Chair
             chr.setChair(id);
-            c.getSession().write(MaplePacketCreator.cancelChair(id));
+            c.sendPacket(MaplePacketCreator.cancelChair(id));
         }
     }
 
-    public static final void TrockAddMap(final SeekableLittleEndianAccessor slea, final MapleClient c, final MapleCharacter chr) {
+    public static final void TrockAddMap(final MaplePacketLittleEndianAccessor slea, final MapleClient c, final MapleCharacter chr) {
         final byte addrem = slea.readByte();
         final byte vip = slea.readByte();
 
@@ -214,7 +214,7 @@ public class PlayerHandler {
                 }
             }
         }
-        c.getSession().write(MTSCSPacket.getTrockRefresh(chr, vip == 1, addrem == 3));
+        c.sendPacket(MTSCSPacket.getTrockRefresh(chr, vip == 1, addrem == 3));
     }
 
     public static final void CharInfoRequest(final int objectid, final MapleClient c, final MapleCharacter chr) {
@@ -222,15 +222,15 @@ public class PlayerHandler {
             return;
         }
         final MapleCharacter player = c.getPlayer().getMap().getCharacterById(objectid);
-        c.getSession().write(MaplePacketCreator.enableActions());
+        c.sendPacket(MaplePacketCreator.enableActions());
         if (player != null) {
             if (!player.isGM() || c.getPlayer().isGM()) {
-                c.getSession().write(MaplePacketCreator.charInfo(player, c.getPlayer().getId() == objectid));
+                c.sendPacket(MaplePacketCreator.charInfo(player, c.getPlayer().getId() == objectid));
             }
         }
     }
 
-    public static final void TakeDamage(final SeekableLittleEndianAccessor slea, final MapleClient c, final MapleCharacter chr) {
+    public static final void TakeDamage(final MaplePacketLittleEndianAccessor slea, final MapleClient c, final MapleCharacter chr) {
         //System.out.println(slea.toString());
         chr.updateTick(slea.readInt());
         final byte type = slea.readByte(); //-4 is mist, -3 and -2 are map damage.
@@ -474,7 +474,7 @@ public class PlayerHandler {
                     }
                     break;
             }
-            c.getSession().write(MaplePacketCreator.testCombo(combo));
+            c.sendPacket(MaplePacketCreator.testCombo(combo));
             chr.setLastCombo(curr);
         }
     }
@@ -482,7 +482,7 @@ public class PlayerHandler {
     public static final void UseItemEffect(final int itemId, final MapleClient c, final MapleCharacter chr) {
         final IItem toUse = chr.getInventory(MapleInventoryType.CASH).findById(itemId);
         if (toUse == null || toUse.getItemId() != itemId || toUse.getQuantity() < 1) {
-            c.getSession().write(MaplePacketCreator.enableActions());
+            c.sendPacket(MaplePacketCreator.enableActions());
             return;
         }
         if (itemId != 5510000) {
@@ -492,16 +492,16 @@ public class PlayerHandler {
         chr.getMap().broadcastMessage(chr, MaplePacketCreator.itemEffects(chr.getId(), itemId), false);
         if (ItemFlag.KARMA_EQ.check(flag)) {
             toUse.setFlag((byte) (flag - ItemFlag.KARMA_EQ.getValue()));
-            c.getSession().write(MaplePacketCreator.getCharInfo(chr));
+            c.sendPacket(MaplePacketCreator.getCharInfo(chr));
             chr.getMap().removePlayer(chr);
             chr.getMap().addPlayer(chr);
-            // c.getSession().write(MaplePacketCreator.updateSpecialItemUse_(toUse, GameConstants.getInventoryType(toUse.getItemId()).getType()));
+            // c.sendPacket(MaplePacketCreator.updateSpecialItemUse_(toUse, GameConstants.getInventoryType(toUse.getItemId()).getType()));
         } else if (ItemFlag.KARMA_USE.check(flag)) {
             toUse.setFlag((byte) (flag - ItemFlag.KARMA_USE.getValue()));
-            c.getSession().write(MaplePacketCreator.getCharInfo(chr));
+            c.sendPacket(MaplePacketCreator.getCharInfo(chr));
             chr.getMap().removePlayer(chr);
             chr.getMap().addPlayer(chr);
-            // c.getSession().write(MaplePacketCreator.updateSpecialItemUse_(toUse, GameConstants.getInventoryType(toUse.getItemId()).getType()));
+            // c.sendPacket(MaplePacketCreator.updateSpecialItemUse_(toUse, GameConstants.getInventoryType(toUse.getItemId()).getType()));
         }
     }
 
@@ -524,7 +524,7 @@ public class PlayerHandler {
         }
     }
 
-    public static final void SkillEffect(final SeekableLittleEndianAccessor slea, final MapleCharacter chr) {
+    public static final void SkillEffect(final MaplePacketLittleEndianAccessor slea, final MapleCharacter chr) {
         final int skillId = slea.readInt();
         final byte level = slea.readByte();
         final byte flags = slea.readByte();
@@ -543,9 +543,9 @@ public class PlayerHandler {
         }
     }
 
-    public static final void SpecialMove(final SeekableLittleEndianAccessor slea, final MapleClient c, final MapleCharacter chr) {
+    public static final void SpecialMove(final MaplePacketLittleEndianAccessor slea, final MapleClient c, final MapleCharacter chr) {
         if (chr == null || !chr.isAlive() || chr.getMap() == null) {
-            c.getSession().write(MaplePacketCreator.enableActions());
+            c.sendPacket(MaplePacketCreator.enableActions());
             return;
         }
         slea.skip(4); // Old X and Y
@@ -576,11 +576,11 @@ public class PlayerHandler {
 
         if (effect.getCooldown() > 0 && !chr.isGM()) {
             if (chr.skillisCooling(skillid)) {
-                c.getSession().write(MaplePacketCreator.enableActions());
+                c.sendPacket(MaplePacketCreator.enableActions());
                 return;
             }
             if (skillid != 5221006) { // Battleship
-                c.getSession().write(MaplePacketCreator.skillCooldown(skillid, effect.getCooldown()));
+                c.sendPacket(MaplePacketCreator.skillCooldown(skillid, effect.getCooldown()));
                 chr.addCooldown(skillid, System.currentTimeMillis(), effect.getCooldown() * 1000);
             }
         }
@@ -602,7 +602,7 @@ public class PlayerHandler {
                     }
                 }
                 chr.getMap().broadcastMessage(chr, MaplePacketCreator.showBuffeffect(chr.getId(), skillid, 1, slea.readByte()), chr.getPosition());
-                c.getSession().write(MaplePacketCreator.enableActions());
+                c.sendPacket(MaplePacketCreator.enableActions());
                 break;
             default:
                 Point pos = null;
@@ -614,14 +614,14 @@ public class PlayerHandler {
                     if (!FieldLimitType.MysticDoor.check(chr.getMap().getFieldLimit())) {
                         effect.applyTo(c.getPlayer(), pos);
                     } else {
-                        c.getSession().write(MaplePacketCreator.enableActions());
+                        c.sendPacket(MaplePacketCreator.enableActions());
                     }
 
                 } else {
                     final int mountid = MapleStatEffect.parseMountInfo(c.getPlayer(), skill.getId());
                     if (mountid != 0 && mountid != GameConstants.getMountItem(skill.getId()) && !c.getPlayer().isGM() && c.getPlayer().getBuffedValue(MapleBuffStat.MONSTER_RIDING) == null && c.getPlayer().getInventory(MapleInventoryType.EQUIPPED).getItem((byte) -118) == null) {
                         if (!GameConstants.isMountItemAvailable(mountid, c.getPlayer().getJob())) {
-                            c.getSession().write(MaplePacketCreator.enableActions());
+                            c.sendPacket(MaplePacketCreator.enableActions());
                             return;
                         }
                     }
@@ -631,7 +631,7 @@ public class PlayerHandler {
         }
     }
 
-    public static final void closeRangeAttack(final SeekableLittleEndianAccessor slea, final MapleClient c, final MapleCharacter chr, final boolean energy) {
+    public static final void closeRangeAttack(final MaplePacketLittleEndianAccessor slea, final MapleClient c, final MapleCharacter chr, final boolean energy) {
         if (chr == null || (energy && chr.getBuffedValue(MapleBuffStat.ENERGY_CHARGE) == null && chr.getBuffedValue(MapleBuffStat.BODY_PRESSURE) == null && !GameConstants.isKOC(chr.getJob()))) {
             return;
         }
@@ -660,10 +660,10 @@ public class PlayerHandler {
 
             if (effect.getCooldown() > 0 && !chr.isGM()) {
                 if (chr.skillisCooling(attack.skill)) {
-                    c.getSession().write(MaplePacketCreator.enableActions());
+                    c.sendPacket(MaplePacketCreator.enableActions());
                     return;
                 }
-                c.getSession().write(MaplePacketCreator.skillCooldown(attack.skill, effect.getCooldown()));
+                c.sendPacket(MaplePacketCreator.skillCooldown(attack.skill, effect.getCooldown()));
                 chr.addCooldown(attack.skill, System.currentTimeMillis(), effect.getCooldown() * 1000);
             }
         }
@@ -755,7 +755,7 @@ public class PlayerHandler {
         
     }
 
-    public static final void rangedAttack(final SeekableLittleEndianAccessor slea, final MapleClient c, final MapleCharacter chr) {
+    public static final void rangedAttack(final MaplePacketLittleEndianAccessor slea, final MapleClient c, final MapleCharacter chr) {
         if (chr == null) {
             return;
         }
@@ -790,10 +790,10 @@ public class PlayerHandler {
             }
             if (effect.getCooldown() > 0 && !chr.isGM()) {
                 if (chr.skillisCooling(attack.skill)) {
-                    c.getSession().write(MaplePacketCreator.enableActions());
+                    c.sendPacket(MaplePacketCreator.enableActions());
                     return;
                 }
-                c.getSession().write(MaplePacketCreator.skillCooldown(attack.skill, effect.getCooldown()));
+                c.sendPacket(MaplePacketCreator.skillCooldown(attack.skill, effect.getCooldown()));
                 chr.addCooldown(attack.skill, System.currentTimeMillis(), effect.getCooldown() * 1000);
             }
         }
@@ -877,7 +877,7 @@ public class PlayerHandler {
         
     }
 
-    public static final void MagicDamage(final SeekableLittleEndianAccessor slea, final MapleClient c, final MapleCharacter chr) {
+    public static final void MagicDamage(final MaplePacketLittleEndianAccessor slea, final MapleClient c, final MapleCharacter chr) {
         if (chr == null) {
             return;
         }
@@ -894,10 +894,10 @@ public class PlayerHandler {
         }
         if (effect.getCooldown() > 0 && !chr.isGM()) {
             if (chr.skillisCooling(attack.skill)) {
-                c.getSession().write(MaplePacketCreator.enableActions());
+                c.sendPacket(MaplePacketCreator.enableActions());
                 return;
             }
-            c.getSession().write(MaplePacketCreator.skillCooldown(attack.skill, effect.getCooldown()));
+            c.sendPacket(MaplePacketCreator.skillCooldown(attack.skill, effect.getCooldown()));
             chr.addCooldown(attack.skill, System.currentTimeMillis(), effect.getCooldown() * 1000);
         }
         chr.checkFollow();
@@ -908,7 +908,7 @@ public class PlayerHandler {
 
     public static final void DropMeso(final int meso, final MapleCharacter chr) {
         if (!chr.isAlive() || (meso < 10 || meso > 50000) || (meso > chr.getMeso())) {
-            chr.getClient().getSession().write(MaplePacketCreator.enableActions());
+            chr.getClient().sendPacket(MaplePacketCreator.enableActions());
             return;
         }
         chr.gainMeso(-meso, false, true);
@@ -931,7 +931,7 @@ public class PlayerHandler {
         }
     }
 
-    public static final void Heal(final SeekableLittleEndianAccessor slea, final MapleCharacter chr) {
+    public static final void Heal(final MaplePacketLittleEndianAccessor slea, final MapleCharacter chr) {
         if (chr == null) {
             return;
         }
@@ -973,7 +973,7 @@ public class PlayerHandler {
 
     }
 
-    public static final void MovePlayer(final SeekableLittleEndianAccessor slea, final MapleClient c, final MapleCharacter chr) {
+    public static final void MovePlayer(final MaplePacketLittleEndianAccessor slea, final MapleClient c, final MapleCharacter chr) {
 //	slea.skip(5); // unknown
         if (chr == null) {
             return;
@@ -1032,7 +1032,7 @@ public class PlayerHandler {
                 final MapleCharacter fol = map.getCharacterById(chr.getFollowId());
                 if (fol != null) {
                     final Point original_pos = fol.getPosition();
-                    // fol.getClient().getSession().write(MaplePacketCreator.moveFollow(Original_Pos, original_pos, pos, res));
+                    // fol.getClient().sendPacket(MaplePacketCreator.moveFollow(Original_Pos, original_pos, pos, res));
                     MovementParse.updatePosition(res, fol, 0);
                     // map.broadcastMessage(fol, MaplePacketCreator.movePlayer(fol.getId(), res, original_pos), false);
                 } else {
@@ -1058,11 +1058,11 @@ public class PlayerHandler {
         }
     }
 
-    public static final void UpdateHandler(final SeekableLittleEndianAccessor slea, final MapleClient c, final MapleCharacter chr) {
+    public static final void UpdateHandler(final MaplePacketLittleEndianAccessor slea, final MapleClient c, final MapleCharacter chr) {
         c.getPlayer().saveToDB(true, true);
     }
 
-    public static final void ChangeMapSpecial(final SeekableLittleEndianAccessor slea, final String portal_name, final MapleClient c, final MapleCharacter chr) {
+    public static final void ChangeMapSpecial(final MaplePacketLittleEndianAccessor slea, final String portal_name, final MapleClient c, final MapleCharacter chr) {
         slea.readShort();
         final MaplePortal portal = chr.getMap().getPortal(portal_name);
 //	slea.skip(2);
@@ -1070,11 +1070,11 @@ public class PlayerHandler {
         if (portal != null) {
             portal.enterPortal(c);
         } else {
-            c.getSession().write(MaplePacketCreator.enableActions());
+            c.sendPacket(MaplePacketCreator.enableActions());
         }
     }
 
-    public static final void ChangeMap(final SeekableLittleEndianAccessor slea, final MapleClient c, final MapleCharacter chr) {
+    public static final void ChangeMap(final MaplePacketLittleEndianAccessor slea, final MapleClient c, final MapleCharacter chr) {
         if (chr == null) {
             return;
         }
@@ -1085,7 +1085,7 @@ public class PlayerHandler {
             c.getChannelServer().removePlayer(c.getPlayer());
             c.updateLoginState(MapleClient.LOGIN_SERVER_TRANSITION);
             try {
-                c.getSession().write(MaplePacketCreator.getChannelChange(InetAddress.getByName(socket[0]), Integer.parseInt(socket[1])));
+                c.sendPacket(MaplePacketCreator.getChannelChange(InetAddress.getByName(socket[0]), Integer.parseInt(socket[1])));
             } catch (Exception e) {
                 throw new RuntimeException(e);
             }
@@ -1122,7 +1122,7 @@ public class PlayerHandler {
                     if (to == null) {
                         chr.setHp(50);
                         chr.updateSingleStat(MapleStat.HP, 50);
-                        c.getSession().write(MaplePacketCreator.enableActions());
+                        c.sendPacket(MaplePacketCreator.enableActions());
                         return;
 //                        int mapid = chr.getMapId();
 //                        mapid = mapid / 1000000;
@@ -1133,7 +1133,7 @@ public class PlayerHandler {
 
                     chr.changeMap(to, to.getPortal(0));
                 } else {
-                    c.getSession().write(MTSCSPacket.useWheel((byte) (chr.getInventory(MapleInventoryType.CASH).countById(5510000) - 1)));
+                    c.sendPacket(MTSCSPacket.useWheel((byte) (chr.getInventory(MapleInventoryType.CASH).countById(5510000) - 1)));
                     chr.getStat().setHp(((chr.getStat().getMaxHp() / 100) * 40));
                     MapleInventoryManipulator.removeById(c, MapleInventoryType.CASH, 5510000, 1, true, false);
 
@@ -1160,15 +1160,15 @@ public class PlayerHandler {
                         chr.changeMap(to, to.getPortal(0));
                     }
                 } else if (divi == 9140901 && targetid == 140000000) {
-                    //c.getSession().write(UIPacket.IntroDisableUI(false));
-                    //   c.getSession().write(UIPacket.IntroLock(false));
-                    c.getSession().write(MaplePacketCreator.enableActions());
+                    //c.sendPacket(UIPacket.IntroDisableUI(false));
+                    //   c.sendPacket(UIPacket.IntroLock(false));
+                    c.sendPacket(MaplePacketCreator.enableActions());
                     final MapleMap to = ChannelServer.getInstance(c.getChannel()).getMapFactory().getMap(targetid);
                     chr.changeMap(to, to.getPortal(0));
                 } else if (divi == 9140902 && (targetid == 140030000 || targetid == 140000000)) { //thing is. dont really know which one!
-                    //  c.getSession().write(UIPacket.IntroDisableUI(false));
-                    //   c.getSession().write(UIPacket.IntroLock(false));
-                    c.getSession().write(MaplePacketCreator.enableActions());
+                    //  c.sendPacket(UIPacket.IntroDisableUI(false));
+                    //   c.sendPacket(UIPacket.IntroLock(false));
+                    c.sendPacket(MaplePacketCreator.enableActions());
                     final MapleMap to = ChannelServer.getInstance(c.getChannel()).getMapFactory().getMap(targetid);
                     chr.changeMap(to, to.getPortal(0));
                 } else if (divi == 9000900 && targetid / 100 == 9000900 && targetid > chr.getMapId()) {
@@ -1176,43 +1176,43 @@ public class PlayerHandler {
                     chr.changeMap(to, to.getPortal(0));
                 } else if (divi / 1000 == 9000 && targetid / 100000 == 9000) {
                     if (targetid < 900090000 || targetid > 900090004) { //1 movie
-                        //      c.getSession().write(UIPacket.IntroDisableUI(false));
-                        //      c.getSession().write(UIPacket.IntroLock(false));
-                        c.getSession().write(MaplePacketCreator.enableActions());
+                        //      c.sendPacket(UIPacket.IntroDisableUI(false));
+                        //      c.sendPacket(UIPacket.IntroLock(false));
+                        c.sendPacket(MaplePacketCreator.enableActions());
                     }
                     final MapleMap to = ChannelServer.getInstance(c.getChannel()).getMapFactory().getMap(targetid);
                     chr.changeMap(to, to.getPortal(0));
                 } else if (divi / 10 == 1020 && targetid == 1020000) { // Adventurer movie clip Intro
-                    //  c.getSession().write(UIPacket.IntroDisableUI(false));
-                    //   c.getSession().write(UIPacket.IntroLock(false));
-                    c.getSession().write(MaplePacketCreator.enableActions());
+                    //  c.sendPacket(UIPacket.IntroDisableUI(false));
+                    //   c.sendPacket(UIPacket.IntroLock(false));
+                    c.sendPacket(MaplePacketCreator.enableActions());
                     final MapleMap to = ChannelServer.getInstance(c.getChannel()).getMapFactory().getMap(targetid);
                     chr.changeMap(to, to.getPortal(0));
 
                 } else if (chr.getMapId() == 900090101 && targetid == 100030100) {
-                    //    c.getSession().write(UIPacket.IntroDisableUI(false));
-                    //    c.getSession().write(UIPacket.IntroLock(false));
-                    c.getSession().write(MaplePacketCreator.enableActions());
+                    //    c.sendPacket(UIPacket.IntroDisableUI(false));
+                    //    c.sendPacket(UIPacket.IntroLock(false));
+                    c.sendPacket(MaplePacketCreator.enableActions());
                     final MapleMap to = ChannelServer.getInstance(c.getChannel()).getMapFactory().getMap(targetid);
                     chr.changeMap(to, to.getPortal(0));
                 } else if (chr.getMapId() == 2010000 && targetid == 104000000) {
-                    //   c.getSession().write(UIPacket.IntroDisableUI(false));
-                    //    c.getSession().write(UIPacket.IntroLock(false));
-                    c.getSession().write(MaplePacketCreator.enableActions());
+                    //   c.sendPacket(UIPacket.IntroDisableUI(false));
+                    //    c.sendPacket(UIPacket.IntroLock(false));
+                    c.sendPacket(MaplePacketCreator.enableActions());
                     final MapleMap to = ChannelServer.getInstance(c.getChannel()).getMapFactory().getMap(targetid);
                     chr.changeMap(to, to.getPortal(0));
                 } else if (chr.getMapId() == 106020001 || chr.getMapId() == 106020502) {
                     if (targetid == (chr.getMapId() - 1)) {
-                        //     c.getSession().write(UIPacket.IntroDisableUI(false));
-                        //     c.getSession().write(UIPacket.IntroLock(false));
-                        c.getSession().write(MaplePacketCreator.enableActions());
+                        //     c.sendPacket(UIPacket.IntroDisableUI(false));
+                        //     c.sendPacket(UIPacket.IntroLock(false));
+                        c.sendPacket(MaplePacketCreator.enableActions());
                         final MapleMap to = ChannelServer.getInstance(c.getChannel()).getMapFactory().getMap(targetid);
                         chr.changeMap(to, to.getPortal(0));
                     }
                 } else if (chr.getMapId() == 0 && targetid == 10000) {
-                    //  c.getSession().write(UIPacket.IntroDisableUI(false));
-                    //  c.getSession().write(UIPacket.IntroLock(false));
-                    c.getSession().write(MaplePacketCreator.enableActions());
+                    //  c.sendPacket(UIPacket.IntroDisableUI(false));
+                    //  c.sendPacket(UIPacket.IntroLock(false));
+                    c.sendPacket(MaplePacketCreator.enableActions());
                     final MapleMap to = ChannelServer.getInstance(c.getChannel()).getMapFactory().getMap(targetid);
                     chr.changeMap(to, to.getPortal(0));
                 }
@@ -1220,13 +1220,13 @@ public class PlayerHandler {
                 if (portal != null) {
                     portal.enterPortal(c);
                 } else {
-                    c.getSession().write(MaplePacketCreator.enableActions());
+                    c.sendPacket(MaplePacketCreator.enableActions());
                 }
             }
         }
     }
 
-    public static final void InnerPortal(final SeekableLittleEndianAccessor slea, final MapleClient c, final MapleCharacter chr) {
+    public static final void InnerPortal(final MaplePacketLittleEndianAccessor slea, final MapleClient c, final MapleCharacter chr) {
         if (chr == null) {
             return;
         }
@@ -1246,25 +1246,25 @@ public class PlayerHandler {
         chr.checkFollow();
     }
 
-    public static final void snowBall(SeekableLittleEndianAccessor slea, MapleClient c) {
+    public static final void snowBall(MaplePacketLittleEndianAccessor slea, MapleClient c) {
         //B2 00
         //01 [team]
         //00 00 [unknown]
         //89 [position]
         //01 [stage]
-        c.getSession().write(MaplePacketCreator.enableActions());
+        c.sendPacket(MaplePacketCreator.enableActions());
         //empty, we do this in closerange
     }
 
-    public static final void leftKnockBack(SeekableLittleEndianAccessor slea, final MapleClient c) {
+    public static final void leftKnockBack(MaplePacketLittleEndianAccessor slea, final MapleClient c) {
         // D1 00 86 01 47 01
         if (c.getPlayer().getMapId() / 10000 == 10906) { //must be in snowball map or else its like infinite FJ
-            c.getSession().write(MaplePacketCreator.leftKnockBack());
-            c.getSession().write(MaplePacketCreator.enableActions());
+            c.sendPacket(MaplePacketCreator.leftKnockBack());
+            c.sendPacket(MaplePacketCreator.enableActions());
         }
     }
 
-    public static void Rabbit(SeekableLittleEndianAccessor slea, final MapleClient c) {
+    public static void Rabbit(MaplePacketLittleEndianAccessor slea, final MapleClient c) {
         int arrackfrom = slea.readInt();
         int damage = slea.readInt() + 100;
         int attackto = slea.readInt();
@@ -1275,7 +1275,7 @@ public class PlayerHandler {
     }
     /*
      * public static final void UpdateFkCharMessages(final
-     * SeekableLittleEndianAccessor slea, final MapleClient c, final
+     * MaplePacketLittleEndianAccessor slea, final MapleClient c, final
      * MapleCharacter chr) { int type = slea.readByte();
      * //chr.UpdateCharMessageZone(); //c.getPlayer().setcharmessage(s); // if
      * (type == 0) { // Ω«…´”çœ¢ /*String
@@ -1303,7 +1303,7 @@ public class PlayerHandler {
      * }
      * public void setcharmessage(final MapleClient c, String s) {
      * c.getPlayer().setcharmessage(s);
-     * c.getSession().write(MaplePacketCreator.updateBeans(c.getPlayer().getId(),
+     * c.sendPacket(MaplePacketCreator.updateBeans(c.getPlayer().getId(),
      * s)); }
      */
 }

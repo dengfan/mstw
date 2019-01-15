@@ -31,7 +31,7 @@ import tools.MaplePacketCreator;
 import tools.AttackPair;
 import tools.FileoutputUtil;
 import tools.Pair;
-import tools.data.input.LittleEndianAccessor;
+import tools.data.MaplePacketLittleEndianAccessor;
 
 public class DamageParse {
 
@@ -74,7 +74,7 @@ public class DamageParse {
             String lastReason = "";
             String reason = "";
             if (effect == null) {
-                player.getClient().getSession().write(MaplePacketCreator.enableActions());
+                player.getClient().sendPacket(MaplePacketCreator.enableActions());
                 return;
             }
 
@@ -104,7 +104,7 @@ public class DamageParse {
             if (ban && !player.isAdmin()) {
                 player.ban(lastReason, true, true, false);//封号
                 FileoutputUtil.logToFile_chr(player, FileoutputUtil.ban_log, lastReason);// 输出文挡
-                World.Broadcast.broadcastMessage(MaplePacketCreator.serverNotice(6, "[封号系统]" + player.getName() + " 该玩家攻击异常被系统自动封号处理。").getBytes());//广播
+                World.Broadcast.broadcastMessage(MaplePacketCreator.serverNotice(6, "[封号系统]" + player.getName() + " 该玩家攻击异常被系统自动封号处理。"));//广播
                 return;
             }
             // 封锁区结束
@@ -510,7 +510,7 @@ public class DamageParse {
             return;
         }
         if (effect == null) {
-            player.getClient().getSession().write(MaplePacketCreator.enableActions());
+            player.getClient().sendPacket(MaplePacketCreator.enableActions());
             return;
         }
         if (attack.real) {
@@ -542,7 +542,7 @@ public class DamageParse {
         if (ban && !player.isAdmin()) {
             player.ban(lastReason, true, true, false);//封号
             FileoutputUtil.logToFile_chr(player, FileoutputUtil.ban_log, lastReason);// 输出文挡
-            World.Broadcast.broadcastMessage(MaplePacketCreator.serverNotice(6, "[封号系统]" + player.getName() + " 该玩家攻击异常被系统自动封号处理。").getBytes());//广播
+            World.Broadcast.broadcastMessage(MaplePacketCreator.serverNotice(6, "[封号系统]" + player.getName() + " 该玩家攻击异常被系统自动封号处理。"));//广播
             return;
         }
         // 封锁区结束
@@ -993,7 +993,7 @@ public class DamageParse {
         return attack;
     }
 
-    public static final AttackInfo parseDmgMa(final LittleEndianAccessor lea, final MapleCharacter chr) {
+    public static final AttackInfo parseDmgMa(final MaplePacketLittleEndianAccessor lea, final MapleCharacter chr) {
         //System.out.println(lea.toString());
         final AttackInfo ret = new AttackInfo();
 
@@ -1055,7 +1055,7 @@ public class DamageParse {
         return ret;
     }
 
-    public static final AttackInfo parseDmgM(final LittleEndianAccessor lea, final MapleCharacter chr) {
+    public static final AttackInfo parseDmgM(final MaplePacketLittleEndianAccessor lea, final MapleCharacter chr) {
         //System.out.println(lea.toString());
         final AttackInfo ret = new AttackInfo();
 
@@ -1123,7 +1123,7 @@ public class DamageParse {
         return ret;
     }
 
-    public static final AttackInfo parseDmgR(final LittleEndianAccessor lea, final MapleCharacter chr) {
+    public static final AttackInfo parseDmgR(final MaplePacketLittleEndianAccessor lea, final MapleCharacter chr) {
         //System.out.println(lea.toString()); //<-- packet needs revision
         final AttackInfo ret = new AttackInfo();
 
@@ -1191,7 +1191,7 @@ public class DamageParse {
         return ret;
     }
 
-    public static final AttackInfo parseMesoExplosion(final LittleEndianAccessor lea, final AttackInfo ret, final MapleCharacter chr) {
+    public static final AttackInfo parseMesoExplosion(final MaplePacketLittleEndianAccessor lea, final AttackInfo ret, final MapleCharacter chr) {
         //System.out.println(lea.toString(true));
         byte bullets;
         if (ret.hits == 0) {
@@ -1253,7 +1253,7 @@ public class DamageParse {
                                 + "\r\n" + "人物坐标：X:" + c.getPosition().x + " Y:" + c.getPosition().y
                                 + "\r\n" + "怪物坐标：" + monster.getPosition().x + " Y:" + monster.getPosition().y
                                 + "\r\n" + "时间：" + FileoutputUtil.CurrentReadable_Time()
-                                + "\r\n" + "IP：" + c.getClient().getSession().getRemoteAddress().toString().split(":")[0];
+                                + "\r\n" + "IP：" + c.getClient().getSession().remoteAddress().toString().split(":")[0];
                         FileoutputUtil.packetLog("log\\全屏检测\\" + c.getName() + ".log", 全屏);
 
                     } else if (c.getPosition().y - monster.getPosition().y <= -800) {
@@ -1265,7 +1265,7 @@ public class DamageParse {
                                 + "\r\n" + "人物坐标：X:" + c.getPosition().x + " Y:" + c.getPosition().y
                                 + "\r\n" + "怪物坐标：" + monster.getPosition().x + " Y:" + monster.getPosition().y
                                 + "\r\n" + "时间：" + FileoutputUtil.CurrentReadable_Time()
-                                + "\r\n" + "IP：" + c.getClient().getSession().getRemoteAddress().toString().split(":")[0];
+                                + "\r\n" + "IP：" + c.getClient().getSession().remoteAddress().toString().split(":")[0];
                         FileoutputUtil.packetLog("log\\全屏检测\\" + c.getName() + ".log", 全屏);
 
                     } else if (c.getPosition().x - monster.getPosition().x >= 800) {
@@ -1277,7 +1277,7 @@ public class DamageParse {
                                 + "\r\n" + "人物坐标：X:" + c.getPosition().x + " Y:" + c.getPosition().y
                                 + "\r\n" + "怪物坐标：" + monster.getPosition().x + " Y:" + monster.getPosition().y
                                 + "\r\n" + "时间：" + FileoutputUtil.CurrentReadable_Time()
-                                + "\r\n" + "IP：" + c.getClient().getSession().getRemoteAddress().toString().split(":")[0];
+                                + "\r\n" + "IP：" + c.getClient().getSession().remoteAddress().toString().split(":")[0];
                         FileoutputUtil.packetLog("log\\全屏检测\\" + c.getName() + ".log", 全屏);
 
                     } else if (c.getPosition().x - monster.getPosition().x <= -900) {
@@ -1289,7 +1289,7 @@ public class DamageParse {
                                 + "\r\n" + "人物坐标：X:" + c.getPosition().x + " Y:" + c.getPosition().y
                                 + "\r\n" + "怪物坐标：" + monster.getPosition().x + " Y:" + monster.getPosition().y
                                 + "\r\n" + "时间：" + FileoutputUtil.CurrentReadable_Time()
-                                + "\r\n" + "IP：" + c.getClient().getSession().getRemoteAddress().toString().split(":")[0];
+                                + "\r\n" + "IP：" + c.getClient().getSession().remoteAddress().toString().split(":")[0];
                         FileoutputUtil.packetLog("log\\全屏检测\\" + c.getName() + ".log", 全屏);
 
                     }
@@ -1304,7 +1304,7 @@ public class DamageParse {
                                     + "\r\n" + "人物坐标：X:" + c.getPosition().x + " Y:" + c.getPosition().y
                                     + "\r\n" + "怪物坐标：" + monster.getPosition().x + " Y:" + monster.getPosition().y
                                     + "\r\n" + "时间：" + FileoutputUtil.CurrentReadable_Time()
-                                    + "\r\n" + "IP：" + c.getClient().getSession().getRemoteAddress().toString().split(":")[0];
+                                    + "\r\n" + "IP：" + c.getClient().getSession().remoteAddress().toString().split(":")[0];
                             FileoutputUtil.packetLog("log\\全屏检测\\" + c.getName() + ".log", 全屏);
 
                         } else if (c.getPosition().y - monster.getPosition().y <= -800) {
@@ -1316,7 +1316,7 @@ public class DamageParse {
                                     + "\r\n" + "人物坐标：X:" + c.getPosition().x + " Y:" + c.getPosition().y
                                     + "\r\n" + "怪物坐标：" + monster.getPosition().x + " Y:" + monster.getPosition().y
                                     + "\r\n" + "时间：" + FileoutputUtil.CurrentReadable_Time()
-                                    + "\r\n" + "IP：" + c.getClient().getSession().getRemoteAddress().toString().split(":")[0];
+                                    + "\r\n" + "IP：" + c.getClient().getSession().remoteAddress().toString().split(":")[0];
                             FileoutputUtil.packetLog("log\\全屏检测\\" + c.getName() + ".log", 全屏);
 
                         } else if (c.getPosition().x - monster.getPosition().x >= 550) {
@@ -1328,7 +1328,7 @@ public class DamageParse {
                                     + "\r\n" + "人物坐标：X:" + c.getPosition().x + " Y:" + c.getPosition().y
                                     + "\r\n" + "怪物坐标：" + monster.getPosition().x + " Y:" + monster.getPosition().y
                                     + "\r\n" + "时间：" + FileoutputUtil.CurrentReadable_Time()
-                                    + "\r\n" + "IP：" + c.getClient().getSession().getRemoteAddress().toString().split(":")[0];
+                                    + "\r\n" + "IP：" + c.getClient().getSession().remoteAddress().toString().split(":")[0];
                             FileoutputUtil.packetLog("log\\全屏检测\\" + c.getName() + ".log", 全屏);
 
                         } else if (c.getPosition().x - monster.getPosition().x <= -550) {
@@ -1340,7 +1340,7 @@ public class DamageParse {
                                     + "\r\n" + "人物坐标：X:" + c.getPosition().x + " Y:" + c.getPosition().y
                                     + "\r\n" + "怪物坐标：" + monster.getPosition().x + " Y:" + monster.getPosition().y
                                     + "\r\n" + "时间：" + FileoutputUtil.CurrentReadable_Time()
-                                    + "\r\n" + "IP：" + c.getClient().getSession().getRemoteAddress().toString().split(":")[0];
+                                    + "\r\n" + "IP：" + c.getClient().getSession().remoteAddress().toString().split(":")[0];
                             FileoutputUtil.packetLog("log\\全屏检测\\" + c.getName() + ".log", 全屏);
 
                         }
@@ -1354,7 +1354,7 @@ public class DamageParse {
                                     + "\r\n" + "人物坐标：X:" + c.getPosition().x + " Y:" + c.getPosition().y
                                     + "\r\n" + "怪物坐标：" + monster.getPosition().x + " Y:" + monster.getPosition().y
                                     + "\r\n" + "时间：" + FileoutputUtil.CurrentReadable_Time()
-                                    + "\r\n" + "IP：" + c.getClient().getSession().getRemoteAddress().toString().split(":")[0];
+                                    + "\r\n" + "IP：" + c.getClient().getSession().remoteAddress().toString().split(":")[0];
                             FileoutputUtil.packetLog("log\\全屏检测\\" + c.getName() + ".log", 全屏);
 
                         } else if (c.getPosition().y - monster.getPosition().y <= -350) {
@@ -1366,7 +1366,7 @@ public class DamageParse {
                                     + "\r\n" + "人物坐标：X:" + c.getPosition().x + " Y:" + c.getPosition().y
                                     + "\r\n" + "怪物坐标：" + monster.getPosition().x + " Y:" + monster.getPosition().y
                                     + "\r\n" + "时间：" + FileoutputUtil.CurrentReadable_Time()
-                                    + "\r\n" + "IP：" + c.getClient().getSession().getRemoteAddress().toString().split(":")[0];
+                                    + "\r\n" + "IP：" + c.getClient().getSession().remoteAddress().toString().split(":")[0];
                             FileoutputUtil.packetLog("log\\全屏检测\\" + c.getName() + ".log", 全屏);
 
                         } else if (c.getPosition().x - monster.getPosition().x >= 500) {
@@ -1378,7 +1378,7 @@ public class DamageParse {
                                     + "\r\n" + "人物坐标：X:" + c.getPosition().x + " Y:" + c.getPosition().y
                                     + "\r\n" + "怪物坐标：" + monster.getPosition().x + " Y:" + monster.getPosition().y
                                     + "\r\n" + "时间：" + FileoutputUtil.CurrentReadable_Time()
-                                    + "\r\n" + "IP：" + c.getClient().getSession().getRemoteAddress().toString().split(":")[0];
+                                    + "\r\n" + "IP：" + c.getClient().getSession().remoteAddress().toString().split(":")[0];
                             FileoutputUtil.packetLog("log\\全屏检测\\" + c.getName() + ".log", 全屏);
 
                         } else if (c.getPosition().x - monster.getPosition().x <= -500) {
@@ -1390,7 +1390,7 @@ public class DamageParse {
                                     + "\r\n" + "人物坐标：X:" + c.getPosition().x + " Y:" + c.getPosition().y
                                     + "\r\n" + "怪物坐标：" + monster.getPosition().x + " Y:" + monster.getPosition().y
                                     + "\r\n" + "时间：" + FileoutputUtil.CurrentReadable_Time()
-                                    + "\r\n" + "IP：" + c.getClient().getSession().getRemoteAddress().toString().split(":")[0];
+                                    + "\r\n" + "IP：" + c.getClient().getSession().remoteAddress().toString().split(":")[0];
                             FileoutputUtil.packetLog("log\\全屏检测\\" + c.getName() + ".log", 全屏);
 
                         }

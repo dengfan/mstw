@@ -22,14 +22,14 @@ package tools.packet;
 
 import client.MapleCharacter;
 import constants.ServerConstants;
-import handling.MaplePacket;
+
 import handling.SendPacketOpcode;
 import server.MapleCarnivalParty;
-import tools.data.output.MaplePacketLittleEndianWriter;
+import tools.data.MaplePacketLittleEndianWriter;
 
 public class MonsterCarnivalPacket {
 
-    public static MaplePacket startMonsterCarnival(final MapleCharacter chr, final int enemyavailable, final int enemytotal) {
+    public static byte[] startMonsterCarnival(final MapleCharacter chr, final int enemyavailable, final int enemytotal) {
         MaplePacketLittleEndianWriter mplew = new MaplePacketLittleEndianWriter();
 
         if (ServerConstants.调试模式) {
@@ -50,7 +50,7 @@ public class MonsterCarnivalPacket {
         return mplew.getPacket();
     }
 
-    public static MaplePacket playerDiedMessage(String name, int lostCP, int team) { //CPQ
+    public static byte[] playerDiedMessage(String name, int lostCP, int team) { //CPQ
         MaplePacketLittleEndianWriter mplew = new MaplePacketLittleEndianWriter();
 
         if (ServerConstants.调试模式) {
@@ -64,7 +64,7 @@ public class MonsterCarnivalPacket {
         return mplew.getPacket();
     }
 
-    public static MaplePacket CPUpdate(boolean party, int curCP, int totalCP, int team) {
+    public static byte[] CPUpdate(boolean party, int curCP, int totalCP, int team) {
         MaplePacketLittleEndianWriter mplew = new MaplePacketLittleEndianWriter();
         if (ServerConstants.调试模式) {
             System.out.println("CPUpdate--------------------");
@@ -81,7 +81,7 @@ public class MonsterCarnivalPacket {
         return mplew.getPacket();
     }
 
-    public static MaplePacket playerSummoned(String name, int tab, int number) {
+    public static byte[] playerSummoned(String name, int tab, int number) {
         MaplePacketLittleEndianWriter mplew = new MaplePacketLittleEndianWriter();
 
         if (ServerConstants.调试模式) {
@@ -94,7 +94,7 @@ public class MonsterCarnivalPacket {
 
         return mplew.getPacket();
     }
-    public static MaplePacket playerSummoned1(String name, int tab, int number) {
+    public static byte[] playerSummoned1(String name, int tab, int number) {
         MaplePacketLittleEndianWriter mplew = new MaplePacketLittleEndianWriter();
 
         if (ServerConstants.调试模式) {

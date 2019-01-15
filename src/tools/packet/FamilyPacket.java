@@ -22,7 +22,7 @@ package tools.packet;
 
 import client.MapleCharacter;
 import constants.ServerConstants;
-import handling.MaplePacket;
+
 import handling.SendPacketOpcode;
 import handling.world.World;
 import handling.world.family.MapleFamily;
@@ -31,11 +31,11 @@ import handling.world.family.MapleFamilyBuff.MapleFamilyBuffEntry;
 import handling.world.family.MapleFamilyCharacter;
 import java.util.List;
 import tools.Pair;
-import tools.data.output.MaplePacketLittleEndianWriter;
+import tools.data.MaplePacketLittleEndianWriter;
 
 public class FamilyPacket {
 
-    public static MaplePacket getFamilyData() {
+    public static byte[] getFamilyData() {
         MaplePacketLittleEndianWriter mplew = new MaplePacketLittleEndianWriter();
 
         if (ServerConstants.调试模式) {
@@ -66,7 +66,7 @@ public class FamilyPacket {
         return mplew.getPacket();
     }
 
-    public static MaplePacket changeRep(int r) {
+    public static byte[] changeRep(int r) {
         MaplePacketLittleEndianWriter mplew = new MaplePacketLittleEndianWriter();
         if (ServerConstants.调试模式) {
             System.out.println("changeRep--------------------");
@@ -77,7 +77,7 @@ public class FamilyPacket {
         return mplew.getPacket();
     }
 
-    public static MaplePacket getFamilyInfo(MapleCharacter chr) {
+    public static byte[] getFamilyInfo(MapleCharacter chr) {
         MaplePacketLittleEndianWriter mplew = new MaplePacketLittleEndianWriter();
         if (ServerConstants.调试模式) {
             System.out.println("getFamilyInfo--------------------");
@@ -123,7 +123,7 @@ public class FamilyPacket {
         mplew.writeMapleAsciiString(ldr.getName());
     }
 
-    public static MaplePacket getFamilyPedigree(MapleCharacter chr) {
+    public static byte[] getFamilyPedigree(MapleCharacter chr) {
         MaplePacketLittleEndianWriter mplew = new MaplePacketLittleEndianWriter();
         if (ServerConstants.调试模式) {
             System.out.println("getFamilyPedigree--------------------");
@@ -229,7 +229,7 @@ public class FamilyPacket {
         return mplew.getPacket();
     }
 
-    public static MaplePacket sendFamilyInvite(int cid, int otherLevel, int otherJob, String inviter) {
+    public static byte[] sendFamilyInvite(int cid, int otherLevel, int otherJob, String inviter) {
         MaplePacketLittleEndianWriter mplew = new MaplePacketLittleEndianWriter();
 
         if (ServerConstants.调试模式) {
@@ -244,7 +244,7 @@ public class FamilyPacket {
         return mplew.getPacket();
     }
 
-    public static MaplePacket getSeniorMessage(String name) {
+    public static byte[] getSeniorMessage(String name) {
         MaplePacketLittleEndianWriter mplew = new MaplePacketLittleEndianWriter();
         if (ServerConstants.调试模式) {
             System.out.println("getSeniorMessage--------------------");
@@ -254,7 +254,7 @@ public class FamilyPacket {
         return mplew.getPacket();
     }
 
-    public static MaplePacket sendFamilyJoinResponse(boolean accepted, String added) {
+    public static byte[] sendFamilyJoinResponse(boolean accepted, String added) {
         MaplePacketLittleEndianWriter mplew = new MaplePacketLittleEndianWriter();
         if (ServerConstants.调试模式) {
             System.out.println("sendFamilyJoinResponse--------------------");
@@ -265,7 +265,7 @@ public class FamilyPacket {
         return mplew.getPacket();
     }
 
-    public static MaplePacket familyBuff(int type, int buffnr, int amount, int time) {
+    public static byte[] familyBuff(int type, int buffnr, int amount, int time) {
         MaplePacketLittleEndianWriter mplew = new MaplePacketLittleEndianWriter();
         if (ServerConstants.调试模式) {
             System.out.println("familyBuff--------------------");
@@ -283,14 +283,14 @@ public class FamilyPacket {
         return mplew.getPacket();
     }
 
-    public static MaplePacket cancelFamilyBuff() {
+    public static byte[] cancelFamilyBuff() {
         if (ServerConstants.调试模式) {
             System.out.println("cancelFamilyBuff--------------------");
         }
         return familyBuff(0, 0, 0, 0);
     }
 
-    public static MaplePacket familyLoggedIn(boolean online, String name) {
+    public static byte[] familyLoggedIn(boolean online, String name) {
         MaplePacketLittleEndianWriter mplew = new MaplePacketLittleEndianWriter();
         if (ServerConstants.调试模式) {
             System.out.println("familyLoggedIn--------------------");
@@ -301,7 +301,7 @@ public class FamilyPacket {
         return mplew.getPacket();
     }
 
-    public static MaplePacket familySummonRequest(String name, String mapname) {
+    public static byte[] familySummonRequest(String name, String mapname) {
         MaplePacketLittleEndianWriter mplew = new MaplePacketLittleEndianWriter();
         if (ServerConstants.调试模式) {
             System.out.println("familySummonRequest--------------------");

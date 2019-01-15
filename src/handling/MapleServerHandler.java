@@ -35,7 +35,9 @@ import handling.cashshop.handler.*;
 import handling.channel.handler.*;
 import handling.login.LoginServer;
 import handling.login.handler.*;
-import handling.mina.MaplePacketDecoder;
+import handling.netty.MaplePacketDecoder;
+import handling.world.MapleParty;
+import handling.world.World;
 import java.io.File;
 import java.io.FileWriter;
 import java.lang.management.ManagementFactory;
@@ -47,24 +49,23 @@ import java.util.concurrent.RejectedExecutionException;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 import javax.management.MBeanServer;
 import javax.management.ObjectName;
-import org.apache.mina.core.service.IoHandlerAdapter;
-import org.apache.mina.core.session.IdleStatus;
-import org.apache.mina.core.session.IoSession;
+import io.netty.channel.Channel;
+import io.netty.channel.ChannelDuplexHandler;
+import io.netty.channel.ChannelHandlerContext;
+import io.netty.handler.timeout.IdleState;
+import static io.netty.handler.timeout.IdleState.WRITER_IDLE;
 import server.Randomizer;
 import tools.MapleAESOFB;
 import tools.packet.LoginPacket;
-import tools.data.input.ByteArrayByteStream;
-import tools.data.input.GenericSeekableLittleEndianAccessor;
-import tools.data.input.SeekableLittleEndianAccessor;
+import tools.data.ByteArrayByteStream;
+import tools.data.MaplePacketLittleEndianAccessor;
 import tools.Pair;
-
-
 import server.MTSStorage;
 import server.ServerProperties;
-import server.ZevmsLauncherServer;
+//import server.ZevmsLauncherServer;
 import tools.FileoutputUtil;
 
-public class MapleServerHandler extends IoHandlerAdapter implements MapleServerHandlerMBean {
+public class MapleServerHandler extends ChannelDuplexHandler implements MapleServerHandlerMBean {
 
     public static final boolean Log_Packets = true;
     private int channel = -1;
@@ -80,13 +81,22 @@ public class MapleServerHandler extends IoHandlerAdapter implements MapleServerH
     private static final EnumSet<RecvPacketOpcode> blocked = EnumSet.noneOf(RecvPacketOpcode.class);
 
     static {
-        RecvPacketOpcode[] block = new RecvPacketOpcode[]{RecvPacketOpcode.NPC_ACTION, RecvPacketOpcode.MOVE_PLAYER, RecvPacketOpcode.MOVE_PET, RecvPacketOpcode.MOVE_SUMMON, RecvPacketOpcode.MOVE_DRAGON, RecvPacketOpcode.MOVE_LIFE, RecvPacketOpcode.HEAL_OVER_TIME, RecvPacketOpcode.STRANGE_DATA};
+        RecvPacketOpcode[] block = new RecvPacketOpcode[]{
+            RecvPacketOpcode.NPC_ACTION,
+            RecvPacketOpcode.MOVE_PLAYER,
+            RecvPacketOpcode.MOVE_PET,
+            RecvPacketOpcode.MOVE_SUMMON,
+            RecvPacketOpcode.MOVE_DRAGON,
+            RecvPacketOpcode.MOVE_LIFE,
+            RecvPacketOpcode.HEAL_OVER_TIME,
+            RecvPacketOpcode.STRANGE_DATA
+        };
         blocked.addAll(Arrays.asList(block));
     }
 
     //Return the Filewriter if the IP is logged. Null otherwise.
-    private static FileWriter isLoggedIP(IoSession sess) {
-        String a = sess.getRemoteAddress().toString();
+    private static FileWriter isLoggedIP(Channel sess) {
+        String a = sess.remoteAddress().toString();
         String realIP = a.substring(a.indexOf('/') + 1, a.indexOf(':'));
         return logIPMap.get(realIP);
     }
@@ -96,7 +106,7 @@ public class MapleServerHandler extends IoHandlerAdapter implements MapleServerH
     private static final ReentrantReadWriteLock Packet_Log_Lock = new ReentrantReadWriteLock();
     private static final File Packet_Log_Output = new File("PacketLog.txt");
 
-    public static void log(SeekableLittleEndianAccessor packet, RecvPacketOpcode op, MapleClient c, IoSession io) {
+    public static void log(MaplePacketLittleEndianAccessor packet, RecvPacketOpcode op, MapleClient c, Channel io) {
         if (blocked.contains(op)) {
             return;
         }
@@ -108,12 +118,12 @@ public class MapleServerHandler extends IoHandlerAdapter implements MapleServerH
             }
             //This way, we don't create new LoggedPacket objects, we reuse them =]
             if (logged == null) {
-                logged = new LoggedPacket(packet, op, io.getRemoteAddress().toString(),
+                logged = new LoggedPacket(packet, op, io.remoteAddress().toString(),
                         c == null ? -1 : c.getAccID(),
                         c == null || c.getAccountName() == null ? "[Null]" : c.getAccountName(),
                         c == null || c.getPlayer() == null || c.getPlayer().getName() == null ? "[Null]" : c.getPlayer().getName());
             } else {
-                logged.setInfo(packet, op, io.getRemoteAddress().toString(),
+                logged.setInfo(packet, op, io.remoteAddress().toString(),
                         c == null ? -1 : c.getAccID(),
                         c == null || c.getAccountName() == null ? "[Null]" : c.getAccountName(),
                         c == null || c.getPlayer() == null || c.getPlayer().getName() == null ? "[Null]" : c.getPlayer().getName());
@@ -128,15 +138,15 @@ public class MapleServerHandler extends IoHandlerAdapter implements MapleServerH
 
         private static final String nl = System.getProperty("line.separator");
         private String ip, accName, accId, chrName;
-        private SeekableLittleEndianAccessor packet;
+        private MaplePacketLittleEndianAccessor packet;
         private long timestamp;
         private RecvPacketOpcode op;
 
-        public LoggedPacket(SeekableLittleEndianAccessor p, RecvPacketOpcode op, String ip, int id, String accName, String chrName) {
+        public LoggedPacket(MaplePacketLittleEndianAccessor p, RecvPacketOpcode op, String ip, int id, String accName, String chrName) {
             setInfo(p, op, ip, id, accName, chrName);
         }
 
-        public final void setInfo(SeekableLittleEndianAccessor p, RecvPacketOpcode op, String ip, int id, String accName, String chrName) {
+        public final void setInfo(MaplePacketLittleEndianAccessor p, RecvPacketOpcode op, String ip, int id, String accName, String chrName) {
             this.ip = ip;
             this.op = op;
             packet = p;
@@ -193,39 +203,31 @@ public class MapleServerHandler extends IoHandlerAdapter implements MapleServerH
     }
     // </editor-fold>
 
-    public MapleServerHandler(final int channel, final boolean cs) {
+    public MapleServerHandler(int channel) {
         this.channel = channel;
-        this.cs = cs;
+    }
+
+//    @Override
+//    public void messageSent(final IoSession session, final Object message) throws Exception {
+//        final Runnable r = ((byte[]) message).getOnSend();
+//        if (r != null) {
+//            r.run();
+//        }
+//        super.messageSent(session, message);
+//    }
+    @Override
+    public void exceptionCaught(final ChannelHandlerContext ctx, final Throwable cause) throws Exception {
+
     }
 
     @Override
-    public void messageSent(final IoSession session, final Object message) throws Exception {
-        final Runnable r = ((MaplePacket) message).getOnSend();
-        if (r != null) {
-            r.run();
-        }
-        super.messageSent(session, message);
-    }
-
-    @Override
-    public void exceptionCaught(final IoSession session, final Throwable cause) throws Exception {
-        /*
-         * MapleClient client = (MapleClient)
-         * session.getAttribute(MapleClient.CLIENT_KEY);
-         * log.error(MapleClient.getLogMessage(client, cause.getMessage()),
-         * cause);
-         */
-//	cause.printStackTrace();
-    }
-
-    @Override
-    public void sessionOpened(final IoSession session) throws Exception {
+    public void channelActive(final ChannelHandlerContext ctx) throws Exception {
         // Start of IP checking
-        final String address = session.getRemoteAddress().toString().split(":")[0];
+        final String address = ctx.channel().remoteAddress().toString().split(":")[0];
 
         if (BlockedIP.contains(address)) {
 //            System.out.print("自动断开连接A");
-//            session.close();
+//            ctx.channel().close();
 //            return;
         }
         final Pair<Long, Byte> track = tracker.get(address);
@@ -246,24 +248,23 @@ public class MapleServerHandler extends IoHandlerAdapter implements MapleServerH
                 System.out.print("自动断开连接A2");
                 BlockedIP.add(address);
                 tracker.remove(address); // Cleanup
-                session.close(false);
+                ctx.channel().close();
                 return;
             }
         }
         tracker.put(address, new Pair<Long, Byte>(System.currentTimeMillis(), count));
         String IP = address.substring(address.indexOf('/') + 1, address.length());
-        
+
 //        if (!ZevmsLauncherServer.isAllowClient(IP)) {
 //            System.out.println("自动断开连接F：未使用登录器的连接");
-//            session.close(false);
+//            ctx.channel().close();
 //            return;
 //        }
         // End of IP checking.
-
         if (channel > -1) {
             if (ChannelServer.getInstance(channel).isShutdown()) {
                 System.out.print("自动断开连接B");
-                session.close(false);
+                ctx.channel().close();
                 return;
             }
             if (!LoginServer.containsIPAuth(IP)) {
@@ -274,13 +275,13 @@ public class MapleServerHandler extends IoHandlerAdapter implements MapleServerH
         } else if (cs) {
             if (CashShopServer.isShutdown()) {
                 System.out.print("自动断开连接D");
-                session.close(false);
+                ctx.channel().close();
                 return;
             }
         } else {
             if (LoginServer.isShutdown()) {
                 System.out.print("自动断开连接E");
-                session.close(false);
+                ctx.channel().close();
                 return;
             }
         }
@@ -293,17 +294,16 @@ public class MapleServerHandler extends IoHandlerAdapter implements MapleServerH
         final MapleClient client = new MapleClient(
                 new MapleAESOFB(ivSend, (short) (0xFFFF - ServerConstants.MAPLE_VERSION)), // Sent Cypher
                 new MapleAESOFB(ivRecv, ServerConstants.MAPLE_VERSION), // Recv Cypher
-                session);
+                ctx.channel());
         client.setChannel(channel);
 
         MaplePacketDecoder.DecoderState decoderState = new MaplePacketDecoder.DecoderState();
-        session.setAttribute(MaplePacketDecoder.DECODER_STATE_KEY, decoderState);
-
-        session.write(LoginPacket.getHello(ServerConstants.MAPLE_VERSION,
-                ServerConstants.Use_Fixed_IV ? serverSend : ivSend, ServerConstants.Use_Fixed_IV ? serverRecv : ivRecv));
-        session.setAttribute(MapleClient.CLIENT_KEY, client);
-        session.setAttribute(IdleStatus.READER_IDLE, 60);
-        session.setAttribute(IdleStatus.WRITER_IDLE, 60);
+        ctx.channel().attr(MaplePacketDecoder.DECODER_STATE_KEY).set(decoderState);
+        ctx.writeAndFlush(LoginPacket.getHello(ServerConstants.MAPLE_VERSION, ServerConstants.Use_Fixed_IV ? serverSend : ivSend, ServerConstants.Use_Fixed_IV ? serverRecv : ivRecv));
+        ctx.channel().attr(MapleClient.CLIENT_KEY).set(client);
+        //ctx.channel().attr(IdleStatus.READER_IDLE).set(60);
+        //ctx.channel().attr(IdleStatus.WRITER_IDLE).set(60);
+        World.Client.addClient(client);
 
         StringBuilder sb = new StringBuilder();
         if (channel > -1) {
@@ -316,7 +316,7 @@ public class MapleServerHandler extends IoHandlerAdapter implements MapleServerH
         sb.append(address);
         System.out.println(sb.toString());
 
-        FileWriter fw = isLoggedIP(session);
+        FileWriter fw = isLoggedIP(ctx.channel());
         if (fw != null) {
             if (channel > -1) {
                 fw.write("=== Logged Into Channel " + channel + " ===");
@@ -334,30 +334,33 @@ public class MapleServerHandler extends IoHandlerAdapter implements MapleServerH
     }
 
     @Override
-    public void sessionClosed(final IoSession session) throws Exception {
-        final MapleClient client = (MapleClient) session.getAttribute(MapleClient.CLIENT_KEY);
+    public void channelInactive(final ChannelHandlerContext ctx) throws Exception {
+
+        MapleClient client = (MapleClient) ctx.channel().attr(MapleClient.CLIENT_KEY).get();
 
         if (client != null) {
             try {
-                FileWriter fw = isLoggedIP(session);
-                if (fw != null) {
-                    fw.write("=== Session Closed ===");
-                    fw.write(nl);
-                    fw.flush();
-                }
-                client.disconnect(true, cs);
+//                FileWriter fw = isLoggedIP(session);
+//                if (fw != null) {
+//                    fw.write("=== Session Closed ===");
+//                    fw.write(nl);
+//                    fw.flush();
+//                }
+                client.disconnect(true, channel == -10);
             } finally {
-                session.close(false);
-                session.removeAttribute(MapleClient.CLIENT_KEY);
+                World.Client.removeClient(client);
+                ctx.close();
+                ctx.channel().attr(MapleClient.CLIENT_KEY).remove();
             }
         }
-        super.sessionClosed(session);
+        super.channelInactive(ctx);
     }
 
     @Override
-    public void messageReceived(final IoSession session, final Object message) {
+    //玩家操作
+    public void channelRead(final ChannelHandlerContext ctx, final Object message) {
         try {
-            final SeekableLittleEndianAccessor slea = new GenericSeekableLittleEndianAccessor(new ByteArrayByteStream((byte[]) message));
+            final MaplePacketLittleEndianAccessor slea = new MaplePacketLittleEndianAccessor(new ByteArrayByteStream((byte[]) message));
             if (slea.available() < 2) {
                 return;
             }
@@ -371,7 +374,7 @@ public class MapleServerHandler extends IoHandlerAdapter implements MapleServerH
                         sb.append(tools.HexTool.toString((byte[]) message)).append("\n").append(tools.HexTool.toStringFromAscii((byte[]) message));
                         System.out.println(sb.toString());
                     }
-                    final MapleClient c = (MapleClient) session.getAttribute(MapleClient.CLIENT_KEY);
+                    final MapleClient c = (MapleClient) ctx.channel().attr(MapleClient.CLIENT_KEY).get();
                     if (!c.isReceiving()) {
                         return;
                     }
@@ -386,12 +389,12 @@ public class MapleServerHandler extends IoHandlerAdapter implements MapleServerH
                         }
                     }
                     if (Log_Packets) {
-                        log(slea, recv, c, session);
+                        log(slea, recv, c, ctx.channel());
                     }
                     handlePacket(recv, slea, c, cs);
 
                     //Log after the packet is handle. You'll see why =]
-                    FileWriter fw = isLoggedIP(session);
+                    FileWriter fw = isLoggedIP(ctx.channel());
                     if (fw != null && !blocked.contains(recv)) {
                         if (recv == RecvPacketOpcode.PLAYER_LOGGEDIN && c != null) { // << This is why. Win.
                             fw.write(">> [AccountName: "
@@ -424,23 +427,21 @@ public class MapleServerHandler extends IoHandlerAdapter implements MapleServerH
     }
 
     @Override
-    public void sessionIdle(final IoSession session, final IdleStatus status) throws Exception {
-        final MapleClient client = (MapleClient) session.getAttribute(MapleClient.CLIENT_KEY);
-
-        /*
-         * if (client != null && client.getPlayer() != null) {
-         * System.out.println("玩家 "+ client.getPlayer().getName() +" 正在掛網"); }
+    public void userEventTriggered(final ChannelHandlerContext ctx, final Object status) throws Exception {
+        MapleClient client = (MapleClient) ctx.channel().attr(MapleClient.CLIENT_KEY).get();
+        /**
+         * <设置心跳>
          */
         if (client != null) {
             client.sendPing();
         } else {
-            session.close(false);
+            ctx.channel().close();
             return;
         }
-        super.sessionIdle(session, status);
+        super.userEventTriggered(ctx, status);
     }
 
-    public static void handlePacket(final RecvPacketOpcode header, final SeekableLittleEndianAccessor slea, final MapleClient c, final boolean cs) throws Exception {
+    public static void handlePacket(final RecvPacketOpcode header, final MaplePacketLittleEndianAccessor slea, final MapleClient c, final boolean cs) throws Exception {
         //  System.out.println(header);
         switch (header) {
             case PONG:
@@ -498,7 +499,7 @@ public class MapleServerHandler extends IoHandlerAdapter implements MapleServerH
                 CharLoginHandler.SetGenderRequest(slea, c);
                 break;
             case RSA_KEY: // Fix this somehow
-                c.getSession().write(LoginPacket.StrangeDATA());
+                c.sendPacket(LoginPacket.StrangeDATA());
                 break;
             // END OF LOGIN SERVER
             case CHANGE_CHANNEL:

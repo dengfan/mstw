@@ -171,7 +171,7 @@ public class NPCConversationManager extends AbstractPlayerInteraction {
         if (lastMsg > -1) {
             return;
         }
-        c.getSession().write(MaplePacketCreator.getMapSelection(npc, sel));
+        c.sendPacket(MaplePacketCreator.getMapSelection(npc, sel));
         lastMsg = 0xD;
     }
 
@@ -187,7 +187,7 @@ public class NPCConversationManager extends AbstractPlayerInteraction {
             sendSimple(text);
             return;
         }
-        c.getSession().write(MaplePacketCreator.getNPCTalk(npc, (byte) 0, text, "00 01", (byte) 0));
+        c.sendPacket(MaplePacketCreator.getNPCTalk(npc, (byte) 0, text, "00 01", (byte) 0));
         lastMsg = 0;
     }
 
@@ -204,7 +204,7 @@ public class NPCConversationManager extends AbstractPlayerInteraction {
             sendSimpleS(text, type);
             return;
         }
-        c.getSession().write(MaplePacketCreator.getNPCTalk(npc, (byte) 0, text, "00 01", type));
+        c.sendPacket(MaplePacketCreator.getNPCTalk(npc, (byte) 0, text, "00 01", type));
         lastMsg = 0;
     }
 
@@ -220,7 +220,7 @@ public class NPCConversationManager extends AbstractPlayerInteraction {
             sendSimple(text);
             return;
         }
-        c.getSession().write(MaplePacketCreator.getNPCTalk(npc, (byte) 0, text, "01 00", (byte) 0));
+        c.sendPacket(MaplePacketCreator.getNPCTalk(npc, (byte) 0, text, "01 00", (byte) 0));
         lastMsg = 0;
     }
 
@@ -237,7 +237,7 @@ public class NPCConversationManager extends AbstractPlayerInteraction {
             sendSimpleS(text, type);
             return;
         }
-        c.getSession().write(MaplePacketCreator.getNPCTalk(npc, (byte) 0, text, "01 00", type));
+        c.sendPacket(MaplePacketCreator.getNPCTalk(npc, (byte) 0, text, "01 00", type));
         lastMsg = 0;
     }
 
@@ -253,7 +253,7 @@ public class NPCConversationManager extends AbstractPlayerInteraction {
             sendSimple(text);
             return;
         }
-        c.getSession().write(MaplePacketCreator.getNPCTalk(npc, (byte) 0, text, "01 01", (byte) 0));
+        c.sendPacket(MaplePacketCreator.getNPCTalk(npc, (byte) 0, text, "01 01", (byte) 0));
         lastMsg = 0;
     }
 
@@ -286,7 +286,7 @@ public class NPCConversationManager extends AbstractPlayerInteraction {
             sendSimpleS(text, type);
             return;
         }
-        c.getSession().write(MaplePacketCreator.getNPCTalk(npc, (byte) 0, text, "01 01", type));
+        c.sendPacket(MaplePacketCreator.getNPCTalk(npc, (byte) 0, text, "01 01", type));
         lastMsg = 0;
     }
 
@@ -302,7 +302,7 @@ public class NPCConversationManager extends AbstractPlayerInteraction {
             sendSimple(text);
             return;
         }
-        c.getSession().write(MaplePacketCreator.getNPCTalk(npc, (byte) 0, text, "00 00", (byte) 0));
+        c.sendPacket(MaplePacketCreator.getNPCTalk(npc, (byte) 0, text, "00 00", (byte) 0));
         lastMsg = 0;
     }
 
@@ -319,7 +319,7 @@ public class NPCConversationManager extends AbstractPlayerInteraction {
             sendSimpleS(text, type);
             return;
         }
-        c.getSession().write(MaplePacketCreator.getNPCTalk(npc, (byte) 0, text, "00 00", type));
+        c.sendPacket(MaplePacketCreator.getNPCTalk(npc, (byte) 0, text, "00 00", type));
         lastMsg = 0;
     }
 
@@ -335,7 +335,7 @@ public class NPCConversationManager extends AbstractPlayerInteraction {
             sendSimple(text);
             return;
         }
-        c.getSession().write(MaplePacketCreator.getNPCTalk(npc, (byte) 1, text, "", (byte) 0));
+        c.sendPacket(MaplePacketCreator.getNPCTalk(npc, (byte) 1, text, "", (byte) 0));
         lastMsg = 1;
     }
 
@@ -352,7 +352,7 @@ public class NPCConversationManager extends AbstractPlayerInteraction {
             sendSimpleS(text, type);
             return;
         }
-        c.getSession().write(MaplePacketCreator.getNPCTalk(npc, (byte) 1, text, "", type));
+        c.sendPacket(MaplePacketCreator.getNPCTalk(npc, (byte) 1, text, "", type));
         lastMsg = 1;
     }
 
@@ -384,7 +384,7 @@ public class NPCConversationManager extends AbstractPlayerInteraction {
             sendSimple(text);
             return;
         }
-        c.getSession().write(MaplePacketCreator.getNPCTalk(npc, (byte) 0x0B, text, "", (byte) 0));
+        c.sendPacket(MaplePacketCreator.getNPCTalk(npc, (byte) 0x0B, text, "", (byte) 0));
         lastMsg = 0xB;
     }
 
@@ -400,7 +400,7 @@ public class NPCConversationManager extends AbstractPlayerInteraction {
             sendSimple(text);
             return;
         }
-        c.getSession().write(MaplePacketCreator.getNPCTalk(npc, (byte) 0x0C, text, "", (byte) 0));
+        c.sendPacket(MaplePacketCreator.getNPCTalk(npc, (byte) 0x0C, text, "", (byte) 0));
         lastMsg = 0xC;
     }
 
@@ -414,7 +414,7 @@ public class NPCConversationManager extends AbstractPlayerInteraction {
         if (lastMsg > -1) {
             return;
         }
-        c.getSession().write(MaplePacketCreator.getNPCTalkStyle(npc, text, card, args));
+        c.sendPacket(MaplePacketCreator.getNPCTalkStyle(npc, text, card, args));
         lastMsg = 7;
     }
 
@@ -430,7 +430,7 @@ public class NPCConversationManager extends AbstractPlayerInteraction {
             sendNext(text);
             return;
         }
-        c.getSession().write(MaplePacketCreator.getNPCTalk(npc, (byte) 4, text, "", (byte) 0));
+        c.sendPacket(MaplePacketCreator.getNPCTalk(npc, (byte) 4, text, "", (byte) 0));
         lastMsg = 4;
     }
 
@@ -447,7 +447,7 @@ public class NPCConversationManager extends AbstractPlayerInteraction {
             sendNext(text);
             return;
         }
-        getClient().getSession().write(MaplePacketCreator.getNPCTalk(npc, (byte) 4, text, "", (byte) speaker));
+        getClient().sendPacket(MaplePacketCreator.getNPCTalk(npc, (byte) 4, text, "", (byte) speaker));
         lastMsg = 4;
     }
 
@@ -464,7 +464,7 @@ public class NPCConversationManager extends AbstractPlayerInteraction {
             sendNextS(text, type);
             return;
         }
-        c.getSession().write(MaplePacketCreator.getNPCTalk(npc, (byte) 4, text, "", (byte) type));
+        c.sendPacket(MaplePacketCreator.getNPCTalk(npc, (byte) 4, text, "", (byte) type));
         lastMsg = 4;
     }
 
@@ -478,7 +478,7 @@ public class NPCConversationManager extends AbstractPlayerInteraction {
         if (lastMsg > -1) {
             return;
         }
-        c.getSession().write(MaplePacketCreator.getNPCTalkStyle(npc, text, caid, styles));
+        c.sendPacket(MaplePacketCreator.getNPCTalkStyle(npc, text, caid, styles));
         lastMsg = 7;
     }
 
@@ -497,7 +497,7 @@ public class NPCConversationManager extends AbstractPlayerInteraction {
             sendSimple(text);
             return;
         }
-        c.getSession().write(MaplePacketCreator.getNPCTalkNum(npc, text, def, min, max));
+        c.sendPacket(MaplePacketCreator.getNPCTalkNum(npc, text, def, min, max));
         lastMsg = 3;
     }
 
@@ -513,7 +513,7 @@ public class NPCConversationManager extends AbstractPlayerInteraction {
             sendSimple(text);
             return;
         }
-        c.getSession().write(MaplePacketCreator.getNPCTalkText(npc, text));
+        c.sendPacket(MaplePacketCreator.getNPCTalkText(npc, text));
         lastMsg = 2;
     }
 
@@ -663,7 +663,7 @@ public class NPCConversationManager extends AbstractPlayerInteraction {
             }
             final byte rareness = GameConstants.gachaponRareItem(item.getItemId());
             if (rareness > 0) {
-                World.Broadcast.broadcastMessage(MaplePacketCreator.getGachaponMega("[" + msg + "] " + c.getPlayer().getName(), " : 恭喜获得道具!", item, rareness, getPlayer().getClient().getChannel()).getBytes());
+                World.Broadcast.broadcastMessage(MaplePacketCreator.getGachaponMega("[" + msg + "] " + c.getPlayer().getName(), " : 恭喜获得道具!", item, rareness, getPlayer().getClient().getChannel()));
             }
             return item.getItemId();
         } catch (Exception e) {
@@ -691,7 +691,7 @@ public class NPCConversationManager extends AbstractPlayerInteraction {
                 return -1;
             }
             if (notice > 0) {
-                World.Broadcast.broadcastMessage(MaplePacketCreator.getGachaponMega("[" + msg + "] ", " : 被幸运星" + c.getPlayer().getName() + "抽到。", item, (byte) 0, getPlayer().getClient().getChannel()).getBytes());
+                World.Broadcast.broadcastMessage(MaplePacketCreator.getGachaponMega("[" + msg + "] ", " : 被幸运星" + c.getPlayer().getName() + "抽到。", item, (byte) 0, getPlayer().getClient().getChannel()));
             }
             return item.getItemId();
         } catch (Exception e) {
@@ -879,7 +879,7 @@ public class NPCConversationManager extends AbstractPlayerInteraction {
         if (broadcast) {
             c.getPlayer().getMap().broadcastMessage(MaplePacketCreator.showEffect(effect));
         } else {
-            c.getSession().write(MaplePacketCreator.showEffect(effect));
+            c.sendPacket(MaplePacketCreator.showEffect(effect));
         }
     }
 
@@ -892,7 +892,7 @@ public class NPCConversationManager extends AbstractPlayerInteraction {
         if (broadcast) {
             c.getPlayer().getMap().broadcastMessage(MaplePacketCreator.playSound(sound));
         } else {
-            c.getSession().write(MaplePacketCreator.playSound(sound));
+            c.sendPacket(MaplePacketCreator.playSound(sound));
         }
     }
 
@@ -905,7 +905,7 @@ public class NPCConversationManager extends AbstractPlayerInteraction {
         if (broadcast) {
             c.getPlayer().getMap().broadcastMessage(MaplePacketCreator.environmentChange(env, 2));
         } else {
-            c.getSession().write(MaplePacketCreator.environmentChange(env, 2));
+            c.sendPacket(MaplePacketCreator.environmentChange(env, 2));
         }
     }
 
@@ -1185,7 +1185,7 @@ public class NPCConversationManager extends AbstractPlayerInteraction {
      * @param code
      */
     public void genericGuildMessage(int code) {
-        c.getSession().write(MaplePacketCreator.genericGuildMessage((byte) code));
+        c.sendPacket(MaplePacketCreator.genericGuildMessage((byte) code));
     }
 
     /**
@@ -1204,7 +1204,7 @@ public class NPCConversationManager extends AbstractPlayerInteraction {
      */
     public void increaseGuildCapacity() {
         if (c.getPlayer().getMeso() < 2500000) {
-            c.getSession().write(MaplePacketCreator.serverNotice(1, "You do not have enough mesos."));
+            c.sendPacket(MaplePacketCreator.serverNotice(1, "You do not have enough mesos."));
             return;
         }
         final int gid = c.getPlayer().getGuildId();
@@ -1219,7 +1219,7 @@ public class NPCConversationManager extends AbstractPlayerInteraction {
      *
      */
     public void displayGuildRanks() {
-        c.getSession().write(MaplePacketCreator.showGuildRanks(npc, MapleGuildRanking.getInstance().getGuildRank()));
+        c.sendPacket(MaplePacketCreator.showGuildRanks(npc, MapleGuildRanking.getInstance().getGuildRank()));
     }
 
     /**
@@ -1384,7 +1384,7 @@ public class NPCConversationManager extends AbstractPlayerInteraction {
      */
     public void dc() {
         MapleCharacter victim = c.getChannelServer().getPlayerStorage().getCharacterByName(c.getPlayer().getName().toString());
-        victim.getClient().getSession().close(false);
+        victim.getClient().getSession().close();
         victim.getClient().disconnect(true, false);
 
     }
@@ -1419,7 +1419,7 @@ public class NPCConversationManager extends AbstractPlayerInteraction {
      */
     public void openDuey() {
         c.getPlayer().setConversation(2);
-        c.getSession().write(MaplePacketCreator.sendDuey((byte) 9, null));
+        c.sendPacket(MaplePacketCreator.sendDuey((byte) 9, null));
     }
 
     /**
@@ -1427,7 +1427,7 @@ public class NPCConversationManager extends AbstractPlayerInteraction {
      */
     public void openMerchantItemStore() {
         c.getPlayer().setConversation(3);
-        c.getSession().write(PlayerShopPacket.merchItemStore((byte) 0x22));
+        c.sendPacket(PlayerShopPacket.merchItemStore((byte) 0x22));
     }
 
     /**
@@ -1436,7 +1436,7 @@ public class NPCConversationManager extends AbstractPlayerInteraction {
     public void openMerchantItemStore1() {
         final MerchItemPackage pack = loadItemFrom_Database(c.getPlayer().getId(), c.getPlayer().getAccountID());
         //c.getPlayer().setConversation(3);
-        c.getSession().write(PlayerShopPacket.merchItemStore_ItemData(pack));
+        c.sendPacket(PlayerShopPacket.merchItemStore_ItemData(pack));
     }
 
     private static final MerchItemPackage loadItemFrom_Database(final int charid, final int accountid) {
@@ -1484,7 +1484,7 @@ public class NPCConversationManager extends AbstractPlayerInteraction {
      *
      */
     public void sendRepairWindow() {
-        c.getSession().write(MaplePacketCreator.sendRepairWindow(npc));
+        c.sendPacket(MaplePacketCreator.sendRepairWindow(npc));
     }
 
     /**
@@ -1666,7 +1666,7 @@ public class NPCConversationManager extends AbstractPlayerInteraction {
         statup.add(new Pair<MapleStat, Integer>(MapleStat.MP, Integer.valueOf(30000)));
         statup.add(new Pair<MapleStat, Integer>(MapleStat.MAXMP, Integer.valueOf(30000)));
 
-        c.getSession().write(MaplePacketCreator.updatePlayerStats(statup, c.getPlayer().getJob()));
+        c.sendPacket(MaplePacketCreator.updatePlayerStats(statup, c.getPlayer().getJob()));
     }
 
     /**
@@ -2031,7 +2031,7 @@ public class NPCConversationManager extends AbstractPlayerInteraction {
      *
      */
     public final void sendRPS() {
-        c.getSession().write(MaplePacketCreator.getRPSMode((byte) 8, -1, -1, -1));
+        c.sendPacket(MaplePacketCreator.getRPSMode((byte) 8, -1, -1, -1));
     }
 
     /**
@@ -2100,7 +2100,7 @@ public class NPCConversationManager extends AbstractPlayerInteraction {
      * @param type
      */
     public void openDD(int type) {
-        c.getSession().write(MaplePacketCreator.openBeans(getPlayer().getBeans(), type));
+        c.sendPacket(MaplePacketCreator.openBeans(getPlayer().getBeans(), type));
     }
 
     /**
@@ -2117,7 +2117,7 @@ public class NPCConversationManager extends AbstractPlayerInteraction {
      */
     public void gainBeans(int s) {
         getPlayer().gainBeans(s);
-        c.getSession().write(MaplePacketCreator.updateBeans(c.getPlayer().getId(), s));
+        c.sendPacket(MaplePacketCreator.updateBeans(c.getPlayer().getId(), s));
     }
 
     /**
@@ -2134,7 +2134,7 @@ public class NPCConversationManager extends AbstractPlayerInteraction {
      * @param ss
      */
     public void szhs(String ss) {
-        c.getSession().write(MaplePacketCreator.游戏屏幕中间黄色字体(ss));
+        c.sendPacket(MaplePacketCreator.游戏屏幕中间黄色字体(ss));
     }
 
     /**
@@ -2143,7 +2143,7 @@ public class NPCConversationManager extends AbstractPlayerInteraction {
      * @param id
      */
     public void szhs(String ss, int id) {
-        c.getSession().write(MaplePacketCreator.游戏屏幕中间黄色字体(ss, id));
+        c.sendPacket(MaplePacketCreator.游戏屏幕中间黄色字体(ss, id));
     }
 
     /**
@@ -2187,7 +2187,7 @@ public class NPCConversationManager extends AbstractPlayerInteraction {
      *
      */
     public void alatPQ() {
-        //   c.getSession().write(MaplePacketCreator.updateAriantPQRanking(getText, npc, pendingDisposal))
+        //   c.sendPacket(MaplePacketCreator.updateAriantPQRanking(getText, npc, pendingDisposal))
     }
 
     /**
@@ -2494,7 +2494,7 @@ public class NPCConversationManager extends AbstractPlayerInteraction {
             } else {
                 MapleInventoryManipulator.removeById(c, GameConstants.getInventoryType(物品ID), 物品ID, -数量, true, false);
             }
-            c.getSession().write(MaplePacketCreator.getShowItemGain(物品ID, (short) 数量, true));
+            c.sendPacket(MaplePacketCreator.getShowItemGain(物品ID, (short) 数量, true));
 
             count++;
         } catch (Exception e) {
@@ -3048,6 +3048,7 @@ public class NPCConversationManager extends AbstractPlayerInteraction {
         for (int i = 1; i <= dakongCount; i++) {
             if (i == index) {
                 sb.append("0:0,");
+                break;
             }
         }
 

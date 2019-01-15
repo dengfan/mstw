@@ -153,7 +153,7 @@ public class CheatTracker {
             if (monsterMoveCount > 50) {
                 //   registerOffense(CheatingOffense.MOVE_MONSTERS);
                 monsterMoveCount = 0;
-                World.Broadcast.broadcastGMMessage(MaplePacketCreator.serverNotice(6, "[管理员信息] 开挂玩家[" + MapleCharacterUtil.makeMapleReadable(chr.getName()) + "] 地图ID[" + chr.getMapId() + "] 怀疑使用吸怪! ").getBytes());
+                World.Broadcast.broadcastGMMessage(MaplePacketCreator.serverNotice(6, "[管理员信息] 开挂玩家[" + MapleCharacterUtil.makeMapleReadable(chr.getName()) + "] 地图ID[" + chr.getMapId() + "] 怀疑使用吸怪! "));
                 String note = "时间：" + FileoutputUtil.CurrentReadable_Time() + " "
                         + "|| 玩家名字：" + chr.getName() + ""
                         + "|| 玩家地图：" + chr.getMapId() + "\r\n";
@@ -283,9 +283,9 @@ public class CheatTracker {
                 AutobanManager.getInstance().autoban(chrhardref.getClient(), StringUtil.makeEnumHumanReadable(offense.name()));
             } else if (type == 2) {
                 //怪物碰撞过快 回避率过高 快速攻击 快速攻击2 怪物移动 伤害相同
-                World.Broadcast.broadcastGMMessage(MaplePacketCreator.serverNotice(6, "[系统信息] : " + chrhardref.getName() + " 自动断线 类别：" + offense.toString() + " 原因：" + (param == null ? "" : (" - " + param))).getBytes());
+                World.Broadcast.broadcastGMMessage(MaplePacketCreator.serverNotice(6, "[系统信息] : " + chrhardref.getName() + " 自动断线 类别：" + offense.toString() + " 原因：" + (param == null ? "" : (" - " + param))));
                 FileoutputUtil.logToFile_chr(chrhardref, "log\\自动断线.log", "\r\n " + FileoutputUtil.NowTime() + " 类别：" + offense.toString() + " 原因：" + (param == null ? "" : (" - " + param)));
-                chrhardref.getClient().getSession().close(false);
+                chrhardref.getClient().getSession().close();
             } else if (type == 3) {
             }
             gm_message = 50;
@@ -319,13 +319,13 @@ public class CheatTracker {
                     String msg = "[管理员信息] " + chrhardref.getName() + " 疑似 " + show
                             + "地图ID [" + chrhardref.getMapId() + "]" + ""
                             + (param == null ? "" : (" - " + param));
-                    World.Broadcast.broadcastGMMessage(MaplePacketCreator.serverNotice(6, msg).getBytes());
+                    World.Broadcast.broadcastGMMessage(MaplePacketCreator.serverNotice(6, msg));
                     FileoutputUtil.logToFile_chr(chrhardref, FileoutputUtil.hack_log, show);
                 }
                 if (gm_message == 0) {
 
                     // System.out.println(MapleCharacterUtil.makeMapleReadable(chrhardref.getName()) + "怀疑使用外挂");
-                    // World.Broadcast.broadcastGMMessage(MaplePacketCreator.serverNotice(6, "[管理員訊息] 开挂玩家[" + MapleCharacterUtil.makeMapleReadable(chrhardref.getName()) + "] 地图ID[" + chrhardref.getMapId() + "] suspected of hacking! " + StringUtil.makeEnumHumanReadable(offense.name()) + (param == null ? "" : (" - " + param))).getBytes());
+                    // World.Broadcast.broadcastGMMessage(MaplePacketCreator.serverNotice(6, "[管理員訊息] 开挂玩家[" + MapleCharacterUtil.makeMapleReadable(chrhardref.getName()) + "] 地图ID[" + chrhardref.getMapId() + "] suspected of hacking! " + StringUtil.makeEnumHumanReadable(offense.name()) + (param == null ? "" : (" - " + param))));
                             /*
                      * String note = "时间：" +
                      * FileoutputUtil.CurrentReadable_Time() + " " + "|| 玩家名字："

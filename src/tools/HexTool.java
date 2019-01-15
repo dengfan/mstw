@@ -21,7 +21,7 @@
 package tools;
 
 import java.io.ByteArrayOutputStream;
-import org.apache.mina.core.buffer.IoBuffer;
+import java.nio.ByteBuffer;
 
 
 
@@ -55,7 +55,7 @@ public class HexTool {
      * @param buf The <code>org.apache.mina.common.ByteBuffer</code> to convert.
      * @return The hexadecimal representation of <code>buf</code>
      */
-    public static final String toString(final IoBuffer buf) {
+    public static final String toString(final ByteBuffer buf) {
         buf.flip();
         final byte arr[] = new byte[buf.remaining()];
         buf.get(arr);

@@ -115,7 +115,7 @@ public class HiredMerchant extends AbstractPlayerStore {
          * setMeso(gainmeso - GameConstants.EntrustedStoreTax(gainmeso));
          * c.getPlayer().gainMeso(-pItem.price * quantity, false); saveItems();
          * } else { c.getPlayer().dropMessage(1, "Your inventory is full.");
-         * c.getSession().write(MaplePacketCreator.enableActions()); } }
+         * c.sendPacket(MaplePacketCreator.enableActions()); } }
          */
         /*
          * if (MapleInventoryManipulator.checkSpace(c, newItem.getItemId(),
@@ -132,9 +132,9 @@ public class HiredMerchant extends AbstractPlayerStore {
          * + " (" + perbundle + ") x " + quantity + " 已從精靈商店賣出. 還剩下 " +
          * pItem.bundles + "個"); } } else { c.getPlayer().dropMessage(1,
          * "拍賣家有太多錢了.");
-         * c.getSession().write(MaplePacketCreator.enableActions()); } } else {
+         * c.sendPacket(MaplePacketCreator.enableActions()); } } else {
          * c.getPlayer().dropMessage(1, "您的背包滿了.");
-         * c.getSession().write(MaplePacketCreator.enableActions()); }
+         * c.sendPacket(MaplePacketCreator.enableActions()); }
          */
         /*
          * if (c.getPlayer().getMeso() >= pItem.price * quantity) { if
@@ -146,13 +146,13 @@ public class HiredMerchant extends AbstractPlayerStore {
          * GameConstants.EntrustedStoreTax(gainmeso));
          * c.getPlayer().gainMeso(-pItem.price * quantity, false); } else {
          * c.getPlayer().dropMessage(1, "金币不足.");
-         * c.getSession().write(MaplePacketCreator.enableActions()); } } else {
+         * c.sendPacket(MaplePacketCreator.enableActions()); } } else {
          * c.getPlayer().dropMessage(1, "背包已满" + "\r\n" + "请留1格以上位置" + "\r\n" +
          * "在进行购买物品" + "\r\n" + "防止非法复制");
-         * c.getSession().write(MaplePacketCreator.enableActions()); //
+         * c.sendPacket(MaplePacketCreator.enableActions()); //
          * c.getPlayer().dropMessage(1, "您的背包滿了."); } } else {
          * c.getPlayer().dropMessage(1, "金币不足");
-         * c.getSession().write(MaplePacketCreator.enableActions()); }
+         * c.sendPacket(MaplePacketCreator.enableActions()); }
          */
         if (!c.getPlayer().canHold(newItem.getItemId())) {
             c.getPlayer().dropMessage(1, "背包已满");
@@ -178,11 +178,11 @@ public class HiredMerchant extends AbstractPlayerStore {
                 System.out.println(new StringBuilder().append("[雇佣] ").append(chr != null ? chr.getName() : getOwnerName()).append(" 雇佣商店卖出: ").append(newItem.getItemId()).append(" - ").append(itemText).append(" 价格: ").append(theQuantity).toString());
             } else {
                 c.getPlayer().dropMessage(1, "金币不足.");
-                c.getSession().write(MaplePacketCreator.enableActions());
+                c.sendPacket(MaplePacketCreator.enableActions());
             }
         } else {
             c.getPlayer().dropMessage(1, "背包已满" + "\r\n" + "请留1格以上位置" + "\r\n" + "在进行购买物品" + "\r\n" + "防止非法复制");
-            c.getSession().write(MaplePacketCreator.enableActions());
+            c.sendPacket(MaplePacketCreator.enableActions());
         }
     }
 
@@ -242,14 +242,14 @@ public class HiredMerchant extends AbstractPlayerStore {
     @Override
     public void sendDestroyData(MapleClient client) {
         if (isAvailable()) {
-            client.getSession().write(PlayerShopPacket.destroyHiredMerchant(getOwnerId()));
+            client.sendPacket(PlayerShopPacket.destroyHiredMerchant(getOwnerId()));
         }
     }
 
     @Override
     public void sendSpawnData(MapleClient client) {
         if (isAvailable()) {
-            client.getSession().write(PlayerShopPacket.spawnHiredMerchant(this));
+            client.sendPacket(PlayerShopPacket.spawnHiredMerchant(this));
         }
     }
 
@@ -266,10 +266,10 @@ public class HiredMerchant extends AbstractPlayerStore {
     }
 
     public final void sendBlackList(final MapleClient c) {
-        c.getSession().write(PlayerShopPacket.MerchantBlackListView(this.blacklist));
+        c.sendPacket(PlayerShopPacket.MerchantBlackListView(this.blacklist));
     }
 
     public final void sendVisitor(final MapleClient c) {
-        c.getSession().write(PlayerShopPacket.MerchantVisitorView(this.visitors));
+        c.sendPacket(PlayerShopPacket.MerchantVisitorView(this.visitors));
     }
 }

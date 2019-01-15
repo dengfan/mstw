@@ -18,7 +18,7 @@ import org.slf4j.LoggerFactory;
 import tools.FileoutputUtil;
 import tools.HexTool;
 import tools.data.ByteArrayByteStream;
-import tools.data.LittleEndianAccessor;
+import tools.data.MaplePacketLittleEndianAccessor;
 
 public class MaplePacketDecoder extends ByteToMessageDecoder {
 
@@ -44,7 +44,7 @@ public class MaplePacketDecoder extends ByteToMessageDecoder {
             }
             decoderState.packetlength = MapleAESOFB.getPacketLength(packetHeader);
         } else if (in.readableBytes() < 4 && decoderState.packetlength == -1) {
-            log.trace("解码…没有足够的数据/就是所谓的包不完整");
+            log.trace("数据包不完整。");
             return;
         }
 
@@ -83,9 +83,9 @@ public class MaplePacketDecoder extends ByteToMessageDecoder {
                         //FileoutputUtil.packetLog("Load\\log\\客户端封包.log", SendTo);
                         System.out.println("++" + SendTo);
                     }
-                    String SendTos = "\r\n时间：" + FileoutputUtil.CurrentReadable_Time() + "  ";
+                    String SendTos = "\r\n时间：" + FileoutputUtil.NowTime()+ "  ";
                     if (op.equals("UNKNOWN")) {
-                        //FileoutputUtil.packetLog("Load\\log\\未知客服端封包.log", SendTos + SendTo);
+                        FileoutputUtil.packetLog("log\\未知客服端封包.log", SendTos + SendTo);
                     }
                 } else {
                     log.info(HexTool.toString(new byte[]{decryptedPacket[0], decryptedPacket[1]}) + "...");
@@ -117,6 +117,6 @@ public class MaplePacketDecoder extends ByteToMessageDecoder {
     }
 
     private int readFirstShort(byte[] arr) {
-        return new LittleEndianAccessor(new ByteArrayByteStream(arr)).readShort();
+        return new MaplePacketLittleEndianAccessor(new ByteArrayByteStream(arr)).readShort();
     }
 }

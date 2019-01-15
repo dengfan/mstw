@@ -196,6 +196,6 @@ public class CommandProcessor {
                 }
             }
         }
-        c.getSession().write(MaplePacketCreator.getNPCTalk(9010000, (byte) 0, sb.toString(), "00 00", (byte) 0));
+        c.sendPacket(MaplePacketCreator.getNPCTalk(9010000, (byte) 0, sb.toString(), "00 00", (byte) 0));
     }
 }

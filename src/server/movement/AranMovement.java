@@ -21,7 +21,7 @@
 package server.movement;
 
 import java.awt.Point;
-import tools.data.output.LittleEndianWriter;
+import tools.data.MaplePacketLittleEndianWriter;
 
 public class AranMovement extends AbstractLifeMovement {
 
@@ -30,7 +30,7 @@ public class AranMovement extends AbstractLifeMovement {
     }
 
     @Override
-    public void serialize(LittleEndianWriter lew) {
+    public void serialize(MaplePacketLittleEndianWriter lew) {
         lew.write(getType());
         //lew.writePos(getPosition());
         lew.write(getNewstate());

@@ -87,7 +87,7 @@ public class AutobanManager implements Runnable {
                 final StringBuilder sb = new StringBuilder("a/b ");
                 sb.append(c.getPlayer().getName());
                 sb.append(" (IP ");
-                sb.append(c.getSession().getRemoteAddress().toString());
+                sb.append(c.getSession().remoteAddress().toString());
                 sb.append("): ");
                 sb.append(" (MAC ");
                 sb.append(c.getMac());
@@ -96,7 +96,7 @@ public class AutobanManager implements Runnable {
                     sb.append(s);
                     sb.append(", ");
                 }
-                World.Broadcast.broadcastMessage(MaplePacketCreator.serverNotice(0, "'" + c.getPlayer().getName() + "'自动封号系统非法使用外挂程序！永久封停处理！").getBytes());
+                World.Broadcast.broadcastMessage(MaplePacketCreator.serverNotice(0, "'" + c.getPlayer().getName() + "'自动封号系统非法使用外挂程序！永久封停处理！"));
 //		Calendar cal = Calendar.getInstance();
 //		cal.add(Calendar.DATE, 60);
 //		c.getPlayer().tempban(sb.toString(), cal, 1, false);

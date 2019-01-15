@@ -30,7 +30,7 @@ import java.util.Iterator;
 
 import client.MapleCharacter;
 import database.DatabaseConnection;
-import handling.MaplePacket;
+
 import handling.world.World;
 import java.sql.Statement;
 import java.util.ArrayList;
@@ -244,15 +244,15 @@ public class MapleFamily implements java.io.Serializable {
         return leadername;
     }
 
-    public final void broadcast(final MaplePacket packet, List<Integer> cids) {
+    public final void broadcast(final byte[] packet, List<Integer> cids) {
         broadcast(packet, -1, FCOp.NONE, cids);
     }
 
-    public final void broadcast(final MaplePacket packet, final int exception, List<Integer> cids) {
+    public final void broadcast(final byte[] packet, final int exception, List<Integer> cids) {
         broadcast(packet, exception, FCOp.NONE, cids);
     }
 
-    public final void broadcast(final MaplePacket packet, final int exceptionId, final FCOp bcop, List<Integer> cids) {
+    public final void broadcast(final byte[] packet, final int exceptionId, final FCOp bcop, List<Integer> cids) {
         //passing null to cids will ensure all
         buildNotifications();
         if (members.size() < 2) {

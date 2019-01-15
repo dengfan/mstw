@@ -240,7 +240,7 @@ public class MapleQuest implements Serializable {
                 NPCScriptManager.getInstance().endQuest(c.getClient(), npc, getId(), true);
             }
 
-            c.getClient().getSession().write(MaplePacketCreator.showSpecialEffect(10));
+            c.getClient().sendPacket(MaplePacketCreator.showSpecialEffect(10));
             c.getMap().broadcastMessage(c, MaplePacketCreator.showSpecialEffect(10), false);
         }
     }
@@ -278,7 +278,7 @@ public class MapleQuest implements Serializable {
         
         // we save forfeits only for logging purposes, they shouldn't matter anymore
         // completion time is set by the constructor
-        c.getClient().getSession().write(MaplePacketCreator.showSpecialEffect(9)); // Quest completion
+        c.getClient().sendPacket(MaplePacketCreator.showSpecialEffect(9)); // Quest completion
         c.getMap().broadcastMessage(c, MaplePacketCreator.showSpecialEffect(c.getId(), 9), false);
     }
 
@@ -305,7 +305,7 @@ public class MapleQuest implements Serializable {
         final MapleQuestStatus newStatus = new MapleQuestStatus(this, (byte) 2, npc);
         newStatus.setForfeited(c.getQuest(this).getForfeited());
         c.updateQuest(newStatus);
-        c.getClient().getSession().write(MaplePacketCreator.showSpecialEffect(9)); // Quest completion
+        c.getClient().sendPacket(MaplePacketCreator.showSpecialEffect(9)); // Quest completion
         c.getMap().broadcastMessage(c, MaplePacketCreator.showSpecialEffect(c.getId(), 9), false);
     }
 

@@ -23,7 +23,7 @@ package server.shops;
 import java.util.List;
 import client.MapleCharacter;
 import client.MapleClient;
-import handling.MaplePacket;
+
 import server.shops.AbstractPlayerStore.BoughtItem;
 import tools.Pair;
 
@@ -70,7 +70,7 @@ public interface IMaplePlayerShop {
 
     public void removeFromSlot(int slot);
 
-    public void broadcastToVisitors(MaplePacket packet);
+    public void broadcastToVisitors(byte[] packet);
 
     public void addVisitor(MapleCharacter visitor);
 

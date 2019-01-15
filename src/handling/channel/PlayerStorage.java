@@ -30,7 +30,7 @@ import java.util.Collections;
 import java.util.Collection;
 import client.MapleCharacterUtil;
 import client.MapleCharacter;
-import handling.MaplePacket;
+
 import handling.world.CharacterTransfer;
 import handling.world.CheaterData;
 import handling.world.World;
@@ -193,7 +193,7 @@ public class PlayerStorage {
 
                 if (!chr.isGM() || !checkGM) {
                     chr.getClient().disconnect(false, false, true);
-                    chr.getClient().getSession().close(false);
+                    chr.getClient().getSession().close();
                     World.Find.forceDeregister(chr.getId(), chr.getName());
                     itr.remove();
                 }
@@ -237,19 +237,19 @@ public class PlayerStorage {
         return sb.toString();
     }
 
-    public final void broadcastPacket(final MaplePacket data) {
+    public final void broadcastPacket(final byte[] data) {
         rL.lock();
         try {
             final Iterator<MapleCharacter> itr = nameToChar.values().iterator();
             while (itr.hasNext()) {
-                itr.next().getClient().getSession().write(data);
+                itr.next().getClient().sendPacket(data);
             }
         } finally {
             rL.unlock();
         }
     }
 
-    public final void broadcastSmegaPacket(final MaplePacket data) {
+    public final void broadcastSmegaPacket(final byte[] data) {
         rL.lock();
         try {
             final Iterator<MapleCharacter> itr = nameToChar.values().iterator();
@@ -258,7 +258,7 @@ public class PlayerStorage {
                 chr = itr.next();
 
                 if (chr.getClient().isLoggedIn() && chr.getSmega()) {
-                    chr.getClient().getSession().write(data);
+                    chr.getClient().sendPacket(data);
                 }
             }
         } finally {
@@ -266,7 +266,7 @@ public class PlayerStorage {
         }
     }
 
-    public final void broadcastGMPacket(final MaplePacket data) {
+    public final void broadcastGMPacket(final byte[] data) {
         rL.lock();
         try {
             final Iterator<MapleCharacter> itr = nameToChar.values().iterator();
@@ -275,7 +275,7 @@ public class PlayerStorage {
                 chr = itr.next();
 
                 if (chr.getClient().isLoggedIn() && chr.isGM()) {
-                    chr.getClient().getSession().write(data);
+                    chr.getClient().sendPacket(data);
                 }
             }
         } finally {

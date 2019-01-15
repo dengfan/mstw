@@ -22,7 +22,7 @@
 package server.events;
 
 import client.MapleCharacter;
-import handling.MaplePacket;
+
 import handling.channel.ChannelServer;
 import handling.world.World;
 import server.MapleInventoryManipulator;
@@ -56,7 +56,7 @@ public abstract class MapleEvent {
         return ChannelServer.getInstance(channel);
     }
 
-    public void broadcast(final MaplePacket packet) {
+    public void broadcast(final byte[] packet) {
         for (int i = 0; i < mapid.length; i++) {
             getMap(i).broadcastMessage(packet);
         }
@@ -215,9 +215,9 @@ public abstract class MapleEvent {
         }
         cserv.setEvent(cserv.getEvent(event).mapid[0]);
         cserv.getEvent(event).reset();
-        World.Broadcast.broadcastMessage(MaplePacketCreator.serverNotice(0, "活动 " + String.valueOf(event) + " 即将在频道 " + cserv.getChannel() + " 举行 , 要参加的玩家请到频道 " + cserv.getChannel()+".请找到自由市场相框活动npc并进入！").getBytes());
-        World.Broadcast.broadcastMessage(MaplePacketCreator.serverNotice(0, "活动 " + String.valueOf(event) + " 即将在频道 " + cserv.getChannel() + " 举行 , 要参加的玩家请到频道 " + cserv.getChannel()+".请找到自由市场相框活动npc并进入！").getBytes());
-        World.Broadcast.broadcastMessage(MaplePacketCreator.serverNotice(0, "活动 " + String.valueOf(event) + " 即将在频道 " + cserv.getChannel() + " 举行 , 要参加的玩家请到频道 " + cserv.getChannel()+".请找到自由市场相框活动npc并进入！").getBytes());
+        World.Broadcast.broadcastMessage(MaplePacketCreator.serverNotice(0, "活动 " + String.valueOf(event) + " 即将在频道 " + cserv.getChannel() + " 举行 , 要参加的玩家请到频道 " + cserv.getChannel()+".请找到自由市场相框活动npc并进入！"));
+        World.Broadcast.broadcastMessage(MaplePacketCreator.serverNotice(0, "活动 " + String.valueOf(event) + " 即将在频道 " + cserv.getChannel() + " 举行 , 要参加的玩家请到频道 " + cserv.getChannel()+".请找到自由市场相框活动npc并进入！"));
+        World.Broadcast.broadcastMessage(MaplePacketCreator.serverNotice(0, "活动 " + String.valueOf(event) + " 即将在频道 " + cserv.getChannel() + " 举行 , 要参加的玩家请到频道 " + cserv.getChannel()+".请找到自由市场相框活动npc并进入！"));
         return "";
     }
 }

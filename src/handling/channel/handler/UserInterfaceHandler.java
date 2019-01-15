@@ -26,7 +26,7 @@ import constants.ServerConstants;
 import scripting.NPCScriptManager;
 import scripting.EventManager;
 import tools.MaplePacketCreator;
-import tools.data.input.SeekableLittleEndianAccessor;
+import tools.data.MaplePacketLittleEndianAccessor;
 
 public class UserInterfaceHandler {
 
@@ -38,14 +38,14 @@ public class UserInterfaceHandler {
         }
     }
 
-    public static final void InGame_Poll(final SeekableLittleEndianAccessor slea, final MapleClient c) {
+    public static final void InGame_Poll(final MaplePacketLittleEndianAccessor slea, final MapleClient c) {
         if (ServerConstants.PollEnabled) {
             c.getPlayer().updateTick(slea.readInt());
             final int selection = slea.readInt();
 
             if (selection >= 0 && selection <= ServerConstants.Poll_Answers.length) {
                 if (MapleCharacterUtil.SetPoll(c.getAccID(), selection)) {
-                    c.getSession().write(MaplePacketCreator.getPollReply("Thank you."));
+                    c.sendPacket(MaplePacketCreator.getPollReply("Thank you."));
                     //idk what goes here lol
                 }
             }
@@ -101,6 +101,6 @@ public class UserInterfaceHandler {
                 System.out.println("Unhandled ship object, MapID : " + mapid);
                 break;
         }
-        c.getSession().write(MaplePacketCreator.boatPacket(effect));
+        c.sendPacket(MaplePacketCreator.boatPacket(effect));
     }
 }

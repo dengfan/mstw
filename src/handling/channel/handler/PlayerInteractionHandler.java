@@ -42,7 +42,7 @@ import server.maps.MapleMapObjectType;
 import server.shops.MapleMiniGame;
 import tools.MaplePacketCreator;
 import tools.packet.PlayerShopPacket;
-import tools.data.input.SeekableLittleEndianAccessor;
+import tools.data.MaplePacketLittleEndianAccessor;
 import scripting.NPCScriptManager;
 
 public class PlayerInteractionHandler {
@@ -91,7 +91,7 @@ public class PlayerInteractionHandler {
             MOVE_OMOK = 0x3F,
             SELECT_CARD = 0x43;
 
-    public static final void PlayerInteraction(final SeekableLittleEndianAccessor slea, final MapleClient c, final MapleCharacter chr) {
+    public static final void PlayerInteraction(final MaplePacketLittleEndianAccessor slea, final MapleClient c, final MapleCharacter chr) {
         //System.out.println(slea.toString());
         if (chr == null) {
             return;
@@ -104,17 +104,17 @@ public class PlayerInteractionHandler {
                     MapleTrade.startTrade(chr);
                 } else if (createType == 1 || createType == 2 || createType == 4 || createType == 5) { // shop
                     if (createType == 4 && !chr.isAdmin()) { //not hired merch... blocked playershop
-                        c.getSession().write(MaplePacketCreator.enableActions());
+                        c.sendPacket(MaplePacketCreator.enableActions());
                         return;
                     }
                     if (chr.getMap().getMapObjectsInRange(chr.getPosition(), 20000, Arrays.asList(MapleMapObjectType.SHOP, MapleMapObjectType.HIRED_MERCHANT)).size() != 0) {
                         chr.dropMessage(1, "你不可能在这里建立一个商店.");
-                        c.getSession().write(MaplePacketCreator.enableActions());
+                        c.sendPacket(MaplePacketCreator.enableActions());
                         return;
                     } else if (createType == 1 || createType == 2) {
                         if (FieldLimitType.Minigames.check(chr.getMap().getFieldLimit())) {
                             chr.dropMessage(1, "你不可以在这里使用的迷你游戏。");
-                            c.getSession().write(MaplePacketCreator.enableActions());
+                            c.sendPacket(MaplePacketCreator.enableActions());
                             return;
                         }
                     }
@@ -150,36 +150,36 @@ public class PlayerInteractionHandler {
                             MaplePlayerShop mps = new MaplePlayerShop(chr, shop.getItemId(), desc);
                             chr.setPlayerShop(mps);
                             chr.getMap().addMapObject(mps);
-                            c.getSession().write(PlayerShopPacket.getPlayerStore(chr, true));
+                            c.sendPacket(PlayerShopPacket.getPlayerStore(chr, true));
                         } else {
                             /*
                              * byte flag = shop.getFlag(); if
                              * (ItemFlag.KARMA_EQ.check(flag)) {
                              * shop.setFlag((byte) (flag -
                              * ItemFlag.KARMA_EQ.getValue()));
-                             * c.getSession().write(MaplePacketCreator.getCharInfo(chr));
+                             * c.sendPacket(MaplePacketCreator.getCharInfo(chr));
                              * chr.getMap().removePlayer(chr);
                              * chr.getMap().addPlayer(chr); //
-                             * c.getSession().write(MaplePacketCreator.updateSpecialItemUse_(shop,
+                             * c.sendPacket(MaplePacketCreator.updateSpecialItemUse_(shop,
                              * GameConstants.getInventoryType(shop.getItemId()).getType()));
                              * } else if (ItemFlag.KARMA_USE.check(flag)) {
                              * shop.setFlag((byte) (flag -
                              * ItemFlag.KARMA_USE.getValue()));
-                             * c.getSession().write(MaplePacketCreator.getCharInfo(chr));
+                             * c.sendPacket(MaplePacketCreator.getCharInfo(chr));
                              * chr.getMap().removePlayer(chr);
                              * chr.getMap().addPlayer(chr); // return; //
-                             * c.getSession().write(MaplePacketCreator.updateSpecialItemUse_(shop,
+                             * c.sendPacket(MaplePacketCreator.updateSpecialItemUse_(shop,
                              * GameConstants.getInventoryType(shop.getItemId()).getType()));
                              * }
                              */
                             /*
                              * chr.dropMessage(1, "請暫時用營業執照開店");
-                             * c.getSession().write(MaplePacketCreator.enableActions());
+                             * c.sendPacket(MaplePacketCreator.enableActions());
                              */
                             final HiredMerchant merch = new HiredMerchant(chr, shop.getItemId(), desc);
                             chr.setPlayerShop(merch);
                             chr.getMap().addMapObject(merch);
-                            c.getSession().write(PlayerShopPacket.getHiredMerch(chr, merch, true));
+                            c.sendPacket(PlayerShopPacket.getHiredMerch(chr, merch, true));
                         }
                     }
                 }
@@ -231,7 +231,7 @@ public class PlayerInteractionHandler {
                                 merchant.broadcastToVisitors(PlayerShopPacket.shopErrorMessage(13, 1), false);
                                 merchant.removeAllVisitors((byte) 16, (byte) 0);
                                 chr.setPlayerShop(ips);
-                                c.getSession().write(PlayerShopPacket.getHiredMerch(chr, merchant, false));
+                                c.sendPacket(PlayerShopPacket.getHiredMerch(chr, merchant, false));
                             } else {
                                 if (!merchant.isOpen() || !merchant.isAvailable()) {
                                     chr.dropMessage(1, "主人正在整理商店物品\r\n请稍后再度光临！");
@@ -243,7 +243,7 @@ public class PlayerInteractionHandler {
                                     } else {
                                         chr.setPlayerShop(ips);
                                         merchant.addVisitor(chr);
-                                        c.getSession().write(PlayerShopPacket.getHiredMerch(chr, merchant, false));
+                                        c.sendPacket(PlayerShopPacket.getHiredMerch(chr, merchant, false));
                                     }
                                 }
                             }
@@ -253,7 +253,7 @@ public class PlayerInteractionHandler {
                                 return;
                             } else {
                                 if (ips.getFreeSlot() < 0 || ips.getVisitorSlot(chr) > -1 || !ips.isOpen() || !ips.isAvailable()) {
-                                    c.getSession().write(PlayerShopPacket.getMiniGameFull());
+                                    c.sendPacket(PlayerShopPacket.getMiniGameFull());
                                 } else {
                                     if (slea.available() > 0 && slea.readByte() > 0) { //a password has been entered
                                         String pass = slea.readMapleAsciiString();
@@ -270,7 +270,7 @@ public class PlayerInteractionHandler {
                                     if (ips instanceof MapleMiniGame) {
                                         ((MapleMiniGame) ips).send(c);
                                     } else {
-                                        c.getSession().write(PlayerShopPacket.getPlayerStore(chr, false));
+                                        c.sendPacket(PlayerShopPacket.getPlayerStore(chr, false));
                                     }
                                 }
                             }
@@ -298,7 +298,7 @@ public class PlayerInteractionHandler {
                                 merchant.setOpen(false);
                                 merchant.removeAllVisitors((byte) 16, (byte) 0);
                                 chr.setPlayerShop(ips);
-                                c.getSession().write(PlayerShopPacket.getHiredMerch(chr, merchant, false));
+                                c.sendPacket(PlayerShopPacket.getHiredMerch(chr, merchant, false));
                             } else {
                                 if (!merchant.isOpen() || !merchant.isAvailable()) {
                                     chr.dropMessage(1, "这个商店正在整理或者是没有再贩卖东西");
@@ -310,7 +310,7 @@ public class PlayerInteractionHandler {
                                     } else {
                                         chr.setPlayerShop(ips);
                                         merchant.addVisitor(chr);
-                                        c.getSession().write(PlayerShopPacket.getHiredMerch(chr, merchant, false));
+                                        c.sendPacket(PlayerShopPacket.getHiredMerch(chr, merchant, false));
                                     }
                                 }
                             }
@@ -320,7 +320,7 @@ public class PlayerInteractionHandler {
                                 return;
                             } else {
                                 if (ips.getFreeSlot() < 0 || ips.getVisitorSlot(chr) > -1 || !ips.isOpen() || !ips.isAvailable()) {
-                                    c.getSession().write(PlayerShopPacket.getMiniGameFull());
+                                    c.sendPacket(PlayerShopPacket.getMiniGameFull());
                                 } else {
                                     if (slea.available() > 0 && slea.readByte() > 0) { //a password has been entered
                                         String pass = slea.readMapleAsciiString();
@@ -337,7 +337,7 @@ public class PlayerInteractionHandler {
                                     if (ips instanceof MapleMiniGame) {
                                         ((MapleMiniGame) ips).send(c);
                                     } else {
-                                        c.getSession().write(PlayerShopPacket.getPlayerStore(chr, false));
+                                        c.sendPacket(PlayerShopPacket.getPlayerStore(chr, false));
                                     }
                                 }
                             }
@@ -371,7 +371,7 @@ public class PlayerInteractionHandler {
                     }
                     chr.setPlayerShop(null);
                     NPCScriptManager.getInstance().dispose(c);
-                    c.getSession().write(MaplePacketCreator.enableActions());
+                    c.sendPacket(MaplePacketCreator.enableActions());
                 }
                 break;
             }
@@ -381,7 +381,7 @@ public class PlayerInteractionHandler {
                     if (chr.getMap().allowPersonalShop()) {
                         if (c.getChannelServer().isShutdown()) {
                             chr.dropMessage(1, "服务器即将关闭所以不能整理商店。");
-                            c.getSession().write(MaplePacketCreator.enableActions());
+                            c.sendPacket(MaplePacketCreator.enableActions());
                             shop.closeShop(shop.getShopType() == 1, false);
                             return;
                         }
@@ -399,7 +399,7 @@ public class PlayerInteractionHandler {
                             shop.update();
                         }
                     } else {
-                        c.getSession().close(false);
+                        c.getSession().close();
                     }
                 }
 
@@ -417,7 +417,7 @@ public class PlayerInteractionHandler {
                 for (int i = 0; i < itemgy_id.length; i++) {
                     if (item.getItemId() == Integer.parseInt(itemgy_id[i])) {
                         c.getPlayer().dropMessage(1, "这个物品是禁止雇佣贩卖的.");
-                        c.getSession().write(MaplePacketCreator.enableActions());
+                        c.sendPacket(MaplePacketCreator.enableActions());
                         return;
                     }
                 }
@@ -480,12 +480,12 @@ public class PlayerInteractionHandler {
                     if (ivItem.getQuantity() >= bundles_perbundle) {
                         final byte flag = ivItem.getFlag();
                         if (ItemFlag.UNTRADEABLE.check(flag) || ItemFlag.LOCK.check(flag)) {
-                            c.getSession().write(MaplePacketCreator.enableActions());
+                            c.sendPacket(MaplePacketCreator.enableActions());
                             return;
                         }
                         if (ii.isDropRestricted(ivItem.getItemId()) || ii.isAccountShared(ivItem.getItemId())) {
                             if (!(ItemFlag.KARMA_EQ.check(flag) || ItemFlag.KARMA_USE.check(flag))) {
-                                c.getSession().write(MaplePacketCreator.enableActions());
+                                c.sendPacket(MaplePacketCreator.enableActions());
                                 return;
                             }
                         }
@@ -505,7 +505,7 @@ public class PlayerInteractionHandler {
                             sellItem.setQuantity(perBundle);
                             shop.addItem(new MaplePlayerShopItem(sellItem, bundles, price, sellItem.getFlag()));
                         }
-                        c.getSession().write(PlayerShopPacket.shopItemUpdate(shop));
+                        c.sendPacket(PlayerShopPacket.shopItemUpdate(shop));
                     }
                 }
                 break;
@@ -598,7 +598,7 @@ public class PlayerInteractionHandler {
                         }
                     }
                 }
-                c.getSession().write(PlayerShopPacket.shopItemUpdate(shop));
+                c.sendPacket(PlayerShopPacket.shopItemUpdate(shop));
                 break;
             }
             case MAINTANCE_OFF: {
@@ -632,8 +632,8 @@ public class PlayerInteractionHandler {
                 } else {
                     c.sendPacket(MaplePacketCreator.enableActions());
                 }
-//                c.getSession().write(MaplePacketCreator.serverNotice(1, "暂时不支持整理！"));
-//                c.getSession().write(MaplePacketCreator.enableActions());
+//                c.sendPacket(MaplePacketCreator.serverNotice(1, "暂时不支持整理！"));
+//                c.sendPacket(MaplePacketCreator.enableActions());
                 /*
                  * final IMaplePlayerShop imps = chr.getPlayerShop(); if (imps
                  * != null && imps.isOwner(chr) && !(imps instanceof
@@ -641,10 +641,10 @@ public class PlayerInteractionHandler {
                  * i++) { if (imps.getItems().get(i).bundles == 0) {
                  * imps.getItems().remove(i); } } if (chr.getMeso() +
                  * imps.getMeso() < 0) {
-                 * c.getSession().write(PlayerShopPacket.shopItemUpdate(imps));
+                 * c.sendPacket(PlayerShopPacket.shopItemUpdate(imps));
                  * } else { chr.gainMeso(imps.getMeso(), false);
                  * imps.setMeso(0);
-                 * c.getSession().write(PlayerShopPacket.shopItemUpdate(imps));
+                 * c.sendPacket(PlayerShopPacket.shopItemUpdate(imps));
                  * } }
                  */
                 break;
@@ -654,9 +654,9 @@ public class PlayerInteractionHandler {
                  * final IMaplePlayerShop merchant = chr.getPlayerShop(); if
                  * (merchant != null && merchant.getShopType() == 1 &&
                  * merchant.isOwner(chr) && merchant.isAvailable()) {
-                 * c.getSession().write(MaplePacketCreator.serverNotice(1,
+                 * c.sendPacket(MaplePacketCreator.serverNotice(1,
                  * "請去找富蘭德里領取你的裝備和楓幣"));
-                 * c.getSession().write(MaplePacketCreator.enableActions());
+                 * c.sendPacket(MaplePacketCreator.enableActions());
                  * merchant.removeAllVisitors(-1, -1); chr.setPlayerShop(null);
                  * merchant.closeShop(true, true); } break;
                  */
@@ -772,7 +772,7 @@ public class PlayerInteractionHandler {
                     if (game.isOwner(chr)) {
                         game.broadcastToVisitors(PlayerShopPacket.getMiniGameRequestTie(), false);
                     } else {
-                        game.getMCOwner().getClient().getSession().write(PlayerShopPacket.getMiniGameRequestTie());
+                        game.getMCOwner().getClient().sendPacket(PlayerShopPacket.getMiniGameRequestTie());
                     }
                     game.setRequestedTie(game.getVisitorSlot(chr));
                 }
@@ -811,7 +811,7 @@ public class PlayerInteractionHandler {
                     if (game.isOwner(chr)) {
                         game.broadcastToVisitors(PlayerShopPacket.getMiniGameRequestREDO(), false);
                     } else {
-                        game.getMCOwner().getClient().getSession().write(PlayerShopPacket.getMiniGameRequestREDO());
+                        game.getMCOwner().getClient().sendPacket(PlayerShopPacket.getMiniGameRequestREDO());
                     }
                     game.setRequestedTie(game.getVisitorSlot(chr));
                 }
@@ -899,7 +899,7 @@ public class PlayerInteractionHandler {
                         if (game.isOwner(chr)) {
                             game.broadcastToVisitors(PlayerShopPacket.getMatchCardSelect(turn, slot, fs, turn), false);
                         } else {
-                            game.getMCOwner().getClient().getSession().write(PlayerShopPacket.getMatchCardSelect(turn, slot, fs, turn));
+                            game.getMCOwner().getClient().sendPacket(PlayerShopPacket.getMatchCardSelect(turn, slot, fs, turn));
                         }
                         game.setTurn(0); //2nd turn nao
                         return;

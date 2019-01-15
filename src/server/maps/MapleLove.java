@@ -2,7 +2,7 @@ package server.maps;
 
 import client.MapleCharacter;
 import client.MapleClient;
-import handling.MaplePacket;
+
 import java.awt.Point;
 import tools.MaplePacketCreator;
 
@@ -40,18 +40,18 @@ public class MapleLove extends AbstractMapleMapObject {
     }
 
     public void sendDestroyData(MapleClient client) {
-        client.getSession().write(makeDestroyData());
+        client.sendPacket(makeDestroyData());
     }
 
     public void sendSpawnData(MapleClient client) {
-        client.getSession().write(makeSpawnData());
+        client.sendPacket(makeSpawnData());
     }
 
-    public MaplePacket makeSpawnData() {
+    public byte[] makeSpawnData() {
         return MaplePacketCreator.spawnLove(getObjectId(), this.itemid, this.owner.getName(), this.text, this.pos, this.ft);
     }
 
-    public MaplePacket makeDestroyData() {
+    public byte[] makeDestroyData() {
         return MaplePacketCreator.removeLove(getObjectId());
     }
 }

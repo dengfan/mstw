@@ -155,7 +155,7 @@ public class EventInstanceManager {
             final int timesend = (int) time / 1000;
 
             for (MapleCharacter chr : getPlayers()) {
-                chr.getClient().getSession().write(MaplePacketCreator.getClock(timesend));
+                chr.getClient().sendPacket(MaplePacketCreator.getClock(timesend));
             }
             timeOut(time, this);
 
@@ -531,7 +531,7 @@ public class EventInstanceManager {
             return;
         }
         for (MapleCharacter chr : getPlayers()) {
-            chr.getClient().getSession().write(MaplePacketCreator.serverNotice(type, msg));
+            chr.getClient().sendPacket(MaplePacketCreator.serverNotice(type, msg));
         }
     }
 
@@ -808,7 +808,7 @@ public class EventInstanceManager {
 
     public void applyBuff(final MapleCharacter chr, final int id) {
         MapleItemInformationProvider.getInstance().getItemEffect(id).applyTo(chr);
-        chr.getClient().getSession().write(UIPacket.getStatusMsg(id));
+        chr.getClient().sendPacket(UIPacket.getStatusMsg(id));
     }
 
     public boolean check() {
