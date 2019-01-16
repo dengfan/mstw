@@ -98,7 +98,7 @@ public class Start {
         MapleMapFactory.loadCustomLife();
 
         //MapleFamilyBuff.getBuffEntry();
-        MapleServerHandler.registerMBean();
+        //MapleServerHandler.registerMBean();
 
         //MTSStorage.load();
         PredictCardFactory.getInstance().initialize();

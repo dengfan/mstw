@@ -73,12 +73,12 @@ public class LoginWorker {
                 c.sendPacket(LoginPacket.getEndOfServerList());
 
             }
-            c.setIdleTask(PingTimer.getInstance().schedule(new Runnable() {
-
-                public void run() {
-//                    c.getSession().close();
-                }
-            }, 10 * 60 * 10000));
+//            c.setIdleTask(PingTimer.getInstance().schedule(new Runnable() {
+//
+//                public void run() {
+////                    c.getSession().close();
+//                }
+//            }, 10 * 60 * 10000));
         } else {
             if (c.getGender() == 10) {
                 c.sendPacket(LoginPacket.getGenderNeeded(c));

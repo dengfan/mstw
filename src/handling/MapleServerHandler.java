@@ -65,17 +65,16 @@ import server.ServerProperties;
 //import server.ZevmsLauncherServer;
 import tools.FileoutputUtil;
 
-public class MapleServerHandler extends ChannelDuplexHandler implements MapleServerHandlerMBean {
+public class MapleServerHandler extends ChannelDuplexHandler {
 
     public static final boolean Log_Packets = true;
-    private int channel = -1;
-    private boolean cs;
-    private final List<String> BlockedIP = new ArrayList<String>();
-    private final Map<String, Pair<Long, Byte>> tracker = new ConcurrentHashMap<String, Pair<Long, Byte>>();
+    private final int channel;
+    private final List<String> BlockedIP = new ArrayList<>();
+    private final Map<String, Pair<Long, Byte>> tracker = new ConcurrentHashMap<>();
     //Screw locking. Doesn't matter.
     //private static final ReentrantReadWriteLock IPLoggingLock = new ReentrantReadWriteLock();
     private static final String nl = System.getProperty("line.separator");
-    private static final HashMap<String, FileWriter> logIPMap = new HashMap<String, FileWriter>();
+    private static final HashMap<String, FileWriter> logIPMap = new HashMap<>();
     private static boolean debugMode = Boolean.parseBoolean(ServerProperties.getProperty("mxmxd.调试模式", "false"));
     //Note to Zero: Use an enumset. Don't iterate through an array.
     private static final EnumSet<RecvPacketOpcode> blocked = EnumSet.noneOf(RecvPacketOpcode.class);
@@ -166,18 +165,6 @@ public class MapleServerHandler extends ChannelDuplexHandler implements MapleSer
         }
     }
 
-    public static void registerMBean() {
-        MBeanServer mBeanServer = ManagementFactory.getPlatformMBeanServer();
-        try {
-            MapleServerHandler mbean = new MapleServerHandler();
-            //The log is a static object, so we can just use this hacky method.
-            mBeanServer.registerMBean(mbean, new ObjectName("handling:type=MapleServerHandler"));
-        } catch (Exception e) {
-            System.out.println("Error registering PacketLog MBean");
-            e.printStackTrace();
-        }
-    }
-
     public void writeLog() {
         try {
             FileWriter fw = new FileWriter(Packet_Log_Output, true);
@@ -198,9 +185,6 @@ public class MapleServerHandler extends ChannelDuplexHandler implements MapleSer
         }
     }
 
-    public MapleServerHandler() {
-        //ONLY FOR THE MBEAN
-    }
     // </editor-fold>
 
     public MapleServerHandler(int channel) {
@@ -217,7 +201,7 @@ public class MapleServerHandler extends ChannelDuplexHandler implements MapleSer
 //    }
     @Override
     public void exceptionCaught(final ChannelHandlerContext ctx, final Throwable cause) throws Exception {
-
+        System.err.println("MapleServerHandler Error");
     }
 
     @Override
@@ -228,7 +212,7 @@ public class MapleServerHandler extends ChannelDuplexHandler implements MapleSer
         if (BlockedIP.contains(address)) {
 //            System.out.print("自动断开连接A");
 //            ctx.channel().close();
-//            return;
+            return;
         }
         final Pair<Long, Byte> track = tracker.get(address);
 
@@ -272,7 +256,7 @@ public class MapleServerHandler extends ChannelDuplexHandler implements MapleSer
 //                session.close();
 //                return;
             }
-        } else if (cs) {
+        } else if (channel == -10) {
             if (CashShopServer.isShutdown()) {
                 System.out.print("自动断开连接D");
                 ctx.channel().close();
@@ -285,8 +269,10 @@ public class MapleServerHandler extends ChannelDuplexHandler implements MapleSer
                 return;
             }
         }
-        LoginServer.removeIPAuth(IP);
-        final byte serverRecv[] = new byte[]{70, 114, 122, (byte) Randomizer.nextInt(255)};
+        
+        //LoginServer.removeIPAuth(IP);
+        
+        final byte serverRecv[] = new byte[]{70, 114, 12, (byte) Randomizer.nextInt(255)};
         final byte serverSend[] = new byte[]{82, 48, 120, (byte) Randomizer.nextInt(255)};
         final byte ivRecv[] = ServerConstants.Use_Fixed_IV ? new byte[]{9, 0, 0x5, 0x5F} : serverRecv;
         final byte ivSend[] = ServerConstants.Use_Fixed_IV ? new byte[]{1, 0x5F, 4, 0x3F} : serverSend;
@@ -301,27 +287,30 @@ public class MapleServerHandler extends ChannelDuplexHandler implements MapleSer
         ctx.channel().attr(MaplePacketDecoder.DECODER_STATE_KEY).set(decoderState);
         ctx.writeAndFlush(LoginPacket.getHello(ServerConstants.MAPLE_VERSION, ServerConstants.Use_Fixed_IV ? serverSend : ivSend, ServerConstants.Use_Fixed_IV ? serverRecv : ivRecv));
         ctx.channel().attr(MapleClient.CLIENT_KEY).set(client);
-        //ctx.channel().attr(IdleStatus.READER_IDLE).set(60);
-        //ctx.channel().attr(IdleStatus.WRITER_IDLE).set(60);
-        World.Client.addClient(client);
+        //读数空闲,心跳包
+        //ctx.channel().attr(IdleState.READER_IDLE).set(60);
+        //写入空闲
+        //ctx.channel().attr(WRITER_IDLE).set(60);
 
         StringBuilder sb = new StringBuilder();
         if (channel > -1) {
             sb.append("[CHANNEL SERVER] chl.").append(channel).append(": ");
-        } else if (cs) {
+        } else if (channel == -10) {
             sb.append("[CASH SHOP SERVER] ");
         } else {
             sb.append("[LOGIN SERVER] ");
         }
         sb.append(address);
-        System.out.println(sb.toString());
+        if (sb.length() > 0) {
+            System.out.println(sb.toString());
+        }
 
         FileWriter fw = isLoggedIP(ctx.channel());
         if (fw != null) {
             if (channel > -1) {
                 fw.write("=== Logged Into Channel " + channel + " ===");
                 fw.write(nl);
-            } else if (cs) {
+            } else if (channel == -10) {
                 fw.write("=== Logged Into CashShop Server ===");
                 fw.write(nl);
             } else {
@@ -331,6 +320,8 @@ public class MapleServerHandler extends ChannelDuplexHandler implements MapleSer
             fw.flush();
             //client.setMonitored(true);
         }
+        
+        World.Client.addClient(client);
     }
 
     @Override
@@ -391,7 +382,7 @@ public class MapleServerHandler extends ChannelDuplexHandler implements MapleSer
                     if (Log_Packets) {
                         log(slea, recv, c, ctx.channel());
                     }
-                    handlePacket(recv, slea, c, cs);
+                    handlePacket(recv, slea, c, channel == -10);
 
                     //Log after the packet is handle. You'll see why =]
                     FileWriter fw = isLoggedIP(ctx.channel());

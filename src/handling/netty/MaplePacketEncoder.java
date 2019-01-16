@@ -59,11 +59,12 @@ public class MaplePacketEncoder extends MessageToByteEncoder<Object> {
                 if (packetLen <= 50000) {
                     String RecvTo = Recv + HexTool.toString(inputInitialPacket) + "\r\n" + HexTool.toStringFromAscii(inputInitialPacket);
                     if (show) {
-                        // FileoutputUtil.packetLog("log\\服务端封包.log", RecvTo);
+                        FileoutputUtil.packetLog("log\\服务端封包.log", RecvTo);
+                        //log.info(RecvTo);
                         System.out.println("++" + RecvTo);
-                    } //log.info("服务端发送" + "\r\n" + HexTool.toString(inputInitialPacket));
+                    }
                 } else {
-                    log.info(HexTool.toString(new byte[]{inputInitialPacket[0], inputInitialPacket[1]}) + " ...");
+                    System.out.println(HexTool.toString(new byte[]{inputInitialPacket[0], inputInitialPacket[1]}) + " ...");
                 }
 
             }

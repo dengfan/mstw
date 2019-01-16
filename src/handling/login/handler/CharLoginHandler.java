@@ -56,6 +56,7 @@ public class CharLoginHandler {
     }
 
     public static final void Welcome(final MapleClient c) {
+        System.out.println("hello mxmxd");
     }
 
     public static final void login(final MaplePacketLittleEndianAccessor slea, final MapleClient c) {

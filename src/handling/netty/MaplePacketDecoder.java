@@ -80,8 +80,7 @@ public class MaplePacketDecoder extends ByteToMessageDecoder {
                     String SendTo = Send + HexTool.toString(decryptedPacket) + "\r\n" + HexTool.toStringFromAscii(decryptedPacket);
                     //log.info(HexTool.toString(decryptedPacket) + "客户端发送");
                     if (show) {
-                        //FileoutputUtil.packetLog("Load\\log\\客户端封包.log", SendTo);
-                        System.out.println("++" + SendTo);
+                        System.out.println(SendTo);
                     }
                     String SendTos = "\r\n时间：" + FileoutputUtil.NowTime()+ "  ";
                     if (op.equals("UNKNOWN")) {
