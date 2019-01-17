@@ -26,8 +26,8 @@ public class ServerConstants {
     // Start of Poll
 
     public static final boolean PollEnabled = false;
-    public static final String Poll_Question = "Are you mudkiz?";
-    public static final String[] Poll_Answers = {"test1", "test2", "test3"};
+    public static final String Poll_Question = "Do you like MXMXD?";
+    public static final String[] Poll_Answers = {"yes1", "yes2", "yes3"};
     // End of Poll
     public static final short MAPLE_VERSION = 79;
     public static final String MAPLE_PATCH = "1";
@@ -42,10 +42,10 @@ public class ServerConstants {
     public static boolean 调试模式 = Boolean.parseBoolean(ServerProperties.getProperty("mxmxd.调试模式", "false"));
     public static boolean 自动注册 = false;
     public static boolean Super_password = false;
-    public static String superpw = "!1234qwer";
+    public static String superpw = "ilikemxmxd";
     public static String PACKET_ERROR = "";
     public static final boolean PACKET_ERROR_OFF = Boolean.parseBoolean(ServerProperties.getProperty("mxmxd.记录38错误", "false"));
-    
+
     public static String getPACKET_ERROR() {
         return PACKET_ERROR;
     }
@@ -53,6 +53,7 @@ public class ServerConstants {
     public static void setPACKET_ERROR(String PACKET_ERROR) {
         ServerConstants.PACKET_ERROR = PACKET_ERROR;
     }
+
     public static boolean getAutoReg() {
         return 自动注册;
     }

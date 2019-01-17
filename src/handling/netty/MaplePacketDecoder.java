@@ -1,14 +1,12 @@
 package handling.netty;
 
 import client.MapleClient;
-import constants.GameConstants;
 import constants.ServerConstants;
 import handling.RecvPacketOpcode;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.ByteToMessageDecoder;
 import io.netty.util.AttributeKey;
-import java.nio.ByteBuffer;
 import java.util.List;
 import tools.MapleAESOFB;
 import tools.MapleCustomEncryption;
@@ -78,11 +76,10 @@ public class MaplePacketDecoder extends ByteToMessageDecoder {
                 String Send = "客户端发送 " + op + " [" + pHeaderStr + "] (" + packetLen + ")\r\n";
                 if (packetLen <= 3000) {
                     String SendTo = Send + HexTool.toString(decryptedPacket) + "\r\n" + HexTool.toStringFromAscii(decryptedPacket);
-                    //log.info(HexTool.toString(decryptedPacket) + "客户端发送");
                     if (show) {
                         System.out.println(SendTo);
                     }
-                    String SendTos = "\r\n时间：" + FileoutputUtil.NowTime()+ "  ";
+                    String SendTos = "\r\n时间：" + FileoutputUtil.NowTime() + "  ";
                     if (op.equals("UNKNOWN")) {
                         FileoutputUtil.packetLog("log\\未知客服端封包.log", SendTos + SendTo);
                     }

@@ -5,9 +5,7 @@ import constants.ServerConstants;
 import handling.SendPacketOpcode;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
-import io.netty.handler.codec.ByteToMessageDecoder;
 import io.netty.handler.codec.MessageToByteEncoder;
-import java.nio.ByteBuffer;
 import tools.MapleAESOFB;
 import tools.MapleCustomEncryption;
 
@@ -29,8 +27,6 @@ public class MaplePacketEncoder extends MessageToByteEncoder<Object> {
 
         if (client != null) {
             final MapleAESOFB send_crypto = client.getSendCrypto();
-
-            //final byte[] inputInitialPacket = ((byte[]) message);
             final byte[] inputInitialPacket = ((byte[]) message);
             if (ServerConstants.封包显示) {
                 int packetLen = inputInitialPacket.length;
@@ -60,14 +56,13 @@ public class MaplePacketEncoder extends MessageToByteEncoder<Object> {
                     String RecvTo = Recv + HexTool.toString(inputInitialPacket) + "\r\n" + HexTool.toStringFromAscii(inputInitialPacket);
                     if (show) {
                         FileoutputUtil.packetLog("log\\服务端封包.log", RecvTo);
-                        //log.info(RecvTo);
-                        System.out.println("++" + RecvTo);
+                        System.out.println(RecvTo);
                     }
                 } else {
                     System.out.println(HexTool.toString(new byte[]{inputInitialPacket[0], inputInitialPacket[1]}) + " ...");
                 }
-
             }
+
             final byte[] unencrypted = new byte[inputInitialPacket.length];
             System.arraycopy(inputInitialPacket, 0, unencrypted, 0, inputInitialPacket.length); // Copy the input > "unencrypted"
             final byte[] ret = new byte[unencrypted.length + 4]; // Create new bytes with length = "unencrypted" + 4
@@ -84,8 +79,6 @@ public class MaplePacketEncoder extends MessageToByteEncoder<Object> {
             } finally {
                 mutex.unlock();
             }
-//            System.arraycopy(unencrypted, 0, ret, 4, unencrypted.length); // Copy the unencrypted > "ret"
-//            out.write(IoBuffer.wrap(ret));
         } else { // no client object created yet, send unencrypted (hello)
             byte[] input = (byte[]) message;
             buffer.writeBytes(input);
