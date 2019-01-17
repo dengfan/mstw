@@ -92,7 +92,7 @@ public class World {
     }
 
     public static Map<Integer, Integer> getConnected() {
-        Map<Integer, Integer> ret = new HashMap<Integer, Integer>();
+        Map<Integer, Integer> ret = new HashMap<>();
         int total = 0;
         for (ChannelServer cs : ChannelServer.getAllInstances()) {
             int curConnected = cs.getConnectedClients();
@@ -104,7 +104,7 @@ public class World {
     }
 
     public static List<CheaterData> getCheaters() {
-        List<CheaterData> allCheaters = new ArrayList<CheaterData>();
+        List<CheaterData> allCheaters = new ArrayList<>();
         for (ChannelServer cs : ChannelServer.getAllInstances()) {
             allCheaters.addAll(cs.getCheaters());
         }
