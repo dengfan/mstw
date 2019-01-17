@@ -166,8 +166,14 @@ public class MapleClient implements Serializable {
         return npc_mutex;
     }
 
-    public void sendPacket(Object o) {
-        this.session.write(o);
+//    public void sendPacket(Object o) {
+//        this.session.write(o);
+//    }
+    
+    public void sendPacket(byte[] packet) {
+        if (packet != null && session != null) {
+            session.writeAndFlush(packet);
+        }
     }
 
     public MapleCharacter getPlayer() {
