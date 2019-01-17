@@ -56,7 +56,7 @@ public class World {
     
     public static class Client {
 
-        private static final ArrayList<MapleClient> clients = new ArrayList();
+        private static final ArrayList<MapleClient> clients = new ArrayList<>();
 
         public static void addClient(MapleClient c) {
             if (!clients.contains(c)) {

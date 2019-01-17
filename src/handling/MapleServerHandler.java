@@ -341,7 +341,7 @@ public class MapleServerHandler extends ChannelDuplexHandler {
             } finally {
                 World.Client.removeClient(client);
                 ctx.close();
-                ctx.channel().attr(MapleClient.CLIENT_KEY).remove();
+                ctx.channel().attr(MapleClient.CLIENT_KEY).set(null);
             }
         }
         super.channelInactive(ctx);
