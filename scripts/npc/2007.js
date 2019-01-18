@@ -28,10 +28,12 @@ function action(mode, type, selection) {
 		text += 聊天 + " 重写为#e#r“解除假死状态”#n#k按钮。#l\r\n";
         text += 拍卖 + " 重写为#e#r“游戏功能菜单”#n#k按钮。#l\r\n\r\n";
         cm.sendOk(text);
-    } else if (status == 1) {
-		//if (cm.getPlayer().getMap().getId() == 10000) { // 只在地图“彩虹岛小蘑菇”上时才显示进场动画
-		//	cm.warp(0, "sp");
-		//	cm.dispose();
-		//}
     }
+	/*
+	else if (status == 1) {
+		if (cm.getPlayer().getMap().getId() == 10000) { // 只在地图“彩虹岛小蘑菇”上时才显示进场动画
+			cm.warp(0, "sp");
+			cm.dispose();
+		}
+    }*/
 }
