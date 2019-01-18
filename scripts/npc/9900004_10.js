@@ -16,7 +16,7 @@ function action(mode, type, selection) {
     }
 	
 	if (status == 0) {
-		var text = "#L100#潜能打孔#l #L101#增加潜能#l #L102#清洗指定潜能#l\r\n#L103#清洗所有潜能#l ";
+		var text = "#L100#潜能打孔#l #L101#增加潜能#l #L102#清洗指定潜能#l\r\n#L103#清洗所有潜能#l\r\n#L110#装备附魔#l ";
 		cm.sendSimple(text);
 	} else if (selection == 100) {
 		cm.getPlayer().潜能打孔();
@@ -25,6 +25,8 @@ function action(mode, type, selection) {
 	} else if (selection == 102) {
 		cm.getPlayer().清洗指定潜能(2);
 	} else if (selection == 103) {
+		cm.getPlayer().清洗所有潜能();
+	} else if (selection == 110) {
 		cm.getPlayer().清洗所有潜能();
 	} 
 }

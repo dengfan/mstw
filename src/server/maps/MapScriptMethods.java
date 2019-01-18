@@ -179,7 +179,7 @@ public class MapScriptMethods {
             return;
         } //o_O
         if (c.getPlayer().isGM()) {
-            c.getPlayer().dropMessage("您已经建立与地图脚本Script_FirstUser【" + scriptName + "】的连接");
+            c.getPlayer().dropMessage("您已经建立与地图脚本 Script_FirstUser [" + scriptName + "] 的连接。");
         }
         switch (scriptName) {
             case "summon_pepeking": {
@@ -537,17 +537,18 @@ public class MapScriptMethods {
         } //o_O
 
         if (c.getPlayer().isGM()) {
-            c.getPlayer().dropMessage("您已经建立与地图脚本 " + scriptName + " 的连接。");
+            c.getPlayer().dropMessage("您已与地图脚本 " + scriptName + " 建立连接。");
         }
 
         String data = "";
-        switch (scriptName) {
-            case "103000804": {
-                if (c.getPlayer().getParty() != null && c.getPlayer().getParty().getLeader().getId() == c.getPlayer().getId()) {
-                    //       c.getPlayer().getMap().spawnMonsterOnGroundBelow(MapleLifeFactory.getMonster(123), new Point(125, -2175));
-                }
-            }
-        }
+//        switch (scriptName) {
+//            case "103000804": {
+//                if (c.getPlayer().getParty() != null && c.getPlayer().getParty().getLeader().getId() == c.getPlayer().getId()) {
+//                    c.getPlayer().getMap().spawnMonsterOnGroundBelow(MapleLifeFactory.getMonster(123), new Point(125, -2175));
+//                }
+//            }
+//        }
+
         switch (onUserEnter.fromString(scriptName)) {
             case cygnusTest:
             case cygnusJobTutorial: {
@@ -750,8 +751,11 @@ public class MapScriptMethods {
                 }
                 break;
             }
+            
+            case go20000: {
+                NPCScriptManager.getInstance().start(c, 2007);
+            }
             case go10000:
-            case go20000:
             case go30000:
             case go40000:
             case go50000:
@@ -760,7 +764,7 @@ public class MapScriptMethods {
             case go104000000:
                 c.sendPacket(UIPacket.IntroDisableUI(false));
                 c.sendPacket(UIPacket.IntroLock(false));
-            //c.sendPacket(MaplePacketCreator.enableActions());
+                //c.sendPacket(MaplePacketCreator.enableActions());
             case go2000000:
             case go1010000:
             case go1010100:

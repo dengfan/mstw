@@ -68,7 +68,7 @@ function action(mode, type, selection) {
 		//for (var i = 0; i < 21; i++) {
 		//    text += 爱心;
 		//}
-		text += "#L100001#萌新攻略#l #L100002#排行榜单#l #L100003#枫叶兑换#l #L100004#任务成就奖励#l\r\n";
+		text += "#L100001#关于本服#l #L100002#排行榜单#l #L100003#枫叶兑换#l #L100004#任务成就奖励#l\r\n";
 		text += "#L100005#快捷传送#l #L100006#快捷仓库#l #L100007#快捷商店#l #L100008#物品换取奖励#l\r\n";
 		var v1 = cm.getPlayer().getTiredProgress();
 		var v2 = cm.getPlayer().getQuestProgress();
