@@ -7188,7 +7188,7 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
         mxmxdDaKongQianNeng = replaceFirst2(mxmxdDaKongQianNeng, "0:0,", String.format("%s:%s,", qianNengType, qianNengVal));
         保存潜能并刷新汇总();
     }
-
+    
     public void 清洗指定潜能(final int index) {
         if (index < 1) {
             return;
@@ -7257,6 +7257,10 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
     public int 获取角色潜能孔数()
     {
         return appearNumber(mxmxdDaKongQianNeng, ",");
+    }
+    
+    public int 获取角色可赋潜能数() {
+        return appearNumber(mxmxdDaKongQianNeng, "0:0,");
     }
 
     private Map<Integer, Integer> _mxmxdDaKongQianNengMap = new HashMap<>();

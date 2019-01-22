@@ -79,7 +79,6 @@ public class NPCConversationManager extends AbstractPlayerInteraction {
      * type, Invocable iv) { super(c); this.c = c; this.npc = npc; this.questid
      * = questid; this.type = type; this.iv = iv; }
      */
-
     /**
      *
      * @param c
@@ -89,7 +88,6 @@ public class NPCConversationManager extends AbstractPlayerInteraction {
      * @param iv
      * @param wh
      */
-
     public NPCConversationManager(MapleClient c, int npc, int questid, byte type, Invocable iv, int wh) {
         super(c);
         this.c = c;
@@ -2940,8 +2938,31 @@ public class NPCConversationManager extends AbstractPlayerInteraction {
         return count;
     }
 
+    public String 查询身上装备打孔附魔数据(final short equipmentPosition) {
+        Connection con = DatabaseConnection.getConnection();
+
+        String mxmxdDaKongFuMo = "";
+        String sqlQuery1 = "SELECT b.mxmxd_dakong_fumo FROM inventoryitems a, inventoryequipment b WHERE a.inventoryitemid = b.inventoryitemid AND a.characterid = ? AND a.inventorytype = -1 AND a.position = ?";
+        try {
+            PreparedStatement ps = con.prepareStatement(sqlQuery1);
+            ps.setInt(1, c.getPlayer().getId());
+            ps.setInt(2, equipmentPosition);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    mxmxdDaKongFuMo = rs.getString("mxmxd_dakong_fumo");
+                }
+            }
+            ps.close();
+        } catch (SQLException ex) {
+            System.err.println("查询身上装备已打孔数：查询装备的打孔数据出错：" + ex.getMessage());
+        }
+
+        return mxmxdDaKongFuMo;
+    }
+
     /**
      * 查询身上装备已打孔数
+     *
      * @param equipmentPosition
      * @return 返回值就表示已打孔数量
      */
@@ -2950,35 +2971,13 @@ public class NPCConversationManager extends AbstractPlayerInteraction {
             return 0;
         }
 
-        Connection con = DatabaseConnection.getConnection();
-
-        // 先查询装备的打孔数据
-        String mxmxdDaKongFuMo = null;
-        String sqlQuery1 = "SELECT b.mxmxd_dakong_fumo FROM inventoryitems a, inventoryequipment b WHERE a.inventoryitemid = b.inventoryitemid AND a.characterid = ? AND a.inventorytype = -1 AND a.position = ?";
-        try {
-            PreparedStatement ps = con.prepareStatement(sqlQuery1);
-            ps.setInt(1, c.getPlayer().getId());
-            ps.setInt(2, equipmentPosition);
-            try (ResultSet rs = ps.executeQuery()) {
-                while (rs.next()) {
-                    mxmxdDaKongFuMo = rs.getString("mxmxd_dakong_fumo");
-                }
-            }
-            ps.close();
-        } catch (SQLException ex) {
-            System.err.println("查询身上装备已打孔数：查询装备的打孔数据出错：" + ex.getMessage());
-            return 0;
-        }
-
-        if (mxmxdDaKongFuMo == null) {
-            mxmxdDaKongFuMo = "";
-        }
-
+        String mxmxdDaKongFuMo = 查询身上装备打孔附魔数据(equipmentPosition);
         return appearNumber(mxmxdDaKongFuMo, ",");
     }
 
     /**
      * 查询身上装备可附魔数
+     *
      * @param equipmentPosition
      * @return 返回值就表示可附魔数量
      */
@@ -2987,35 +2986,13 @@ public class NPCConversationManager extends AbstractPlayerInteraction {
             return 0;
         }
 
-        Connection con = DatabaseConnection.getConnection();
-
-        // 先查询装备的打孔附魔数据
-        String mxmxdDaKongFuMo = null;
-        String sqlQuery1 = "SELECT b.mxmxd_dakong_fumo FROM inventoryitems a, inventoryequipment b WHERE a.inventoryitemid = b.inventoryitemid AND a.characterid = ? AND a.inventorytype = -1 AND a.position = ?";
-        try {
-            PreparedStatement ps = con.prepareStatement(sqlQuery1);
-            ps.setInt(1, c.getPlayer().getId());
-            ps.setInt(2, equipmentPosition);
-            try (ResultSet rs = ps.executeQuery()) {
-                while (rs.next()) {
-                    mxmxdDaKongFuMo = rs.getString("mxmxd_dakong_fumo");
-                }
-            }
-            ps.close();
-        } catch (SQLException ex) {
-            System.err.println("查询身上装备可附魔数：查询装备的打孔附魔数据出错：" + ex.getMessage());
-            return 0;
-        }
-
-        if (mxmxdDaKongFuMo == null) {
-            mxmxdDaKongFuMo = "";
-        }
-
+        String mxmxdDaKongFuMo = 查询身上装备打孔附魔数据(equipmentPosition);
         return appearNumber(mxmxdDaKongFuMo, "0:0,");
     }
 
     /**
      * 清洗身上装备附魔
+     *
      * @param equipmentPosition
      * @return 返回值大于0表示清洗完成
      */
@@ -3033,25 +3010,30 @@ public class NPCConversationManager extends AbstractPlayerInteraction {
         c.getPlayer().getInventory(MapleInventoryType.EQUIPPED).getItem(equipmentPosition).setDaKongFuMo(sb.toString());
         return 1;
     }
-    
+
     public int 清洗身上装备附魔(final short equipmentPosition, final int index) {
         if (equipmentPosition >= 0) {
             return 0;
         }
-        
+
         if (index < 1) {
             return 0;
         }
 
-        int dakongCount = 查询身上装备已打孔数(equipmentPosition);
-        StringBuilder sb = new StringBuilder();
-        for (int i = 1; i <= dakongCount; i++) {
-            if (i == index) {
-                sb.append("0:0,");
+        String mxmxdDaKongFuMo = 查询身上装备打孔附魔数据(equipmentPosition);
+        String arr[] = mxmxdDaKongFuMo.split(",");
+        for (int i = 0; i < arr.length; i++) {
+            if (index - 1 == i) {
+                arr[i] = "0:0";
                 break;
             }
         }
 
+        StringBuilder sb = new StringBuilder();
+        for (String str : arr) {
+            sb.append(str).append(",");
+        }
+        
         c.getPlayer().getInventory(MapleInventoryType.EQUIPPED).getItem(equipmentPosition).setDaKongFuMo(sb.toString());
         return 1;
     }
