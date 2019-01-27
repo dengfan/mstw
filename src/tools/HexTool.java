@@ -107,7 +107,7 @@ public class HexTool {
                 ret[x] = (byte) chr;
             }
         }
-        String encode = "gbk";
+        String encode = "GB18030";
         try {
             String str = new String(ret, encode);
             return str;

@@ -60,7 +60,7 @@ public class StringUtil {
      * @return The padded string.
      */
     public static final int getlength(final String str) {
-        byte[] bt = str.getBytes(Charset.forName("GBK"));
+        byte[] bt = str.getBytes(Charset.forName("GB18030"));
         return bt.length;
     }
 

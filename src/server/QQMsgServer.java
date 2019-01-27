@@ -89,7 +89,7 @@ public class QQMsgServer implements Runnable {
         }
     }
 
-    private static int sendToOnlinePlayer(final String fromQQ, final String msg) {
+    private static int sendToOnlinePlayer(final String fromQQ, final String msg, final String qqNickname) {
         int count = 0;
 
         for (ChannelServer chl : ChannelServer.getAllInstances()) {
@@ -97,7 +97,7 @@ public class QQMsgServer implements Runnable {
                 if (chr == null) {
                     continue;
                 }
-                chr.dropMessage(String.format("QQ%s: %s", fromQQ, msg));
+                chr.dropMessage(String.format("%s[%s]: %s", qqNickname, fromQQ, msg));
                 count++;
             }
         }
@@ -218,7 +218,7 @@ public class QQMsgServer implements Runnable {
                 socket.receive(dp);
 
                 // 接收到来自QQ机器人的消息
-                String rcvd = new String(dp.getData(), 0, dp.getLength());
+                String rcvd = new String(dp.getData(), 0, dp.getLength(), "UTF-8");
                 System.out.println("QQ: " + rcvd);
 
                 String msgArr[] = rcvd.split("_");
@@ -229,6 +229,10 @@ public class QQMsgServer implements Runnable {
                     index += fromQQ.length() + 1;
                     String token = msgArr[2];
                     index += token.length() + 1;
+                    String qqName = msgArr[3];
+                    index += qqName.length() + 1;
+                    String qqTitle = msgArr[4];
+                    index += qqTitle.length() + 1;
 
                     String msg[] = rcvd.substring(index).trim().split("\\s+");
 
@@ -252,6 +256,10 @@ public class QQMsgServer implements Runnable {
                     index += fromGroup.length() + 1;
                     String fromQQ = msgArr[2];
                     index += fromQQ.length() + 1;
+                    String qqNickname = msgArr[3];
+                    index += qqNickname.length() + 1;
+                    String qqTitle = msgArr[4];
+                    index += qqTitle.length() + 1;
 
                     String msg = rcvd.substring(index).trim();
 
@@ -265,7 +273,7 @@ public class QQMsgServer implements Runnable {
                             查询角色(fromQQ);
                             break;
                         default: // 正常聊天
-                            sendToOnlinePlayer(fromQQ, msg);
+                            sendToOnlinePlayer(fromQQ, msg, qqNickname);
                             break;
                     }
                 }
