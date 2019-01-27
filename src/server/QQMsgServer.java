@@ -19,6 +19,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.LinkedHashMap;
+import java.util.Map;
 import static server.MapleCarnivalChallenge.getJobNameById;
 import server.maps.MapleMap;
 
@@ -33,6 +35,7 @@ public class QQMsgServer implements Runnable {
     private byte[] buf = new byte[1024];
     private DatagramPacket dp = new DatagramPacket(buf, buf.length);
     private static DatagramSocket socket;
+    public static Map<String, String> qqTitleMap = new LinkedHashMap<>();
 
     private static final QQMsgServer instance = new QQMsgServer();
 
@@ -229,10 +232,19 @@ public class QQMsgServer implements Runnable {
                     index += fromQQ.length() + 1;
                     String token = msgArr[2];
                     index += token.length() + 1;
-                    String qqName = msgArr[3];
-                    index += qqName.length() + 1;
-                    String qqTitle = msgArr[4];
-                    index += qqTitle.length() + 1;
+                    
+                    if (msgArr.length == 6) {
+                        String qqName = msgArr[3];
+                        index += qqName.length() + 1;
+                        String qqTitle = msgArr[4];
+                        index += qqTitle.length() + 1;
+
+                        if (qqTitle.length() == 0) {
+                            qqTitleMap.remove(fromQQ);
+                        } else {
+                            qqTitleMap.put(fromQQ, qqTitle);
+                        }
+                    }
 
                     String msg[] = rcvd.substring(index).trim().split("\\s+");
 
@@ -256,10 +268,20 @@ public class QQMsgServer implements Runnable {
                     index += fromGroup.length() + 1;
                     String fromQQ = msgArr[2];
                     index += fromQQ.length() + 1;
-                    String qqNickname = msgArr[3];
-                    index += qqNickname.length() + 1;
-                    String qqTitle = msgArr[4];
-                    index += qqTitle.length() + 1;
+                    
+                    String qqNickname = "";
+                    if (msgArr.length == 6) {
+                        qqNickname = msgArr[3];
+                        index += qqNickname.length() + 1;
+                        String qqTitle = msgArr[4];
+                        index += qqTitle.length() + 1;
+
+                        if (qqTitle.length() == 0) {
+                            qqTitleMap.remove(fromQQ);
+                        } else {
+                            qqTitleMap.put(fromQQ, qqTitle);
+                        }
+                    }
 
                     String msg = rcvd.substring(index).trim();
 

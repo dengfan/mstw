@@ -3298,13 +3298,43 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
             dropMessage(String.format("[击杀奖励] : 恭喜你获得当前地图的击杀数量奖励 +%s杀", addCount));
         }
     }
+    
+    private String qq = "";
+    
+    private String getQQ() {
+        if (qq.length() > 5) {
+            return qq;
+        }
+
+        String sqlQuery = "SELECT qq FROM accounts WHERE id = ?";
+        try (PreparedStatement ps = DatabaseConnection.getConnection().prepareStatement(sqlQuery)) {
+            ps.setInt(1, accountid);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getString("qq");
+                }
+            }
+        } catch (SQLException ex) {
+            System.out.println("getQQ: " + ex.getMessage());
+        }
+
+        return "";
+    }
+
+    public String getQqTitle() {
+        String qq = getQQ();
+        if (QQMsgServer.qqTitleMap.containsKey(qq)) {
+            return QQMsgServer.qqTitleMap.get(qq);
+        }
+        return "";
+    }
 
     // 杀怪得经验
     public void gainExpMonster(int gain, final boolean show, final boolean white, final byte pty, int wedding_EXP, int Class_Bonus_EXP, int Equipment_Bonus_EXP, int Premium_Bonus_EXP, int skillId, int mobId, int mobLv, long mobHp) {
         if (isTired()) {
             return;
         }
-
+        
         Point pos = getPosition();
         int mapId = map.getId();
         int hp = stats.getHp();
@@ -3521,6 +3551,32 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
         }
 
         int total = gain + Class_Bonus_EXP + Equipment_Bonus_EXP + Premium_Bonus_EXP + wedding_EXP;
+        
+//        String 头衔 = getQqTitle();
+//        if (头衔.length() > 0) {
+//            switch (头衔) {
+//                case "lv.1":
+//                    gain += gain * 0.05;
+//                    break;
+//                case "lv.2":
+//                    gain += gain * 0.1;
+//                    break;
+//                case "lv.3":
+//                    gain += gain * 0.15;
+//                    break;
+//                case "lv.4":
+//                    gain += gain * 0.2;
+//                    break;
+//                case "lv.5":
+//                    gain += gain * 0.25;
+//                    break;
+//                case "lv.6":
+//                    gain += gain * 0.3;
+//                    break;
+//                default:
+//                    break;
+//            }
+//        }
 
 //        Boolean hasPerKilledRewardExp = _questPoints > 0 && fame > 40 && level - mobLv < 20;
         // 任务成就经验奖励
