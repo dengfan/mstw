@@ -214,6 +214,46 @@ public class QQMsgServer implements Runnable {
         sendMsgToQQGroup(sb.toString());
     }
 
+    public static boolean isIP(String IP) {
+        IP = IP.trim();
+        String regex = "[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}";
+        if (IP.matches(regex)) {
+            String s[] = IP.split("\\.");
+            if (Integer.parseInt(s[0]) <= 255) {
+                if (Integer.parseInt(s[1]) <= 255) {
+                    if (Integer.parseInt(s[2]) <= 255) {
+                        if (Integer.parseInt(s[3]) <= 255) {
+                            return true;
+                        }
+                    }
+                }
+            }
+        }
+        return false;
+    }
+    
+    private static void 保存IP用于防DDOS(final String qq, final String ip) {
+        if (!isIP(ip)) {
+            sendMsg("对不起，你输入的IP不正确！", qq);
+            return;
+        }
+
+        try {
+            Connection con = DatabaseConnection.getConnection();
+            PreparedStatement pss = con.prepareStatement("REPLACE INTO mxmxd_qq_ip(qq, ip) VALUES(?, ?)");
+            try {
+                pss.setString(1, qq);
+                pss.setString(2, ip);
+                pss.executeUpdate();
+                sendMsg("恭喜你，IP地址上报成功，你将被允许连接！", qq);
+            } finally {
+                pss.close();
+            }
+        } catch (SQLException ex) {
+            System.err.println("保存IP用于防DDOS出错：" + ex.getMessage());
+        }
+    }
+
     @Override
     public void run() {
         try {
@@ -260,6 +300,9 @@ public class QQMsgServer implements Runnable {
                             }
                             break;
                         default: // 正常聊天
+                            if (isIP(msg[0])) {
+                                保存IP用于防DDOS(token, msg[0]);
+                            }
                             break;
                     }
                 } else if (msgType.equals("G")) { // 群组
