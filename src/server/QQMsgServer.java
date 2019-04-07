@@ -32,7 +32,7 @@ public class QQMsgServer implements Runnable {
 
     private static final int INPORT = 9001;
     private static final int PeerPort = 9000;
-    private byte[] buf = new byte[1024];
+    private byte[] buf = new byte[2048];
     private DatagramPacket dp = new DatagramPacket(buf, buf.length);
     private static DatagramSocket socket;
     public static Map<String, String> qqTitleMap = new LinkedHashMap<>();
