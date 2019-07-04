@@ -65,7 +65,7 @@ import tools.FileoutputUtil;
 import tools.MaplePacketCreator;
 import tools.packet.MobPacket;
 import tools.packet.MTSCSPacket;
-import tools.data.MaplePacketLittleEndianAccessor;
+import tools.data.LittleEndianAccessor;
 import tools.packet.UIPacket;
 
 public class PlayerHandler {
@@ -90,7 +90,7 @@ public class PlayerHandler {
         }
     }
 
-    public static void ChangeSkillMacro(final MaplePacketLittleEndianAccessor slea, final MapleCharacter chr) {
+    public static void ChangeSkillMacro(final LittleEndianAccessor slea, final MapleCharacter chr) {
         final int num = slea.readByte();
         String name;
         int shout, skill1, skill2, skill3;
@@ -108,7 +108,7 @@ public class PlayerHandler {
         }
     }
 
-    public static final void ChangeKeymap(final MaplePacketLittleEndianAccessor slea, final MapleCharacter chr) {
+    public static final void ChangeKeymap(final LittleEndianAccessor slea, final MapleCharacter chr) {
 
         if (slea.available() > 8 && chr != null) { // else = pet auto pot
             chr.updateTick(slea.readInt());
@@ -189,7 +189,7 @@ public class PlayerHandler {
         }
     }
 
-    public static final void TrockAddMap(final MaplePacketLittleEndianAccessor slea, final MapleClient c, final MapleCharacter chr) {
+    public static final void TrockAddMap(final LittleEndianAccessor slea, final MapleClient c, final MapleCharacter chr) {
         final byte addrem = slea.readByte();
         final byte vip = slea.readByte();
 
@@ -230,7 +230,7 @@ public class PlayerHandler {
         }
     }
 
-    public static final void TakeDamage(final MaplePacketLittleEndianAccessor slea, final MapleClient c, final MapleCharacter chr) {
+    public static final void TakeDamage(final LittleEndianAccessor slea, final MapleClient c, final MapleCharacter chr) {
         //System.out.println(slea.toString());
         chr.updateTick(slea.readInt());
         final byte type = slea.readByte(); //-4 is mist, -3 and -2 are map damage.
@@ -524,7 +524,7 @@ public class PlayerHandler {
         }
     }
 
-    public static final void SkillEffect(final MaplePacketLittleEndianAccessor slea, final MapleCharacter chr) {
+    public static final void SkillEffect(final LittleEndianAccessor slea, final MapleCharacter chr) {
         final int skillId = slea.readInt();
         final byte level = slea.readByte();
         final byte flags = slea.readByte();
@@ -543,7 +543,7 @@ public class PlayerHandler {
         }
     }
 
-    public static final void SpecialMove(final MaplePacketLittleEndianAccessor slea, final MapleClient c, final MapleCharacter chr) {
+    public static final void SpecialMove(final LittleEndianAccessor slea, final MapleClient c, final MapleCharacter chr) {
         if (chr == null || !chr.isAlive() || chr.getMap() == null) {
             c.sendPacket(MaplePacketCreator.enableActions());
             return;
@@ -631,7 +631,7 @@ public class PlayerHandler {
         }
     }
 
-    public static final void closeRangeAttack(final MaplePacketLittleEndianAccessor slea, final MapleClient c, final MapleCharacter chr, final boolean energy) {
+    public static final void closeRangeAttack(final LittleEndianAccessor slea, final MapleClient c, final MapleCharacter chr, final boolean energy) {
         if (chr == null || (energy && chr.getBuffedValue(MapleBuffStat.ENERGY_CHARGE) == null && chr.getBuffedValue(MapleBuffStat.BODY_PRESSURE) == null && !GameConstants.isKOC(chr.getJob()))) {
             return;
         }
@@ -755,7 +755,7 @@ public class PlayerHandler {
         
     }
 
-    public static final void rangedAttack(final MaplePacketLittleEndianAccessor slea, final MapleClient c, final MapleCharacter chr) {
+    public static final void rangedAttack(final LittleEndianAccessor slea, final MapleClient c, final MapleCharacter chr) {
         if (chr == null) {
             return;
         }
@@ -877,7 +877,7 @@ public class PlayerHandler {
         
     }
 
-    public static final void MagicDamage(final MaplePacketLittleEndianAccessor slea, final MapleClient c, final MapleCharacter chr) {
+    public static final void MagicDamage(final LittleEndianAccessor slea, final MapleClient c, final MapleCharacter chr) {
         if (chr == null) {
             return;
         }
@@ -931,7 +931,7 @@ public class PlayerHandler {
         }
     }
 
-    public static final void Heal(final MaplePacketLittleEndianAccessor slea, final MapleCharacter chr) {
+    public static final void Heal(final LittleEndianAccessor slea, final MapleCharacter chr) {
         if (chr == null) {
             return;
         }
@@ -973,7 +973,7 @@ public class PlayerHandler {
 
     }
 
-    public static final void MovePlayer(final MaplePacketLittleEndianAccessor slea, final MapleClient c, final MapleCharacter chr) {
+    public static final void MovePlayer(final LittleEndianAccessor slea, final MapleClient c, final MapleCharacter chr) {
 //	slea.skip(5); // unknown
         if (chr == null) {
             return;
@@ -1058,11 +1058,11 @@ public class PlayerHandler {
         }
     }
 
-    public static final void UpdateHandler(final MaplePacketLittleEndianAccessor slea, final MapleClient c, final MapleCharacter chr) {
+    public static final void UpdateHandler(final LittleEndianAccessor slea, final MapleClient c, final MapleCharacter chr) {
         c.getPlayer().saveToDB(true, true);
     }
 
-    public static final void ChangeMapSpecial(final MaplePacketLittleEndianAccessor slea, final String portal_name, final MapleClient c, final MapleCharacter chr) {
+    public static final void ChangeMapSpecial(final LittleEndianAccessor slea, final String portal_name, final MapleClient c, final MapleCharacter chr) {
         slea.readShort();
         final MaplePortal portal = chr.getMap().getPortal(portal_name);
 //	slea.skip(2);
@@ -1074,7 +1074,7 @@ public class PlayerHandler {
         }
     }
 
-    public static final void ChangeMap(final MaplePacketLittleEndianAccessor slea, final MapleClient c, final MapleCharacter chr) {
+    public static final void ChangeMap(final LittleEndianAccessor slea, final MapleClient c, final MapleCharacter chr) {
         if (chr == null) {
             return;
         }
@@ -1226,7 +1226,7 @@ public class PlayerHandler {
         }
     }
 
-    public static final void InnerPortal(final MaplePacketLittleEndianAccessor slea, final MapleClient c, final MapleCharacter chr) {
+    public static final void InnerPortal(final LittleEndianAccessor slea, final MapleClient c, final MapleCharacter chr) {
         if (chr == null) {
             return;
         }
@@ -1246,7 +1246,7 @@ public class PlayerHandler {
         chr.checkFollow();
     }
 
-    public static final void snowBall(MaplePacketLittleEndianAccessor slea, MapleClient c) {
+    public static final void snowBall(LittleEndianAccessor slea, MapleClient c) {
         //B2 00
         //01 [team]
         //00 00 [unknown]
@@ -1256,7 +1256,7 @@ public class PlayerHandler {
         //empty, we do this in closerange
     }
 
-    public static final void leftKnockBack(MaplePacketLittleEndianAccessor slea, final MapleClient c) {
+    public static final void leftKnockBack(LittleEndianAccessor slea, final MapleClient c) {
         // D1 00 86 01 47 01
         if (c.getPlayer().getMapId() / 10000 == 10906) { //must be in snowball map or else its like infinite FJ
             c.sendPacket(MaplePacketCreator.leftKnockBack());
@@ -1264,7 +1264,7 @@ public class PlayerHandler {
         }
     }
 
-    public static void Rabbit(MaplePacketLittleEndianAccessor slea, final MapleClient c) {
+    public static void Rabbit(LittleEndianAccessor slea, final MapleClient c) {
         int arrackfrom = slea.readInt();
         int damage = slea.readInt() + 100;
         int attackto = slea.readInt();
@@ -1275,7 +1275,7 @@ public class PlayerHandler {
     }
     /*
      * public static final void UpdateFkCharMessages(final
-     * MaplePacketLittleEndianAccessor slea, final MapleClient c, final
+     * LittleEndianAccessor slea, final MapleClient c, final
      * MapleCharacter chr) { int type = slea.readByte();
      * //chr.UpdateCharMessageZone(); //c.getPlayer().setcharmessage(s); // if
      * (type == 0) { // Ω«…´”çœ¢ /*String

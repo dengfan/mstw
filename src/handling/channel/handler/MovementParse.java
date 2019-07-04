@@ -26,13 +26,13 @@ import java.util.List;
 
 import server.maps.AnimatedMapleMapObject;
 import server.movement.*;
-import tools.data.MaplePacketLittleEndianAccessor;
-import tools.data.MaplePacketLittleEndianAccessor;
+import tools.data.LittleEndianAccessor;
+import tools.data.LittleEndianAccessor;
 
 public class MovementParse {
 
     //1 = player, 2 = mob, 3 = pet, 4 = summon, 5 = dragon
-    public static final List<LifeMovementFragment> parseMovement(final MaplePacketLittleEndianAccessor lea, int kind) {
+    public static final List<LifeMovementFragment> parseMovement(final LittleEndianAccessor lea, int kind) {
         final List<LifeMovementFragment> res = new ArrayList<LifeMovementFragment>();
         final byte numCommands = lea.readByte();
 

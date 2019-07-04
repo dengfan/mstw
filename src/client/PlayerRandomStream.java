@@ -21,7 +21,7 @@
 package client;
 
 import server.Randomizer;
-import tools.data.MaplePacketLittleEndianWriter;
+import tools.data.LittleEndianWriter;
 
 public class PlayerRandomStream {
 
@@ -110,7 +110,7 @@ public class PlayerRandomStream {
         return (v8 ^ v9 ^ v10) & 0xffffffffL;
     }
 
-    public final void connectData(final MaplePacketLittleEndianWriter mplew) {
+    public final void connectData(final LittleEndianWriter mplew) {
         long v5 = CRand32__Random();
         long s2 = CRand32__Random();
         long v6 = CRand32__Random();

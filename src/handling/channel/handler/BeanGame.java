@@ -5,11 +5,11 @@ import java.util.List;
 import client.MapleCharacter;
 import client.MapleClient;
 import tools.MaplePacketCreator;
-import tools.data.MaplePacketLittleEndianAccessor;
+import tools.data.LittleEndianAccessor;
 
 public class BeanGame {
 
-    public static void BeanGame1(MaplePacketLittleEndianAccessor slea, MapleClient c) {
+    public static void BeanGame1(LittleEndianAccessor slea, MapleClient c) {
         //System.out.println("¶¹???³ö??????" +slea.toString());
         MapleCharacter chr = c.getPlayer();
         List<Beans> beansInfo = new ArrayList<Beans>();
@@ -117,7 +117,7 @@ public class BeanGame {
         }
     }
 
-    public static final void BeanGame2(MaplePacketLittleEndianAccessor slea, MapleClient c) {
+    public static final void BeanGame2(LittleEndianAccessor slea, MapleClient c) {
         c.sendPacket(MaplePacketCreator.updateBeans(c.getPlayer().getId(), c.getPlayer().getBeans()));
         c.sendPacket(MaplePacketCreator.enableActions());
     }

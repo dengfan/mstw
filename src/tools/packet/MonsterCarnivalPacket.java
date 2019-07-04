@@ -25,12 +25,12 @@ import constants.ServerConstants;
 
 import handling.SendPacketOpcode;
 import server.MapleCarnivalParty;
-import tools.data.MaplePacketLittleEndianWriter;
+import tools.data.LittleEndianWriter;
 
 public class MonsterCarnivalPacket {
 
     public static byte[] startMonsterCarnival(final MapleCharacter chr, final int enemyavailable, final int enemytotal) {
-        MaplePacketLittleEndianWriter mplew = new MaplePacketLittleEndianWriter();
+        LittleEndianWriter mplew = new LittleEndianWriter();
 
         if (ServerConstants.调试模式) {
             System.out.println("startMonsterCarnival--------------------");
@@ -51,7 +51,7 @@ public class MonsterCarnivalPacket {
     }
 
     public static byte[] playerDiedMessage(String name, int lostCP, int team) { //CPQ
-        MaplePacketLittleEndianWriter mplew = new MaplePacketLittleEndianWriter();
+        LittleEndianWriter mplew = new LittleEndianWriter();
 
         if (ServerConstants.调试模式) {
             System.out.println("playerDiedMessage--------------------");
@@ -65,7 +65,7 @@ public class MonsterCarnivalPacket {
     }
 
     public static byte[] CPUpdate(boolean party, int curCP, int totalCP, int team) {
-        MaplePacketLittleEndianWriter mplew = new MaplePacketLittleEndianWriter();
+        LittleEndianWriter mplew = new LittleEndianWriter();
         if (ServerConstants.调试模式) {
             System.out.println("CPUpdate--------------------");
         }
@@ -82,7 +82,7 @@ public class MonsterCarnivalPacket {
     }
 
     public static byte[] playerSummoned(String name, int tab, int number) {
-        MaplePacketLittleEndianWriter mplew = new MaplePacketLittleEndianWriter();
+        LittleEndianWriter mplew = new LittleEndianWriter();
 
         if (ServerConstants.调试模式) {
             System.out.println("playerSummoned--------------------");
@@ -95,7 +95,7 @@ public class MonsterCarnivalPacket {
         return mplew.getPacket();
     }
     public static byte[] playerSummoned1(String name, int tab, int number) {
-        MaplePacketLittleEndianWriter mplew = new MaplePacketLittleEndianWriter();
+        LittleEndianWriter mplew = new LittleEndianWriter();
 
         if (ServerConstants.调试模式) {
             System.out.println("playerSummoned--------------------");

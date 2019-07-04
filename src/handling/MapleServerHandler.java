@@ -58,7 +58,7 @@ import server.Randomizer;
 import tools.MapleAESOFB;
 import tools.packet.LoginPacket;
 import tools.data.ByteArrayByteStream;
-import tools.data.MaplePacketLittleEndianAccessor;
+import tools.data.LittleEndianAccessor;
 import tools.Pair;
 import server.MTSStorage;
 import server.ServerProperties;
@@ -105,7 +105,7 @@ public class MapleServerHandler extends ChannelDuplexHandler {
     private static final ReentrantReadWriteLock Packet_Log_Lock = new ReentrantReadWriteLock();
     private static final File Packet_Log_Output = new File("PacketLog.txt");
 
-    public static void log(MaplePacketLittleEndianAccessor packet, RecvPacketOpcode op, MapleClient c, Channel io) {
+    public static void log(LittleEndianAccessor packet, RecvPacketOpcode op, MapleClient c, Channel io) {
         if (blocked.contains(op)) {
             return;
         }
@@ -137,15 +137,15 @@ public class MapleServerHandler extends ChannelDuplexHandler {
 
         private static final String nl = System.getProperty("line.separator");
         private String ip, accName, accId, chrName;
-        private MaplePacketLittleEndianAccessor packet;
+        private LittleEndianAccessor packet;
         private long timestamp;
         private RecvPacketOpcode op;
 
-        public LoggedPacket(MaplePacketLittleEndianAccessor p, RecvPacketOpcode op, String ip, int id, String accName, String chrName) {
+        public LoggedPacket(LittleEndianAccessor p, RecvPacketOpcode op, String ip, int id, String accName, String chrName) {
             setInfo(p, op, ip, id, accName, chrName);
         }
 
-        public final void setInfo(MaplePacketLittleEndianAccessor p, RecvPacketOpcode op, String ip, int id, String accName, String chrName) {
+        public final void setInfo(LittleEndianAccessor p, RecvPacketOpcode op, String ip, int id, String accName, String chrName) {
             this.ip = ip;
             this.op = op;
             packet = p;
@@ -351,7 +351,7 @@ public class MapleServerHandler extends ChannelDuplexHandler {
     //Íæ¼Ò²Ù×÷
     public void channelRead(final ChannelHandlerContext ctx, final Object message) {
         try {
-            final MaplePacketLittleEndianAccessor slea = new MaplePacketLittleEndianAccessor(new ByteArrayByteStream((byte[]) message));
+            final LittleEndianAccessor slea = new LittleEndianAccessor(new ByteArrayByteStream((byte[]) message));
             if (slea.available() < 2) {
                 return;
             }
@@ -432,7 +432,7 @@ public class MapleServerHandler extends ChannelDuplexHandler {
         super.userEventTriggered(ctx, status);
     }
 
-    public static void handlePacket(final RecvPacketOpcode header, final MaplePacketLittleEndianAccessor slea, final MapleClient c, final boolean cs) throws Exception {
+    public static void handlePacket(final RecvPacketOpcode header, final LittleEndianAccessor slea, final MapleClient c, final boolean cs) throws Exception {
         //  System.out.println(header);
         switch (header) {
             case PONG:

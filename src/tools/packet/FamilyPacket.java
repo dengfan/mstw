@@ -31,12 +31,12 @@ import handling.world.family.MapleFamilyBuff.MapleFamilyBuffEntry;
 import handling.world.family.MapleFamilyCharacter;
 import java.util.List;
 import tools.Pair;
-import tools.data.MaplePacketLittleEndianWriter;
+import tools.data.LittleEndianWriter;
 
 public class FamilyPacket {
 
     public static byte[] getFamilyData() {
-        MaplePacketLittleEndianWriter mplew = new MaplePacketLittleEndianWriter();
+        LittleEndianWriter mplew = new LittleEndianWriter();
 
         if (ServerConstants.调试模式) {
             System.out.println("getFamilyData--------------------");
@@ -67,7 +67,7 @@ public class FamilyPacket {
     }
 
     public static byte[] changeRep(int r) {
-        MaplePacketLittleEndianWriter mplew = new MaplePacketLittleEndianWriter();
+        LittleEndianWriter mplew = new LittleEndianWriter();
         if (ServerConstants.调试模式) {
             System.out.println("changeRep--------------------");
         }
@@ -78,7 +78,7 @@ public class FamilyPacket {
     }
 
     public static byte[] getFamilyInfo(MapleCharacter chr) {
-        MaplePacketLittleEndianWriter mplew = new MaplePacketLittleEndianWriter();
+        LittleEndianWriter mplew = new LittleEndianWriter();
         if (ServerConstants.调试模式) {
             System.out.println("getFamilyInfo--------------------");
         }
@@ -106,7 +106,7 @@ public class FamilyPacket {
         return mplew.getPacket();
     }
 
-    public static void addFamilyCharInfo(MapleFamilyCharacter ldr, MaplePacketLittleEndianWriter mplew) {
+    public static void addFamilyCharInfo(MapleFamilyCharacter ldr, LittleEndianWriter mplew) {
         if (ServerConstants.调试模式) {
             System.out.println("addFamilyCharInfo--------------------");
         }
@@ -124,7 +124,7 @@ public class FamilyPacket {
     }
 
     public static byte[] getFamilyPedigree(MapleCharacter chr) {
-        MaplePacketLittleEndianWriter mplew = new MaplePacketLittleEndianWriter();
+        LittleEndianWriter mplew = new LittleEndianWriter();
         if (ServerConstants.调试模式) {
             System.out.println("getFamilyPedigree--------------------");
         }
@@ -230,7 +230,7 @@ public class FamilyPacket {
     }
 
     public static byte[] sendFamilyInvite(int cid, int otherLevel, int otherJob, String inviter) {
-        MaplePacketLittleEndianWriter mplew = new MaplePacketLittleEndianWriter();
+        LittleEndianWriter mplew = new LittleEndianWriter();
 
         if (ServerConstants.调试模式) {
             System.out.println("sendFamilyInvite--------------------");
@@ -245,7 +245,7 @@ public class FamilyPacket {
     }
 
     public static byte[] getSeniorMessage(String name) {
-        MaplePacketLittleEndianWriter mplew = new MaplePacketLittleEndianWriter();
+        LittleEndianWriter mplew = new LittleEndianWriter();
         if (ServerConstants.调试模式) {
             System.out.println("getSeniorMessage--------------------");
         }
@@ -255,7 +255,7 @@ public class FamilyPacket {
     }
 
     public static byte[] sendFamilyJoinResponse(boolean accepted, String added) {
-        MaplePacketLittleEndianWriter mplew = new MaplePacketLittleEndianWriter();
+        LittleEndianWriter mplew = new LittleEndianWriter();
         if (ServerConstants.调试模式) {
             System.out.println("sendFamilyJoinResponse--------------------");
         }
@@ -266,7 +266,7 @@ public class FamilyPacket {
     }
 
     public static byte[] familyBuff(int type, int buffnr, int amount, int time) {
-        MaplePacketLittleEndianWriter mplew = new MaplePacketLittleEndianWriter();
+        LittleEndianWriter mplew = new LittleEndianWriter();
         if (ServerConstants.调试模式) {
             System.out.println("familyBuff--------------------");
         }
@@ -291,7 +291,7 @@ public class FamilyPacket {
     }
 
     public static byte[] familyLoggedIn(boolean online, String name) {
-        MaplePacketLittleEndianWriter mplew = new MaplePacketLittleEndianWriter();
+        LittleEndianWriter mplew = new LittleEndianWriter();
         if (ServerConstants.调试模式) {
             System.out.println("familyLoggedIn--------------------");
         }
@@ -302,7 +302,7 @@ public class FamilyPacket {
     }
 
     public static byte[] familySummonRequest(String name, String mapname) {
-        MaplePacketLittleEndianWriter mplew = new MaplePacketLittleEndianWriter();
+        LittleEndianWriter mplew = new LittleEndianWriter();
         if (ServerConstants.调试模式) {
             System.out.println("familySummonRequest--------------------");
         }

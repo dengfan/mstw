@@ -22,7 +22,7 @@ package server.movement;
 
 import java.awt.Point;
 
-import tools.data.MaplePacketLittleEndianWriter;
+import tools.data.LittleEndianWriter;
 
 public class UnknownMovement extends AbstractLifeMovement {
 
@@ -59,7 +59,7 @@ public class UnknownMovement extends AbstractLifeMovement {
     }
 
     @Override
-    public void serialize(MaplePacketLittleEndianWriter lew) {
+    public void serialize(LittleEndianWriter lew) {
         lew.write(getType());
         lew.writeShort(unk);
         lew.writeShort(getPosition().x);

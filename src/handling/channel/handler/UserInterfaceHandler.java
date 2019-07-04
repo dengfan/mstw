@@ -26,7 +26,7 @@ import constants.ServerConstants;
 import scripting.NPCScriptManager;
 import scripting.EventManager;
 import tools.MaplePacketCreator;
-import tools.data.MaplePacketLittleEndianAccessor;
+import tools.data.LittleEndianAccessor;
 
 public class UserInterfaceHandler {
 
@@ -38,7 +38,7 @@ public class UserInterfaceHandler {
         }
     }
 
-    public static final void InGame_Poll(final MaplePacketLittleEndianAccessor slea, final MapleClient c) {
+    public static final void InGame_Poll(final LittleEndianAccessor slea, final MapleClient c) {
         if (ServerConstants.PollEnabled) {
             c.getPlayer().updateTick(slea.readInt());
             final int selection = slea.readInt();

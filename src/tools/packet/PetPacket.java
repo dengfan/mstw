@@ -32,14 +32,14 @@ import handling.SendPacketOpcode;
 import server.movement.LifeMovementFragment;
 import tools.HexTool;
 import tools.MaplePacketCreator;
-import tools.data.MaplePacketLittleEndianWriter;
+import tools.data.LittleEndianWriter;
 
 public class PetPacket {
 
     private final static byte[] ITEM_MAGIC = new byte[]{(byte) 0x80, 5};
 
     public static final byte[] updatePet(final MaplePet pet, final IItem item, boolean active) {
-        final MaplePacketLittleEndianWriter mplew = new MaplePacketLittleEndianWriter();
+        final LittleEndianWriter mplew = new LittleEndianWriter();
 
         if (ServerConstants.调试模式) {
             System.out.println("updatePet--------------------");
@@ -65,7 +65,7 @@ public class PetPacket {
     }
 
     public static final byte[] removePet(final MapleCharacter chr, final int slot) {
-        final MaplePacketLittleEndianWriter mplew = new MaplePacketLittleEndianWriter();
+        final LittleEndianWriter mplew = new LittleEndianWriter();
 
         if (ServerConstants.调试模式) {
             System.out.println("removePet--------------------");
@@ -77,7 +77,7 @@ public class PetPacket {
     }
 
     public static final byte[] showPet(final MapleCharacter chr, final MaplePet pet, final boolean remove, final boolean hunger) {
-        final MaplePacketLittleEndianWriter mplew = new MaplePacketLittleEndianWriter();
+        final LittleEndianWriter mplew = new LittleEndianWriter();
 
         if (ServerConstants.调试模式) {
             System.out.println("showPet--------------------");
@@ -105,7 +105,7 @@ public class PetPacket {
         return mplew.getPacket();
     }
 
-    public static void addPetInfo(MaplePacketLittleEndianWriter mplew, MapleCharacter chr, MaplePet pet, boolean showpet) {//079
+    public static void addPetInfo(LittleEndianWriter mplew, MapleCharacter chr, MaplePet pet, boolean showpet) {//079
         if (showpet) {
             mplew.write(1);
             mplew.write(chr.getPetIndex(pet));
@@ -121,7 +121,7 @@ public class PetPacket {
     }
 
     public static final byte[] removePet(final int cid, final int index) {
-        final MaplePacketLittleEndianWriter mplew = new MaplePacketLittleEndianWriter();
+        final LittleEndianWriter mplew = new LittleEndianWriter();
 
         if (ServerConstants.调试模式) {
             System.out.println("removePet--------------------");
@@ -134,7 +134,7 @@ public class PetPacket {
     }
 
     public static final byte[] movePet(final int cid, final int pid, final byte slot, final List<LifeMovementFragment> moves) {
-        final MaplePacketLittleEndianWriter mplew = new MaplePacketLittleEndianWriter();
+        final LittleEndianWriter mplew = new LittleEndianWriter();
 
         if (ServerConstants.调试模式) {
             System.out.println("movePet--------------------");
@@ -149,7 +149,7 @@ public class PetPacket {
     }
 
     public static final byte[] petChat(final int cid, final int un, final String text, final byte slot) {
-        final MaplePacketLittleEndianWriter mplew = new MaplePacketLittleEndianWriter();
+        final LittleEndianWriter mplew = new LittleEndianWriter();
 
         if (ServerConstants.调试模式) {
             System.out.println("petChat--------------------");
@@ -165,7 +165,7 @@ public class PetPacket {
     }
 
     public static final byte[] commandResponse(final int cid, final byte command, final byte slot, final boolean success, final boolean food) {
-        final MaplePacketLittleEndianWriter mplew = new MaplePacketLittleEndianWriter();
+        final LittleEndianWriter mplew = new LittleEndianWriter();
 
         if (ServerConstants.调试模式) {
             System.out.println("commandResponse--------------------");
@@ -185,7 +185,7 @@ public class PetPacket {
     }
 
     public static final byte[] showOwnPetLevelUp(final byte index) {
-        final MaplePacketLittleEndianWriter mplew = new MaplePacketLittleEndianWriter();
+        final LittleEndianWriter mplew = new LittleEndianWriter();
 
         if (ServerConstants.调试模式) {
             System.out.println("showOwnPetLevelUp--------------------");
@@ -199,7 +199,7 @@ public class PetPacket {
     }
 
     public static final byte[] showPetLevelUp(final MapleCharacter chr, final byte index) {
-        final MaplePacketLittleEndianWriter mplew = new MaplePacketLittleEndianWriter();
+        final LittleEndianWriter mplew = new LittleEndianWriter();
 
         if (ServerConstants.调试模式) {
             System.out.println("showPetLevelUp--------------------");
@@ -221,7 +221,7 @@ public class PetPacket {
     }
 
     public static final byte[] petStatUpdate_Empty() {
-        final MaplePacketLittleEndianWriter mplew = new MaplePacketLittleEndianWriter();
+        final LittleEndianWriter mplew = new LittleEndianWriter();
 
         if (ServerConstants.调试模式) {
             System.out.println("petStatUpdate_Empty--------------------");
@@ -234,7 +234,7 @@ public class PetPacket {
     }
 
     public static final byte[] petStatUpdate(final MapleCharacter chr) {
-        final MaplePacketLittleEndianWriter mplew = new MaplePacketLittleEndianWriter();
+        final LittleEndianWriter mplew = new LittleEndianWriter();
 
         if (ServerConstants.调试模式) {
             System.out.println("petStatUpdate--------------------");

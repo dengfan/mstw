@@ -24,12 +24,12 @@ import constants.ServerConstants;
 
 import handling.SendPacketOpcode;
 import tools.MaplePacketCreator;
-import tools.data.MaplePacketLittleEndianWriter;
+import tools.data.LittleEndianWriter;
 
 public class UIPacket {
 
     public static final byte[] EarnTitleMsg(final String msg) {
-        final MaplePacketLittleEndianWriter mplew = new MaplePacketLittleEndianWriter();
+        final LittleEndianWriter mplew = new LittleEndianWriter();
 
         if (ServerConstants.调试模式) {
             System.out.println("EarnTitleMsg--------------------");
@@ -42,7 +42,7 @@ public class UIPacket {
     }
 
     public static byte[] getSPMsg(byte sp, short job) {
-        MaplePacketLittleEndianWriter mplew = new MaplePacketLittleEndianWriter();
+        LittleEndianWriter mplew = new LittleEndianWriter();
 
         if (ServerConstants.调试模式) {
             System.out.println("getSPMsg--------------------");
@@ -56,7 +56,7 @@ public class UIPacket {
     }
 
     public static byte[] getGPMsg(int itemid) {
-        MaplePacketLittleEndianWriter mplew = new MaplePacketLittleEndianWriter();
+        LittleEndianWriter mplew = new LittleEndianWriter();
 
         if (ServerConstants.调试模式) {
             System.out.println("getGPMsg--------------------");
@@ -70,7 +70,7 @@ public class UIPacket {
     }
 
     public static byte[] getTopMsg(String msg) {
-        MaplePacketLittleEndianWriter mplew = new MaplePacketLittleEndianWriter();
+        LittleEndianWriter mplew = new LittleEndianWriter();
 
         if (ServerConstants.调试模式) {
             System.out.println("getTopMsg--------------------");
@@ -82,7 +82,7 @@ public class UIPacket {
     }
 
     public static byte[] getStatusMsg(int itemid) {
-        MaplePacketLittleEndianWriter mplew = new MaplePacketLittleEndianWriter();
+        LittleEndianWriter mplew = new LittleEndianWriter();
 
         if (ServerConstants.调试模式) {
             System.out.println("getStatusMsg--------------------");
@@ -117,7 +117,7 @@ public class UIPacket {
     }
 
     public static final byte[] AranTutInstructionalBalloon(final String data) {
-        MaplePacketLittleEndianWriter mplew = new MaplePacketLittleEndianWriter();
+        LittleEndianWriter mplew = new LittleEndianWriter();
 
         if (ServerConstants.调试模式) {
             System.out.println("AranTutInstructionalBalloon--------------------");
@@ -131,7 +131,7 @@ public class UIPacket {
     }
     
     public static final byte[] showWZEffectS(String path, int info) {
-        MaplePacketLittleEndianWriter mplew = new MaplePacketLittleEndianWriter();
+        LittleEndianWriter mplew = new LittleEndianWriter();
         if (ServerConstants.调试模式) {
             System.out.println("showWZEffectS--------------------" + path + "," + info);
         }
@@ -145,7 +145,7 @@ public class UIPacket {
     }
 
     public static final byte[] ShowWZEffect(final String data, int info) {
-        MaplePacketLittleEndianWriter mplew = new MaplePacketLittleEndianWriter();
+        LittleEndianWriter mplew = new LittleEndianWriter();
 
         if (ServerConstants.调试模式) {
             System.out.println("ShowWZEffect--------------------");
@@ -165,7 +165,7 @@ public class UIPacket {
     }
     
     public static byte[] summonHelper(boolean summon) {
-        MaplePacketLittleEndianWriter mplew = new MaplePacketLittleEndianWriter();
+        LittleEndianWriter mplew = new LittleEndianWriter();
 
         if (ServerConstants.调试模式) {
             System.out.println("summonHelper--------------------");
@@ -177,7 +177,7 @@ public class UIPacket {
     }
 
     public static byte[] summonMessage(int type) {
-        MaplePacketLittleEndianWriter mplew = new MaplePacketLittleEndianWriter();
+        LittleEndianWriter mplew = new LittleEndianWriter();
 
         if (ServerConstants.调试模式) {
             System.out.println("summonMessageA--------------------");
@@ -191,7 +191,7 @@ public class UIPacket {
     }
 
     public static byte[] summonMessage(String message) {
-        MaplePacketLittleEndianWriter mplew = new MaplePacketLittleEndianWriter();
+        LittleEndianWriter mplew = new LittleEndianWriter();
 
         if (ServerConstants.调试模式) {
             System.out.println("summonMessageB--------------------");
@@ -207,7 +207,7 @@ public class UIPacket {
     }
 
     public static byte[] IntroLock(boolean enable) {
-        MaplePacketLittleEndianWriter mplew = new MaplePacketLittleEndianWriter();
+        LittleEndianWriter mplew = new LittleEndianWriter();
 
         if (ServerConstants.调试模式) {
             System.out.println("IntroLock--------------------");
@@ -219,7 +219,7 @@ public class UIPacket {
     }
 
     public static byte[] IntroDisableUI(boolean enable) {
-        MaplePacketLittleEndianWriter mplew = new MaplePacketLittleEndianWriter();
+        LittleEndianWriter mplew = new LittleEndianWriter();
 
         if (ServerConstants.调试模式) {
             System.out.println("IntroDisableUI--------------------");
@@ -231,7 +231,7 @@ public class UIPacket {
     }
 
     public static byte[] fishingUpdate(byte type, int id) {
-        MaplePacketLittleEndianWriter mplew = new MaplePacketLittleEndianWriter();
+        LittleEndianWriter mplew = new LittleEndianWriter();
 
         if (ServerConstants.调试模式) {
             System.out.println("fishingUpdate--------------------");
@@ -244,7 +244,7 @@ public class UIPacket {
     }
 
     public static byte[] fishingCaught(int chrid) {
-        MaplePacketLittleEndianWriter mplew = new MaplePacketLittleEndianWriter();
+        LittleEndianWriter mplew = new LittleEndianWriter();
 
         if (ServerConstants.调试模式) {
             System.out.println("fishingCaught--------------------");

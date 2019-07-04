@@ -33,11 +33,11 @@ import server.life.MapleMonster;
 import tools.MaplePacketCreator;
 import tools.Pair;
 import tools.packet.MonsterCarnivalPacket;
-import tools.data.MaplePacketLittleEndianAccessor;
+import tools.data.LittleEndianAccessor;
 
 public class MonsterCarnivalHandler {
 
-    public static final void MonsterCarnival(final MaplePacketLittleEndianAccessor slea, final MapleClient c) {
+    public static final void MonsterCarnival(final LittleEndianAccessor slea, final MapleClient c) {
         if (c.getPlayer().getCarnivalParty() == null) {
             c.sendPacket(MaplePacketCreator.enableActions());
             return;

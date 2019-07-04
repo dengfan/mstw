@@ -39,7 +39,7 @@ import database.DatabaseConnection;
 import handling.channel.ChannelServer;
 import handling.world.World;
 import tools.MaplePacketCreator;
-import tools.data.MaplePacketLittleEndianAccessor;
+import tools.data.LittleEndianAccessor;
 
 public class BuddyListHandler {
 
@@ -82,7 +82,7 @@ public class BuddyListHandler {
         return ret;
     }
 
-    public static final void BuddyOperation(final MaplePacketLittleEndianAccessor slea, final MapleClient c) {
+    public static final void BuddyOperation(final LittleEndianAccessor slea, final MapleClient c) {
          /* CharacterNameAndId pendingBuddyRequest = c.getPlayer().getBuddylist().pollPendingRequest();
         if (pendingBuddyRequest != null) {
             c.sendPacket(MaplePacketCreator.requestBuddylistAdd(pendingBuddyRequest.getId(), pendingBuddyRequest.getName()));

@@ -30,13 +30,13 @@ import constants.ServerConstants;
 
 import handling.SendPacketOpcode;
 import handling.login.LoginServer;
-import tools.data.MaplePacketLittleEndianWriter;
+import tools.data.LittleEndianWriter;
 import tools.HexTool;
 
 public class LoginPacket {
 
     public static final byte[] getHello(final short mapleVersion, final byte[] sendIv, final byte[] recvIv) {
-        final MaplePacketLittleEndianWriter mplew = new MaplePacketLittleEndianWriter(16);
+        final LittleEndianWriter mplew = new LittleEndianWriter(16);
 
         if (ServerConstants.调试模式) {
             System.out.println("getHello--------------------");
@@ -53,7 +53,7 @@ public class LoginPacket {
     }
 
     public static final byte[] getPing() {
-        final MaplePacketLittleEndianWriter mplew = new MaplePacketLittleEndianWriter(16);
+        final LittleEndianWriter mplew = new LittleEndianWriter(16);
 
         if (ServerConstants.调试模式) {
             System.out.println("getPing--------------------");
@@ -64,7 +64,7 @@ public class LoginPacket {
     }
 
     public static final byte[] StrangeDATA() {
-        final MaplePacketLittleEndianWriter mplew = new MaplePacketLittleEndianWriter(16);
+        final LittleEndianWriter mplew = new LittleEndianWriter(16);
 
         if (ServerConstants.调试模式) {
             System.out.println("StrangeDATA--------------------");
@@ -77,7 +77,7 @@ public class LoginPacket {
         return mplew.getPacket();
     }
   public static byte[] genderNeeded(MapleClient c) {
-        MaplePacketLittleEndianWriter mplew = new MaplePacketLittleEndianWriter(3);
+        LittleEndianWriter mplew = new LittleEndianWriter(3);
 
         if (ServerConstants.调试模式) {
             System.out.println("genderNeeded--------------------");
@@ -88,7 +88,7 @@ public class LoginPacket {
         return mplew.getPacket();
     }
     public static final byte[] getLoginFailed(final int reason) {
-        final MaplePacketLittleEndianWriter mplew = new MaplePacketLittleEndianWriter(16);
+        final LittleEndianWriter mplew = new LittleEndianWriter(16);
 
         if (ServerConstants.调试模式) {
             System.out.println("getLoginFailed--------------------");
@@ -122,7 +122,7 @@ public class LoginPacket {
     }
 
     public static final byte[] getPermBan(final byte reason) {
-        final MaplePacketLittleEndianWriter mplew = new MaplePacketLittleEndianWriter(16);
+        final LittleEndianWriter mplew = new LittleEndianWriter(16);
 
         if (ServerConstants.调试模式) {
             System.out.println("getPermBan--------------------");
@@ -137,7 +137,7 @@ public class LoginPacket {
     }
 
     public static final byte[] getTempBan(final long timestampTill, final byte reason) {
-        final MaplePacketLittleEndianWriter mplew = new MaplePacketLittleEndianWriter(17);
+        final LittleEndianWriter mplew = new LittleEndianWriter(17);
 
         if (ServerConstants.调试模式) {
             System.out.println("getTempBan--------------------");
@@ -152,7 +152,7 @@ public class LoginPacket {
     }
 
     public static final byte[] getGenderChanged(final MapleClient client) {
-        final MaplePacketLittleEndianWriter mplew = new MaplePacketLittleEndianWriter();
+        final LittleEndianWriter mplew = new LittleEndianWriter();
 
         if (ServerConstants.调试模式) {
             System.out.println("getGenderChanged--------------------");
@@ -166,7 +166,7 @@ public class LoginPacket {
     }
 
     public static final byte[] getGenderNeeded(final MapleClient client) {
-        final MaplePacketLittleEndianWriter mplew = new MaplePacketLittleEndianWriter();
+        final LittleEndianWriter mplew = new LittleEndianWriter();
 
         if (ServerConstants.调试模式) {
             System.out.println("getGenderNeeded--------------------");
@@ -178,7 +178,7 @@ public class LoginPacket {
     }
 
     public static final byte[] getAuthSuccessRequest(final MapleClient client) {
-        final MaplePacketLittleEndianWriter mplew = new MaplePacketLittleEndianWriter();
+        final LittleEndianWriter mplew = new LittleEndianWriter();
 
         if (ServerConstants.调试模式) {
             System.out.println("getAuthSuccessRequest--------------------");
@@ -205,7 +205,7 @@ public class LoginPacket {
     }
 
     public static final byte[] deleteCharResponse(final int cid, final int state) {
-        final MaplePacketLittleEndianWriter mplew = new MaplePacketLittleEndianWriter();
+        final LittleEndianWriter mplew = new LittleEndianWriter();
 
         if (ServerConstants.调试模式) {
             System.out.println("deleteCharResponse--------------------");
@@ -218,7 +218,7 @@ public class LoginPacket {
     }
 
     public static final byte[] secondPwError(final byte mode) {
-        final MaplePacketLittleEndianWriter mplew = new MaplePacketLittleEndianWriter(3);
+        final LittleEndianWriter mplew = new LittleEndianWriter(3);
 
         /*
          * 14 - Invalid password
@@ -234,7 +234,7 @@ public class LoginPacket {
     }
 
     public static final byte[] getServerList(final int serverId, final String serverName, final Map<Integer, Integer> channelLoad) {
-        final MaplePacketLittleEndianWriter mplew = new MaplePacketLittleEndianWriter();
+        final LittleEndianWriter mplew = new LittleEndianWriter();
 
         if (ServerConstants.调试模式) {
             System.out.println("getServerList--------------------");
@@ -278,7 +278,7 @@ public class LoginPacket {
     }
 
     public static final byte[] getEndOfServerList() {
-        final MaplePacketLittleEndianWriter mplew = new MaplePacketLittleEndianWriter();
+        final LittleEndianWriter mplew = new LittleEndianWriter();
 
         if (ServerConstants.调试模式) {
             System.out.println("getEndOfServerList--------------------");
@@ -290,7 +290,7 @@ public class LoginPacket {
     }
 
     public static final byte[] getServerStatus(final int status) {
-        final MaplePacketLittleEndianWriter mplew = new MaplePacketLittleEndianWriter();
+        final LittleEndianWriter mplew = new LittleEndianWriter();
 
         if (ServerConstants.调试模式) {
             System.out.println("getServerStatus--------------------");
@@ -305,7 +305,7 @@ public class LoginPacket {
     }
 
     public static final byte[] getCharList(final boolean secondpw, final List<MapleCharacter> chars, int charslots) {
-        final MaplePacketLittleEndianWriter mplew = new MaplePacketLittleEndianWriter();
+        final LittleEndianWriter mplew = new LittleEndianWriter();
 
         if (ServerConstants.调试模式) {
             System.out.println("getCharList--------------------");
@@ -325,7 +325,7 @@ public class LoginPacket {
     }
 
     public static final byte[] addNewCharEntry(final MapleCharacter chr, final boolean worked) {
-        final MaplePacketLittleEndianWriter mplew = new MaplePacketLittleEndianWriter();
+        final LittleEndianWriter mplew = new LittleEndianWriter();
 
         if (ServerConstants.调试模式) {
             System.out.println("addNewCharEntry--------------------");
@@ -338,7 +338,7 @@ public class LoginPacket {
     }
 
     public static final byte[] charNameResponse(final String charname, final boolean nameUsed) {
-        final MaplePacketLittleEndianWriter mplew = new MaplePacketLittleEndianWriter();
+        final LittleEndianWriter mplew = new LittleEndianWriter();
 
         if (ServerConstants.调试模式) {
             System.out.println("charNameResponse--------------------");
@@ -350,7 +350,7 @@ public class LoginPacket {
         return mplew.getPacket();
     }
 
-    private static final void addCharEntry(final MaplePacketLittleEndianWriter mplew, final MapleCharacter chr, boolean ranking, boolean viewAll) {
+    private static final void addCharEntry(final LittleEndianWriter mplew, final MapleCharacter chr, boolean ranking, boolean viewAll) {
         if (ServerConstants.调试模式) {
             System.out.println("addCharEntry--------------------");
         }

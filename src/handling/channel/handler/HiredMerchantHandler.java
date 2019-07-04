@@ -46,11 +46,11 @@ import tools.MaplePacketCreator;
 import tools.Pair;
 import tools.StringUtil;
 import tools.packet.PlayerShopPacket;
-import tools.data.MaplePacketLittleEndianAccessor;
+import tools.data.LittleEndianAccessor;
 
 public class HiredMerchantHandler {
 
-    public static final void UseHiredMerchant(final MaplePacketLittleEndianAccessor slea, final MapleClient c) {
+    public static final void UseHiredMerchant(final LittleEndianAccessor slea, final MapleClient c) {
 //	slea.readInt(); // TimeStamp
 
         if (c.getPlayer().getMap().allowPersonalShop()) {
@@ -100,7 +100,7 @@ public class HiredMerchantHandler {
         }
     }
 
-    public static void MerchantItemStore(final MaplePacketLittleEndianAccessor slea, final MapleClient c) {
+    public static void MerchantItemStore(final LittleEndianAccessor slea, final MapleClient c) {
         if (c.getPlayer() == null) {
             return;
         }

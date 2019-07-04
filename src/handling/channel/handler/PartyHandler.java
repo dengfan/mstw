@@ -27,11 +27,11 @@ import handling.world.MaplePartyCharacter;
 import handling.world.PartyOperation;
 import handling.world.World;
 import tools.MaplePacketCreator;
-import tools.data.MaplePacketLittleEndianAccessor;
+import tools.data.LittleEndianAccessor;
 
 public class PartyHandler {
 
-    public static final void DenyPartyRequest(final MaplePacketLittleEndianAccessor slea, final MapleClient c) {
+    public static final void DenyPartyRequest(final LittleEndianAccessor slea, final MapleClient c) {
         final int action = slea.readByte();
         final int partyid = slea.readInt();
         //    MapleCharacter cfrom = c.getChannelServer().getPlayerStorage().getCharacterByName(slea.readMapleAsciiString());
@@ -64,7 +64,7 @@ public class PartyHandler {
 
     }
 
-    public static final void PartyOperatopn(final MaplePacketLittleEndianAccessor slea, final MapleClient c) {
+    public static final void PartyOperatopn(final LittleEndianAccessor slea, final MapleClient c) {
         final int operation = slea.readByte();
         MapleParty party = c.getPlayer().getParty();
         MaplePartyCharacter partyplayer = new MaplePartyCharacter(c.getPlayer());

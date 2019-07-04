@@ -44,7 +44,7 @@ import server.StructPotentialItem;
 import server.StructSetItem;
 import server.StructSetItem.SetItem;
 import tools.MaplePacketCreator;
-import tools.data.MaplePacketLittleEndianWriter;
+import tools.data.LittleEndianWriter;
 
 public class PlayerStats implements Serializable {
 
@@ -1237,7 +1237,7 @@ public class PlayerStats implements Serializable {
         shouldHealMP *= 2; // 1.5
     }
 
-    public final void connectData(final MaplePacketLittleEndianWriter mplew) {
+    public final void connectData(final LittleEndianWriter mplew) {
         mplew.writeShort(str); // str
         mplew.writeShort(dex); // dex
         mplew.writeShort(int_); // int

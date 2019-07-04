@@ -12,12 +12,12 @@ import server.MTSStorage;
 import server.MTSStorage.MTSItemInfo;
 import server.MapleInventoryManipulator;
 import server.MapleItemInformationProvider;
-import tools.data.MaplePacketLittleEndianAccessor;
+import tools.data.LittleEndianAccessor;
 import tools.packet.MTSCSPacket;
 
 public class MTSOperation {
 
-    public static void MTSOperation(final MaplePacketLittleEndianAccessor slea, final MapleClient c) {
+    public static void MTSOperation(final LittleEndianAccessor slea, final MapleClient c) {
         final MTSCart cart = MTSStorage.getInstance().getCart(c.getPlayer().getId());
         //System.out.println(slea.toString());
         if (slea.available() <= 0) {

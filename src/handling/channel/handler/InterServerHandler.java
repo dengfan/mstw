@@ -29,7 +29,7 @@ import server.maps.FieldLimitType;
 import tools.FileoutputUtil;
 import tools.MaplePacketCreator;
 import tools.packet.FamilyPacket;
-import tools.data.MaplePacketLittleEndianAccessor;
+import tools.data.LittleEndianAccessor;
 
 public class InterServerHandler {
 
@@ -308,7 +308,7 @@ public class InterServerHandler {
         c.sendPacket(MaplePacketCreator.weirdStatUpdate());
     }
 
-    public static final void ChangeChannel(final MaplePacketLittleEndianAccessor slea, final MapleClient c, final MapleCharacter chr) {
+    public static final void ChangeChannel(final LittleEndianAccessor slea, final MapleClient c, final MapleCharacter chr) {
         if (c.getPlayer().getTrade() != null || !chr.isAlive() || chr.getEventInstance() != null || chr.getMap() == null || FieldLimitType.ChannelSwitch.check(chr.getMap().getFieldLimit())) {
             c.sendPacket(MaplePacketCreator.enableActions());
             return;

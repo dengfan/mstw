@@ -26,7 +26,7 @@ import handling.world.guild.MapleBBSThread;
 import java.rmi.RemoteException;
 import java.util.List;
 import tools.MaplePacketCreator;
-import tools.data.MaplePacketLittleEndianAccessor;
+import tools.data.LittleEndianAccessor;
 
 public class BBSHandler {
 
@@ -37,7 +37,7 @@ public class BBSHandler {
         return in;
     }
 
-    public static final void BBSOperatopn(final MaplePacketLittleEndianAccessor slea, final MapleClient c) {
+    public static final void BBSOperatopn(final LittleEndianAccessor slea, final MapleClient c) {
         if (c.getPlayer().getGuildId() <= 0) {
             return; // expelled while viewing bbs or hax
         }

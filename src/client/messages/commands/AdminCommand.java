@@ -83,7 +83,7 @@ import java.util.LinkedHashSet;
 import server.CashItemFactory;
 import server.events.MapleOxQuizFactory;
 import tools.*;
-import tools.data.MaplePacketLittleEndianWriter;
+import tools.data.LittleEndianWriter;
 
 /**
  *
@@ -3601,7 +3601,7 @@ public class AdminCommand {
 
         @Override
         public int execute(MapleClient c, String[] splitted) {
-            final MaplePacketLittleEndianWriter mplew = new MaplePacketLittleEndianWriter();
+            final LittleEndianWriter mplew = new LittleEndianWriter();
             int packetheader = Integer.parseInt(splitted[1]);
             String packet_in = " 00 00 00 00 00 00 00 00 00 ";
             if (splitted.length > 2) {

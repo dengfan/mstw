@@ -46,7 +46,7 @@ import java.util.LinkedList;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 import tools.MaplePacketCreator;
 import tools.StringUtil;
-import tools.data.MaplePacketLittleEndianWriter;
+import tools.data.LittleEndianWriter;
 import tools.packet.UIPacket;
 
 public class MapleGuild implements java.io.Serializable {
@@ -776,7 +776,7 @@ public class MapleGuild implements java.io.Serializable {
       //  writeGPToDB();
     }
 
-    public final void addMemberData(final MaplePacketLittleEndianWriter mplew) {
+    public final void addMemberData(final LittleEndianWriter mplew) {
         mplew.write(members.size());
 
         for (final MapleGuildCharacter mgc : members) {

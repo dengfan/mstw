@@ -49,11 +49,11 @@ import server.maps.MapleMapObjectType;
 import server.maps.SummonMovementType;
 import tools.MaplePacketCreator;
 import tools.packet.MobPacket;
-import tools.data.MaplePacketLittleEndianAccessor;
+import tools.data.LittleEndianAccessor;
 
 public class SummonHandler {
 
-    public static final void MoveDragon(final MaplePacketLittleEndianAccessor slea, final MapleCharacter chr) {
+    public static final void MoveDragon(final LittleEndianAccessor slea, final MapleCharacter chr) {
         slea.skip(8); //POS
         final List<LifeMovementFragment> res = MovementParse.parseMovement(slea, 5);
         if (chr != null && chr.getDragon() != null) {
@@ -67,7 +67,7 @@ public class SummonHandler {
         }
     }
 
-    public static final void MoveSummon(final MaplePacketLittleEndianAccessor slea, final MapleCharacter chr) {
+    public static final void MoveSummon(final LittleEndianAccessor slea, final MapleCharacter chr) {
         final int oid = slea.readInt();
         Point startPos = new Point(slea.readShort(), slea.readShort());
         List<LifeMovementFragment> res = MovementParse.parseMovement(slea, 4);
@@ -88,7 +88,7 @@ public class SummonHandler {
         }
     }
 
-    public static final void DamageSummon(final MaplePacketLittleEndianAccessor slea, final MapleCharacter chr) {
+    public static final void DamageSummon(final LittleEndianAccessor slea, final MapleCharacter chr) {
       
         int skillid = slea.readInt();
          int unkByte = slea.readByte();
@@ -114,7 +114,7 @@ public class SummonHandler {
         }
     }
 
-    public static void SummonAttack(final MaplePacketLittleEndianAccessor slea, final MapleClient c, final MapleCharacter chr) {
+    public static void SummonAttack(final LittleEndianAccessor slea, final MapleClient c, final MapleCharacter chr) {
         if (chr == null || !chr.isAlive()) {
             return;
         }

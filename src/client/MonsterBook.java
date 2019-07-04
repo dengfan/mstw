@@ -33,7 +33,7 @@ import java.io.Serializable;
 import database.DatabaseConnection;
 import server.MapleItemInformationProvider;
 import tools.MaplePacketCreator;
-import tools.data.MaplePacketLittleEndianWriter;
+import tools.data.LittleEndianWriter;
 import tools.packet.MonsterBookPacket;
 
 public class MonsterBook implements Serializable {
@@ -158,7 +158,7 @@ public class MonsterBook implements Serializable {
         }
     }
 
-    public final void addCardPacket(final MaplePacketLittleEndianWriter mplew) {
+    public final void addCardPacket(final LittleEndianWriter mplew) {
         mplew.writeShort(cards.size());
 
         for (Entry<Integer, Integer> all : cards.entrySet()) {
@@ -167,7 +167,7 @@ public class MonsterBook implements Serializable {
         }
     }
 
-    public final void addCharInfoPacket(final int bookcover, final MaplePacketLittleEndianWriter mplew) {
+    public final void addCharInfoPacket(final int bookcover, final LittleEndianWriter mplew) {
         mplew.writeInt(BookLevel);
         mplew.writeInt(NormalCard);
         mplew.writeInt(SpecialCard);

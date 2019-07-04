@@ -30,7 +30,7 @@ import client.inventory.MaplePet;
 import handling.world.World;
 import handling.world.guild.*;
 import tools.MaplePacketCreator;
-import tools.data.MaplePacketLittleEndianAccessor;
+import tools.data.LittleEndianAccessor;
 import tools.packet.PetPacket;
 
 public class GuildHandler {
@@ -82,7 +82,7 @@ public class GuildHandler {
     private static final java.util.List<Invited> invited = new java.util.LinkedList<Invited>();
     private static long nextPruneTime = System.currentTimeMillis() + 20 * 60 * 1000;
 
-    public static final void Guild(final MaplePacketLittleEndianAccessor slea, final MapleClient c) {
+    public static final void Guild(final LittleEndianAccessor slea, final MapleClient c) {
         if (System.currentTimeMillis() >= nextPruneTime) {
             Iterator<Invited> itr = invited.iterator();
             Invited inv;

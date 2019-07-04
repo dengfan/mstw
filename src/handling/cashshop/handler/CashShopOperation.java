@@ -28,11 +28,11 @@ import tools.FileoutputUtil;
 import tools.MaplePacketCreator;
 import tools.packet.MTSCSPacket;
 import tools.Pair;
-import tools.data.MaplePacketLittleEndianAccessor;
+import tools.data.LittleEndianAccessor;
 
 public class CashShopOperation {
 
-    public static void LeaveCS(final MaplePacketLittleEndianAccessor slea, final MapleClient c, final MapleCharacter chr) {
+    public static void LeaveCS(final LittleEndianAccessor slea, final MapleClient c, final MapleCharacter chr) {
         String[] socket = c.getChannelServer().getIP().split(":");
         CashShopServer.getPlayerStorageMTS().deregisterPlayer(chr);
         CashShopServer.getPlayerStorage().deregisterPlayer(chr);
@@ -196,7 +196,7 @@ public class CashShopOperation {
         doCSPackets(c);
     }
 
-    public static void BuyCashItem(final MaplePacketLittleEndianAccessor slea, final MapleClient c, final MapleCharacter chr) {
+    public static void BuyCashItem(final LittleEndianAccessor slea, final MapleClient c, final MapleCharacter chr) {
         OtherSettings item_id = new OtherSettings();
         String itembp_id[] = item_id.getItempb_id();
         String itemjy_id[] = item_id.getItemjy_id();

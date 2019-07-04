@@ -1565,7 +1565,7 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
         return CRand;
     }
 
-    public final void QuestInfoPacket(final tools.data.MaplePacketLittleEndianWriter mplew) {
+    public final void QuestInfoPacket(final tools.data.LittleEndianWriter mplew) {
         mplew.writeShort(questinfo.size());
 
         for (final Entry<Integer, String> q : questinfo.entrySet()) {

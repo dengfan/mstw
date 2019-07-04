@@ -28,7 +28,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.io.Serializable;
 
-import tools.data.MaplePacketLittleEndianWriter;
+import tools.data.LittleEndianWriter;
 
 import database.DatabaseConnection;
 import tools.Pair;
@@ -52,7 +52,7 @@ public class MapleKeyLayout implements Serializable {
         return keymap;
     }
 
-    public final void writeData(final MaplePacketLittleEndianWriter mplew) {
+    public final void writeData(final LittleEndianWriter mplew) {
         Pair<Byte, Integer> binding;
         for (int x = 0; x < 90; x++) {
             binding = keymap.get(Integer.valueOf(x));

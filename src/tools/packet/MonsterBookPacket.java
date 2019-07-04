@@ -23,12 +23,12 @@ package tools.packet;
 import constants.ServerConstants;
 
 import handling.SendPacketOpcode;
-import tools.data.MaplePacketLittleEndianWriter;
+import tools.data.LittleEndianWriter;
 
 public class MonsterBookPacket {
 
     public static byte[] addCard(boolean full, int cardid, int level) {
-        MaplePacketLittleEndianWriter mplew = new MaplePacketLittleEndianWriter();
+        LittleEndianWriter mplew = new LittleEndianWriter();
 
         if (ServerConstants.调试模式) {
             System.out.println("addCard--------------------");
@@ -47,7 +47,7 @@ public class MonsterBookPacket {
     }
 
     public static byte[] showGainCard(final int itemid) {
-        MaplePacketLittleEndianWriter mplew = new MaplePacketLittleEndianWriter();
+        LittleEndianWriter mplew = new LittleEndianWriter();
 
         if (ServerConstants.调试模式) {
             System.out.println("showGainCard--------------------");
@@ -59,7 +59,7 @@ public class MonsterBookPacket {
     }
 
     public static byte[] showForeginCardEffect(int id) {
-        MaplePacketLittleEndianWriter mplew = new MaplePacketLittleEndianWriter();
+        LittleEndianWriter mplew = new LittleEndianWriter();
 
         if (ServerConstants.调试模式) {
             System.out.println("showForeginCardEffect--------------------");
@@ -72,7 +72,7 @@ public class MonsterBookPacket {
     }
 
     public static byte[] changeCover(int cardid) {
-        MaplePacketLittleEndianWriter mplew = new MaplePacketLittleEndianWriter();
+        LittleEndianWriter mplew = new LittleEndianWriter();
 
         if (ServerConstants.调试模式) {
             System.out.println("changeCover--------------------");

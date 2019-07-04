@@ -31,7 +31,7 @@ import tools.MaplePacketCreator;
 import tools.AttackPair;
 import tools.FileoutputUtil;
 import tools.Pair;
-import tools.data.MaplePacketLittleEndianAccessor;
+import tools.data.LittleEndianAccessor;
 
 public class DamageParse {
 
@@ -993,7 +993,7 @@ public class DamageParse {
         return attack;
     }
 
-    public static final AttackInfo parseDmgMa(final MaplePacketLittleEndianAccessor lea, final MapleCharacter chr) {
+    public static final AttackInfo parseDmgMa(final LittleEndianAccessor lea, final MapleCharacter chr) {
         //System.out.println(lea.toString());
         final AttackInfo ret = new AttackInfo();
 
@@ -1055,7 +1055,7 @@ public class DamageParse {
         return ret;
     }
 
-    public static final AttackInfo parseDmgM(final MaplePacketLittleEndianAccessor lea, final MapleCharacter chr) {
+    public static final AttackInfo parseDmgM(final LittleEndianAccessor lea, final MapleCharacter chr) {
         //System.out.println(lea.toString());
         final AttackInfo ret = new AttackInfo();
 
@@ -1123,7 +1123,7 @@ public class DamageParse {
         return ret;
     }
 
-    public static final AttackInfo parseDmgR(final MaplePacketLittleEndianAccessor lea, final MapleCharacter chr) {
+    public static final AttackInfo parseDmgR(final LittleEndianAccessor lea, final MapleCharacter chr) {
         //System.out.println(lea.toString()); //<-- packet needs revision
         final AttackInfo ret = new AttackInfo();
 
@@ -1191,7 +1191,7 @@ public class DamageParse {
         return ret;
     }
 
-    public static final AttackInfo parseMesoExplosion(final MaplePacketLittleEndianAccessor lea, final AttackInfo ret, final MapleCharacter chr) {
+    public static final AttackInfo parseMesoExplosion(final LittleEndianAccessor lea, final AttackInfo ret, final MapleCharacter chr) {
         //System.out.println(lea.toString(true));
         byte bullets;
         if (ret.hits == 0) {

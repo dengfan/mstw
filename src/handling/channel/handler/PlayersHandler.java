@@ -40,11 +40,11 @@ import server.maps.MapleMapObjectType;
 import server.maps.MapleReactor;
 import tools.FileoutputUtil;
 import tools.MaplePacketCreator;
-import tools.data.MaplePacketLittleEndianAccessor;
+import tools.data.LittleEndianAccessor;
 
 public class PlayersHandler {
     
-    public static void Note(final MaplePacketLittleEndianAccessor slea, final MapleCharacter chr) {
+    public static void Note(final LittleEndianAccessor slea, final MapleCharacter chr) {
         final byte type = slea.readByte();
         
         switch (type) {
@@ -78,7 +78,7 @@ public class PlayersHandler {
         }
     }
     
-    public static void GiveFame(final MaplePacketLittleEndianAccessor slea, final MapleClient c, final MapleCharacter chr) {
+    public static void GiveFame(final LittleEndianAccessor slea, final MapleClient c, final MapleCharacter chr) {
         final int who = slea.readInt();
         final int mode = slea.readByte();
         
@@ -113,7 +113,7 @@ public class PlayersHandler {
         }
     }
     
-    public static void ChatRoomHandler(final MaplePacketLittleEndianAccessor slea, final MapleClient c) {
+    public static void ChatRoomHandler(final LittleEndianAccessor slea, final MapleClient c) {
         NPCScriptManager.getInstance().dispose(c);
         c.sendPacket(MaplePacketCreator.enableActions());
         c.getPlayer().dropMessage(1, "ÒÑ½â³ý¼ÙËÀ×´Ì¬¡£");
@@ -121,7 +121,7 @@ public class PlayersHandler {
         c.getPlayer().dropMessage(6, "µ±Ç°ÑÓ³Ù£º" + c.getPlayer().getClient().getLatency() + " ºÁÃë");
     }
 
-    public static void UseDoor(final MaplePacketLittleEndianAccessor slea, final MapleCharacter chr) {
+    public static void UseDoor(final LittleEndianAccessor slea, final MapleCharacter chr) {
         final int oid = slea.readInt();
         final boolean mode = slea.readByte() == 0; // specifies if backwarp or not, 1 town to target, 0 target to town
 
@@ -134,7 +134,7 @@ public class PlayersHandler {
         }
     }
     
-    public static void TransformPlayer(final MaplePacketLittleEndianAccessor slea, final MapleClient c, final MapleCharacter chr) {
+    public static void TransformPlayer(final LittleEndianAccessor slea, final MapleClient c, final MapleCharacter chr) {
         // D9 A4 FD 00
         // 11 00
         // A0 C0 21 00
@@ -163,7 +163,7 @@ public class PlayersHandler {
         }
     }
     
-    public static void HitReactor(final MaplePacketLittleEndianAccessor slea, final MapleClient c) {
+    public static void HitReactor(final LittleEndianAccessor slea, final MapleClient c) {
         final int oid = slea.readInt();
         final int charPos = slea.readInt();
         final short stance = slea.readShort();
@@ -178,7 +178,7 @@ public class PlayersHandler {
         reactor.hitReactor(charPos, stance, c);
     }
     
-    public static void TouchReactor(final MaplePacketLittleEndianAccessor slea, final MapleClient c) {
+    public static void TouchReactor(final LittleEndianAccessor slea, final MapleClient c) {
         final int oid = slea.readInt();
         final boolean touched = slea.readByte() > 0;
         final MapleReactor reactor = c.getPlayer().getMap().getReactorByOid(oid);
@@ -210,7 +210,7 @@ public class PlayersHandler {
         // ReactorScriptManager.getInstance().act(c, reactor); //not sure how touched boolean comes into play
     }
     
-    public static void hitCoconut(MaplePacketLittleEndianAccessor slea, MapleClient c) {
+    public static void hitCoconut(LittleEndianAccessor slea, MapleClient c) {
         /*
          * CB 00 A6 00 06 01 A6 00 = coconut id 06 01 = ?
          */
@@ -268,7 +268,7 @@ public class PlayersHandler {
         }
     }
     
-    public static void FollowRequest(final MaplePacketLittleEndianAccessor slea, final MapleClient c) {
+    public static void FollowRequest(final LittleEndianAccessor slea, final MapleClient c) {
         MapleCharacter tt = c.getPlayer().getMap().getCharacterById(slea.readInt());
         if (slea.readByte() > 0) {
             //1 when changing map
@@ -300,7 +300,7 @@ public class PlayersHandler {
         }
     }
     
-    public static void FollowReply(final MaplePacketLittleEndianAccessor slea, final MapleClient c) {
+    public static void FollowReply(final LittleEndianAccessor slea, final MapleClient c) {
         if (c.getPlayer().getFollowId() > 0 && c.getPlayer().getFollowId() == slea.readInt()) {
             MapleCharacter tt = c.getPlayer().getMap().getCharacterById(c.getPlayer().getFollowId());
             if (tt != null && tt.getPosition().distanceSq(c.getPlayer().getPosition()) < 10000 && tt.getFollowId() == 0 && tt.getId() != c.getPlayer().getId()) { //estimate, should less
@@ -329,7 +329,7 @@ public class PlayersHandler {
         }
     }
     
-    public static void RingAction(final MaplePacketLittleEndianAccessor slea, final MapleClient c) {
+    public static void RingAction(final LittleEndianAccessor slea, final MapleClient c) {
         final byte mode = slea.readByte();
         if (mode == 0) {
             final String name = slea.readMapleAsciiString();
@@ -400,7 +400,7 @@ public class PlayersHandler {
         }
     }
     
-    public static void UpdateCharInfo(final MaplePacketLittleEndianAccessor slea, final MapleClient c, final MapleCharacter chr) {
+    public static void UpdateCharInfo(final LittleEndianAccessor slea, final MapleClient c, final MapleCharacter chr) {
         int type = slea.readByte();
         if (type == 0) { // ½ÇÉ«ÓÏ¢
             String charmessage = slea.readMapleAsciiString();

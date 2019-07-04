@@ -37,13 +37,13 @@ import server.Randomizer;
 import tools.FileoutputUtil;
 import tools.MaplePacketCreator;
 import tools.Pair;
-import tools.data.MaplePacketLittleEndianAccessor;
+import tools.data.LittleEndianAccessor;
 
 public class StatsHandling {
 
     private static Logger log = LoggerFactory.getLogger(StatsHandling.class);
     
-    public static final void DistributeAP(final MaplePacketLittleEndianAccessor slea, final MapleClient c, final MapleCharacter chr) {
+    public static final void DistributeAP(final LittleEndianAccessor slea, final MapleClient c, final MapleCharacter chr) {
         final List<Pair<MapleStat, Integer>> statupdate = new ArrayList<Pair<MapleStat, Integer>>(2);
         c.sendPacket(MaplePacketCreator.updatePlayerStats(statupdate, true, chr.getJob()));
         chr.updateTick(slea.readInt());
@@ -282,7 +282,7 @@ public class StatsHandling {
         }
     }
 
-    public static final void AutoAssignAP(final MaplePacketLittleEndianAccessor slea, final MapleClient c, final MapleCharacter chr) {
+    public static final void AutoAssignAP(final LittleEndianAccessor slea, final MapleClient c, final MapleCharacter chr) {
         List<Pair<MapleStat, Integer>> statupdate = new ArrayList<>(2);
         //c.sendPacket(MaplePacketCreator.updatePlayerStats(statupdate, 0));
         c.sendPacket(MaplePacketCreator.updatePlayerStats(statupdate, true, chr.getJob()));

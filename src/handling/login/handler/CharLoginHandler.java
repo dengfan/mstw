@@ -43,7 +43,7 @@ import tools.MaplePacketCreator;
 import tools.packet.LoginPacket;
 import tools.KoreanDateUtil;
 import tools.StringUtil;
-import tools.data.MaplePacketLittleEndianAccessor;
+import tools.data.LittleEndianAccessor;
 
 public class CharLoginHandler {
 
@@ -59,7 +59,7 @@ public class CharLoginHandler {
         System.out.println("hello mxmxd");
     }
 
-    public static final void login(final MaplePacketLittleEndianAccessor slea, final MapleClient c) {
+    public static final void login(final LittleEndianAccessor slea, final MapleClient c) {
         final String login = slea.readMapleAsciiString();
         final String pwd = slea.readMapleAsciiString();
 
@@ -133,7 +133,7 @@ public class CharLoginHandler {
 
 
     /*
-     * public static final void login(final MaplePacketLittleEndianAccessor slea,
+     * public static final void login(final LittleEndianAccessor slea,
      * final MapleClient c) { final String login = slea.readMapleAsciiString();
      * final String pwd = slea.readMapleAsciiString();
      *
@@ -155,7 +155,7 @@ public class CharLoginHandler {
      * c.getBanReason())); } } else { c.loginAttempt = 0;
      * LoginWorker.registerClient(c); } }
      */
-    public static final void SetGenderRequest(final MaplePacketLittleEndianAccessor slea, final MapleClient c) {
+    public static final void SetGenderRequest(final LittleEndianAccessor slea, final MapleClient c) {
         byte gender = slea.readByte();
         String username = slea.readMapleAsciiString();
         // String password = slea.readMapleAsciiString();
@@ -195,7 +195,7 @@ public class CharLoginHandler {
         }
     }
 
-    public static final void LicenseRequest(final MaplePacketLittleEndianAccessor slea, final MapleClient c) {
+    public static final void LicenseRequest(final LittleEndianAccessor slea, final MapleClient c) {
         if (slea.readByte() == 1) {
             c.sendPacket(MaplePacketCreator.licenseResult());
             c.updateLoginState(0);
@@ -204,7 +204,7 @@ public class CharLoginHandler {
         }
     }
 
-    public static final void CharlistRequest(final MaplePacketLittleEndianAccessor slea, final MapleClient c) {
+    public static final void CharlistRequest(final LittleEndianAccessor slea, final MapleClient c) {
         // slea.readByte();
         final int server = slea.readByte();
         final int channel = slea.readByte() + 1;
@@ -226,7 +226,7 @@ public class CharLoginHandler {
         c.sendPacket(LoginPacket.charNameResponse(name, !MapleCharacterUtil.canCreateChar(name) || LoginInformationProvider.getInstance().isForbiddenName(name)));
     }
 
-    public static final void CreateChar(final MaplePacketLittleEndianAccessor slea, final MapleClient c) {
+    public static final void CreateChar(final LittleEndianAccessor slea, final MapleClient c) {
         final String name = slea.readMapleAsciiString();
         final int JobType = slea.readInt(); // 1 = 冒险家, 0 = 骑士团, 2 = 战神
         boolean mxj = Boolean.parseBoolean(ServerProperties.getProperty("mxmxd.冒险家", "true"));
@@ -349,7 +349,7 @@ public class CharLoginHandler {
         }
     }
 
-    public static final void DeleteChar(final MaplePacketLittleEndianAccessor slea, final MapleClient c) {
+    public static final void DeleteChar(final LittleEndianAccessor slea, final MapleClient c) {
         slea.readByte();
         String Secondpw_Client = null;
 //        if (slea.readByte() > 0) { // Specific if user have second password or not
@@ -383,7 +383,7 @@ public class CharLoginHandler {
         c.sendPacket(LoginPacket.deleteCharResponse(Character_ID, state));
     }
 
-    public static void Character_WithoutSecondPassword(final MaplePacketLittleEndianAccessor slea, final MapleClient c) {
+    public static void Character_WithoutSecondPassword(final LittleEndianAccessor slea, final MapleClient c) {
 //        slea.skip(1);
         /*
          * if (c.getLoginState() != 2) { return; }
@@ -433,7 +433,7 @@ public class CharLoginHandler {
         //  c.sendPacket(MaplePacketCreator.getServerIP(0, charId));
     }
 
-    public static final void Character_WithSecondPassword(final MaplePacketLittleEndianAccessor slea, final MapleClient c) {
+    public static final void Character_WithSecondPassword(final LittleEndianAccessor slea, final MapleClient c) {
         final String password = slea.readMapleAsciiString();
         final int charId = slea.readInt();
 
